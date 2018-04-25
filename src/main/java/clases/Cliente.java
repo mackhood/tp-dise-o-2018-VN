@@ -1,5 +1,6 @@
 package clases;
 
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,10 +34,14 @@ public class Cliente extends Usuario {
 
 	public void queCategoriaSoy()
 	{
-		ResidenciasConstantes x = new ResidenciasConstantes();
-		categoria = x.categoriasResidenciales().stream().filter(cat -> cat.cumpleCondicionConsumoMensual(this)).collect(Collectors.toList()).get(0);
+		AsignarCategoria ac = new AsignarCategoria();
+		this.asignarCategoria(ac.categoriaDelCliente(this));
 	}
 
+	public void asignarCategoria(Categoria unaCategoria)
+	{
+		categoria = unaCategoria;
+	}
 	public double facturacionEstimada() 
 	{		
 		return categoria.facturacionEstimada(this);

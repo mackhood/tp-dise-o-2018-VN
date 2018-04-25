@@ -3,6 +3,9 @@ package categorias;
 import java.util.Arrays;
 import categorias.*;
 import java.util.List;
+import java.util.stream.Collectors;
+import categorias.*;
+import clases.*;
 
 import residencial.*;
 
@@ -23,5 +26,9 @@ public class ResidenciasConstantes
 	public List<Categoria> categoriasResidenciales()
 	{
 		return categoriasResidenciales;
+	}
+	public Categoria devolverCategoriaQueCumpleElCliente(Cliente unCliente)
+	{
+		return categoriasResidenciales().stream().filter(residencia -> residencia.cumpleCondicionConsumoMensual(unCliente)).collect(Collectors.toList()).get(0);
 	}
 }
