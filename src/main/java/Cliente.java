@@ -56,10 +56,9 @@ public class Cliente {
 		return dispositivos.stream().map(disp -> disp.getConsumoTotal()).count();
 	}
 	
-	public double obtenerFacturaTentativa() {
+	public double obtenerFacturaTentativa(EstimadorDeFacturacion facturaAssistant) {
 		
-		EstimarFacturacion factura = new EstimarFacturacion();
-		return factura.calcularCostosDe(this);
+		return facturaAssistant.calcularCostosDe(this);
 	}
 	
 	public void setCategoria(Categoria categoria) {
