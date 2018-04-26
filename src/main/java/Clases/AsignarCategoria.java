@@ -1,4 +1,4 @@
-package domain;
+package Clases;
 
 import java.util.Arrays;
 import java.util.List;

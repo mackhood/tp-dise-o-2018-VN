@@ -1,4 +1,4 @@
-package domain;
+package Clases;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ public class Cliente {
 	long telefono;
 	Domicilio domicilio;
 	LocalDate fechaDeAlta;
-	Categoria cat;
+	Categoria categoria;
 	String username;
 	String pw;
 	List <Dispositivo> dispositivos = new ArrayList <>();
@@ -56,18 +56,22 @@ public class Cliente {
 		return dispositivos.stream().map(disp -> disp.getConsumoTotal()).count();
 	}
 	
-	public double obtenerFacturaTentativa(EstimadorDeFacturacion facturaAssistant) {
+	public double obtenerFacturaTentativa() {
 		
-		return facturaAssistant.calcularCostosDe(this);
+		AsignarCategoria ac = new AsignarCategoria();
+		this.setCategoria(ac.definirCategoriaPara(this));
+		
+		EstimadorDeFacturacion ef = new EstimadorDeFacturacion();
+		return ef.calcularCostosDe(this);
 	}
 	
-	public void setCategoria(Categoria categoria) {
+	public void setCategoria(Categoria unaCategoria) {
 		
-		cat = categoria;
+		categoria = unaCategoria;
 	}
 	
 	public Categoria getCategoria() {
 		
-		return cat;
+		return categoria;
 	}
 }

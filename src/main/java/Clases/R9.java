@@ -1,4 +1,4 @@
-package domain;
+package Clases;
 
 public class R9 implements Categoria {
 

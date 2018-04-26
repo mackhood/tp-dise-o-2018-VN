@@ -1,15 +1,15 @@
-package domain;
+package Clases;
 
-public class R5 implements Categoria {
-
-	double cargoFijo = 110.38;
-	double cargoVariable = 0.794;
+public class R1 implements Categoria {
+	
+	double cargoFijo = 18.76;
+	double cargoVariable = 0.644;
 	
 	public boolean cumpleCondicion(Cliente cliente) {
 		
-		return cliente.consumo() > 450 && cliente.consumo() <= 500;
+		return cliente.consumo() < 150;
 	}
-
+	
 	public double getCostoFijo() {
 		
 		return cargoFijo;
