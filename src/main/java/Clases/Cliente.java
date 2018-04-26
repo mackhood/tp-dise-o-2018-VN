@@ -8,7 +8,6 @@ public class Cliente {
 	
 	String nombreCompleto;
 	String apellido;
-	String nombreUsuario;
 	ID identificacion;
 	long telefono;
 	Domicilio domicilio;
@@ -19,25 +18,26 @@ public class Cliente {
 	List <Dispositivo> dispositivos = new ArrayList <>();
 	
 	
-	Cliente(String unNombreCompleto, String unApellido, String unNombreUsuario, ID unaIdentificacion, Domicilio unDomicilio, long unTelefono,
-			List<Dispositivo> unosDisp) {
+	Cliente(String unNombreCompleto, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
+			List<Dispositivo> listaDispositivos) {
 		
 		this.nombreCompleto = unNombreCompleto;
 		this.apellido = unApellido;
-		this.identificacion = unaIdentificacion;
-		this.nombreUsuario = unNombreUsuario;
+		this.identificacion = id;
+		this.username = username;
 		this.domicilio = unDomicilio;
 		this.telefono = unTelefono;
-		this.dispositivos = unosDisp;
+		this.dispositivos = listaDispositivos;
 		this.fechaDeAlta = LocalDate.now();
 		this.actualizarCategoria();
 	}
 	
-	public void actualizarCategoria()
-	{
+	public void actualizarCategoria() {
+		
 		AsignarCategoria ac = new AsignarCategoria();
 		this.setCategoria(ac.definirCategoriaPara(this));
 	}
+	
 	public boolean algunDispositivoEncendido() {
 		
 		return dispositivos.stream().anyMatch(disp -> disp.isEncendido());
@@ -65,19 +65,13 @@ public class Cliente {
 	
 	public double consumoEnergeticoTotal() {
 		
-		return dispositivos.stream().map(disp -> disp.getConsumo()).reduce(0.0, (acum, consumo) -> acum + consumo);
+		return dispositivos.stream().mapToDouble(disp -> disp.getConsumo()).sum();
 	}
 	
 	public double obtenerFacturaTentativa() {
-		/*
-		AsignarCategoria ac = new AsignarCategoria();
-		this.setCategoria(ac.definirCategoriaPara(this));
 		
-		EstimadorDeFacturacion ef = new EstimadorDeFacturacion();
-		return ef.calcularCostosDe(this);
-		*/
 		this.actualizarCategoria();
-		return categoria.getCostoFijo() + categoria.getCostoVariable() * this.consumoEnergeticoTotal();
+		return categoria.calcularCostosPara(this);
 	}
 	
 	public void setCategoria(Categoria unaCategoria) {

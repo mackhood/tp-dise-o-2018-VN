@@ -29,45 +29,34 @@ public class Admin {
 		return LocalDate.now();
 	}
 	
-	public LocalDate fechaAlta()
-	{
+	public LocalDate fechaAlta() {
+		
 		return fechaAlta;
 	}
-	/*
-	public int diferenciaEnAnios() {
-		
-		if (this.fechaActual().getMonthValue() < fechaAlta.getMonthValue()) {
-			
-			return this.fechaActual().getYear() - fechaAlta.getYear() -1;
-		}
-		
-		else return this.fechaActual().getMonthValue() - fechaAlta.getMonthValue();
-	}
-	*/
+	
 	public int cantMesesComoAdmin() {
-		
-		//return this.diferenciaEnAnios()*12 + Math.abs(this.fechaActual().getMonthValue() - fechaAlta.getMonthValue());
-		// FECHAALTA 2018-04-18
-		// FECHANOW 2020-01-25
-		// FECHANOW 2020-08-25
+	
 		int difAnios;
 		int difMeses;
 		LocalDate ahora = LocalDate.now();
-		if (ahora.isEqual(fechaAlta)) 
-		{
+		
+		if (ahora.isEqual(fechaAlta)) {
+			
 			return 0;
 		} 
-		else if (fechaAlta.getDayOfMonth() > ahora.getDayOfMonth()) 
-		{
+		
+		else if (fechaAlta.getDayOfMonth() > ahora.getDayOfMonth()) {
+	
 			difAnios = ahora.getYear() - fechaAlta.getYear();
-			difMeses = ahora.getMonthValue() - fechaAlta.getMonthValue();
-			return 12 * difAnios - Math.abs(difMeses);
+			difMeses = Math.max(0, ahora.getMonthValue() - fechaAlta.getMonthValue() - 1);
+			return 12* difAnios + Math.abs(difMeses);
 		}
-		else 
-		{
+		
+		else {
+			
 			difAnios = ahora.getYear() - fechaAlta.getYear();
 			difMeses = ahora.getMonthValue() - fechaAlta.getMonthValue();
-			return 12 * difAnios + Math.abs(difMeses);
+			return 12* difAnios + Math.abs(difMeses);
 		}
 		
 	}
