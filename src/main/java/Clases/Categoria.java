@@ -1,10 +1,10 @@
 package Clases;
+import Clases.*;
 
-public interface Categoria {
-
-	boolean cumpleCondicion(Cliente cliente);
+public class Categoria {
+	boolean cumpleCondicion(Cliente cliente) {return false;}
 	
-	double getCostoFijo();
+	double getCostoFijo() {return 0;}
 	
-	double getCostoVariable();
+	double getCostoVariable() {return 0;}
 }

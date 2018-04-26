@@ -23,9 +23,4 @@ public class AsignarCategoria {
 		return categoriasPosibles.stream().filter(cat -> cat.cumpleCondicion(cliente)).collect(Collectors.toList()).get(0);
 	}
 	
-	public void asinarCategoriaA(Cliente cliente) {
-		
-		Categoria cat = this.definirCategoriaPara(cliente);
-		cliente.setCategoria(cat);
-	}
 }

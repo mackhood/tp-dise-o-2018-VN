@@ -1,0 +1,22 @@
+[
+  {
+    "nombreCompleto": "AAAAA",
+    "apellido": "BBBBBB",
+    "fechaAlta": {
+      "year": 2016,
+      "month": 5,
+      "day": 18
+    },
+    "numId": 0
+  },
+  {
+    "nombreCompleto": "XXXX",
+    "apellido": "ZZZZ",
+    "fechaAlta": {
+      "year": 2014,
+      "month": 9,
+      "day": 20
+    },
+    "numId": 0
+  }
+]

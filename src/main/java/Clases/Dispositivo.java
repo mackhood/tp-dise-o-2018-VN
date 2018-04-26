@@ -3,22 +3,24 @@ package Clases;
 public class Dispositivo {
 
 	String nombre;
-	int consumo;
+	double consumo;
 	boolean encendido = false;
-	int consumoTotal = 0;
+	double consumoTotal = 0;
 	
 	
-	Dispositivo(String nombre,int consumo,boolean encendido) {
+	public Dispositivo(String nombre,double consumo,boolean encendido) {
 		
 		this.nombre = nombre;
 		this.consumo = consumo;
 		this.encendido = encendido;
 	}
 	
-	public void usarDispositivo(int horas) {
+	/*
+	public void usarDispositivo(double horas) {
 		
 		consumoTotal += this.consumo * horas;
 	}
+	*/
 	
 	public void apagar() {
 		
@@ -30,9 +32,9 @@ public class Dispositivo {
 		return nombre;
 	}
 
-	public int getConsumoTotal() {
+	public double getConsumo() {
 		
-		return consumoTotal;
+		return consumo;
 	}
 
 	public boolean isEncendido() {

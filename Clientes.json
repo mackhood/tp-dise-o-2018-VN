@@ -1,0 +1,92 @@
+[
+  {
+    "nombreCompleto": "Ema",
+    "apellido": "Emma",
+    "nombreUsuario": "emaema2016",
+    "identificacion": {
+      "tipoID": "DNI",
+      "numeroID": 48158457
+    },
+    "telefono": 42781596,
+    "domicilio": {
+      "calle": "Av.X",
+      "altura": 1234,
+      "piso": 7,
+      "departamento": "a"
+    },
+    "fechaDeAlta": {
+      "year": 2018,
+      "month": 4,
+      "day": 26
+    },
+    "categoria": {
+      "cargoFijo": 35.32,
+      "cargoVariable": 0.644
+    },
+    "dispositivos": [
+      {
+        "nombre": "Heladera",
+        "consumo": 100.0,
+        "encendido": true,
+        "consumoTotal": 0.0
+      },
+      {
+        "nombre": "Microondas",
+        "consumo": 50.0,
+        "encendido": false,
+        "consumoTotal": 0.0
+      },
+      {
+        "nombre": "Lavarropas",
+        "consumo": 34.0,
+        "encendido": false,
+        "consumoTotal": 0.0
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "nombreASD",
+    "apellido": "apellidoASD",
+    "nombreUsuario": "ASDASD99",
+    "identificacion": {
+      "tipoID": "DNI",
+      "numeroID": 48158457
+    },
+    "telefono": 4178965,
+    "domicilio": {
+      "calle": "Av.X",
+      "altura": 1234,
+      "piso": 7,
+      "departamento": "a"
+    },
+    "fechaDeAlta": {
+      "year": 2018,
+      "month": 4,
+      "day": 26
+    },
+    "categoria": {
+      "cargoFijo": 35.32,
+      "cargoVariable": 0.644
+    },
+    "dispositivos": [
+      {
+        "nombre": "Heladera",
+        "consumo": 100.0,
+        "encendido": true,
+        "consumoTotal": 0.0
+      },
+      {
+        "nombre": "Microondas",
+        "consumo": 50.0,
+        "encendido": false,
+        "consumoTotal": 0.0
+      },
+      {
+        "nombre": "Lavarropas",
+        "consumo": 34.0,
+        "encendido": false,
+        "consumoTotal": 0.0
+      }
+    ]
+  }
+]
