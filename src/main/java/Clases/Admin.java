@@ -1,6 +1,7 @@
 package Clases;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class Admin {
 	
@@ -34,35 +35,11 @@ public class Admin {
 		return fechaAlta;
 	}
 	
-	public int cantMesesComoAdmin() {
+	public long cantMesesComoAdmin() {
 	
-		int difAnios;
-		int difMeses;
 		LocalDate ahora = LocalDate.now();
 		
-		if (ahora.isEqual(fechaAlta)) {
-			
-			return 0;
-		} 
-		
-		//Admin admin1 = new Admin("AAAAA","BBBBBB",LocalDate.of(2016, 5, 18));
-		//Admin admin2 = new Admin("XXXX","ZZZZ",LocalDate.of(2014, 9, 20));
-		// (2012,1,30)
-		// (2012,1,1)
-		else if(ahora.getMonthValue() > fechaAlta.getMonthValue()){
-			
-			difAnios = ahora.getYear() - fechaAlta.getYear();
-			difMeses = ahora.getMonthValue() - fechaAlta.getMonthValue() ; 
-			return 12* difAnios - difMeses; 
-		}
-		
-		else {
-			
-			difAnios = ahora.getYear() - fechaAlta.getYear();
-			difMeses = ahora.getMonthValue() - fechaAlta.getMonthValue();
-			return 12* difAnios + difMeses;
-		}
-		
+		return fechaAlta.until(ahora, ChronoUnit.MONTHS);
 	}
 	
 }
