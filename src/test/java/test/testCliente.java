@@ -55,7 +55,7 @@ public class testCliente
 		unaPersona.agregarDispositivo(a3);
 		
 		System.out.println(unaPersona.consumoEnergeticoTotal());
-		assertEquals("El valor de la facturación (categoría R8), no se condice con el valor esperado",1468.444 ,unaPersona.obtenerFacturaTentativa(),0);
+		assertEquals("El valor de la facturación (categoría R8), no se condice con el valor esperado",1468.444 ,unaPersona.obtenerGastosAproximados(),0);
 	}
 	
 	@Test
@@ -64,7 +64,7 @@ public class testCliente
 
 		this.init();
 
-		Assert.assertEquals("El valor de la facturación (categoría R2), no se condice con el valor esperado", 153.816, unaPersona.obtenerFacturaTentativa(), 0);
+		Assert.assertEquals("El valor de la facturación (categoría R2), no se condice con el valor esperado", 153.816, unaPersona.obtenerGastosAproximados(), 0);
 	}
 	
 	@Test

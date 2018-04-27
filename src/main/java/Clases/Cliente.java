@@ -68,7 +68,7 @@ public class Cliente {
 		return dispositivos.stream().mapToDouble(disp -> disp.getConsumo()).sum();
 	}
 	
-	public double obtenerFacturaTentativa() {
+	public double obtenerGastosAproximados() {
 		
 		this.actualizarCategoria();
 		return categoria.calcularCostosPara(this);
