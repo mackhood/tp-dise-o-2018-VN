@@ -28,8 +28,8 @@ public class JSON
 {
 	public JSON()
 	{
-		//this.createAdminsJSON();
-		//this.createClientesJSON();
+		this.createAdminsJSON();
+		this.createClientesJSON();
 		//this.devolverClientes();
 		//this.createClientesJSON();
 	}
@@ -102,7 +102,7 @@ public class JSON
 	
 	public void createClientesJSON()
 	{
-		Dispositivo dispositivo1 = new Dispositivo("Heladera",100,true);
+		Dispositivo dispositivo1 = new Dispositivo("Heladera",100,false);
 		Dispositivo dispositivo2 = new Dispositivo("Microondas",50,false);
 		Dispositivo dispositivo3 = new Dispositivo("Lavarropas",34,false);
 

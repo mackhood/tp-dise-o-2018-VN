@@ -2,7 +2,6 @@
   {
     "nombreCompleto": "Ema",
     "apellido": "Emma",
-    "nombreUsuario": "emaema2016",
     "identificacion": {
       "tipoID": "DNI",
       "numeroID": 48158457
@@ -17,37 +16,40 @@
     "fechaDeAlta": {
       "year": 2018,
       "month": 4,
-      "day": 26
+      "day": 27
     },
     "categoria": {
-      "cargoFijo": 35.32,
+      "cargoFijo": 18.76,
       "cargoVariable": 0.644
     },
+    "username": "emaema2016",
     "dispositivos": [
       {
         "nombre": "Heladera",
         "consumo": 100.0,
-        "encendido": true,
-        "consumoTotal": 0.0
+        "encendido": false,
+        "consumoTotal": 0.0,
+        "horasDeUso": 0.0
       },
       {
         "nombre": "Microondas",
         "consumo": 50.0,
         "encendido": false,
-        "consumoTotal": 0.0
+        "consumoTotal": 0.0,
+        "horasDeUso": 0.0
       },
       {
         "nombre": "Lavarropas",
         "consumo": 34.0,
         "encendido": false,
-        "consumoTotal": 0.0
+        "consumoTotal": 0.0,
+        "horasDeUso": 0.0
       }
     ]
   },
   {
     "nombreCompleto": "nombreASD",
     "apellido": "apellidoASD",
-    "nombreUsuario": "ASDASD99",
     "identificacion": {
       "tipoID": "DNI",
       "numeroID": 48158457
@@ -62,30 +64,34 @@
     "fechaDeAlta": {
       "year": 2018,
       "month": 4,
-      "day": 26
+      "day": 27
     },
     "categoria": {
-      "cargoFijo": 35.32,
+      "cargoFijo": 18.76,
       "cargoVariable": 0.644
     },
+    "username": "ASDASD99",
     "dispositivos": [
       {
         "nombre": "Heladera",
         "consumo": 100.0,
-        "encendido": true,
-        "consumoTotal": 0.0
+        "encendido": false,
+        "consumoTotal": 0.0,
+        "horasDeUso": 0.0
       },
       {
         "nombre": "Microondas",
         "consumo": 50.0,
         "encendido": false,
-        "consumoTotal": 0.0
+        "consumoTotal": 0.0,
+        "horasDeUso": 0.0
       },
       {
         "nombre": "Lavarropas",
         "consumo": 34.0,
         "encendido": false,
-        "consumoTotal": 0.0
+        "consumoTotal": 0.0,
+        "horasDeUso": 0.0
       }
     ]
   }
