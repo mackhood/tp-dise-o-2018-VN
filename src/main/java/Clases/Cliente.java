@@ -1,6 +1,7 @@
 package Clases;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,9 +64,14 @@ public class Cliente {
 		dispositivos.add(disp);
 	}
 	
+	public void usarDispositivo(Dispositivo disp,LocalDateTime horarioDeEncendido, int horas) {
+		
+		disp.registrarUso(horarioDeEncendido, horas);
+	}
+	
 	public double consumoEnergeticoTotal() {
 		
-		return dispositivos.stream().mapToDouble(disp -> disp.getConsumo()).sum();
+		return dispositivos.stream().mapToDouble(disp -> disp.getConsumoTotal()).sum();
 	}
 	
 	public double obtenerGastosAproximados() {

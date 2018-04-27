@@ -1,6 +1,8 @@
 package Clases;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 
 public class Dispositivo {
 
@@ -9,8 +11,8 @@ public class Dispositivo {
 	boolean encendido = false;
 	double consumoTotal = 0;
 	
-	int horaEncendido;
-	int horaApagado;
+	LocalDateTime horaEncendido;
+	LocalDateTime horaApagado;
 	
 	double horasDeUso = 0;
 	
@@ -22,62 +24,54 @@ public class Dispositivo {
 		this.encendido = encendido;
 	}
 	
-/*
-	  
-	public void usarDispositivo(LocalTime horaEncendido, int horas) {
+	public int calcularIntervalo(LocalTime horario, LocalTime otroHorario) {
+		
+		int sumaHoras = horario.getHour() + otroHorario.getHour();
+		
+		if (sumaHoras > 24) {
+			
+			return sumaHoras -24;
+		}
+		
+		else return sumaHoras;
+	}
+	
+	public void registrarUso(LocalDateTime horaEncendido, int horas) {
 	
 		this.encender(horaEncendido);
+	
+		LocalDateTime horaApagado = horaEncendido.plusHours(horas);
 		
-		LocalTime horaApagado = horaEncendido.plusHours(horas);
 		this.apagar(horaApagado);
-		
-		if (horaEncendido.isAfter(horaApagado)) {
 			
-			horasDeUso += horaEncendido.getHour()+ horaApagado.getHour() -12;
-			this.reiniciar();
-		}
-		
-		else {
-		
-			horasDeUso += this.horaApagado - this.horaEncendido
-			this.reiniciar();
-		}
+		horasDeUso += horaEncendido.until(horaApagado,ChronoUnit.HOURS);
+		consumoTotal += horasDeUso * this.consumo;
+		this.reiniciar();
 	}
 	
 	public void reiniciar() {
 		
-		this.horaApagado = 0;
-		this.horaEncendido = 0;
+		this.horaApagado = null;
+		this.horaEncendido = null;
 	}
 	
-	public void encender(LocalTime horaEncendido) {
+	public void encender(LocalDateTime horaEncendido) {
 		
 		if (!encendido) {
 			
 			encendido = true;
 		}
 		
-		this.horaEncendido = horaEncendido.getHour();
+		this.horaEncendido = horaEncendido;
 	}
 	
-	public void apagar(LocalTime horaApagado) {
+	
+	public void apagar(LocalDateTime horaApagado) {
 		
 		encendido = false;
 		
-		this.horaApagado = horaApagado.getHour();
+		this.horaApagado = horaApagado;
 		
-	}
-	
-	*/
-	
-	public void encender() {
-		
-		encendido = true;
-	}
-	
-	public void apagar() {
-		
-		encendido = false;
 	}
 	
 	public String getNombre() {
@@ -85,9 +79,9 @@ public class Dispositivo {
 		return nombre;
 	}
 
-	public double getConsumo() {
+	public double getConsumoTotal() {
 		
-		return consumo;
+		return consumoTotal;
 	}
 
 	public boolean isEncendido() {
