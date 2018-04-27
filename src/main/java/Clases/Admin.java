@@ -45,18 +45,22 @@ public class Admin {
 			return 0;
 		} 
 		
-		else if (fechaAlta.getDayOfMonth() > ahora.getDayOfMonth()) {
-	
+		//Admin admin1 = new Admin("AAAAA","BBBBBB",LocalDate.of(2016, 5, 18));
+		//Admin admin2 = new Admin("XXXX","ZZZZ",LocalDate.of(2014, 9, 20));
+		// (2012,1,30)
+		// (2012,1,1)
+		else if(ahora.getMonthValue() > fechaAlta.getMonthValue()){
+			
 			difAnios = ahora.getYear() - fechaAlta.getYear();
-			difMeses = Math.max(0, ahora.getMonthValue() - fechaAlta.getMonthValue() - 1);
-			return 12* difAnios + Math.abs(difMeses);
+			difMeses = ahora.getMonthValue() - fechaAlta.getMonthValue() ; 
+			return 12* difAnios - difMeses; 
 		}
 		
 		else {
 			
 			difAnios = ahora.getYear() - fechaAlta.getYear();
 			difMeses = ahora.getMonthValue() - fechaAlta.getMonthValue();
-			return 12* difAnios + Math.abs(difMeses);
+			return 12* difAnios + difMeses;
 		}
 		
 	}

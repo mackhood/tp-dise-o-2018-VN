@@ -24,6 +24,7 @@ public class testCliente
 	Dispositivo lavaropas;
 	List<Dispositivo> dispositivos;
 	Admin admin;
+	Admin admin2;
 	List <Cliente> clientes;
 	List <Admin> admins;
 	
@@ -38,14 +39,21 @@ public class testCliente
 		
 		admins = json.devolverAdministradores();
 		admin = admins.get(0);
+		admin2 = admins.get(1);
 	}
 	
 	@Test
 	
-	public void testCantMesesDelAdmin() {
+	public void testCantMesesDelAdminCaso1() {
 		
 		this.init();
-		Assert.assertEquals(25,admin.cantMesesComoAdmin());
+		Assert.assertEquals(23,admin.cantMesesComoAdmin());
+	}
+	@Test
+	public void testCantMesesDelAdminCaso2() {
+		
+		this.init();
+		Assert.assertEquals(43,admin2.cantMesesComoAdmin());
 	}
 	
 	@Test
@@ -61,7 +69,6 @@ public class testCliente
 		unaPersona.agregarDispositivo(a3);
 		unaPersona.usarDispositivo(a1, LocalDateTime.of(2018, 03, 02, 02, 30),3);
 		unaPersona.usarDispositivo(a3, LocalDateTime.of(2018, 05, 12, 23, 40), 2);
-		System.out.println(unaPersona.consumoEnergeticoTotal());
 		//1100*0.851 +545.96 = 1482.06 //
 		assertEquals("El valor de la facturación (categoría R8), no se condice con el valor esperado",1482.06,unaPersona.obtenerGastosAproximados(),0);
 	}
