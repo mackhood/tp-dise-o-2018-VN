@@ -28,8 +28,8 @@ public class JSON
 {
 	public JSON()
 	{
-		this.createAdminsJSON();
-		this.createClientesJSON();
+		//this.createAdminsJSON();
+		//this.createClientesJSON();
 		//this.devolverClientes();
 		//this.createClientesJSON();
 	}
@@ -66,15 +66,6 @@ public class JSON
 		try(BufferedReader bufferedReader = new BufferedReader(new FileReader(rutaArchivo)))
 		{
 			Gson gson = new Gson();
-			//Gson gson = new GsonBuilder().registerTypeAdapter(Cliente.class, new InterfaceAdapter<Cliente>()) .create();
-
-			GsonBuilder gsonBuilder = new GsonBuilder();
-			//GsonBuilder gson = new GsonBuilder();
-			//gson.registerTypeAdapter(ICategoria.class, new MyTypeAdapter());
-			//gsonBuilder.registerTypeAdapter(ICategoria.class, new InterfaceAdapter<ICategoria>());	
-
-			//Gson gson = gsonBuilder.create();
-			
 			
 			Object jsonObject = gson.fromJson(bufferedReader, Object.class);
 			String json = jsonObject.toString();
@@ -83,10 +74,6 @@ public class JSON
 
 			List<Cliente> clientes = gson.fromJson(json, tipoListaEmpleados);
 			
-			
-			//Gson gsonn = new GsonBuilder().registerTypeAdapter(ICategoria.class, new InterfaceAdapter<ICategoria>()) .create();
-			
-			//gson.registerTypeAdapter( Cliente.class,new UserContextInstanceCreator(getApplicationContext()););
 			this.updateClientes(clientes);
 			
 			return clientes;
