@@ -1,6 +1,8 @@
 package test;
 
 import Clases.*;
+import Clases.repositories.RepositorioClientes;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -23,16 +25,16 @@ public class testCliente
 	Dispositivo microondas;
 	Dispositivo lavaropas;
 	List<Dispositivo> dispositivos;
-	Admin admin;
-	Admin admin2;
+	Administrador admin;
+	Administrador admin2;
 	List <Cliente> clientes;
-	List <Admin> admins;
+	List <Administrador> admins;
 	
 	@Before
 	
 	public void init() {
 	
-		JSON json = new JSON();
+		RepositorioClientes json = new RepositorioClientes();
 		clientes = json.devolverClientes();
 		unaPersona = clientes.get(0);
 		otraPersona = clientes.get(1);
