@@ -19,7 +19,7 @@ public class Cliente {
 	List <Dispositivo> dispositivos = new ArrayList <>();
 	
 	
-	Cliente(String unNombreCompleto, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
+	public Cliente(String unNombreCompleto, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
 			List<Dispositivo> listaDispositivos) {
 		
 		this.nombreCompleto = unNombreCompleto;

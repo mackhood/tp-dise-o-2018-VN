@@ -3,7 +3,7 @@ package Clases;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-public class Admin {
+public class Administrador {
 	
 	String nombreCompleto;
 	String apellido;
@@ -13,8 +13,7 @@ public class Admin {
 	String username;
 	String pw;
 	
-	public Admin(String nombreCompleto, String unApellido, LocalDate fecha) {
-		
+	public Administrador(String nombreCompleto, String unApellido, LocalDate fecha) {
 		this.nombreCompleto = nombreCompleto;
 		this.apellido = unApellido;
 		this.fechaAlta = fecha;

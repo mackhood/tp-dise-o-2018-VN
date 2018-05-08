@@ -7,9 +7,7 @@ public class Domicilio {
 	int piso;
 	char departamento;
 	
-	Domicilio(String calle,int altura) { this.calle = calle; this.altura = altura; }
-	
-	Domicilio(String calle,int altura,int piso, char departamento) {
+	public Domicilio(String calle,int altura,int piso, char departamento) {
 		
 		this.calle = calle;
 		this.altura = altura;
