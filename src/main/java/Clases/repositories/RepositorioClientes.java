@@ -62,7 +62,7 @@ public class RepositorioClientes {
 
 	public List<Cliente> devolverClientes() {
 		String rutaArchivo = "Clientes.json";
-		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(rutaArchivo))) {
+		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(rutaArchivo))) { //TODO: poner este reader dentro de la clase RepositorioClientes
 			Gson gson = new Gson();
 
 			Object jsonObject = gson.fromJson(bufferedReader, Object.class);
