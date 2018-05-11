@@ -1,5 +1,65 @@
 [
   {
-    //Pendiente completar
+   "categoria":"R1",
+    "consumo_minimo":0,
+    "consumo_maximo":150,
+    "cargo_fijo":18.76,
+    "cargo_variable":0.644
+  },
+  {
+    "categoria":"R2",
+    "consumo_minimo":151,
+    "consumo_maximo":325,
+    "cargo_fijo":35.32,
+    "cargo_variable":0.644
+  },
+  {
+    "categoria":"R3",
+    "consumo_minimo":326,
+    "consumo_maximo":400,
+    "cargo_fijo":60.71,
+    "cargo_variable":0.681
+  },
+  {
+    "categoria":"R4",
+    "consumo_minimo":401,
+    "consumo_maximo":450,
+    "cargo_fijo":71.74,
+    "cargo_variable":0.644
+  },
+  {
+    "categoria":"R5",
+    "consumo_minimo":451,
+    "consumo_maximo":500,
+    "cargo_fijo":110.38,
+    "cargo_variable":0.794
+  },
+  {
+    "categoria":"R6",
+    "consumo_minimo":501,
+    "consumo_maximo":600,
+    "cargo_fijo":220.75,
+    "cargo_variable":0.832
+  },
+  {
+    "categoria":"R7",
+    "consumo_minimo":601,
+    "consumo_maximo":700,
+    "cargo_fijo":443.59,
+    "cargo_variable":0.851
+  },
+  {
+    "categoria":"R8",
+    "consumo_minimo":701,
+    "consumo_maximo":1400,
+    "cargo_fijo":545.96,
+    "cargo_variable":0.851
+  },
+  {
+    "categoria":"R9",
+    "consumo_minimo":1401,
+    "consumo_maximo":null,
+    "cargo_fijo":887.19,
+    "cargo_variable":0.851
   }
 ]
