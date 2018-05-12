@@ -2,14 +2,14 @@ package Clases;
 
 public class Categoria {
 
-	private String categoria;
+	private String nombre;
 	private Integer consumo_minimo;
 	private Integer consumo_maximo;
 	private Double cargo_fijo;
 	private Double cargo_variable;
 
-	public Categoria(String categoria, Integer consumo_minimo, Integer consumo_maximo, Double cargo_fijo, Double cargo_variable) {
-		this.categoria = categoria;
+	public Categoria(String nombre, Integer consumo_minimo, Integer consumo_maximo, Double cargo_fijo, Double cargo_variable) {
+		this.nombre = nombre;
 		this.consumo_minimo = consumo_minimo;
 		this.consumo_maximo = consumo_maximo;
 		this.cargo_fijo = cargo_fijo;

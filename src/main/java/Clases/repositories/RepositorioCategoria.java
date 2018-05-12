@@ -1,7 +1,7 @@
 package Clases.repositories;
 
 import Clases.Categoria;
-import Clases.entities.ProcessingJsonFailedException;
+import Clases.entities.ProcessingDataFailedException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -14,11 +14,15 @@ import java.util.List;
 public class RepositorioCategoria {
 //Aca va la logica para extraer del JSON de categorias las distintas categorias existentes
 
-    //TODO: Hacer singleton este repositorio
-    public RepositorioCategoria() {
-    }
+    private final RepositorioCategoria instance = new RepositorioCategoria();
 
-    public List<Categoria> obtenerCategorias() throws ProcessingJsonFailedException {
+	private RepositorioCategoria() {
+	}
+	public RepositorioCategoria getInstance() {
+		return instance;
+	}
+
+    public List<Categoria> obtenerCategorias() throws ProcessingDataFailedException {
         ClassLoader classLoader = getClass().getClassLoader();
         try {
             FileReader file = new FileReader(classLoader.getResource("Categoria.json").getFile());
@@ -34,7 +38,7 @@ public class RepositorioCategoria {
             return categorias;
 
         } catch (FileNotFoundException e) {
-            throw new ProcessingJsonFailedException(e.getLocalizedMessage());
+            throw new ProcessingDataFailedException(e.getLocalizedMessage());
         }
     }
 }
