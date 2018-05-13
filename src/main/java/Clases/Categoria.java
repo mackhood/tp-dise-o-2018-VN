@@ -1,4 +1,8 @@
 package Clases;
+import Clases.repositories.RepositorioCategoria;
+
+
+
 
 public class Categoria {
 	private double consumoMinimo;
@@ -8,10 +12,10 @@ public class Categoria {
 	private Double cargo_fijo;
 	private Double cargo_variable;
 
-	public Categoria(String nombre, Integer consumo_minimo, Integer consumo_maximo, Double cargo_fijo, Double cargo_variable) {
+	public Categoria(String nombre, Integer consumoMinimo, Integer consumoMaximo, Double cargo_fijo, Double cargo_variable) {
 		this.nombre = nombre;
-		this.consumo_minimo = consumo_minimo;
-		this.consumo_maximo = consumo_maximo;
+		this.consumoMinimo = consumoMinimo;
+		this.consumoMaximo = consumoMaximo;
 		this.cargo_fijo = cargo_fijo;
 		this.cargo_variable = cargo_variable;
 	}
