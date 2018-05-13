@@ -1,10 +1,10 @@
 package Clases;
 
 public class Categoria {
-
+	private double consumoMinimo;
+	private double consumoMaximo;
 	private String nombre;
-	private Integer consumo_minimo;
-	private Integer consumo_maximo;
+	
 	private Double cargo_fijo;
 	private Double cargo_variable;
 
@@ -16,7 +16,24 @@ public class Categoria {
 		this.cargo_variable = cargo_variable;
 	}
 
-	//boolean cumpleCondicion(Cliente cliente) { return false; }
+  public double getConsumoMinimo () {
+	  
+	  return this.consumoMinimo;
+  }
+	
+public double getConsumoMaximo () {
+	  
+	  return this.consumoMaximo;
+  } 
+	
+	
+	
+public boolean cumpleCondicion(Cliente cliente) {
+		
+		return   cliente.consumoEnergeticoTotal() > getConsumoMinimo ()  && 
+				cliente.consumoEnergeticoTotal() <= getConsumoMaximo();  }
+	
+	
 	
 	public Double getCargoFijo() { return this.cargo_fijo; }
 	public Double getCargoVariable() { return this.cargo_variable; }

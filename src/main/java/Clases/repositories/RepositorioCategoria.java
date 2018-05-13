@@ -14,12 +14,15 @@ import java.util.List;
 public class RepositorioCategoria {
 //Aca va la logica para extraer del JSON de categorias las distintas categorias existentes
 
-    private final RepositorioCategoria instance = new RepositorioCategoria();
-
-	private RepositorioCategoria() {
-	}
-	public RepositorioCategoria getInstance() {
-		return instance;
+ //   private final RepositorioCategoria instance = new RepositorioCategoria();
+    private static RepositorioCategoria  categoria;
+	//private RepositorioCategoria() {         TUVE QUE CAMBIAR EL SINGLETON PORQUE NO ME FUNCIONABA
+	//}
+	 public static RepositorioCategoria getInstance() {
+		 if (categoria == null){
+	            categoria = new RepositorioCategoria();
+	        }
+		return categoria;
 	}
 
     public List<Categoria> obtenerCategorias() throws ProcessingDataFailedException {
