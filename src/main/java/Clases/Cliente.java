@@ -35,8 +35,8 @@ public class Cliente {
 	
 	public void actualizarCategoria() {
 		
-		AsignarCategoria ac = new AsignarCategoria();
-		this.setCategoria(ac.definirCategoriaPara(this));
+		AsignadorDeCategoria asignadorDeCategoria = AsignadorDeCategoria.instance;
+		//this.setCategoria(asignadorDeCategoria.definirCategoriaPara(this));
 	}
 	
 	public boolean algunDispositivoEncendido() {

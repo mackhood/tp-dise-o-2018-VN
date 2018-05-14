@@ -1,68 +1,46 @@
 package Clases.repositories;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 import Clases.Administrador;
+import Clases.entities.ProcessingDataFailedException;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.List;
 
 
 public class RepositorioAdministradores {
-    
-	public List<Administrador> devolverAdministradores() {
-		String rutaArchivo = "Administradores.json";
-		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(rutaArchivo))) {
-			Gson gson = new Gson();
 
-			Object jsonObject = gson.fromJson(bufferedReader, Object.class);
-			String json = jsonObject.toString();
+    public static RepositorioAdministradores instance = new RepositorioAdministradores();
 
-			Type tipoListaAdmins = new TypeToken<List<Administrador>>() {
-			}.getType();
-			List<Administrador> admins = gson.fromJson(json, tipoListaAdmins);
+    private RepositorioAdministradores() {
+    }
 
-			return admins;
+    public List<Administrador> obtenerAdministradores() throws ProcessingDataFailedException {
 
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	public void createAdminsJSON() {
-		Administrador admin1 = new Administrador("AAAAA", "BBBBBB", LocalDate.of(2016, 5, 18));
-		Administrador admin2 = new Administrador("XXXX", "ZZZZ", LocalDate.of(2014, 9, 20));
+        try {
+            ClassLoader classLoader = getClass().getClassLoader();
+            FileReader file = new FileReader(classLoader.getResource("Administradores.json").getFile());
+            BufferedReader bufferedReader = new BufferedReader(file);
+            Gson gson = new Gson();
 
-		List<Administrador> admins = new ArrayList();
+            Object jsonObject = gson.fromJson(bufferedReader, Object.class);
+            String json = jsonObject.toString();
 
-		admins.add(admin1);
-		admins.add(admin2);
+            Type tipoListaAdmins = new TypeToken<List<Administrador>>() {
+            }.getType();
+            List<Administrador> admins = gson.fromJson(json, tipoListaAdmins);
 
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String json = gson.toJson(admins);
+            return admins;
 
-		try (FileWriter file = new FileWriter("Administradores.json")) {
-			file.write(json);
-			file.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
-	
-	
-	
-	
-	
-	
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new ProcessingDataFailedException(e.getLocalizedMessage());
+        }
+    }
+
+
 }

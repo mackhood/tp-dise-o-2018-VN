@@ -58,7 +58,7 @@
   {
     "categoria":"R9",
     "consumoMinimo":1401,
-    "consumoMaximo":9999999999999999,
+    "consumoMaximo":null, //Validar que si viene null no compare por el maximo
     "cargo_fijo":887.19,
     "cargo_variable":0.851
   }

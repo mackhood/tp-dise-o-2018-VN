@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class testAsignarCategoria {
+public class testAsignadorDeCategoria {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {

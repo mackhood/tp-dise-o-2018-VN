@@ -14,19 +14,15 @@ import java.util.List;
 public class RepositorioCategoria {
 //Aca va la logica para extraer del JSON de categorias las distintas categorias existentes
 
- 
-    private static RepositorioCategoria  categoria;
-	
-	 public static RepositorioCategoria getInstance() {
-		 if (categoria == null){
-	            categoria = new RepositorioCategoria();
-	        }
-		return categoria;
-	}
+    public static RepositorioCategoria instance = new RepositorioCategoria();
+
+    private RepositorioCategoria() {
+    }
+
 
     public List<Categoria> obtenerCategorias() throws ProcessingDataFailedException {
-        ClassLoader classLoader = getClass().getClassLoader();
         try {
+            ClassLoader classLoader = getClass().getClassLoader();
             FileReader file = new FileReader(classLoader.getResource("Categoria.json").getFile());
             BufferedReader bufferedReader = new BufferedReader(file);
 
