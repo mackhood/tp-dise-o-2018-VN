@@ -1,19 +1,24 @@
 package test;
 
-import static org.junit.Assert.*;
 
+import Clases.Administrador;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 public class testAdministrador {
 
+	private Administrador unAdmin;
+
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	public void setUp() {
+		unAdmin = Mockito.mock(Administrador.class);
 	}
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+
+
 	}
 
 }

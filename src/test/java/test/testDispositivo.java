@@ -23,24 +23,24 @@ import static org.mockito.Mockito.when;
 
 
 public class testDispositivo {
-    private Dispositivo dis;
+    private Dispositivo heladera;
 
     @Before
     public  void setUp(){
-        dis = Mockito.mock(Dispositivo.class);
+        heladera = Mockito.mock(Dispositivo.class);
     }
 
     @Test
     public void test_Dispositivo() throws Throwable {
 
-        when(dis.getConsumoTotal()).thenReturn(20.1);
-        PowerMockito.whenNew(Dispositivo.class).withArguments(Mockito.anyString(),Mockito.anyDouble(),Mockito.anyBoolean()).thenReturn(dis);
+        when(heladera.getConsumoTotal()).thenReturn(20.1);
+        PowerMockito.whenNew(Dispositivo.class).withArguments(Mockito.anyString(),Mockito.anyDouble(),Mockito.anyBoolean()).thenReturn(heladera);
         assertThat(new Dispositivo("heladera",40,true).getConsumoTotal(), equalTo(20.1));
     }
     @Test
     public void  test_calcularIntervalo(){
-        when(dis.calcularIntervalo(LocalTime.of(Mockito.anyInt(),Mockito.anyInt(),Mockito.anyInt()),LocalTime.of(Mockito.anyInt(),Mockito.anyInt(),Mockito.anyInt()))).thenReturn(25);
-        assertThat(dis.calcularIntervalo(LocalTime.of(15,20,50),LocalTime.of(17,20,50)), equalTo(20.1));
+        when(heladera.calcularIntervalo(LocalTime.of(Mockito.anyInt(),Mockito.anyInt(),Mockito.anyInt()),LocalTime.of(Mockito.anyInt(),Mockito.anyInt(),Mockito.anyInt()))).thenReturn(25);
+        assertThat(heladera.calcularIntervalo(LocalTime.of(15,20,50),LocalTime.of(17,20,50)), equalTo(25));
     }
 
 
