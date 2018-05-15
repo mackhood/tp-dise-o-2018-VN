@@ -14,7 +14,7 @@ public class AsignadorDeCategoria {
     private AsignadorDeCategoria() {
     }
 
-    RepositorioCategoria repositorio = RepositorioCategoria.instance;
+    RepositorioCategoria repositorio = RepositorioCategoria.getInstance();
 
     public Categoria definirCategoriaPara(Cliente cliente) throws ProcessingDataFailedException {
 

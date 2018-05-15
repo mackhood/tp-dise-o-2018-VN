@@ -14,11 +14,14 @@ import java.util.List;
 public class RepositorioCategoria {
 //Aca va la logica para extraer del JSON de categorias las distintas categorias existentes
 
-    public static RepositorioCategoria instance = new RepositorioCategoria();
+    private static RepositorioCategoria instance = new RepositorioCategoria();
 
     private RepositorioCategoria() {
     }
-
+    
+    public static RepositorioCategoria getInstance() {
+		return instance;
+	}
 
     public List<Categoria> obtenerCategorias() throws ProcessingDataFailedException {
         try {
@@ -39,5 +42,8 @@ public class RepositorioCategoria {
             throw new ProcessingDataFailedException(e.getLocalizedMessage());
         }
     }
+
+
+	
 }
 
