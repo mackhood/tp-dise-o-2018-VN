@@ -1,5 +1,7 @@
 package Clases;
 
+import Clases.entities.ProcessingDataFailedException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -36,6 +38,11 @@ public class Cliente {
 	public void actualizarCategoria() {
 		
 		AsignadorDeCategoria asignadorDeCategoria = AsignadorDeCategoria.instance;
+		try {
+			this.setCategoria(asignadorDeCategoria.definirCategoriaPara(this));
+		} catch (ProcessingDataFailedException e) {
+			e.printStackTrace();
+		}
 		//this.setCategoria(asignadorDeCategoria.definirCategoriaPara(this));
 	}
 	
@@ -87,6 +94,10 @@ public class Cliente {
 	
 	public Categoria getCategoria() {
 		
-		return categoria;
+		return this.categoria;
+	}
+	public  String nombreCategoria() {
+
+		return this.categoria.getNombreCategoria();
 	}
 }

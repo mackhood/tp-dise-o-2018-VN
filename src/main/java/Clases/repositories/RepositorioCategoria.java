@@ -16,7 +16,7 @@ public class RepositorioCategoria {
 
     private static RepositorioCategoria instance = new RepositorioCategoria();
 
-    private RepositorioCategoria() {
+    public RepositorioCategoria() {
     }
     
     public static RepositorioCategoria getInstance() {

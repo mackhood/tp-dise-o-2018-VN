@@ -1,8 +1,5 @@
 package Clases;
 
-import Clases.repositories.RepositorioCategoria;
-
-
 public class Categoria {
     private double consumoMinimo;
     private double consumoMaximo;
@@ -48,5 +45,9 @@ public class Categoria {
     public Double calcularCostosPara(Cliente cliente) {
         Categoria categoria = cliente.getCategoria();
         return categoria.getCargoFijo() + categoria.getCargoVariable() * cliente.consumoEnergeticoTotal();
+    }
+    public String getNombreCategoria(){
+        return this.nombre;
+
     }
 }

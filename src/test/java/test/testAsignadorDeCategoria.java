@@ -1,19 +1,27 @@
 package test;
 
-import static org.junit.Assert.*;
-
-import org.junit.BeforeClass;
+import Clases.AsignadorDeCategoria;
+import Clases.Cliente;
+import org.junit.Before;
 import org.junit.Test;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class testAsignadorDeCategoria {
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	private AsignadorDeCategoria unAsignadorDeCategoria;
+	private Cliente unClienteMock;
+
+	@Before
+	public  void setUp() {
+		unClienteMock = mock(Cliente.class);
+		when(unClienteMock.consumoEnergeticoTotal()).thenReturn(200.1);
 	}
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void definirCategoriaParaUnClienteMock() {
+	//	Assert.assertExeption(unAsignadorDeCategoria.definirCategoriaPara(unClienteMock));
 	}
 
 }

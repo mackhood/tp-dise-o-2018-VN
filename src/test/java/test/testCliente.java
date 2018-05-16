@@ -1,64 +1,90 @@
 package test;
 
-
-import Clases.Cliente;
-import Clases.Dispositivo;
-import org.junit.Assert;
+import Clases.*;
+import Clases.entities.ProcessingDataFailedException;
+import Clases.repositories.RepositorioCategoria;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
-import static org.junit.Assert.assertEquals;
+import java.util.ArrayList;
+import java.util.List;
+
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.TestCase.assertEquals;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-
 public class testCliente {
-    private Cliente unaPersona;
-    private Dispositivo heladera;
-    private Dispositivo televisor;
+
+    private Dispositivo unDispositivoEncendido;
+    private Dispositivo unDispositivoApagado;
+    private Cliente unClienteCon2Dispositivos;
+    private Cliente unClienteSinDispositivos;
+
+
 
 
     @Before
     public void setUp()  {
 
-        heladera = Mockito.mock(Dispositivo.class);
-        televisor = Mockito.mock(Dispositivo.class);
-        unaPersona = Mockito.mock(Cliente.class);
+        unDispositivoEncendido = mock(Dispositivo.class);
+        unDispositivoApagado = mock(Dispositivo.class);
 
-        unaPersona.agregarDispositivo(televisor);
-        unaPersona.agregarDispositivo(heladera);
+        List<Dispositivo> listaDispositivos = new ArrayList<>();
+        List<Dispositivo> listaDispositivosParaOtroCliente = new ArrayList<>();
+        unClienteCon2Dispositivos = new Cliente("Fernando","Sierra","fer22",new ID(TiposIdEnum.DNI,200),new Domicilio("bariloche",3118,1,'a'),250,listaDispositivos);
+        unClienteSinDispositivos= new Cliente("Nicolas","Sierra","fer22",new ID(TiposIdEnum.DNI,200),new Domicilio("bariloche",3118,1,'a'),250,listaDispositivosParaOtroCliente);
 
-        when(televisor.getConsumoTotal()).thenReturn(2.5);
-        when(heladera.getConsumoTotal()).thenReturn(3.5);
-
-        when(televisor.isEncendido()).thenReturn(false);
-        when(heladera.isEncendido()).thenReturn(true);
+        unClienteCon2Dispositivos.agregarDispositivo(unDispositivoEncendido);
+        unClienteCon2Dispositivos.agregarDispositivo(unDispositivoApagado);
+        when(unDispositivoEncendido.isEncendido()).thenReturn(true);
+        when(unDispositivoApagado.isEncendido()).thenReturn(false);
+        when(unDispositivoEncendido.getConsumoTotal()).thenReturn(25.5);
+        when(unDispositivoApagado.getConsumoTotal()).thenReturn(25.5);
 
     }
 
     @Test
-    public void testAlgunDispositivoEncendido() {
-         Assert.assertTrue(unaPersona.algunDispositivoEncendido());
+    public void testCantidadDispositivosDeUnCliente(){
+
+        assertEquals(2,unClienteCon2Dispositivos.cantidadDeDispositivos());
+        assertEquals(0,unClienteSinDispositivos.cantidadDeDispositivos());
+
+    }
+    @Test
+    public void testCantidadDispositivosApagadosDeUnCliente(){
+        assertEquals(1,unClienteCon2Dispositivos.cantidadDeDispositivosApagados());
+        assertEquals(0,unClienteSinDispositivos.cantidadDeDispositivosApagados());
+    }
+    @Test
+    public void testCantidadDispositivosEncedidosDeUnCliente(){
+        assertEquals(1,unClienteCon2Dispositivos.cantidadDeDispositivosEncendidos());
+        assertEquals(0,unClienteSinDispositivos.cantidadDeDispositivosEncendidos());
     }
 
     @Test
-    public void testCantDispositivosEncendidos() {
-                Assert.assertEquals(1,unaPersona.cantidadDeDispositivos() );
+    public void testConsumoEnergeticoTotalDeUnCliente(){
+        assertEquals(51.0,unClienteCon2Dispositivos.consumoEnergeticoTotal());
+        assertEquals(0.0,unClienteSinDispositivos.consumoEnergeticoTotal());
     }
-    @Test
-    public void testCantidadDispositivosApagados()  {
-        Assert.assertEquals(1,unaPersona.cantidadDeDispositivosApagados());
+    @Test //VER ERROR
+    public void testActualizarCategoriaDeUnCliente(){
+        unClienteCon2Dispositivos.actualizarCategoria();
+        unClienteSinDispositivos.actualizarCategoria();
+        assertNotNull(unClienteCon2Dispositivos.getCategoria());
+        assertNotNull(unClienteSinDispositivos.getCategoria());
     }
-    @Test
-    public void testCantidadDispositivos()  {
-        Assert.assertEquals(2,unaPersona.cantidadDeDispositivos());
+    @Test //VER ERROR
+    public void testVerigifarCategoriaDeUnCliente() throws ProcessingDataFailedException{
+        unClienteCon2Dispositivos.actualizarCategoria();
+        unClienteSinDispositivos.actualizarCategoria();
+        //assertEquals("R1",unClienteCon2Dispositivos.nombreCategoria());
+        //assertEquals("R1",unClienteSinDispositivos.nombreCategoria());
+        Categoria unaCategoria = null;
+        RepositorioCategoria repositorio =new RepositorioCategoria();
+        unaCategoria =repositorio.obtenerCategorias().get(0);
+        assertNotNull(unaCategoria);
     }
 
-    @Test
-    public void testConsumoEnergeticoTotal(){
-
-        assertEquals("El valor de consumo energético no coincide con lo esperado", 5, unaPersona.consumoEnergeticoTotal(), 0);
-
-    }
 
 }

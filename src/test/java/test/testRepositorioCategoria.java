@@ -1,22 +1,20 @@
 package test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
-
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-
+import Clases.Categoria;
+import Clases.entities.ProcessingDataFailedException;
+import Clases.repositories.RepositorioCategoria;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import Clases.Administrador;
-import Clases.Categoria;
-import Clases.entities.ProcessingDataFailedException;
-import Clases.repositories.RepositorioCategoria;
+import java.util.ArrayList;
+import java.util.List;
+
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.Mockito.when;
 
 public class testRepositorioCategoria {
 	
@@ -37,4 +35,13 @@ public class testRepositorioCategoria {
         assertThat("Prueba de obtencion de lista vacia", repoCateogoriaSinDatos.obtenerCategorias().size(), equalTo(0));
 	}
 
+	@Test // Ver El "Contenido" de lo q esta devolviendo
+	public void testElRepositorioCategoriaEstaDevolviendoVacio() throws Exception{
+		Categoria unaCategoria = null;
+		RepositorioCategoria repositorio =new RepositorioCategoria();
+		unaCategoria =repositorio.obtenerCategorias().get(3);
+		assertEquals("R1",unaCategoria.getNombreCategoria());
+		//Esto de abajo es verdadero pero lo de arriba no (VER POR Q)
+		assertNotNull(unaCategoria);
+	}
 }

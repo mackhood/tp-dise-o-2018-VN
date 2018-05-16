@@ -16,7 +16,7 @@ public class RepositorioClientes {
 
     public static RepositorioClientes instance = new RepositorioClientes();
 
-    private RepositorioClientes() {
+    public RepositorioClientes() {
     }
 
     public void updateClientes(List<Cliente> clientes) {
