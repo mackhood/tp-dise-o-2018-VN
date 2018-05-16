@@ -6,6 +6,10 @@ import Clases.Cliente;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -24,13 +28,15 @@ public class testAsignadorDeCategoria {
 		when(unClienteMock.consumoEnergeticoTotal()).thenReturn(200.1);
 		when(categoria1Mock.cumpleCondicion(unClienteMock)).thenReturn(true);
 		when(categoria2Mock.cumpleCondicion(unClienteMock)).thenReturn(false);
+		unAsignadorDeCategoria = AsignadorDeCategoria.instance;
 	}
 
 	@Test
 	public void definirCategoriaParaUnClienteMock() {
-		//Tenedria q Asignador de categoria Recibir una lista de Categorias
-		//Usar el methodo definirCategoriaPara(unCliente) con los mocksCategoria
-		//Devolver categoria1Mock
+		List<Categoria> listaCategoriaMock = new ArrayList<>();
+		listaCategoriaMock.add(categoria1Mock);
+		listaCategoriaMock.add(categoria2Mock);
+		assertEquals(categoria1Mock,unAsignadorDeCategoria.categoriaCliente(unClienteMock,listaCategoriaMock));
 	}
 
 }
