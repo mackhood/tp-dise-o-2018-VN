@@ -12,7 +12,7 @@ public class testRepositorioClientes {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
-
+	//Reemplazar por json de Prueba
 	@Test
 	public void testObtenerCargoVariableDeLaCategoriaDelCliente() throws Exception{
 

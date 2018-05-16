@@ -1,7 +1,5 @@
 package Clases;
 
-import static java.util.Objects.isNull;
-
 public class Categoria {
     private String nombreCategoria;
     private double consumoMinimo;
@@ -22,10 +20,7 @@ public class Categoria {
         return this.consumoMinimo;
     }
 
-    public Double getConsumoMaximo() {
-
-        if (isNull(consumoMaximo))
-            return  0.0;
+    private Double getConsumoMaximo() {
         return this.consumoMaximo;
     }
 

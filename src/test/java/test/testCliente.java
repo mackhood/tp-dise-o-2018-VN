@@ -20,14 +20,12 @@ public class testCliente {
     private Cliente unClienteSinDispositivos;
     private Dispositivo otroDispositivo;
 
-
-
-
     @Before
     public void setUp()  {
 
         unDispositivoEncendido = mock(Dispositivo.class);
         unDispositivoApagado = mock(Dispositivo.class);
+        otroDispositivo = mock(Dispositivo.class);
 
         List<Dispositivo> listaDispositivos = new ArrayList<>();
         List<Dispositivo> listaDispositivosParaOtroCliente = new ArrayList<>();
@@ -36,12 +34,11 @@ public class testCliente {
 
         unClienteCon2Dispositivos.agregarDispositivo(unDispositivoEncendido);
         unClienteCon2Dispositivos.agregarDispositivo(unDispositivoApagado);
+
         when(unDispositivoEncendido.isEncendido()).thenReturn(true);
         when(unDispositivoApagado.isEncendido()).thenReturn(false);
         when(unDispositivoEncendido.getConsumoTotal()).thenReturn(25.5);
         when(unDispositivoApagado.getConsumoTotal()).thenReturn(25.5);
-
-        otroDispositivo = mock(Dispositivo.class);
         when(otroDispositivo.getConsumoTotal()).thenReturn(200.0);
 
     }
@@ -63,7 +60,6 @@ public class testCliente {
         assertEquals(1,unClienteCon2Dispositivos.cantidadDeDispositivosEncendidos());
         assertEquals(0,unClienteSinDispositivos.cantidadDeDispositivosEncendidos());
     }
-
     @Test
     public void testConsumoEnergeticoTotalDeUnCliente(){
         assertEquals(51.0,unClienteCon2Dispositivos.consumoEnergeticoTotal());
@@ -83,7 +79,7 @@ public class testCliente {
         assertEquals("R2",unClienteSinDispositivos.nombreCategoria());
     }
     @Test
-    public void testObtenerGastosAproximados() throws ProcessingDataFailedException{
+    public void testObtenerGastosAproximadosCliente() throws ProcessingDataFailedException{
 
         //Se le agrega otro dispositivo
         unClienteCon2Dispositivos.agregarDispositivo(otroDispositivo);
@@ -113,12 +109,10 @@ public class testCliente {
         //CargoVariable=0.7
         //ConsumoCliente=251.0
         //500+0.7*251.0=196.964
-        Double costo =500.0+0.7*unClienteCon2Dispositivos.consumoEnergeticoTotal();
+        double costo =500.0+0.7*unClienteCon2Dispositivos.consumoEnergeticoTotal();
 
         when(categoriaMock.calcularCostosPara(unClienteCon2Dispositivos)).thenReturn(costo);
-
         assertEquals(675.7,categoriaMock.calcularCostosPara(unClienteCon2Dispositivos));
-
     }
 
 }

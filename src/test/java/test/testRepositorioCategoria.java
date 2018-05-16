@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 public class testRepositorioCategoria {
-	
+	//Usar json De prueba
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		return; 
@@ -42,13 +42,5 @@ public class testRepositorioCategoria {
 		unaCategoria =repositorio.obtenerCategorias().get(0);
 		assertEquals("R1",unaCategoria.getNombreCategoria());
 	}
-	/*@Test
-	public void testConsumoMaximoDeLaMaximaCategoria() throws Exception{
 
-		RepositorioCategoria repositorio =new RepositorioCategoria();
-		//Categoria unaCategoria = ;
-		double consumo = repositorio.obtenerCategorias().get(8).getConsumoMaximo();
-		assertEquals(0.0,consumo);
-	}
-	*/
 }
