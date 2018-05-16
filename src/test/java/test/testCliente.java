@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class testCliente {
 
@@ -113,6 +112,20 @@ public class testCliente {
 
         when(categoriaMock.calcularCostosPara(unClienteCon2Dispositivos)).thenReturn(costo);
         assertEquals(675.7,categoriaMock.calcularCostosPara(unClienteCon2Dispositivos));
+    }
+    @Test
+    public void testActualizacionCategoriaClienteConSpy() throws ProcessingDataFailedException {
+         List<Dispositivo> listaDispositivosParaOtroCliente = new ArrayList<>();
+         Cliente unClienteSpy = spy(new Cliente("Nicolas","Sierra","fer22",new ID(TiposIdEnum.DNI,200),new Domicilio("bariloche",3118,1,'a'),250,listaDispositivosParaOtroCliente));
+         Categoria unaCategoriaMock = mock(Categoria.class);
+         AsignadorDeCategoria asignadorMock = mock(AsignadorDeCategoria.class);
+         when(asignadorMock.definirCategoriaPara(unClienteSpy)).thenReturn(unaCategoriaMock);
+         doReturn(asignadorMock)
+                .when(unClienteSpy)
+                .asignadorDeCategoria();
+         unClienteSpy.actualizarCategoria();
+         verify(asignadorMock).definirCategoriaPara(unClienteSpy);
+         assertEquals(unaCategoriaMock,unClienteSpy.getCategoria());
     }
 
 }

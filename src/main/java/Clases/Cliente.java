@@ -36,14 +36,18 @@ public class Cliente {
 	}
 	
 	public void actualizarCategoria() {
-		
-		AsignadorDeCategoria asignadorDeCategoria = AsignadorDeCategoria.instance;
+
 		try {
+			AsignadorDeCategoria asignadorDeCategoria = this.asignadorDeCategoria();
 			this.setCategoria(asignadorDeCategoria.definirCategoriaPara(this));
 		} catch (ProcessingDataFailedException e) {
 			e.printStackTrace();
 		}
-		//this.setCategoria(asignadorDeCategoria.definirCategoriaPara(this));
+
+	}
+	public AsignadorDeCategoria asignadorDeCategoria(){
+		AsignadorDeCategoria asignadorDeCategoria = AsignadorDeCategoria.instance;
+		return asignadorDeCategoria;
 	}
 	
 	public boolean algunDispositivoEncendido() {
