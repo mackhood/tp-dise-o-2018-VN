@@ -5,7 +5,7 @@ import Clases.repositories.RepositorioClientes;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertEquals;
 
 public class testRepositorioClientes {
 
@@ -14,12 +14,14 @@ public class testRepositorioClientes {
 	}
 
 	@Test
-	public void testElRepositorioClientesEstaDevolviendoVacio () throws Exception{
+	public void testObtenerCargoVariableDeLaCategoriaDelCliente() throws Exception{
 
-			Cliente unCliente = null;
+
 			RepositorioClientes repositorio =new RepositorioClientes();
-			unCliente = repositorio.obtenerClientes().get(0);
-			assertNotNull(unCliente);
+		    Cliente unCliente = repositorio.obtenerClientes().get(0);
+			assertEquals("Ema",unCliente.nombreCompleto());
+			assertEquals(18.76,unCliente.getCategoria().getCargoVariable());
+
 	}
 
 

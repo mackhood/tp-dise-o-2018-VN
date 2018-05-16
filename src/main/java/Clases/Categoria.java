@@ -1,19 +1,20 @@
 package Clases;
 
+import static java.util.Objects.isNull;
+
 public class Categoria {
+    private String nombreCategoria;
     private double consumoMinimo;
     private double consumoMaximo;
-    private String nombre;
+    private Double cargoFijo;
+    private Double cargoVariable;
 
-    private Double cargo_fijo;
-    private Double cargo_variable;
-
-    public Categoria(String nombre, Integer consumoMinimo, Integer consumoMaximo, Double cargo_fijo, Double cargo_variable) {
-        this.nombre = nombre;
+    public Categoria(String nombreCategoria, Integer consumoMinimo, Integer consumoMaximo, Double cargo_fijo, Double cargoVariable) {
+        this.nombreCategoria = nombreCategoria;
         this.consumoMinimo = consumoMinimo;
         this.consumoMaximo = consumoMaximo;
-        this.cargo_fijo = cargo_fijo;
-        this.cargo_variable = cargo_variable;
+        this.cargoFijo = cargo_fijo;
+        this.cargoVariable = cargoVariable;
     }
 
     private Double getConsumoMinimo() {
@@ -21,7 +22,10 @@ public class Categoria {
         return this.consumoMinimo;
     }
 
-    private Double getConsumoMaximo() {
+    public Double getConsumoMaximo() {
+
+        if (isNull(consumoMaximo))
+            return  0.0;
         return this.consumoMaximo;
     }
 
@@ -35,19 +39,18 @@ public class Categoria {
 
 
     private Double getCargoFijo() {
-        return this.cargo_fijo;
+        return this.cargoFijo;
     }
 
-    private Double getCargoVariable() {
-        return this.cargo_variable;
+    public Double getCargoVariable() {
+        return this.cargoVariable;
     }
 
     public Double calcularCostosPara(Cliente cliente) {
-        Categoria categoria = cliente.getCategoria();
-        return categoria.getCargoFijo() + categoria.getCargoVariable() * cliente.consumoEnergeticoTotal();
+         return this.getCargoFijo() + this.getCargoVariable() * cliente.consumoEnergeticoTotal();
     }
     public String getNombreCategoria(){
-        return this.nombre;
-
+        return this.nombreCategoria;
     }
+
 }

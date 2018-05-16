@@ -10,10 +10,10 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 public class testRepositorioCategoria {
@@ -35,13 +35,20 @@ public class testRepositorioCategoria {
         assertThat("Prueba de obtencion de lista vacia", repoCateogoriaSinDatos.obtenerCategorias().size(), equalTo(0));
 	}
 
-	@Test // Ver El "Contenido" de lo q esta devolviendo
-	public void testElRepositorioCategoriaEstaDevolviendoVacio() throws Exception{
+	@Test
+	public void testObtencionDeCategoriasDelRepositorio() throws Exception{
 		Categoria unaCategoria = null;
 		RepositorioCategoria repositorio =new RepositorioCategoria();
-		unaCategoria =repositorio.obtenerCategorias().get(3);
+		unaCategoria =repositorio.obtenerCategorias().get(0);
 		assertEquals("R1",unaCategoria.getNombreCategoria());
-		//Esto de abajo es verdadero pero lo de arriba no (VER POR Q)
-		assertNotNull(unaCategoria);
 	}
+	/*@Test
+	public void testConsumoMaximoDeLaMaximaCategoria() throws Exception{
+
+		RepositorioCategoria repositorio =new RepositorioCategoria();
+		//Categoria unaCategoria = ;
+		double consumo = repositorio.obtenerCategorias().get(8).getConsumoMaximo();
+		assertEquals(0.0,consumo);
+	}
+	*/
 }

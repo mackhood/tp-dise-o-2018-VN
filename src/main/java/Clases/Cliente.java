@@ -100,4 +100,9 @@ public class Cliente {
 
 		return this.categoria.getNombreCategoria();
 	}
+
+	public String nombreCompleto() {
+		return this.nombreCompleto;
+	}
+
 }

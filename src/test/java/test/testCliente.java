@@ -2,14 +2,12 @@ package test;
 
 import Clases.*;
 import Clases.entities.ProcessingDataFailedException;
-import Clases.repositories.RepositorioCategoria;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.Assert.assertNotNull;
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -20,6 +18,7 @@ public class testCliente {
     private Dispositivo unDispositivoApagado;
     private Cliente unClienteCon2Dispositivos;
     private Cliente unClienteSinDispositivos;
+    private Dispositivo otroDispositivo;
 
 
 
@@ -41,6 +40,9 @@ public class testCliente {
         when(unDispositivoApagado.isEncendido()).thenReturn(false);
         when(unDispositivoEncendido.getConsumoTotal()).thenReturn(25.5);
         when(unDispositivoApagado.getConsumoTotal()).thenReturn(25.5);
+
+        otroDispositivo = mock(Dispositivo.class);
+        when(otroDispositivo.getConsumoTotal()).thenReturn(200.0);
 
     }
 
@@ -67,24 +69,56 @@ public class testCliente {
         assertEquals(51.0,unClienteCon2Dispositivos.consumoEnergeticoTotal());
         assertEquals(0.0,unClienteSinDispositivos.consumoEnergeticoTotal());
     }
-    @Test //VER ERROR
-    public void testActualizarCategoriaDeUnCliente(){
-        unClienteCon2Dispositivos.actualizarCategoria();
-        unClienteSinDispositivos.actualizarCategoria();
-        assertNotNull(unClienteCon2Dispositivos.getCategoria());
-        assertNotNull(unClienteSinDispositivos.getCategoria());
-    }
-    @Test //VER ERROR
+    @Test
     public void testVerigifarCategoriaDeUnCliente() throws ProcessingDataFailedException{
+
+        //Se le Agrega otro Dispositivo
+        unClienteCon2Dispositivos.agregarDispositivo(otroDispositivo);
+
+        //Se Actualiza la Categoria de los Cliente
         unClienteCon2Dispositivos.actualizarCategoria();
         unClienteSinDispositivos.actualizarCategoria();
-        //assertEquals("R1",unClienteCon2Dispositivos.nombreCategoria());
-        //assertEquals("R1",unClienteSinDispositivos.nombreCategoria());
-        Categoria unaCategoria = null;
-        RepositorioCategoria repositorio =new RepositorioCategoria();
-        unaCategoria =repositorio.obtenerCategorias().get(0);
-        assertNotNull(unaCategoria);
-    }
 
+        assertEquals("R1",unClienteCon2Dispositivos.nombreCategoria());
+        assertEquals("R2",unClienteSinDispositivos.nombreCategoria());
+    }
+    @Test
+    public void testObtenerGastosAproximados() throws ProcessingDataFailedException{
+
+        //Se le agrega otro dispositivo
+        unClienteCon2Dispositivos.agregarDispositivo(otroDispositivo);
+
+        //Se actualiza su categoria
+        unClienteCon2Dispositivos.actualizarCategoria();
+
+        //Cargofijo=35.32
+        //CargoVariable=0.644
+        //ConsumoCliente=251.0
+        //35.32+0.644*251.0=196.964
+        assertEquals(196.964,unClienteCon2Dispositivos.obtenerGastosAproximados());
+
+    }
+    @Test
+    public void testObtenerGastosAproximadosConMockCategoria() throws ProcessingDataFailedException{
+
+        Categoria categoriaMock = mock(Categoria.class);
+
+        //Se le agrega otro dispositivo
+        unClienteCon2Dispositivos.agregarDispositivo(otroDispositivo);
+
+        //Se actualiza su categoria
+        unClienteCon2Dispositivos.actualizarCategoria();
+
+        //Cargofijo=500
+        //CargoVariable=0.7
+        //ConsumoCliente=251.0
+        //500+0.7*251.0=196.964
+        Double costo =500.0+0.7*unClienteCon2Dispositivos.consumoEnergeticoTotal();
+
+        when(categoriaMock.calcularCostosPara(unClienteCon2Dispositivos)).thenReturn(costo);
+
+        assertEquals(675.7,categoriaMock.calcularCostosPara(unClienteCon2Dispositivos));
+
+    }
 
 }
