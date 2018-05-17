@@ -3,6 +3,7 @@ package test;
 import Clases.Cliente;
 import Clases.repositories.RepositorioClientes;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
@@ -13,6 +14,7 @@ public class testRepositorioClientes {
 	public static void setUpBeforeClass() throws Exception {
 	}
 	//Reemplazar por json de Prueba
+	@Ignore
 	@Test
 	public void testObtenerCargoVariableDeLaCategoriaDelCliente() throws Exception{
 

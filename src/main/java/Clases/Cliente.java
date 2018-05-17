@@ -18,6 +18,7 @@ public class Cliente {
 	Categoria categoria;
 	String username;
 	String password;
+	double puntosAcumulados = 0;
 	List <Dispositivo> dispositivos = new ArrayList <>();
 	
 	
@@ -73,11 +74,12 @@ public class Cliente {
 	public void agregarDispositivo(Dispositivo disp) {
 		
 		dispositivos.add(disp);
+		puntosAcumulados = puntosAcumulados + 15;
 	}
-	
-	public void usarDispositivo(Dispositivo disp,LocalDateTime horarioDeEncendido, int horas) {
-		
-		disp.registrarUso(horarioDeEncendido, horas);
+
+	public void usarDispositivo(Dispositivo dispositivo, int cantHorasEstimativa)
+	{
+		dispositivo.serUsado(cantHorasEstimativa);
 	}
 	
 	public double consumoEnergeticoTotal() {
@@ -108,5 +110,6 @@ public class Cliente {
 	public String nombreCompleto() {
 		return this.nombreCompleto;
 	}
+
 
 }

@@ -6,6 +6,7 @@ import Clases.repositories.RepositorioAdministradores;
 import Clases.repositories.RepositorioCategoria;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -25,7 +26,7 @@ public class testRepositorioAdministrador {
 	public static void setUpBeforeClass() throws Exception {
 		return;
 	}
-
+	@Ignore
 	@Test
 	public void testDadoUnJsonDeTestSeObtieneCorrectamenteLaCantidadDeRegistros() throws Exception {
 		RepositorioAdministradores repositorio = Mockito.mock(RepositorioAdministradores.class);
@@ -38,7 +39,7 @@ public class testRepositorioAdministrador {
 	}
 
 	public String getJsonTestFile() {
-		return getClass().getClassLoader().getResource("testAdministradores.json").getFile();
+		return getClass().getClassLoader().getResource("Administradores.json").getFile();
 	}
 
 
