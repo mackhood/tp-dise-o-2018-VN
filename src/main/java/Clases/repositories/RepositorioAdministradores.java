@@ -14,9 +14,13 @@ import java.util.List;
 
 public class RepositorioAdministradores {
 
-    public static RepositorioAdministradores instance = new RepositorioAdministradores();
+    private static RepositorioAdministradores instance = new RepositorioAdministradores();
 
     private RepositorioAdministradores() { //dejar en privado para que no puedan hacer otra instancia
+    }
+
+    public static RepositorioAdministradores getInstance() {
+        return instance;
     }
 
     public List<Administrador> obtenerAdministradores() throws ProcessingDataFailedException {
@@ -41,7 +45,7 @@ public class RepositorioAdministradores {
         }
     }
 
-    private String getJsonFile() { //Separe este metodo para poder mockearlo al momento de testear
+    public String getJsonFile() { //Separe este metodo para poder mockearlo al momento de testear
         return getClass().getClassLoader().getResource("Administradores.json").getFile();
     }
 }
