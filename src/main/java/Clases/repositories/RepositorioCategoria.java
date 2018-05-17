@@ -16,12 +16,12 @@ public class RepositorioCategoria {
 
     private static RepositorioCategoria instance = new RepositorioCategoria();
 
-    public RepositorioCategoria() { //dejar en privado para que no puedan hacer otra instancia
+    private RepositorioCategoria() { //dejar en privado para que no puedan hacer otra instancia
     }
-    
+
     public static RepositorioCategoria getInstance() {
-		return instance;
-	}
+        return instance;
+    }
 
     public List<Categoria> obtenerCategorias() throws ProcessingDataFailedException {
         try {
