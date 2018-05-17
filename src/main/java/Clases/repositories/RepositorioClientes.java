@@ -28,8 +28,7 @@ public class RepositorioClientes {
     public List<Cliente> obtenerClientes() throws ProcessingDataFailedException {
 
         try {
-            ClassLoader classLoader = getClass().getClassLoader();
-            FileReader file = new FileReader(classLoader.getResource("Clientes.json").getFile());
+            FileReader file = new FileReader(getJsonFile());
             BufferedReader bufferedReader = new BufferedReader(file);
             Gson gson = new Gson();
             Object jsonObject = gson.fromJson(bufferedReader, Object.class);
@@ -48,5 +47,9 @@ public class RepositorioClientes {
             throw new ProcessingDataFailedException(e.getLocalizedMessage());
         }
 
+    }
+
+    private String getJsonFile() { //Separe este metodo para poder mockearlo al momento de testear
+        return getClass().getClassLoader().getResource("Clientes.json").getFile();
     }
 }

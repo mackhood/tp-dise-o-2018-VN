@@ -22,8 +22,7 @@ public class RepositorioAdministradores {
     public List<Administrador> obtenerAdministradores() throws ProcessingDataFailedException {
 
         try {
-            ClassLoader classLoader = getClass().getClassLoader();
-            FileReader file = new FileReader(classLoader.getResource("Administradores.json").getFile());
+            FileReader file = new FileReader(getJsonFile());
             BufferedReader bufferedReader = new BufferedReader(file);
             Gson gson = new Gson();
 
@@ -42,5 +41,7 @@ public class RepositorioAdministradores {
         }
     }
 
-
+    private String getJsonFile() { //Separe este metodo para poder mockearlo al momento de testear
+        return getClass().getClassLoader().getResource("Administradores.json").getFile();
+    }
 }
