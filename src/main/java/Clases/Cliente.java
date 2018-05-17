@@ -1,5 +1,7 @@
 package Clases;
 
+import Clases.entities.ProcessingDataFailedException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ public class Cliente {
 	LocalDate fechaDeAlta;
 	Categoria categoria;
 	String username;
-	String pw;
+	String password;
 	List <Dispositivo> dispositivos = new ArrayList <>();
 	
 	
@@ -34,9 +36,18 @@ public class Cliente {
 	}
 	
 	public void actualizarCategoria() {
-		
+
+		try {
+			AsignadorDeCategoria asignadorDeCategoria = this.asignadorDeCategoria();
+			this.setCategoria(asignadorDeCategoria.definirCategoriaPara(this));
+		} catch (ProcessingDataFailedException e) {
+			e.printStackTrace();
+		}
+
+	}
+	public AsignadorDeCategoria asignadorDeCategoria(){
 		AsignadorDeCategoria asignadorDeCategoria = AsignadorDeCategoria.instance;
-		//this.setCategoria(asignadorDeCategoria.definirCategoriaPara(this));
+		return asignadorDeCategoria;
 	}
 	
 	public boolean algunDispositivoEncendido() {
@@ -87,6 +98,15 @@ public class Cliente {
 	
 	public Categoria getCategoria() {
 		
-		return categoria;
+		return this.categoria;
 	}
+	public  String nombreCategoria() {
+
+		return this.categoria.getNombreCategoria();
+	}
+
+	public String nombreCompleto() {
+		return this.nombreCompleto;
+	}
+
 }

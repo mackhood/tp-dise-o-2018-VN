@@ -1,64 +1,150 @@
 package test;
 
-
-import Clases.Cliente;
-import Clases.Dispositivo;
-import org.junit.Assert;
+import Clases.*;
+import Clases.entities.ProcessingDataFailedException;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import java.util.ArrayList;
+import java.util.List;
 
+import static junit.framework.TestCase.assertEquals;
+import static org.mockito.Mockito.*;
 
 public class testCliente {
-    private Cliente unaPersona;
-    private Dispositivo heladera;
-    private Dispositivo televisor;
 
+    private Dispositivo unDispositivoEncendido;
+    private Dispositivo unDispositivoApagado;
+    private Cliente unClienteCon2Dispositivos;
+    private Cliente unClienteSinDispositivos;
+    private Dispositivo otroDispositivo;
 
     @Before
     public void setUp()  {
 
-        heladera = Mockito.mock(Dispositivo.class);
-        televisor = Mockito.mock(Dispositivo.class);
-        unaPersona = Mockito.mock(Cliente.class);
+        unDispositivoEncendido = mock(Dispositivo.class);
+        unDispositivoApagado = mock(Dispositivo.class);
+        otroDispositivo = mock(Dispositivo.class);
 
-        unaPersona.agregarDispositivo(televisor);
-        unaPersona.agregarDispositivo(heladera);
+        List<Dispositivo> listaDispositivos = new ArrayList<>();
+        List<Dispositivo> listaDispositivosParaOtroCliente = new ArrayList<>();
+        unClienteCon2Dispositivos = spy(new Cliente("Fernando","Sierra","fer22",new ID(TiposIdEnum.DNI,"200"),new Domicilio("bariloche",3118,1,'a'),250,listaDispositivos));
+        unClienteSinDispositivos= spy(new Cliente("Nicolas","Sierra","fer22",new ID(TiposIdEnum.DNI,"200"),new Domicilio("bariloche",3118,1,'a'),250,listaDispositivosParaOtroCliente));
 
-        when(televisor.getConsumoTotal()).thenReturn(2.5);
-        when(heladera.getConsumoTotal()).thenReturn(3.5);
+        unClienteCon2Dispositivos.agregarDispositivo(unDispositivoEncendido);
+        unClienteCon2Dispositivos.agregarDispositivo(unDispositivoApagado);
 
-        when(televisor.isEncendido()).thenReturn(false);
-        when(heladera.isEncendido()).thenReturn(true);
+        when(unDispositivoEncendido.isEncendido()).thenReturn(true);
+        when(unDispositivoApagado.isEncendido()).thenReturn(false);
+        when(unDispositivoEncendido.getConsumoTotal()).thenReturn(25.5);
+        when(unDispositivoApagado.getConsumoTotal()).thenReturn(25.5);
+        when(otroDispositivo.getConsumoTotal()).thenReturn(200.0);
 
     }
 
     @Test
-    public void testAlgunDispositivoEncendido() {
-         Assert.assertTrue(unaPersona.algunDispositivoEncendido());
-    }
+    public void testCantidadDispositivosDeUnCliente(){
 
-    @Test
-    public void testCantDispositivosEncendidos() {
-                Assert.assertEquals(1,unaPersona.cantidadDeDispositivos() );
+        assertEquals(2,unClienteCon2Dispositivos.cantidadDeDispositivos());
+        assertEquals(0,unClienteSinDispositivos.cantidadDeDispositivos());
+
     }
     @Test
-    public void testCantidadDispositivosApagados()  {
-        Assert.assertEquals(1,unaPersona.cantidadDeDispositivosApagados());
+    public void testCantidadDispositivosApagadosDeUnCliente(){
+        assertEquals(1,unClienteCon2Dispositivos.cantidadDeDispositivosApagados());
+        assertEquals(0,unClienteSinDispositivos.cantidadDeDispositivosApagados());
     }
     @Test
-    public void testCantidadDispositivos()  {
-        Assert.assertEquals(2,unaPersona.cantidadDeDispositivos());
+    public void testCantidadDispositivosEncedidosDeUnCliente(){
+        assertEquals(1,unClienteCon2Dispositivos.cantidadDeDispositivosEncendidos());
+        assertEquals(0,unClienteSinDispositivos.cantidadDeDispositivosEncendidos());
     }
-
     @Test
-    public void testConsumoEnergeticoTotal(){
+    public void testConsumoEnergeticoTotalDeUnCliente(){
+        assertEquals(51.0,unClienteCon2Dispositivos.consumoEnergeticoTotal());
+        assertEquals(0.0,unClienteSinDispositivos.consumoEnergeticoTotal());
+    }
+    @Test
+    public void testVerigifarCategoriaDeUnCliente() throws ProcessingDataFailedException{
 
-        assertEquals("El valor de consumo energético no coincide con lo esperado", 5, unaPersona.consumoEnergeticoTotal(), 0);
+        Categoria unaCategoriaMock = mock(Categoria.class);
+        when(unaCategoriaMock.getNombreCategoria()).thenReturn("CategoriaR1");
+        unClienteCon2Dispositivos.setCategoria(unaCategoriaMock);
 
+        assertEquals("CategoriaR1",unClienteCon2Dispositivos.nombreCategoria());
+
+        Categoria categoriaMock = mock(Categoria.class);
+        when(categoriaMock.cumpleCondicion(unClienteCon2Dispositivos)).thenReturn(true);
+        AsignadorDeCategoria asignadorMock = mock(AsignadorDeCategoria.class);
+        when(asignadorMock.definirCategoriaPara(unClienteCon2Dispositivos)).thenReturn(unaCategoriaMock);
+        when(unClienteCon2Dispositivos.asignadorDeCategoria()).thenReturn(asignadorMock);
+        when(unaCategoriaMock.getNombreCategoria()).thenReturn("CategoriaR2");
+
+        unClienteCon2Dispositivos.actualizarCategoria();
+        assertEquals("CategoriaR2",unClienteCon2Dispositivos.nombreCategoria());
+
+    }
+    @Test
+    public void testObtenerGastosAproximadosCliente() throws ProcessingDataFailedException{
+
+        //Cargofijo=35.32
+        //CargoVariable=0.644
+        //ConsumoCliente=51.0
+        //35.32+0.644*51.0= 68.164
+
+        Categoria categoriaMock = mock(Categoria.class);
+        when(categoriaMock.getCargoVariable()).thenReturn(0.644);
+        Double gasto = 35.32+categoriaMock.getCargoVariable()*unClienteCon2Dispositivos.consumoEnergeticoTotal();
+        AsignadorDeCategoria asignadorMock = mock(AsignadorDeCategoria.class);
+        when(asignadorMock.definirCategoriaPara(unClienteCon2Dispositivos)).thenReturn(categoriaMock);
+        when(categoriaMock.calcularCostosPara(unClienteCon2Dispositivos)).thenReturn(gasto);
+        doReturn(asignadorMock)
+                .when(unClienteCon2Dispositivos)
+                .asignadorDeCategoria();
+        unClienteCon2Dispositivos.actualizarCategoria();
+        unClienteCon2Dispositivos.obtenerGastosAproximados();
+
+
+        verify(categoriaMock).calcularCostosPara(unClienteCon2Dispositivos);
+
+
+        assertEquals(68.164,unClienteCon2Dispositivos.obtenerGastosAproximados());
+
+    }
+    @Test
+    public void testObtenerGastosAproximadosConMockCategoria() throws ProcessingDataFailedException{
+
+        Categoria categoriaMock = mock(Categoria.class);
+
+        //Se le agrega otro dispositivo
+        unClienteCon2Dispositivos.agregarDispositivo(otroDispositivo);
+
+        //Se actualiza su categoria
+        unClienteCon2Dispositivos.actualizarCategoria();
+
+        //Cargofijo=500
+        //CargoVariable=0.7
+        //ConsumoCliente=251.0
+        //500+0.7*251.0=196.964
+        double costo =500.0+0.7*unClienteCon2Dispositivos.consumoEnergeticoTotal();
+
+        when(categoriaMock.calcularCostosPara(unClienteCon2Dispositivos)).thenReturn(costo);
+        assertEquals(675.7,categoriaMock.calcularCostosPara(unClienteCon2Dispositivos));
+    }
+    @Test
+    public void testActualizacionCategoriaClienteConSpy() throws ProcessingDataFailedException {
+
+        List<Dispositivo> listaDispositivosParaOtroCliente = new ArrayList<>();
+        Cliente unClienteSpy = spy(new Cliente("Nicolas","Sierra","fer22",new ID(TiposIdEnum.DNI,"200"),new Domicilio("bariloche",3118,1,'a'),250,listaDispositivosParaOtroCliente));
+        Categoria unaCategoriaMock = mock(Categoria.class);
+        AsignadorDeCategoria asignadorMock = mock(AsignadorDeCategoria.class);
+        when(asignadorMock.definirCategoriaPara(unClienteSpy)).thenReturn(unaCategoriaMock);
+        doReturn(asignadorMock)
+                .when(unClienteSpy)
+                .asignadorDeCategoria();
+        unClienteSpy.actualizarCategoria();
+        verify(asignadorMock).definirCategoriaPara(unClienteSpy);
+        assertEquals(unaCategoriaMock,unClienteSpy.getCategoria());
     }
 
 }

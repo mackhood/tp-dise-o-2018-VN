@@ -16,17 +16,16 @@ public class RepositorioCategoria {
 
     private static RepositorioCategoria instance = new RepositorioCategoria();
 
-    private RepositorioCategoria() {
+    private RepositorioCategoria() { //dejar en privado para que no puedan hacer otra instancia
     }
-    
+
     public static RepositorioCategoria getInstance() {
-		return instance;
-	}
+        return instance;
+    }
 
     public List<Categoria> obtenerCategorias() throws ProcessingDataFailedException {
         try {
-            ClassLoader classLoader = getClass().getClassLoader();
-            FileReader file = new FileReader(classLoader.getResource("Categoria.json").getFile());
+            FileReader file = new FileReader(getJsonFile());
             BufferedReader bufferedReader = new BufferedReader(file);
 
             Gson gson = new Gson();
@@ -43,7 +42,12 @@ public class RepositorioCategoria {
         }
     }
 
+    //Separe este metodo para poder mockearlo al momento de testear
+    //Lo hice publico para poder mockearlo
+    public String getJsonFile() {
+        return getClass().getClassLoader().getResource("Categoria.json").getFile();
+    }
 
-	
+
 }
 

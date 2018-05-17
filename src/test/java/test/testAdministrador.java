@@ -2,23 +2,33 @@ package test;
 
 
 import Clases.Administrador;
-import org.junit.BeforeClass;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
+
+import java.time.LocalDate;
 
 public class testAdministrador {
 
-	private Administrador unAdmin;
+	private Administrador unNuevoAdmin;
+    private Administrador otroNuevoAdmin;
 
-	@BeforeClass
+	@Before
 	public void setUp() {
-		unAdmin = Mockito.mock(Administrador.class);
+         unNuevoAdmin =  new  Administrador ( " AAAAA " , " BBBBBB " , LocalDate.of ( 2016 , 5 , 18 ));
+         otroNuevoAdmin =  new  Administrador ( " XXXX " , " ZZZZ " , LocalDate.of ( 2014 , 9 , 20 ));
 	}
-
 	@Test
-	public void test() {
+    public void testCantMesesDelAdminCaso1() {
+
+        Assert.assertEquals(24,unNuevoAdmin.cantMesesComoAdmin());
+    }
+    @Test
+    public void testCantMesesDelAdminCaso2() {
 
 
-	}
+        Assert.assertEquals(43,otroNuevoAdmin.cantMesesComoAdmin());
+    }
+
 
 }

@@ -11,7 +11,7 @@ public class Administrador {
 	LocalDate fechaAlta;
 	long numId;
 	String username;
-	String pw;
+	String password;
 	
 	public Administrador(String nombreCompleto, String unApellido, LocalDate fecha) {
 		this.nombreCompleto = nombreCompleto;

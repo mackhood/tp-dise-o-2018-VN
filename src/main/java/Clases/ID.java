@@ -3,7 +3,7 @@ package Clases;
 public class ID {
 	
     TiposIdEnum tipoID; 
-	long numeroID;
+	String numeroID;
 
-	public ID(TiposIdEnum tipoID, long numeroID) { this.tipoID = tipoID; this.numeroID = numeroID; }	
+	public ID(TiposIdEnum tipoID, String numeroID) { this.tipoID = tipoID; this.numeroID = numeroID; }
 }
