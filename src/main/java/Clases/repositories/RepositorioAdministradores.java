@@ -16,7 +16,7 @@ public class RepositorioAdministradores {
 
     public static RepositorioAdministradores instance = new RepositorioAdministradores();
 
-    private RepositorioAdministradores() {
+    private RepositorioAdministradores() { //dejar en privado para que no puedan hacer otra instancia
     }
 
     public List<Administrador> obtenerAdministradores() throws ProcessingDataFailedException {

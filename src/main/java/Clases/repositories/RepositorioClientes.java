@@ -16,7 +16,7 @@ public class RepositorioClientes {
 
     public static RepositorioClientes instance = new RepositorioClientes();
 
-    public RepositorioClientes() {
+    private RepositorioClientes() { //dejar en privado para que no puedan hacer otra instancia
     }
 
     public void updateClientes(List<Cliente> clientes) {

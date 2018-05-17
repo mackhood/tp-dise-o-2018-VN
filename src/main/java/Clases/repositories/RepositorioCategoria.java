@@ -16,7 +16,7 @@ public class RepositorioCategoria {
 
     private static RepositorioCategoria instance = new RepositorioCategoria();
 
-    public RepositorioCategoria() {
+    private RepositorioCategoria() { //dejar en privado para que no puedan hacer otra instancia
     }
     
     public static RepositorioCategoria getInstance() {
