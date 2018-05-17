@@ -28,8 +28,8 @@ public class testCliente {
 
         List<Dispositivo> listaDispositivos = new ArrayList<>();
         List<Dispositivo> listaDispositivosParaOtroCliente = new ArrayList<>();
-        unClienteCon2Dispositivos = new Cliente("Fernando","Sierra","fer22",new ID(TiposIdEnum.DNI,200),new Domicilio("bariloche",3118,1,'a'),250,listaDispositivos);
-        unClienteSinDispositivos= new Cliente("Nicolas","Sierra","fer22",new ID(TiposIdEnum.DNI,200),new Domicilio("bariloche",3118,1,'a'),250,listaDispositivosParaOtroCliente);
+        unClienteCon2Dispositivos = new Cliente("Fernando","Sierra","fer22",new ID(TiposIdEnum.DNI,"200"),new Domicilio("bariloche",3118,1,'a'),250,listaDispositivos);
+        unClienteSinDispositivos= new Cliente("Nicolas","Sierra","fer22",new ID(TiposIdEnum.DNI,"200"),new Domicilio("bariloche",3118,1,'a'),250,listaDispositivosParaOtroCliente);
 
         unClienteCon2Dispositivos.agregarDispositivo(unDispositivoEncendido);
         unClienteCon2Dispositivos.agregarDispositivo(unDispositivoApagado);
@@ -116,7 +116,7 @@ public class testCliente {
     @Test
     public void testActualizacionCategoriaClienteConSpy() throws ProcessingDataFailedException {
          List<Dispositivo> listaDispositivosParaOtroCliente = new ArrayList<>();
-         Cliente unClienteSpy = spy(new Cliente("Nicolas","Sierra","fer22",new ID(TiposIdEnum.DNI,200),new Domicilio("bariloche",3118,1,'a'),250,listaDispositivosParaOtroCliente));
+         Cliente unClienteSpy = spy(new Cliente("Nicolas","Sierra","fer22",new ID(TiposIdEnum.DNI,"200"),new Domicilio("bariloche",3118,1,'a'),250,listaDispositivosParaOtroCliente));
          Categoria unaCategoriaMock = mock(Categoria.class);
          AsignadorDeCategoria asignadorMock = mock(AsignadorDeCategoria.class);
          when(asignadorMock.definirCategoriaPara(unClienteSpy)).thenReturn(unaCategoriaMock);

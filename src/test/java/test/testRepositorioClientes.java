@@ -17,7 +17,7 @@ public class testRepositorioClientes {
 	public void testObtenerCargoVariableDeLaCategoriaDelCliente() throws Exception{
 
 
-			RepositorioClientes repositorio =new RepositorioClientes();
+			RepositorioClientes repositorio =RepositorioClientes.getInstance();
 		    Cliente unCliente = repositorio.obtenerClientes().get(0);
 			assertEquals("Ema",unCliente.nombreCompleto());
 			assertEquals(18.76,unCliente.getCategoria().getCargoVariable());

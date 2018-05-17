@@ -16,7 +16,7 @@ public class RepositorioCategoria {
 
     private static RepositorioCategoria instance = new RepositorioCategoria();
 
-    private RepositorioCategoria() { //dejar en privado para que no puedan hacer otra instancia
+    public RepositorioCategoria() { //dejar en privado para que no puedan hacer otra instancia
     }
     
     public static RepositorioCategoria getInstance() {
@@ -42,7 +42,9 @@ public class RepositorioCategoria {
         }
     }
 
-    private String getJsonFile() { //Separe este metodo para poder mockearlo al momento de testear
+    //Separe este metodo para poder mockearlo al momento de testear
+    //Lo hice publico para poder mockearlo
+    public String getJsonFile() {
         return getClass().getClassLoader().getResource("Categoria.json").getFile();
     }
 

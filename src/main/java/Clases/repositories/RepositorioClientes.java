@@ -14,7 +14,11 @@ import java.util.List;
 
 public class RepositorioClientes {
 
-    public static RepositorioClientes instance = new RepositorioClientes();
+    public static RepositorioClientes getInstance() {
+        return instance;
+    }
+
+    private static RepositorioClientes instance = new RepositorioClientes();
 
     private RepositorioClientes() { //dejar en privado para que no puedan hacer otra instancia
     }
