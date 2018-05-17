@@ -4,7 +4,7 @@
     "apellido": "Emma",
     "identificacion": {
       "tipoID": "DNI",
-      "numeroID": 48158457
+      "numeroID": "48158457"
     },
     "telefono": 42781596,
     "domicilio": {
@@ -52,7 +52,7 @@
     "apellido": "apellidoASD",
     "identificacion": {
       "tipoID": "DNI",
-      "numeroID": 48158457
+      "numeroID": "48158457"
     },
     "telefono": 4178965,
     "domicilio": {

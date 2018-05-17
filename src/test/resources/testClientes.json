@@ -1,0 +1,43 @@
+[
+  {
+    "nombreCompleto": "nombreTest",
+    "apellido": "apellidoTest",
+    "identificacion": {
+      "tipoID": "DNI",
+      "numeroID": "48158457"
+    },
+    "telefono": 42781596,
+    "domicilio": {
+      "calle": "Av.X",
+      "altura": 1234,
+      "piso": 7,
+      "departamento": "a"
+    },
+    "fechaDeAlta": {
+      "year": 2018,
+      "month": 4,
+      "day": 27
+    },
+    "categoria": {
+      "cargoFijo": 18.76,
+      "cargoVariable": 0.644
+    },
+    "username": "userTest",
+    "dispositivos": [
+      {
+        "nombre": "dispositivoApagado",
+        "consumo": 100.0,
+        "encendido": false,
+        "consumoTotal": 0.0,
+        "horasDeUso": 0.0
+      },
+      {
+        "nombre": "dispositivoPrendido",
+        "consumo": 50.0,
+        "encendido": true,
+        "consumoTotal": 0.0,
+        "horasDeUso": 0.0
+      }
+    ]
+  }
+]

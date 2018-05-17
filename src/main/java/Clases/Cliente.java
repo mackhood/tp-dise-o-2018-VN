@@ -17,7 +17,7 @@ public class Cliente {
 	LocalDate fechaDeAlta;
 	Categoria categoria;
 	String username;
-	String pw;
+	String password;
 	List <Dispositivo> dispositivos = new ArrayList <>();
 	
 	
