@@ -7,7 +7,7 @@ import java.time.temporal.ChronoUnit;
 public abstract class Dispositivo {
 
 	String nombre;
-	EstadoDispositivo estado;
+	EstadoDispositivo estado = null;
 	double estimacionConsumo;
 	double horasDeUso = 0;
 
@@ -47,5 +47,9 @@ public abstract class Dispositivo {
 		
 		return estado;
 	}
-	
+
+	public boolean esCiertoEstado(EstadoDispositivo estadoCond)
+	{
+		return estado.equals(estadoCond);
+	}
 }

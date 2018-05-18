@@ -20,7 +20,7 @@ public class AdapterEstandarAInteligente implements IEstandar
     {
         return dispInteligente.estadoDispositivo();
     }
-
+    public double getConsumoTotal(){return dispInteligente.getConsumoTotal();}
 
 
 }

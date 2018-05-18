@@ -12,7 +12,7 @@ import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class testCliente {
-
+/*
     private Dispositivo unDispositivoEncendido;
     private Dispositivo unDispositivoApagado;
     private Cliente unClienteCon2Dispositivos;
@@ -146,5 +146,5 @@ public class testCliente {
         verify(asignadorMock).definirCategoriaPara(unClienteSpy);
         assertEquals(unaCategoriaMock,unClienteSpy.getCategoria());
     }
-
+*/
 }

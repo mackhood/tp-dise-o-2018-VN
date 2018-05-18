@@ -1,6 +1,7 @@
 package test;
 
 import Clases.Dispositivo;
+import Clases.DispositivoEstandar;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,7 +15,7 @@ public class testDispositivo {
 
     @Before
     public void setUp()  {
-        unDispositivo = new Dispositivo("a1",300,false);
+        unDispositivo = new DispositivoEstandar("a1",300);
     }
 
     @Test
@@ -22,8 +23,19 @@ public class testDispositivo {
         assertEquals(0.0,unDispositivo.getConsumoTotal());
     }
     @Test
-    public void  testCalcularIntervalo(){
-
-        assertEquals(13,unDispositivo.calcularIntervalo(LocalTime.of(5, 05, 12, 10), LocalTime.of(8, 03, 02, 02)));
+    public void testConsultaDeEstadoDeUnDispositivoEstandar()
+    {
+        assertEquals("Como es estandar => Nulo",null, unDispositivo.estadoDispositivo());
     }
+    @Test
+    public void testConsultaDeConsumoTotalDeUnDispositivoEstandar()
+    {
+        assertEquals("Como es estandar => 0",0.0, unDispositivo.getConsumoTotal());
+    }
+    @Test
+    public  void testConsultaConsumoDeUnDispositivoEstandar()
+    {
+        assertEquals("Como es estandar => tiene una estimacion",300.0, unDispositivo.estimacionConsumo());
+    }
+
 }

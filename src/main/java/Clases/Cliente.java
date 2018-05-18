@@ -50,20 +50,25 @@ public class Cliente {
 		AsignadorDeCategoria asignadorDeCategoria = AsignadorDeCategoria.instance;
 		return asignadorDeCategoria;
 	}
-	
+	public void agregarModuloAdaptador(DispositivoEstandar disp)
+	{
+		disp.agregarAdaptadorInteligente();
+		this.sumarPuntos(10);
+	}
+
 	public boolean algunDispositivoEncendido() {
 		
-		return dispositivos.stream().anyMatch(disp -> disp.isEncendido());
+		return dispositivos.stream().anyMatch(disp -> disp.esCiertoEstado(EstadoDispositivo.ENCENDIDO) );
 	}
 	
 	public long cantidadDeDispositivosEncendidos() {
 		
-		return dispositivos.stream().filter(disp -> disp.isEncendido()).count();
+		return dispositivos.stream().filter(disp -> disp.esCiertoEstado(EstadoDispositivo.ENCENDIDO)).count();
 	}
 	
 	public long cantidadDeDispositivosApagados() {
 		
-		return dispositivos.stream().filter(disp -> !disp.isEncendido()).count();
+		return dispositivos.stream().filter(disp -> disp.esCiertoEstado(EstadoDispositivo.APAGADO)).count();
 	}
 	
 	public int cantidadDeDispositivos() {
@@ -74,7 +79,11 @@ public class Cliente {
 	public void agregarDispositivo(Dispositivo disp) {
 		
 		dispositivos.add(disp);
-		puntosAcumulados = puntosAcumulados + 15;
+		this.sumarPuntos(15);
+	}
+	public void sumarPuntos(int puntos)
+	{
+		puntosAcumulados = puntosAcumulados + puntos;
 	}
 
 	public void usarDispositivo(Dispositivo dispositivo, int cantHorasEstimativa)
