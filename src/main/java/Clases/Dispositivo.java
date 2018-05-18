@@ -52,4 +52,10 @@ public abstract class Dispositivo {
 	{
 		return estado.equals(estadoCond);
 	}
+
+    public void aumentarConsumoPor(int aumento)
+	{
+		consumoEstimadoPorHora = consumoEstimadoPorHora + aumento;
+	}
+
 }
