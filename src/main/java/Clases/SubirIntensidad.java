@@ -11,9 +11,7 @@ public class SubirIntensidad extends Actuador {
     @Override
     public void ejecutar() {
 
-        if(puedeEjecutarse())
-        {
-            dispositivo.aumentarConsumoPor(150);
-        }
+        dispositivo.aumentarConsumoPor(150);
+
     }
 }

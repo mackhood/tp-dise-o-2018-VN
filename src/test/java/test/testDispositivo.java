@@ -18,15 +18,16 @@ public class testDispositivo {
     private Sensor sensorMedirTemperaturaAfuera;
     private Regla regla1;
     private Sensor sensorMovimiento;
+    private Fabricante fabricante;
 
     @Before
     public void setUp() {
         unDispositivoEstandar = new DispositivoEstandar("a1", 300);
         unDispositivoInteligente = new DispositivoInteligente("da", 500);
-
+        fabricante = new Fabricante(1);
         sensorMedirTemperaturaAfuera = new Sensor("MedirTemperaturaAfuera");
         sensorMovimiento = new Sensor("MedirMovimiento");
-        subirIntensidad = new SubirIntensidad(unDispositivoInteligente);
+        subirIntensidad = new SubirIntensidad(unDispositivoInteligente, fabricante);
         regla1 = new Regla(subirIntensidad, sensorMedirTemperaturaAfuera);
     }
   

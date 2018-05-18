@@ -7,7 +7,7 @@ public abstract class Actuador {
 
     public boolean puedeEjecutarse()
     {
-        fabricante.verificarCoincidenciaIDS();
+        return fabricante.verificarCoincidenciaIDS();
     }
     public void ejecutar(){
     }
