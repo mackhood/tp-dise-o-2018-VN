@@ -26,11 +26,7 @@ public class testDispositivo {
     public void testConsumoTotal(){
         assertEquals(0.0,unDispositivoEstandar.getConsumoTotal());
     }
-    @Test
-    public void testConsultaDeEstadoDeUnDispositivoEstandar()
-    {
-        assertEquals("Como es estandar => Nulo",null, unDispositivoEstandar.estadoDispositivo());
-    }
+
     @Test
     public void testConsultaDeConsumoTotalDeUnDispositivoEstandar()
     {

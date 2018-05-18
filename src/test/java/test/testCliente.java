@@ -14,8 +14,8 @@ import static org.mockito.Mockito.*;
 
 public class testCliente {
 
-    private Dispositivo unDispositivoEncendido;
-    private Dispositivo unDispositivoApagado;
+    private DispositivoEstandar unDispositivoEncendido;
+    private DispositivoEstandar unDispositivoApagado;
     private Cliente unClienteCon2Dispositivos;
     private Cliente unClienteSinDispositivos;
     private Dispositivo otroDispositivo;
@@ -23,8 +23,8 @@ public class testCliente {
     @Before
     public void setUp()  {
 
-        unDispositivoEncendido = mock(Dispositivo.class);
-        unDispositivoApagado = mock(Dispositivo.class);
+        unDispositivoEncendido = mock(DispositivoEstandar.class);
+        unDispositivoApagado = mock(DispositivoEstandar.class);
         otroDispositivo = mock(Dispositivo.class);
 
         List<Dispositivo> listaDispositivos = new ArrayList<>();
@@ -43,6 +43,14 @@ public class testCliente {
 
     }
 
+    @Test
+    public void testClienteCon2DispositivosEstandaresLigando1ModuloAdaptadorAUnDispEstandarNuevo()
+    {
+        DispositivoEstandar dispEstandar = new DispositivoEstandar("asd",100);
+        unClienteCon2Dispositivos.agregarDispositivo(dispEstandar);
+        unClienteCon2Dispositivos.agregarModuloAdaptador(dispEstandar);
+        assertEquals(55.0, unClienteCon2Dispositivos.puntos());
+    }
     @Test
     public void testCantidadDispositivosDeUnCliente(){
 

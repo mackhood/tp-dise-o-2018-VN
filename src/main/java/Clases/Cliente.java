@@ -46,6 +46,10 @@ public class Cliente {
 		}
 
 	}
+	public double puntos()
+	{
+		return puntosAcumulados;
+	}
 	public AsignadorDeCategoria asignadorDeCategoria(){
 		AsignadorDeCategoria asignadorDeCategoria = AsignadorDeCategoria.instance;
 		return asignadorDeCategoria;

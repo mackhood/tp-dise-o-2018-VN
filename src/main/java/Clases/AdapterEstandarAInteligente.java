@@ -1,6 +1,6 @@
 package Clases;
 
-public class AdapterEstandarAInteligente extends DispositivoInteligente
+public class AdapterEstandarAInteligente extends DispositivoInteligente implements AdapterEstandar
 {
     public AdapterEstandarAInteligente(DispositivoEstandar dispositivoEstandar)
     {
