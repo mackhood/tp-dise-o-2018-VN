@@ -1,27 +1,9 @@
 package Clases;
 
-public class AdapterEstandarAInteligente implements IEstandar
+public class AdapterEstandarAInteligente extends DispositivoInteligente
 {
-    DispositivoInteligente dispInteligente = null;
-
     public AdapterEstandarAInteligente(DispositivoEstandar dispositivoEstandar)
     {
-        dispInteligente = new DispositivoInteligente(dispositivoEstandar.nombre(), dispositivoEstandar.estimacionConsumo());
+        super(dispositivoEstandar.nombre(), dispositivoEstandar.consumoEstimadoPorHora);
     }
-
-    public void encender()
-    {
-        dispInteligente.encender();
-    }
-    public void apagar()
-    {
-        dispInteligente.apagar();
-    }
-    public EstadoDispositivo estadoDispositivo()
-    {
-        return dispInteligente.estadoDispositivo();
-    }
-    public double getConsumoTotal(){return dispInteligente.getConsumoTotal();}
-
-
 }

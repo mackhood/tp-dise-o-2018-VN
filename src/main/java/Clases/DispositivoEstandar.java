@@ -1,15 +1,16 @@
 package Clases;
 
 import Clases.entities.DispositivoEstandarException;
-import com.sun.istack.internal.localization.NullLocalizable;
 
-public class DispositivoEstandar extends Dispositivo
-{
+public class DispositivoEstandar extends Dispositivo{
+
     AdapterEstandarAInteligente adapter = null;
-    public DispositivoEstandar(String nombre, double estimacionConsumo)
+
+    public DispositivoEstandar(String nombre,double  consumoEstimadoPorHora)
     {
-        super(nombre,estimacionConsumo);
+        super(nombre,consumoEstimadoPorHora);
     }
+
     public boolean tieneAdapter()
     {
         return adapter != null;
@@ -18,6 +19,7 @@ public class DispositivoEstandar extends Dispositivo
     public void agregarAdaptadorInteligente()
     {
         adapter = new AdapterEstandarAInteligente(this);
+
     }
 
     public DispositivoEstandarException tirarException()

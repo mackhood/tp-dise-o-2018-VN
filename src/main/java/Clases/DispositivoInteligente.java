@@ -10,11 +10,11 @@ public class DispositivoInteligente extends Dispositivo
     {
         if(X >= horasDeUso)
         {
-            return estimacionConsumo * horasDeUso;
+            return consumoEstimadoPorHora * horasDeUso;
         }
         else
         {
-            return estimacionConsumo * X;
+            return consumoEstimadoPorHora * X;
         }
     }
 

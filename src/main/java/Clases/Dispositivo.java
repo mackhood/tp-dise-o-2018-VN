@@ -8,12 +8,12 @@ public abstract class Dispositivo {
 
 	String nombre;
 	EstadoDispositivo estado = null;
-	double estimacionConsumo;
+	double consumoEstimadoPorHora;
 	double horasDeUso = 0;
 
-	public Dispositivo(String nombre, double consumo) {
+	public Dispositivo(String nombre, double consumoEstimadoPorHora) {
 		this.nombre = nombre;
-		this.estimacionConsumo = consumo;
+		this.consumoEstimadoPorHora = consumoEstimadoPorHora;
 	}
 	public void serUsado(int cantHorasEstimativa)
 	{
@@ -29,9 +29,9 @@ public abstract class Dispositivo {
 		estado = EstadoDispositivo.APAGADO;
 	}
 
-	public double estimacionConsumo()
+	public double consumoEstimadoPorHora()
 	{
-		return estimacionConsumo;
+		return consumoEstimadoPorHora;
 	}
 	public String nombre() {
 		
@@ -40,7 +40,7 @@ public abstract class Dispositivo {
 
 	public double getConsumoTotal() {
 		
-		return estimacionConsumo * horasDeUso;
+		return consumoEstimadoPorHora * horasDeUso;
 	}
 
 	public EstadoDispositivo estadoDispositivo() {

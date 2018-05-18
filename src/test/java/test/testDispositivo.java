@@ -39,7 +39,7 @@ public class testDispositivo {
     @Test
     public  void testConsultaConsumoDeUnDispositivoEstandar()
     {
-        assertEquals("Como es estandar => tiene una estimacion",300.0, unDispositivoEstandar.estimacionConsumo());
+        assertEquals("Como es estandar => tiene una estimacion",300.0, unDispositivoEstandar.consumoEstimadoPorHora());
     }
 
     @Test
