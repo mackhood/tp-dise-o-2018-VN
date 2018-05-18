@@ -41,8 +41,10 @@ public class DispositivoEstandar extends Dispositivo {
         return adapter.estadoDispositivo();
     }
 
+    /*
     @Override
     public double getConsumoTotal() {
         return adapter.getConsumoTotal();
     }
+    */
 }

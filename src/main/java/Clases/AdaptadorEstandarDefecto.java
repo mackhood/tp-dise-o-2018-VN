@@ -15,8 +15,5 @@ public class AdaptadorEstandarDefecto implements AdapterEstandar {
         return null;
     }
 
-    public double getConsumoTotal() {
-        return 0;
-    }
 
 }
