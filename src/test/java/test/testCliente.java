@@ -48,7 +48,7 @@ public class testCliente {
         DispositivoEstandar dispEstandar = new DispositivoEstandar("asd",100);
         unClienteCon2Dispositivos.agregarDispositivo(dispEstandar);
         unClienteCon2Dispositivos.agregarModuloAdaptador(dispEstandar);
-        assertEquals(55.0, unClienteCon2Dispositivos.puntos());
+        assertEquals(55.0, unClienteCon2Dispositivos.puntosAcumulados());
     }
   
     @Test

@@ -17,11 +17,11 @@ public abstract class Dispositivo {
     }
 
     public void encender() {
-        estado = EstadoDispositivo.ENCENDIDO;
+        estado = EstadoDispositivoEnum.ENCENDIDO;
     }
   
     public void apagar() {
-        estado = EstadoDispositivo.APAGADO;
+        estado = EstadoDispositivoEnum.APAGADO;
     }
 
     public double consumoEstimadoPorHora() {
@@ -42,7 +42,7 @@ public abstract class Dispositivo {
         return estado;
     }
 
-    public boolean esCiertoEstado(EstadoDispositivo estadoCond) {
+    public boolean esCiertoEstado(EstadoDispositivoEnum estadoCond) {
         return estado.equals(estadoCond);
     }
 

@@ -44,6 +44,11 @@ public class Cliente {
         }
     }
 
+    public double puntosAcumulados()
+    {
+        return puntosAcumulados;
+    }
+
 
     public AsignadorDeCategoria asignadorDeCategoria() {
         return AsignadorDeCategoria.getInstance();

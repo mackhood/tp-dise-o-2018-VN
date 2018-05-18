@@ -1,15 +1,19 @@
 package Clases;
 
-public class SubirIntensidad implements Actuador {
-    DispositivoInteligente dispositivo;
+public class SubirIntensidad extends Actuador {
 
-    public SubirIntensidad(DispositivoInteligente unDisp)
+
+    public SubirIntensidad(DispositivoInteligente unDisp, Fabricante unFabricante)
     {
-        this.dispositivo = unDisp;
+        super(unDisp, unFabricante);
     }
     //No me queda claro si el actuador ya conoce desde antes al dispositivo que va a aplicar su accion
     @Override
     public void ejecutar() {
-        dispositivo.aumentarConsumoPor(150);
+
+        if(puedeEjecutarse())
+        {
+            dispositivo.aumentarConsumoPor(150);
+        }
     }
 }

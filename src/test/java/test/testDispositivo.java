@@ -37,10 +37,6 @@ public class testDispositivo {
         assertEquals(650.0,unDispositivoInteligente.consumoEstimadoPorHora());
     }
 
-    @Test
-    public void testConsumoTotal() {
-        assertEquals(0.0, unDispositivoEstandar.getConsumoTotal());
-    }
 
     @Test
     public void testSensorMovimientoConRegla1()
@@ -69,20 +65,11 @@ public class testDispositivo {
         assertEquals("Como es estandar => tiene una estimacion", 300.0, unDispositivoEstandar.consumoEstimadoPorHora());
     }
   
-    @Test
-    public void testDispositivoInteligenteEncendido() {
-        unDispositivoInteligente.encender();
-        assertEquals(EstadoDispositivo.ENCENDIDO, unDispositivoInteligente.estadoDispositivo());
-    }
 
+    /*
     public void testConsultaDeConsumoTotalDeUnDispositivoEstandar() {
         assertEquals("Como es estandar => 0", 0.0, unDispositivoEstandar.getConsumoTotal());
-    }
-
-    @Test
-    public void testConsultaConsumoDeUnDispositivoEstandar() {
-        assertEquals("Como es estandar => tiene una estimacion", 300.0, unDispositivoEstandar.consumoEstimadoPorHora());
-    }
+    }*/
 
     @Test
     public void testDispositivoInteligenteEncendido() {
@@ -90,11 +77,6 @@ public class testDispositivo {
         assertEquals(EstadoDispositivoEnum.ENCENDIDO, unDispositivoInteligente.estadoDispositivo());
     }
 
-    @Test
-    public void testDispositivoInteligenteApagado() {
-        unDispositivoInteligente.apagar();
-        assertEquals(EstadoDispositivoEnum.APAGADO, unDispositivoInteligente.estadoDispositivo());
-    }
 
     @Test
     public void testDispositivoInteligenteModoAhorro() {

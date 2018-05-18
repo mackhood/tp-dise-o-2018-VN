@@ -1,6 +1,20 @@
 package Clases;
 
-public interface Actuador {
+public abstract class Actuador {
     //Cada uno de los distintos Actuadores va a tener su propia logica a implementar en ejecutar
-    public void ejecutar();
+    DispositivoInteligente dispositivo;
+    Fabricante fabricante;
+
+    public boolean puedeEjecutarse()
+    {
+        fabricante.verificarCoincidenciaIDS();
+    }
+    public void ejecutar(){
+    }
+    public Actuador(DispositivoInteligente unDispositivo, Fabricante unFabricante)
+    {
+        this.dispositivo = unDispositivo;
+        this.fabricante = unFabricante;
+    }
+
 }

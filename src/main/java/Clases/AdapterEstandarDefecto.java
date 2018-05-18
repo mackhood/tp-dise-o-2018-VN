@@ -17,7 +17,7 @@ public class AdapterEstandarDefecto implements  AdapterEstandar
     public void encender(){
 
     }
-    public EstadoDispositivo estadoDispositivo(){
+    public EstadoDispositivoEnum estadoDispositivo(){
         return null;
     }
     public double getConsumoTotal(){

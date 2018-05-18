@@ -6,7 +6,7 @@ public interface AdapterEstandar {
 
     public void apagar();
     public void encender();
-    public EstadoDispositivo estadoDispositivo();
+    public EstadoDispositivoEnum estadoDispositivo();
     public double getConsumoTotal();
 
 

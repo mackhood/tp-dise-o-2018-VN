@@ -21,13 +21,13 @@ public class testAdministrador {
     }
 
     // Tiene sentido hacer test de esta clase que no tiene comportamiento?
-    @Ignore //Los ignoro porque no tiene sentido testear eso porque con el tiempo deja de funcionar.
+    //@Ignore //Los ignoro porque no tiene sentido testear eso porque con el tiempo deja de funcionar.
     @Test
     public void testCantMesesDelAdminCaso1() {
-        Assert.assertEquals(23, unNuevoAdmin.cantMesesComoAdmin());
+        Assert.assertEquals(24, unNuevoAdmin.cantMesesComoAdmin());
     }
 
-    @Ignore //Los ignoro porque no tiene sentido testear eso porque con el tiempo deja de funcionar.
+    //@Ignore //Los ignoro porque no tiene sentido testear eso porque con el tiempo deja de funcionar.
     @Test
     public void testCantMesesDelAdminCaso2() {
         Assert.assertEquals(43, otroNuevoAdmin.cantMesesComoAdmin());
