@@ -8,12 +8,16 @@ import java.util.stream.Collectors;
 
 public class AsignadorDeCategoria {
 
-    public static AsignadorDeCategoria instance = new AsignadorDeCategoria();
+    private static AsignadorDeCategoria instance = new AsignadorDeCategoria();
 
     private AsignadorDeCategoria() {
     }
 
     RepositorioCategoria repositorio = RepositorioCategoria.getInstance();
+
+    public static AsignadorDeCategoria getInstance() {
+        return instance;
+    }
 
     public Categoria definirCategoriaPara(Cliente cliente) throws ProcessingDataFailedException {
 
@@ -23,10 +27,11 @@ public class AsignadorDeCategoria {
         } catch (ProcessingDataFailedException e) {
             throw new ProcessingDataFailedException(e.getLocalizedMessage());
         }
-        return categoriaCliente(cliente,categoriasPosibles);
+        return categoriaCliente(cliente, categoriasPosibles);
 
     }
-    public Categoria categoriaCliente(Cliente cliente,List<Categoria> categoriasPosibles){
+
+    public Categoria categoriaCliente(Cliente cliente, List<Categoria> categoriasPosibles) {
         return categoriasPosibles.stream().filter(cat -> cat.cumpleCondicion(cliente)).collect(Collectors.toList()).get(0);
     }
 

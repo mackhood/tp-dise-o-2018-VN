@@ -1,3 +1,3 @@
 package Clases;
 
-public enum TiposIdEnum { DNI, LE, CI, LC }
+public enum TiposIdEnum {DNI, LE, CI, LC}

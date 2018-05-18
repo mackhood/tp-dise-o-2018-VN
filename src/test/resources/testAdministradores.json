@@ -1,6 +1,6 @@
 [
   {
-    "nombreCompleto": "nombreTest",
+    "nombre": "nombreTest",
     "apellido": "apellidoTest",
     "fechaAlta": {
       "year": 2016,

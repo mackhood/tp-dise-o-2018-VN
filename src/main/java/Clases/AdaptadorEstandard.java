@@ -1,14 +1,14 @@
 package Clases;
 
-import Clases.EstadoDispositivo;
-
 public interface AdaptadorEstandard {
 
+    //Es redundante poner public a los metodos de interfaces
+    void apagar();
 
-    public void apagar();
-    public void encender();
-    public EstadoDispositivo estadoDispositivo();
-    public double getConsumoTotal();
+    void encender();
 
+    EstadoDispositivoEnum estadoDispositivo();
+
+    double getConsumoTotal();
 
 }
