@@ -22,6 +22,7 @@ public class DispositivoEstandar extends Dispositivo {
         return new DispositivoEstandarException();
     }
 
+    /*
     @Override
     public void apagar() {
         adapter.apagar();
@@ -33,6 +34,7 @@ public class DispositivoEstandar extends Dispositivo {
         adapter.encender();
 
     }
+    */
 
     @Override
     public EstadoDispositivoEnum estadoDispositivo() {
