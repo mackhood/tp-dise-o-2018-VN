@@ -5,11 +5,11 @@ public class Regla {
     Actuador actuador;
     Sensor sensor;
 
-    public Regla(Actuador actuador, Sensor sensor)
-    {
+    public Regla(Actuador actuador, Sensor sensor) {
         this.actuador = actuador;
         this.sensor = sensor;
     }
+
     public void dispararActuador() {
         actuador.ejecutar();
     }

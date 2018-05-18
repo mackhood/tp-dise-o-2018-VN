@@ -43,14 +43,13 @@ public class testCliente {
     }
 
     @Test
-    public void testClienteCon2DispositivosEstandaresLigando1ModuloAdaptadorAUnDispEstandarNuevo()
-    {
-        DispositivoEstandar dispEstandar = new DispositivoEstandar("asd",100);
+    public void testClienteCon2DispositivosEstandaresLigando1ModuloAdaptadorAUnDispEstandarNuevo() {
+        DispositivoEstandar dispEstandar = new DispositivoEstandar("asd", 100);
         unClienteCon2Dispositivos.agregarDispositivo(dispEstandar);
         unClienteCon2Dispositivos.agregarModuloAdaptador(dispEstandar);
         assertEquals(55.0, unClienteCon2Dispositivos.puntosAcumulados());
     }
-  
+
     @Test
     public void testCantidadDispositivosDeUnCliente() {
         assertEquals(2, unClienteCon2Dispositivos.cantidadDeDispositivos());

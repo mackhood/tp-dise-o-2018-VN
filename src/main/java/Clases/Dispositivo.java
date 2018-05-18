@@ -19,7 +19,7 @@ public abstract class Dispositivo {
     public void encender() {
         estado = EstadoDispositivoEnum.ENCENDIDO;
     }
-  
+
     public void apagar() {
         estado = EstadoDispositivoEnum.APAGADO;
     }

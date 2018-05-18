@@ -1,7 +1,6 @@
 package Clases;
 
-public class AdapterEstandarDefecto implements  AdapterEstandar
-{
+public class AdapterEstandarDefecto implements AdapterEstandar {
     private static AdapterEstandarDefecto ourInstance = new AdapterEstandarDefecto();
 
     public static AdapterEstandarDefecto getInstance() {
@@ -14,13 +13,16 @@ public class AdapterEstandarDefecto implements  AdapterEstandar
     public void apagar() {
 
     }
-    public void encender(){
+
+    public void encender() {
 
     }
-    public EstadoDispositivoEnum estadoDispositivo(){
+
+    public EstadoDispositivoEnum estadoDispositivo() {
         return null;
     }
-    public double getConsumoTotal(){
+
+    public double getConsumoTotal() {
         return 0;
     }
 

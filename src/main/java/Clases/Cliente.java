@@ -44,8 +44,7 @@ public class Cliente {
         }
     }
 
-    public double puntosAcumulados()
-    {
+    public double puntosAcumulados() {
         return puntosAcumulados;
     }
 

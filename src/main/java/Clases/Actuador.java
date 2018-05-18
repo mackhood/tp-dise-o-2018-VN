@@ -5,14 +5,14 @@ public abstract class Actuador {
     DispositivoInteligente dispositivo;
     Fabricante fabricante;
 
-    public boolean puedeEjecutarse()
-    {
+    public boolean puedeEjecutarse() {
         return fabricante.verificarCoincidenciaIDS();
     }
-    public void ejecutar(){
+
+    public void ejecutar() {
     }
-    public Actuador(DispositivoInteligente unDispositivo, Fabricante unFabricante)
-    {
+
+    public Actuador(DispositivoInteligente unDispositivo, Fabricante unFabricante) {
         this.dispositivo = unDispositivo;
         this.fabricante = unFabricante;
     }
