@@ -10,10 +10,12 @@ public class DispositivoEstandar extends Dispositivo {
         super(nombre, consumoEstimadoPorHora);
     }
 
+    public boolean tieneAdapter() {
+        return adapter != null;
+    }
 
     public void agregarAdaptadorInteligente() {
         adapter = new AdapterEstandarAInteligente(this);
-
     }
 
     public DispositivoEstandarException tirarException() {
@@ -33,9 +35,8 @@ public class DispositivoEstandar extends Dispositivo {
     }
 
     @Override
-    public EstadoDispositivo estadoDispositivo() {
+    public EstadoDispositivoEnum estadoDispositivo() {
         return adapter.estadoDispositivo();
-
     }
 
     @Override

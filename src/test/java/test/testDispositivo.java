@@ -1,10 +1,12 @@
 package test;
 
 import Clases.*;
+import Clases.DispositivoEstandar;
+import Clases.DispositivoInteligente;
+import Clases.EstadoDispositivoEnum;
+
 import org.junit.Before;
 import org.junit.Test;
-
-import java.time.LocalTime;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -21,30 +23,58 @@ public class testDispositivo {
     public void setUp() {
         unDispositivoEstandar = new DispositivoEstandar("a1", 300);
         unDispositivoInteligente = new DispositivoInteligente("da", 500);
+
         sensorMedirTemperaturaAfuera = new Sensor("MedirTemperaturaAfuera");
         sensorMovimiento = new Sensor("MedirMovimiento");
         subirIntensidad = new SubirIntensidad(unDispositivoInteligente);
         regla1 = new Regla(subirIntensidad, sensorMedirTemperaturaAfuera);
     }
-
+  
     @Test
     public void testSensorIntensidadConRegla1()
     {
         sensorMedirTemperaturaAfuera.comunicarMedicion(regla1);
         assertEquals(650.0,unDispositivoInteligente.consumoEstimadoPorHora());
     }
-    @Test
-    public void testSensorMovimientoConRegla1()
-    {
-        sensorMovimiento.comunicarMedicion(regla1);
-        assertEquals(500.0, unDispositivoInteligente.consumoEstimadoPorHora());
-    }
+
     @Test
     public void testConsumoTotal() {
         assertEquals(0.0, unDispositivoEstandar.getConsumoTotal());
     }
 
     @Test
+    public void testSensorMovimientoConRegla1()
+    {
+        sensorMovimiento.comunicarMedicion(regla1);
+        assertEquals(500.0, unDispositivoInteligente.consumoEstimadoPorHora());
+    }
+
+    @Test
+    public void testConsultaDeEstadoDeUnDispositivoEstandar() {
+        assertEquals("Como es estandar => Nulo", null, unDispositivoEstandar.estadoDispositivo());
+    }
+
+    @Test
+    public void testConsumoTotal() {
+        assertEquals(0.0, unDispositivoEstandar.getConsumoTotal());
+    }
+  
+    @Test
+    public void testConsultaDeConsumoTotalDeUnDispositivoEstandar() {
+        assertEquals("Como es estandar => 0", 0.0, unDispositivoEstandar.getConsumoTotal());
+    }
+  
+    @Test
+    public void testConsultaConsumoDeUnDispositivoEstandar() {
+        assertEquals("Como es estandar => tiene una estimacion", 300.0, unDispositivoEstandar.consumoEstimadoPorHora());
+    }
+  
+    @Test
+    public void testDispositivoInteligenteEncendido() {
+        unDispositivoInteligente.encender();
+        assertEquals(EstadoDispositivo.ENCENDIDO, unDispositivoInteligente.estadoDispositivo());
+    }
+
     public void testConsultaDeConsumoTotalDeUnDispositivoEstandar() {
         assertEquals("Como es estandar => 0", 0.0, unDispositivoEstandar.getConsumoTotal());
     }
@@ -55,26 +85,21 @@ public class testDispositivo {
     }
 
     @Test
-    public void testSensorSeComunica() {
-
-    }
-
-    @Test
     public void testDispositivoInteligenteEncendido() {
         unDispositivoInteligente.encender();
-        assertEquals(EstadoDispositivo.ENCENDIDO, unDispositivoInteligente.estadoDispositivo());
+        assertEquals(EstadoDispositivoEnum.ENCENDIDO, unDispositivoInteligente.estadoDispositivo());
     }
 
     @Test
     public void testDispositivoInteligenteApagado() {
         unDispositivoInteligente.apagar();
-        assertEquals(EstadoDispositivo.APAGADO, unDispositivoInteligente.estadoDispositivo());
+        assertEquals(EstadoDispositivoEnum.APAGADO, unDispositivoInteligente.estadoDispositivo());
     }
 
     @Test
     public void testDispositivoInteligenteModoAhorro() {
         unDispositivoInteligente.modoAhorroDeEnergia();
-        assertEquals(EstadoDispositivo.MODOAHORRO, unDispositivoInteligente.estadoDispositivo());
+        assertEquals(EstadoDispositivoEnum.MODOAHORRO, unDispositivoInteligente.estadoDispositivo());
     }
 
     @Test

@@ -15,24 +15,25 @@ public class testCategoria {
     private Cliente unClienteMockPertenceCategoria;
     private Cliente unClienteMockNoPerteneceCategoria;
 
-	@Before
-	public void setUp() {
+    @Before
+    public void setUp() {
 
-		categoriaTest = new Categoria("R1",100,150,0.50,1.0);
-		unClienteMockPertenceCategoria=mock(Cliente.class);
-		unClienteMockNoPerteneceCategoria=mock(Cliente.class);
-		when(unClienteMockPertenceCategoria.consumoEnergeticoTotal()).thenReturn(125.0);
-		when(unClienteMockNoPerteneceCategoria.consumoEnergeticoTotal()).thenReturn(200.0);
-	}
+        categoriaTest = new Categoria("R1", 100, 150, 0.50, 1.0);
+        unClienteMockPertenceCategoria = mock(Cliente.class);
+        unClienteMockNoPerteneceCategoria = mock(Cliente.class);
+        when(unClienteMockPertenceCategoria.consumoEnergeticoTotal()).thenReturn(125.0);
+        when(unClienteMockNoPerteneceCategoria.consumoEnergeticoTotal()).thenReturn(200.0);
+    }
 
-	@Test
-	public void testPerteneceAlaCategoriaUnCliente() {
-		assertTrue(categoriaTest.cumpleCondicion(unClienteMockPertenceCategoria));
-	}
-	@Test
-	public void testNoPerteneceAlaCategoriaUnCliente() {
-		assertFalse(categoriaTest.cumpleCondicion(unClienteMockNoPerteneceCategoria));
-	}
+    @Test
+    public void testPerteneceAlaCategoriaUnCliente() {
+        assertTrue(categoriaTest.cumpleCondicion(unClienteMockPertenceCategoria));
+    }
+
+    @Test
+    public void testNoPerteneceAlaCategoriaUnCliente() {
+        assertFalse(categoriaTest.cumpleCondicion(unClienteMockNoPerteneceCategoria));
+    }
 
 
 }

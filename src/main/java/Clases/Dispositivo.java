@@ -1,15 +1,11 @@
 package Clases;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
-
 public abstract class Dispositivo {
 
-    String nombre;
-    EstadoDispositivo estado = null;
-    double consumoEstimadoPorHora;
-    double horasDeUso = 0;
+    protected String nombre;
+    protected EstadoDispositivoEnum estado = null;
+    protected double consumoEstimadoPorHora;
+    protected double horasDeUso = 0;
 
     public Dispositivo(String nombre, double consumoEstimadoPorHora) {
         this.nombre = nombre;
@@ -23,7 +19,7 @@ public abstract class Dispositivo {
     public void encender() {
         estado = EstadoDispositivo.ENCENDIDO;
     }
-
+  
     public void apagar() {
         estado = EstadoDispositivo.APAGADO;
     }
@@ -42,8 +38,7 @@ public abstract class Dispositivo {
         return consumoEstimadoPorHora * horasDeUso;
     }
 
-    public EstadoDispositivo estadoDispositivo() {
-
+    public EstadoDispositivoEnum estadoDispositivo() {
         return estado;
     }
 
