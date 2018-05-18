@@ -21,7 +21,7 @@ public class testAdministrador {
 	@Test
     public void testCantMesesDelAdminCaso1() {
 
-        Assert.assertEquals(23,unNuevoAdmin.cantMesesComoAdmin());
+        Assert.assertEquals(24,unNuevoAdmin.cantMesesComoAdmin());
     }
     @Test
     public void testCantMesesDelAdminCaso2() {

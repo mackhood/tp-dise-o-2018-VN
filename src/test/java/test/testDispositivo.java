@@ -19,7 +19,7 @@ public class testDispositivo {
 
     @Test
     public void testConsumoTotal(){
-        assertEquals(300,unDispositivo.getConsumoTotal());
+        assertEquals(0.0,unDispositivo.getConsumoTotal());
     }
     @Test
     public void  testCalcularIntervalo(){
