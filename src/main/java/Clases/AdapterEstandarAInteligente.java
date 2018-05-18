@@ -2,12 +2,13 @@ package Clases;
 
 public class AdapterEstandarAInteligente implements IEstandar
 {
-    DispositivoInteligente dispInteligente;
+    DispositivoInteligente dispInteligente = null;
 
     public AdapterEstandarAInteligente(DispositivoEstandar dispositivoEstandar)
     {
         dispInteligente = new DispositivoInteligente(dispositivoEstandar.nombre(), dispositivoEstandar.estimacionConsumo());
     }
+
     public void encender()
     {
         dispInteligente.encender();

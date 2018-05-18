@@ -6,9 +6,9 @@ import com.sun.istack.internal.localization.NullLocalizable;
 public class DispositivoEstandar extends Dispositivo
 {
     AdapterEstandarAInteligente adapter = null;
-    public DispositivoEstandar(String nombre, double consumo)
+    public DispositivoEstandar(String nombre, double estimacionConsumo)
     {
-        super(nombre,consumo);
+        super(nombre,estimacionConsumo);
     }
     public boolean tieneAdapter()
     {
