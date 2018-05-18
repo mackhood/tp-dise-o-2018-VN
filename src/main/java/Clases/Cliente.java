@@ -20,7 +20,6 @@ public class Cliente {
     private double puntosAcumulados = 0;
     private List<Dispositivo> dispositivos = new ArrayList<>();
 
-
     public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
                    List<Dispositivo> listaDispositivos) {
 
@@ -45,12 +44,10 @@ public class Cliente {
         }
     }
 
-    private AsignadorDeCategoria asignadorDeCategoria = AsignadorDeCategoria.getInstance();
 
     public AsignadorDeCategoria asignadorDeCategoria() {
         return AsignadorDeCategoria.getInstance();
     }
-
 
     public void agregarModuloAdaptador(DispositivoEstandar disp) {
         disp.agregarAdaptadorInteligente();
@@ -73,7 +70,6 @@ public class Cliente {
     }
 
     public int cantidadDeDispositivos() {
-
         return dispositivos.size();
     }
 
