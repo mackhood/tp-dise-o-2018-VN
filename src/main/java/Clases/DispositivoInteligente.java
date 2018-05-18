@@ -2,9 +2,9 @@ package Clases;
 
 public class DispositivoInteligente extends Dispositivo
 {
-    public DispositivoInteligente(String nombre, double estimacionConsumo)
+    public DispositivoInteligente(String nombre, double consumoEstimadoPorHora)
     {
-        super(nombre,estimacionConsumo);
+        super(nombre,consumoEstimadoPorHora);
     }
     public double consumoUltimasXHoras(int X)
     {
