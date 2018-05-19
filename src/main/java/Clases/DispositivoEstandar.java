@@ -4,11 +4,12 @@ import Clases.entities.DispositivoEstandarException;
 
 public class DispositivoEstandar extends Dispositivo{
 
-    AdapterEstandarAInteligente adapter = null;
+    AdaptadorEstandard adapter = new AdaptadorEstandarDefecto();;
 
     public DispositivoEstandar(String nombre,double  consumoEstimadoPorHora)
     {
         super(nombre,consumoEstimadoPorHora);
+        
     }
 
     public boolean tieneAdapter()
@@ -30,43 +31,25 @@ public class DispositivoEstandar extends Dispositivo{
     @Override
     public void apagar()
     {
-        if(tieneAdapter())
-        {
-            adapter.apagar();
-        }
+       adapter.apagar();
+
     }
 
     @Override
     public void encender()
     {
-        if(tieneAdapter())
-        {
-            adapter.encender();
-        }
+      adapter.encender();
+
     }
 
     @Override
     public EstadoDispositivo estadoDispositivo()
     {
-        if(tieneAdapter())
-        {
-            return adapter.estadoDispositivo();
-        }
-        else
-        {
-            return null;
-        }
+      return adapter.estadoDispositivo();
     }
     @Override
     public double getConsumoTotal()
     {
-        if(tieneAdapter())
-        {
-            return adapter.getConsumoTotal();
-        }
-        else
-        {
-            return 0;
-        }
+     return adapter.getConsumoTotal();
     }
 }
