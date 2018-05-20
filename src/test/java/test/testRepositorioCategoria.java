@@ -46,7 +46,7 @@ public class testRepositorioCategoria {
     }
 
     public String getJsonTestFile() {
-        return getClass().getClassLoader().getResource("testCategorias.json").getFile();
+        return getClass().getClassLoader().getResource("/target/classes/Categorias.json").getFile();
     }
 
 }

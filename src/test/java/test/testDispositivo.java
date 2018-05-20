@@ -1,10 +1,13 @@
 package test;
 
 import Clases.*;
+import Clases.Actuador.SubirIntensidad;
 import Clases.DispositivoEstandar;
 import Clases.DispositivoInteligente;
 import Clases.EstadoDispositivoEnum;
 
+import Clases.Regla.Regla;
+import Clases.Sensor.Sensor;
 import org.junit.Before;
 import org.junit.Test;
 
