@@ -4,7 +4,10 @@ import Clases.Categoria.AsignadorDeCategoria;
 import Clases.Categoria.Categoria;
 import Clases.Dispositivo.Dispositivo;
 import Clases.Dispositivo.DispositivoEstandar;
+import Clases.Dispositivo.DispositivoInteligente;
+import Clases.Dispositivo.EstadoApagado;
 import Clases.Dispositivo.EstadoDispositivo;
+import Clases.Dispositivo.EstadoEncendido;
 import Clases.entities.ProcessingDataFailedException;
 
 import java.time.LocalDate;
@@ -23,11 +26,11 @@ public class Cliente {
     private String username;
     private String password;
     private double puntosAcumulados = 0;
-    private List<Dispositivo> dispositivosEstandares = new ArrayList<>();
+    private List<Dispositivo> dispositivosEstandar = new ArrayList<>();
     private List<Dispositivo> dispositivosInteligentes = new ArrayList<>();
 
     public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
-                   List<Dispositivo> listaDispositivos) {
+                   List<Dispositivo> dispEstandar, List <Dispositivo> dispInteligentes) {
 
         this.nombre = unNombre;
         this.apellido = unApellido;
@@ -35,28 +38,22 @@ public class Cliente {
         this.username = username;
         this.domicilio = unDomicilio;
         this.telefono = unTelefono;
-        this.dispositivosEstandares = listaDispositivos;
+        this.dispositivosEstandar = dispEstandar;
+        this.dispositivosInteligentes = dispInteligentes;
         this.fechaDeAlta = LocalDate.now();
-        this.actualizarCategoria();
     }
-
-    public void actualizarCategoria() {
-
-        try {
-            AsignadorDeCategoria asignadorDeCategoria = this.asignadorDeCategoria();
-            this.setCategoria(asignadorDeCategoria.definirCategoriaPara(this));
-        } catch (ProcessingDataFailedException e) {
-            e.printStackTrace();
-        }
+    
+    public List<Dispositivo> todosLosDispositivos() {
+    	
+    	List <Dispositivo> todos = new ArrayList<>();
+    	
+    	todos.addAll(dispositivosEstandar);
+    	todos.addAll(dispositivosInteligentes);
+    	return todos;
     }
-
+    
     public double puntosAcumulados() {
         return puntosAcumulados;
-    }
-
-
-    public AsignadorDeCategoria asignadorDeCategoria() {
-        return AsignadorDeCategoria.getInstance();
     }
 
     public void agregarModuloAdaptador(DispositivoEstandar disp) {
@@ -65,28 +62,33 @@ public class Cliente {
     }
 
     public boolean algunDispositivoEncendido() {
-
-        return dispositivos.stream().anyMatch(disp -> disp.esCiertoEstado(EstadoDispositivo.ENCENDIDO));
+    	
+    	return todosLosDispositivos().stream().anyMatch(disp -> disp.esCiertoEstado(new EstadoEncendido()));
     }
 
     public long cantidadDeDispositivosEncendidos() {
-
-        return dispositivos.stream().filter(disp -> disp.esCiertoEstado(EstadoDispositivo.ENCENDIDO)).count();
+    	
+    	return todosLosDispositivos().stream().filter(disp -> disp.esCiertoEstado(new EstadoEncendido())).count();
     }
 
     public long cantidadDeDispositivosApagados() {
 
-        return dispositivos.stream().filter(disp -> disp.esCiertoEstado(EstadoDispositivo.APAGADO)).count();
+        return todosLosDispositivos().stream().filter(disp -> disp.esCiertoEstado(new EstadoApagado())).count();
     }
 
     public int cantidadDeDispositivos() {
-        return dispositivos.size();
+        return todosLosDispositivos().size();
     }
 
-    public void agregarDispositivo(Dispositivo disp) {
+    public void agregarDispositivoInteligente(Dispositivo disp) {
 
-        dispositivos.add(disp);
+        dispositivosInteligentes.add(disp);
         this.sumarPuntos(15);
+    }
+    
+    public void agregarDispositivoEstandar(Dispositivo disp) {
+    	
+    	dispositivosEstandar.add(disp);
     }
 
     public void sumarPuntos(int puntos) {
@@ -94,12 +96,13 @@ public class Cliente {
     }
 
     public void usarDispositivo(Dispositivo dispositivo, int cantHorasEstimativa) {
-        dispositivo.serUsado(cantHorasEstimativa);
+        
+    	dispositivo.serUsado(cantHorasEstimativa);
     }
 
     public double consumoEnergeticoTotal() {
 
-        return dispositivos.stream().mapToDouble(disp -> disp.getConsumoTotal()).sum();
+        return todosLosDispositivos().stream().mapToDouble(disp -> disp.getConsumoTotal()).sum();
     }
 
     public double obtenerGastosAproximados() {
