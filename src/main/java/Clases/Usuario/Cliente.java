@@ -1,5 +1,10 @@
-package Clases;
+package Clases.Usuario;
 
+import Clases.Categoria.AsignadorDeCategoria;
+import Clases.Categoria.Categoria;
+import Clases.Dispositivo.Dispositivo;
+import Clases.Dispositivo.DispositivoEstandar;
+import Clases.Dispositivo.EstadoDispositivo;
 import Clases.entities.ProcessingDataFailedException;
 
 import java.time.LocalDate;
@@ -18,7 +23,8 @@ public class Cliente {
     private String username;
     private String password;
     private double puntosAcumulados = 0;
-    private List<Dispositivo> dispositivos = new ArrayList<>();
+    private List<Dispositivo> dispositivosEstandares = new ArrayList<>();
+    private List<Dispositivo> dispositivosInteligentes = new ArrayList<>();
 
     public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
                    List<Dispositivo> listaDispositivos) {
@@ -29,7 +35,7 @@ public class Cliente {
         this.username = username;
         this.domicilio = unDomicilio;
         this.telefono = unTelefono;
-        this.dispositivos = listaDispositivos;
+        this.dispositivosEstandares = listaDispositivos;
         this.fechaDeAlta = LocalDate.now();
         this.actualizarCategoria();
     }
@@ -60,17 +66,17 @@ public class Cliente {
 
     public boolean algunDispositivoEncendido() {
 
-        return dispositivos.stream().anyMatch(disp -> disp.esCiertoEstado(EstadoDispositivoEnum.ENCENDIDO));
+        return dispositivos.stream().anyMatch(disp -> disp.esCiertoEstado(EstadoDispositivo.ENCENDIDO));
     }
 
     public long cantidadDeDispositivosEncendidos() {
 
-        return dispositivos.stream().filter(disp -> disp.esCiertoEstado(EstadoDispositivoEnum.ENCENDIDO)).count();
+        return dispositivos.stream().filter(disp -> disp.esCiertoEstado(EstadoDispositivo.ENCENDIDO)).count();
     }
 
     public long cantidadDeDispositivosApagados() {
 
-        return dispositivos.stream().filter(disp -> disp.esCiertoEstado(EstadoDispositivoEnum.APAGADO)).count();
+        return dispositivos.stream().filter(disp -> disp.esCiertoEstado(EstadoDispositivo.APAGADO)).count();
     }
 
     public int cantidadDeDispositivos() {
@@ -98,7 +104,6 @@ public class Cliente {
 
     public double obtenerGastosAproximados() {
 
-        this.actualizarCategoria();
         return categoria.calcularCostosPara(this);
     }
 

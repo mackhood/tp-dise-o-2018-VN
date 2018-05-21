@@ -1,10 +1,9 @@
 package test;
 
 import Clases.*;
-import Clases.Actuador.SubirIntensidad;
-import Clases.DispositivoEstandar;
-import Clases.DispositivoInteligente;
-import Clases.EstadoDispositivoEnum;
+import Clases.Dispositivo.DispositivoEstandar;
+import Clases.Dispositivo.DispositivoInteligente;
+import Clases.Dispositivo.EstadoDispositivo;
 
 import Clases.Regla.Regla;
 import Clases.Sensor.Sensor;
@@ -73,14 +72,14 @@ public class testDispositivo {
     @Test
     public void testDispositivoInteligenteEncendido() {
         unDispositivoInteligente.encender();
-        assertEquals(EstadoDispositivoEnum.ENCENDIDO, unDispositivoInteligente.estadoDispositivo());
+        assertEquals(EstadoDispositivo.ENCENDIDO, unDispositivoInteligente.estadoDispositivo());
     }
 
 
     @Test
     public void testDispositivoInteligenteModoAhorro() {
         unDispositivoInteligente.modoAhorroDeEnergia();
-        assertEquals(EstadoDispositivoEnum.MODOAHORRO, unDispositivoInteligente.estadoDispositivo());
+        assertEquals(EstadoDispositivo.MODOAHORRO, unDispositivoInteligente.estadoDispositivo());
     }
 
     @Test

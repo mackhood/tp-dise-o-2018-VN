@@ -1,5 +1,6 @@
-package Clases;
+package Clases.Categoria;
 
+import Clases.Usuario.Cliente;
 import Clases.entities.ProcessingDataFailedException;
 import Clases.repositories.RepositorioCategoria;
 

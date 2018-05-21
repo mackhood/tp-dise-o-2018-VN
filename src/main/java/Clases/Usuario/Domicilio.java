@@ -1,4 +1,4 @@
-package Clases;
+package Clases.Usuario;
 
 public class Domicilio {
 

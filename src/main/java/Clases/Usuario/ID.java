@@ -1,11 +1,11 @@
-package Clases;
+package Clases.Usuario;
 
 public class ID {
 
-    TiposIdEnum tipoID;
+    TiposId tipoID;
     String numeroID;
 
-    public ID(TiposIdEnum tipoID, String numeroID) {
+    public ID(TiposId tipoID, String numeroID) {
         this.tipoID = tipoID;
         this.numeroID = numeroID;
     }

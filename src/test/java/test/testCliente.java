@@ -1,6 +1,14 @@
 package test;
 
-import Clases.*;
+import Clases.Categoria.AsignadorDeCategoria;
+import Clases.Categoria.Categoria;
+import Clases.Dispositivo.Dispositivo;
+import Clases.Dispositivo.DispositivoEstandar;
+import Clases.Dispositivo.EstadoDispositivo;
+import Clases.Usuario.Cliente;
+import Clases.Usuario.Domicilio;
+import Clases.Usuario.ID;
+import Clases.Usuario.TiposId;
 import Clases.entities.ProcessingDataFailedException;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,13 +37,13 @@ public class testCliente {
         List<Dispositivo> listaDispositivos = new ArrayList<>();
         List<Dispositivo> listaDispositivosParaOtroCliente = new ArrayList<>();
 
-        when(unDispositivoEncendido.esCiertoEstado(EstadoDispositivoEnum.ENCENDIDO)).thenReturn(true);
-        when(unDispositivoApagado.esCiertoEstado(EstadoDispositivoEnum.APAGADO)).thenReturn(false);
+        when(unDispositivoEncendido.esCiertoEstado(EstadoDispositivo.ENCENDIDO)).thenReturn(true);
+        when(unDispositivoApagado.esCiertoEstado(EstadoDispositivo.APAGADO)).thenReturn(false);
         when(unDispositivoEncendido.getConsumoTotal()).thenReturn(25.5);
         when(unDispositivoApagado.getConsumoTotal()).thenReturn(25.5);
 
-        unClienteCon2Dispositivos = spy(new Cliente("Fernando", "Sierra", "fer22", new ID(TiposIdEnum.DNI, "200"), new Domicilio("bariloche", 3118, 1, 'a'), 250, listaDispositivos));
-        unClienteSinDispositivos = spy(new Cliente("Nicolas", "Sierra", "fer22", new ID(TiposIdEnum.DNI, "200"), new Domicilio("bariloche", 3118, 1, 'a'), 250, listaDispositivosParaOtroCliente));
+        unClienteCon2Dispositivos = spy(new Cliente("Fernando", "Sierra", "fer22", new ID(TiposId.DNI, "200"), new Domicilio("bariloche", 3118, 1, 'a'), 250, listaDispositivos));
+        unClienteSinDispositivos = spy(new Cliente("Nicolas", "Sierra", "fer22", new ID(TiposId.DNI, "200"), new Domicilio("bariloche", 3118, 1, 'a'), 250, listaDispositivosParaOtroCliente));
         unClienteCon2Dispositivos.agregarDispositivo(unDispositivoEncendido);
         unClienteCon2Dispositivos.agregarDispositivo(unDispositivoApagado);
         when(otroDispositivo.getConsumoTotal()).thenReturn(200.0);
@@ -149,7 +157,7 @@ public class testCliente {
     public void testActualizacionCategoriaClienteConSpy() throws ProcessingDataFailedException {
 
         List<Dispositivo> listaDispositivosParaOtroCliente = new ArrayList<>();
-        Cliente unClienteSpy = spy(new Cliente("Nicolas", "Sierra", "fer22", new ID(TiposIdEnum.DNI, "200"), new Domicilio("bariloche", 3118, 1, 'a'), 250, listaDispositivosParaOtroCliente));
+        Cliente unClienteSpy = spy(new Cliente("Nicolas", "Sierra", "fer22", new ID(TiposId.DNI, "200"), new Domicilio("bariloche", 3118, 1, 'a'), 250, listaDispositivosParaOtroCliente));
         Categoria unaCategoriaMock = mock(Categoria.class);
         AsignadorDeCategoria asignadorMock = mock(AsignadorDeCategoria.class);
         when(asignadorMock.definirCategoriaPara(unClienteSpy)).thenReturn(unaCategoriaMock);

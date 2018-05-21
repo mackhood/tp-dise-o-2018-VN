@@ -1,6 +1,6 @@
 package Clases.repositories;
 
-import Clases.Categoria;
+import Clases.Categoria.Categoria;
 import Clases.entities.ProcessingDataFailedException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

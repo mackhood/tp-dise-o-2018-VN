@@ -1,4 +1,6 @@
-package Clases;
+package Clases.Categoria;
+
+import Clases.Usuario.Cliente;
 
 public class Categoria {
     private String nombreCategoria;

@@ -1,9 +1,9 @@
-package Clases;
+package Clases.Dispositivo;
 
 public abstract class Dispositivo {
 
     protected String nombre;
-    protected EstadoDispositivoEnum estado = null;
+    protected EstadoDispositivo estado = null;
     protected double consumoEstimadoPorHora;
     protected double horasDeUso = 0;
 
@@ -17,11 +17,11 @@ public abstract class Dispositivo {
     }
 
     public void encender() {
-        estado = EstadoDispositivoEnum.ENCENDIDO;
+        estado = EstadoDispositivo.ENCENDIDO;
     }
 
     public void apagar() {
-        estado = EstadoDispositivoEnum.APAGADO;
+        estado = EstadoDispositivo.APAGADO;
     }
 
     public double consumoEstimadoPorHora() {
@@ -38,11 +38,11 @@ public abstract class Dispositivo {
         return consumoEstimadoPorHora * horasDeUso;
     }
 
-    public EstadoDispositivoEnum estadoDispositivo() {
+    public EstadoDispositivo estadoDispositivo() {
         return estado;
     }
 
-    public boolean esCiertoEstado(EstadoDispositivoEnum estadoCond) {
+    public boolean esCiertoEstado(EstadoDispositivo estadoCond) {
         return estado.equals(estadoCond);
     }
 

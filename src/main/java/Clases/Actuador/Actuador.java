@@ -1,6 +1,6 @@
 package Clases.Actuador;
 
-import Clases.DispositivoInteligente;
+import Clases.Dispositivo.DispositivoInteligente;
 
 public abstract class Actuador {
     //Cada uno de los distintos Actuadores va a tener su propia logica a implementar en ejecutar
