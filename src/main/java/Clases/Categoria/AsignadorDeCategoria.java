@@ -12,6 +12,7 @@ public class AsignadorDeCategoria {
     private static AsignadorDeCategoria instance = new AsignadorDeCategoria();
 
     private AsignadorDeCategoria() {
+    
     }
 
     RepositorioCategoria repositorio = RepositorioCategoria.getInstance();
@@ -36,4 +37,19 @@ public class AsignadorDeCategoria {
         return categoriasPosibles.stream().filter(cat -> cat.cumpleCondicion(cliente)).collect(Collectors.toList()).get(0);
     }
 
+	public void actualizarPara(Cliente cliente) {
+
+		Categoria cat = null;
+		
+		try {
+		
+			cat = this.definirCategoriaPara(cliente);
+		}
+		
+		catch (ProcessingDataFailedException e) {
+			
+		}
+		
+		cliente.setCategoria(cat);
+	}
 }
