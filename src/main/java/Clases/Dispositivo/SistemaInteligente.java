@@ -27,6 +27,7 @@ public abstract class SistemaInteligente {
         return this.buscarDispositivo(unDisp).consumoUltimasXHoras(horas);
     }
     */
+    /*
 
     public boolean consultarEstado(ConsultaEstado consulta)
     {
@@ -35,11 +36,11 @@ public abstract class SistemaInteligente {
 
     public double consultaConsumo(ConsultaConsumo consulta)
     {
-        consulta.consultar();
+        consulta.consultar()
     }
 
     public void darOrden(Actuador unaOrden) {
         unaOrden.ejecutar();
     }
-
+*/
 }

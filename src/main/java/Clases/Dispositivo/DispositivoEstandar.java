@@ -3,7 +3,8 @@ package Clases.Dispositivo;
 import Clases.Fabricante;
 
 public class DispositivoEstandar extends Dispositivo {
-    AdapterEstandar adapter = new AdapterEstandarDefecto();
+
+    DispositivoEstandarInteligente dispositivoEstandarInteligente;
     int idEstandar;
 
     public DispositivoEstandar(String nombre, double consumoEstimadoPorHora, Fabricante unFabricante) {
@@ -14,19 +15,15 @@ public class DispositivoEstandar extends Dispositivo {
     }
 
     public void agregarAdaptadorInteligente() {
-        adapter = new AdapterEstandarAInteligente(this);
+        dispositivoEstandarInteligente = new DispositivoEstandarInteligente(this);
     }
 
     public void apagar() {
-        adapter.apagar();
+
     }
 
     public void encender() {
-        adapter.encender();
-    }
 
-    public EstadoDispositivo estadoDispositivo() {
-        return adapter.estadoDispositivo();
     }
 
     public double getConsumoTotal() {
@@ -36,5 +33,8 @@ public class DispositivoEstandar extends Dispositivo {
     public int getIdEstandar() {
         return idEstandar;
     }
+
+    public DispositivoEstandarInteligente getDispositivoEstandarInteligente(){return dispositivoEstandarInteligente;}
+
 
 }

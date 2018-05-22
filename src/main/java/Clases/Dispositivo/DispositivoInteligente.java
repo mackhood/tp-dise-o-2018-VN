@@ -6,13 +6,13 @@ public class DispositivoInteligente extends Dispositivo {
 
     String nombre;
     int idInteligente;
-    EstadoDispositivo estadoDispositivo;
+    EstadoDispositivo estadoDispositivo = new EstadoApagado();
 
 
-    public DispositivoInteligente(String nombre, int idInteligente, Fabricante unFabricante) {
+    public DispositivoInteligente(String nombre, double consumoEstimadoPorHora, Fabricante unFabricante) {
 
         this.nombre = nombre;
-        this.idInteligente = idInteligente;
+        this.consumoEstimadoPorHora = consumoEstimadoPorHora;
         this.fabricante = unFabricante;
     }
 
@@ -32,12 +32,13 @@ public class DispositivoInteligente extends Dispositivo {
         return this.idInteligente == dispositivoInteligente.getIdInteligente();
     }
 
+    public boolean estaEnModoAhorro() { return estadoDispositivo.estaEnModoAhorro();}
     public void apagar() {
         estadoDispositivo.apagar(this);
     }
 
     public void encender() {
-        estadoDispositivo.apagar(this);
+        estadoDispositivo.encender(this);
     }
 
     public void ponerModoAhorro() {
@@ -45,10 +46,16 @@ public class DispositivoInteligente extends Dispositivo {
     }
 
 
-    public double consumoUltimasXHoras(double X) {
-        //Falta hacer la logica
-        return 0;
+    public double consumoUltimasXHoras(double x) {
+        if(x < horasDeUso)
+        {
+            return consumoEstimadoPorHora * x;
+        }
+        else
+            return horasDeUso * consumoEstimadoPorHora;
     }
+
+    public EstadoDispositivo estadoDispositivo(){return estadoDispositivo;}
 
     public void cambiarEstado(EstadoDispositivo estadoNuevo) {
         estadoDispositivo = estadoNuevo;

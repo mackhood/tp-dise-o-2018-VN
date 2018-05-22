@@ -21,4 +21,9 @@ public class EstadoModoAhorro implements EstadoDispositivo {
     public boolean estaApagado() {
         return false;
     }
+
+    @Override
+    public boolean estaEnModoAhorro() {
+        return true;
+    }
 }

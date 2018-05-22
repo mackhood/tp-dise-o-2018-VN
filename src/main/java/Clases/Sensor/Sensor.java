@@ -2,7 +2,7 @@ package Clases.Sensor;
 
 import Clases.Regla.Regla;
 
-public abstract class Sensor {
+public class Sensor {
 
     private Regla regla;
     private Medicion medicion;

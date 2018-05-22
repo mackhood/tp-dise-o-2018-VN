@@ -29,8 +29,8 @@ public class Categoria {
     public boolean cumpleCondicion(Cliente cliente) {
 
         //Si consumo maximo es null quiere decir que cualquier numero es menor a este
-        return cliente.consumoEnergeticoTotal() >= getConsumoMinimo() &&
-                (getConsumoMaximo() == null || cliente.consumoEnergeticoTotal() <= getConsumoMaximo());
+        return cliente.consumoDEEnergeticoTotal() >= getConsumoMinimo() &&
+                (getConsumoMaximo() == null || cliente.consumoDEEnergeticoTotal() <= getConsumoMaximo());
     }
 
 
@@ -43,7 +43,7 @@ public class Categoria {
     }
 
     public Double calcularCostosPara(Cliente cliente) {
-        return this.getCargoFijo() + this.getCargoVariable() * cliente.consumoEnergeticoTotal();
+        return this.getCargoFijo() + this.getCargoVariable() * cliente.consumoDEEnergeticoTotal();
     }
 
     public String getNombreCategoria() {

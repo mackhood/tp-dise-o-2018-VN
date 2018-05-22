@@ -24,4 +24,6 @@ public class EstadoNulo implements EstadoDispositivo {
         return false;
     }
 
+    public boolean estaEnModoAhorro() {return false;}
+
 }

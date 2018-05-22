@@ -21,8 +21,8 @@ public class testCategoria {
         categoriaTest = new Categoria("R1", 100, 150, 0.50, 1.0);
         unClienteMockPertenceCategoria = mock(Cliente.class);
         unClienteMockNoPerteneceCategoria = mock(Cliente.class);
-        when(unClienteMockPertenceCategoria.consumoEnergeticoTotal()).thenReturn(125.0);
-        when(unClienteMockNoPerteneceCategoria.consumoEnergeticoTotal()).thenReturn(200.0);
+        when(unClienteMockPertenceCategoria.consumoDEEnergeticoTotal()).thenReturn(125.0);
+        when(unClienteMockNoPerteneceCategoria.consumoDEEnergeticoTotal()).thenReturn(200.0);
     }
 
     @Test

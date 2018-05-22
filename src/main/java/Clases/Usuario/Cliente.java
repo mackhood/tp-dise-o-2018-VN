@@ -26,11 +26,11 @@ public class Cliente {
     private String username;
     private String password;
     private double puntosAcumulados = 0;
-    private List<Dispositivo> dispositivosEstandar = new ArrayList<>();
-    private List<Dispositivo> dispositivosInteligentes = new ArrayList<>();
+    private List<DispositivoEstandar> dispositivosEstandar = new ArrayList<>();
+    private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
 
     public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
-                   List<Dispositivo> dispEstandar, List <Dispositivo> dispInteligentes) {
+                   List<DispositivoEstandar> dispEstandar, List<DispositivoInteligente> dispInteligentes) {
 
         this.nombre = unNombre;
         this.apellido = unApellido;
@@ -42,53 +42,70 @@ public class Cliente {
         this.dispositivosInteligentes = dispInteligentes;
         this.fechaDeAlta = LocalDate.now();
     }
-    
-    public List<Dispositivo> todosLosDispositivos() {
-    	
-    	List <Dispositivo> todos = new ArrayList<>();
-    	
-    	todos.addAll(dispositivosEstandar);
-    	todos.addAll(dispositivosInteligentes);
-    	return todos;
+
+    public void actualizarCategoria()
+    {
+        AsignadorDeCategoria.getInstance().actualizarPara(this);
     }
-    
+
+
+    public List<Dispositivo> todosLosDispositivos() {
+
+        List<Dispositivo> todos = new ArrayList<>();
+
+        todos.addAll(dispositivosEstandar);
+        todos.addAll(dispositivosInteligentes);
+        return todos;
+    }
+
     public double puntosAcumulados() {
         return puntosAcumulados;
     }
 
     public void agregarModuloAdaptador(DispositivoEstandar disp) {
         disp.agregarAdaptadorInteligente();
+        this.transformarEstandarAInteligente(disp);
         this.sumarPuntos(10);
     }
 
+    public void transformarEstandarAInteligente(DispositivoEstandar disp) {
+        this.agregarDispositivoInteligente(disp.getDispositivoEstandarInteligente());
+        this.sacarDispositivoDeLaListaEstandar(disp);
+    }
+
+    public void sacarDispositivoDeLaListaEstandar(DispositivoEstandar disp) {
+        dispositivosEstandar.remove(disp);
+    }
+
+    /*
     public boolean algunDispositivoEncendido() {
-    	
-    	return todosLosDispositivos().stream().anyMatch(disp -> disp.esCiertoEstado(new EstadoEncendido()));
+
+        return todosLosDispositivos().stream().anyMatch(disp -> disp.esCiertoEstado(new EstadoEncendido()));
     }
 
     public long cantidadDeDispositivosEncendidos() {
-    	
-    	return todosLosDispositivos().stream().filter(disp -> disp.esCiertoEstado(new EstadoEncendido())).count();
+
+        return todosLosDispositivos().stream().filter(disp -> disp.esCiertoEstado(new EstadoEncendido())).count();
     }
 
     public long cantidadDeDispositivosApagados() {
 
         return todosLosDispositivos().stream().filter(disp -> disp.esCiertoEstado(new EstadoApagado())).count();
     }
-
+*/
     public int cantidadDeDispositivos() {
         return todosLosDispositivos().size();
     }
 
-    public void agregarDispositivoInteligente(Dispositivo disp) {
+    public void agregarDispositivoInteligente(DispositivoInteligente disp) {
 
         dispositivosInteligentes.add(disp);
         this.sumarPuntos(15);
     }
-    
-    public void agregarDispositivoEstandar(Dispositivo disp) {
-    	
-    	dispositivosEstandar.add(disp);
+
+    public void agregarDispositivoEstandar(DispositivoEstandar disp) {
+
+        dispositivosEstandar.add(disp);
     }
 
     public void sumarPuntos(int puntos) {
@@ -96,13 +113,13 @@ public class Cliente {
     }
 
     public void usarDispositivo(Dispositivo dispositivo, int cantHorasEstimativa) {
-        
-    	dispositivo.serUsado(cantHorasEstimativa);
+
+        dispositivo.serUsado(cantHorasEstimativa);
     }
 
-    public double consumoEnergeticoTotal() {
+    public double consumoDEEnergeticoTotal() {
 
-        return todosLosDispositivos().stream().mapToDouble(disp -> disp.getConsumoTotal()).sum();
+        return dispositivosEstandar.stream().mapToDouble(disp -> disp.getConsumoTotal()).sum();
     }
 
     public double obtenerGastosAproximados() {

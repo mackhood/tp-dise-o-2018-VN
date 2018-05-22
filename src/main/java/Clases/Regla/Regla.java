@@ -6,7 +6,7 @@ import Clases.Sensor.Medicion;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Regla {
+public class Regla {
     Actuador actuador;
     List<Medicion> medicionesACumplir = new ArrayList<>();
     List<Medicion> medicionesObservers = new ArrayList();
@@ -20,6 +20,7 @@ public abstract class Regla {
     public final void recibirMedicion(Medicion medicionTomada) {
         if (!estaEntreLosObservers(medicionTomada)) {
             this.agregarMedicion(medicionTomada);
+            this.tratarActualizarEstadoRegla();
             this.templateEjecutar();
         }
     }
@@ -28,6 +29,7 @@ public abstract class Regla {
     {
         medicionesObservers.add(medicionTomada);
     }
+
     public final boolean estaEntreLosObservers(Medicion medicionTomada) {
         return medicionesACumplir.stream().anyMatch(medicionACumplir -> medicionACumplir.compararMedicion(medicionTomada));
     }
@@ -36,7 +38,7 @@ public abstract class Regla {
         estado = nuevoEstadoRegla;
     }
 
-    public final void cumpleTodasLasCondiciones() {
+    public final void tratarActualizarEstadoRegla() {
         if (medicionesACumplir.size() == medicionesObservers.size())
             estado.cambiarEstado(this);
     }

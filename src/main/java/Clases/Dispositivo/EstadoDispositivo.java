@@ -10,5 +10,7 @@ public interface EstadoDispositivo {
     boolean estaEncendido();
 
     boolean estaApagado();
+
+    boolean estaEnModoAhorro();
     
 }
