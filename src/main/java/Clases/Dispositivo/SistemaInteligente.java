@@ -1,9 +1,9 @@
-package Clases.Dispositivo;
+/*package Clases.Dispositivo;
 
 import Clases.Actuador.Actuador;
 import Clases.Actuador.ConsultaConsumo;
 import Clases.Actuador.ConsultaEstado;
-
+/*
 
 public abstract class SistemaInteligente {
     //List<DispositivoInteligente> inteligentes;
@@ -28,7 +28,7 @@ public abstract class SistemaInteligente {
     }
     */
 
-    public boolean consultarEstado(ConsultaEstado consulta)
+   /* public boolean consultarEstado(ConsultaEstado consulta)
     {
         consulta.consultar();
     }
@@ -42,4 +42,4 @@ public abstract class SistemaInteligente {
         unaOrden.ejecutar();
     }
 
-}
+}*/

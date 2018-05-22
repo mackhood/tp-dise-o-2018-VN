@@ -2,12 +2,15 @@ package Clases.Dispositivo;
 
 import Clases.Fabricante;
 
-public class DispositivoInteligente extends Dispositivo {
+public class DispositivoInteligente {
 
     String nombre;
-    int idInteligente;
-    EstadoDispositivo estadoDispositivo;
-
+    private double consumoPorHora;
+    private double horasDeUso = 0;
+    private Fabricante fabricante;
+    private int idInteligente;
+    private EstadoDispositivo estadoDispositivo;
+    DispositivoFisico dispositivoFisico;
 
     public DispositivoInteligente(String nombre, int idInteligente, Fabricante unFabricante) {
 
@@ -15,6 +18,33 @@ public class DispositivoInteligente extends Dispositivo {
         this.idInteligente = idInteligente;
         this.fabricante = unFabricante;
     }
+
+
+    public  void  setNombre ( String nombreNuevo ){
+        this.nombre=nombreNuevo;
+    }
+
+    public void setConsumoHora (double consumoHora) {
+
+        this.consumoPorHora= consumoHora;
+    }
+
+     public void setHorasDeUso (double horasUso) {
+
+        this.horasDeUso=horasUso;
+     }
+
+    public void SetFabricante ( Fabricante fabricanteNuevo ) {
+        this.fabricante=fabricanteNuevo;
+
+    }
+
+
+    public void  SetIdInteligente( int idNuevo) {
+        this.idInteligente=idNuevo;
+
+    }
+
 
     private int getIdInteligente() {
         return idInteligente;
@@ -34,14 +64,18 @@ public class DispositivoInteligente extends Dispositivo {
 
     public void apagar() {
         estadoDispositivo.apagar(this);
+        dispositivoFisico.apagar();
     }
 
     public void encender() {
         estadoDispositivo.apagar(this);
+        dispositivoFisico.encender();
+
     }
 
     public void ponerModoAhorro() {
         estadoDispositivo.ponerModoAhorro(this);
+        dispositivoFisico.ahorro();
     }
 
 
@@ -55,4 +89,12 @@ public class DispositivoInteligente extends Dispositivo {
     }
 
 
+    public void ejecutar (DispositivoFisico dispositivoFisico) {
+
+        dispositivoFisico.ejecutar();
+    }
+
+   /* public double getConsumoTotal() {
+
+    }     Lo hace solo (no entendi como o¡implementarlo)*/
 }

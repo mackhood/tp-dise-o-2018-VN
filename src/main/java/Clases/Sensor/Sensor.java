@@ -15,7 +15,7 @@ public abstract class Sensor {
         regla.recibirMedicion(medicion);
     }
 
-    private void tomarMedicion(Medicion unaMedicion) {
-        this.medicion = unaMedicion;
+    private void tomarMedicion(MedioExterno unaMedicion) {
+        this.medicion = unaMedicion.obtenerMedicion();
     }
 }

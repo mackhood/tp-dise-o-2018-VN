@@ -2,9 +2,12 @@ package Clases.Dispositivo;
 
 import Clases.Fabricante;
 
-public class DispositivoEstandar extends Dispositivo {
-    AdapterEstandar adapter = new AdapterEstandarDefecto();
-    int idEstandar;
+public class DispositivoEstandar implements InterfazDispositivo {
+    private String nombre;
+    private double consumoEstimadoPorHora;
+    private double horasDeUso = 0;
+   private Fabricante fabricante;
+    private   int idEstandar;
 
     public DispositivoEstandar(String nombre, double consumoEstimadoPorHora, Fabricante unFabricante) {
 
@@ -13,21 +16,40 @@ public class DispositivoEstandar extends Dispositivo {
         this.fabricante = unFabricante;
     }
 
-    public void agregarAdaptadorInteligente() {
-        adapter = new AdapterEstandarAInteligente(this);
+    public Fabricante  getFabricante() {
+
+        return fabricante;
+
     }
 
+     public double getHorasDeUso () {
+        return horasDeUso;
+     }
+
+    public double consumoEstimadoPorHora() {
+        return consumoEstimadoPorHora;
+    }
+
+    public String getNombre() {
+
+        return nombre;
+    }
+
+
+    public void serUsado(int cantHorasEstimativa) {
+        horasDeUso = horasDeUso + cantHorasEstimativa;
+    }
+
+
+
     public void apagar() {
-        adapter.apagar();
+
     }
 
     public void encender() {
-        adapter.encender();
+
     }
 
-    public EstadoDispositivo estadoDispositivo() {
-        return adapter.estadoDispositivo();
-    }
 
     public double getConsumoTotal() {
         return this.consumoEstimadoPorHora * this.horasDeUso;
