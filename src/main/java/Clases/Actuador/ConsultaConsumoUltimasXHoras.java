@@ -13,4 +13,9 @@ public class ConsultaConsumoUltimasXHoras extends ConsultaConsumo {
     public double consultar() {
         return unDI.consumoUltimasXHoras(ultimasXHoras);
     }
+
+    @Override
+    public double consultarDI(DispositivoInteligente unDI) {
+        return unDI.consumoUltimasXHoras(ultimasXHoras);
+    }
 }

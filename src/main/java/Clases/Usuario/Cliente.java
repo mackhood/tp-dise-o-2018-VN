@@ -41,6 +41,7 @@ public class Cliente {
         this.dispositivosEstandar = dispEstandar;
         this.dispositivosInteligentes = dispInteligentes;
         this.fechaDeAlta = LocalDate.now();
+        this.actualizarCategoria();
     }
 
     public void actualizarCategoria()
@@ -56,6 +57,10 @@ public class Cliente {
         todos.addAll(dispositivosEstandar);
         todos.addAll(dispositivosInteligentes);
         return todos;
+    }
+    public List<DispositivoInteligente> getDispositivosInteligentes()
+    {
+        return dispositivosInteligentes;
     }
 
     public double puntosAcumulados() {

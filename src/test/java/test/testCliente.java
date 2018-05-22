@@ -3,6 +3,7 @@ package test;
 import Clases.Categoria.AsignadorDeCategoria;
 import Clases.Categoria.Categoria;
 import Clases.Dispositivo.*;
+import Clases.Fabricante;
 import Clases.Usuario.Cliente;
 import Clases.Usuario.Domicilio;
 import Clases.Usuario.ID;
@@ -22,19 +23,39 @@ public class testCliente {
 
     private DispositivoEstandar unDispositivoEncendido;
     private DispositivoEstandar unDispositivoApagado;
-    private Cliente unClienteCon2Dispositivos;
-    private Cliente unClienteSinDispositivos;
+    private Cliente unClienteConDEyDI;
+    private Cliente unClienteSinDEyConDI;
     private Dispositivo otroDispositivo;
+
+    private DispositivoEstandar unDE;
+    private DispositivoInteligente unDIApagado;
+    private DispositivoInteligente unDIEncendido;
+    private DispositivoInteligente unDETransformado;
+
+    private SistemaInteligente unSI;
+
+    private Fabricante fabricante;
 
     @Before
     public void setUp() {
 
+        unSI = new SistemaInteligente();
         unDispositivoEncendido = mock(DispositivoEstandar.class);
         unDispositivoApagado = mock(DispositivoEstandar.class);
         otroDispositivo = mock(Dispositivo.class);
 
+        fabricante = new Fabricante(1);
+        unDE = new DispositivoEstandar("a1", 300, fabricante);
+        unDIApagado = new DispositivoInteligente("da", 500, fabricante);
+        unDIEncendido = new DispositivoInteligente("AireAcondicionado", 100, fabricante);
+        unDIEncendido.encender();
+        unDIEncendido.serUsado(10);
+
         List<DispositivoEstandar> listaDispositivosEstandar = new ArrayList<>();
+
+        listaDispositivosEstandar.add(unDE);
         List<DispositivoEstandar> listaDispositivosParaOtroCliente = new ArrayList<>();
+
 
         List<DispositivoInteligente> listaDispInteligentes = new ArrayList<>();
 
@@ -50,15 +71,54 @@ public class testCliente {
         listaDispositivosEstandar.add(unDispositivoApagado);
 
 
-        unClienteCon2Dispositivos = spy(new Cliente("Fernando", "Sierra", "fer22", new ID(TiposId.DNI, "200"),
+        unClienteConDEyDI = spy(new Cliente("Fernando", "Sierra", "fer22", new ID(TiposId.DNI, "200"),
                 new Domicilio("bariloche", 3118, 1, 'a'), 250, listaDispositivosEstandar, listaDispInteligentes));
-        unClienteSinDispositivos = spy(new Cliente("Nicolas", "Sierra", "fer22", new ID(TiposId.DNI, "200"),
+        unClienteSinDEyConDI = spy(new Cliente("Nicolas", "Sierra", "fer22", new ID(TiposId.DNI, "200"),
                 new Domicilio("bariloche", 3118, 1, 'a'), 250, listaDispositivosParaOtroCliente, listaDispInteligentes));
-        //unClienteCon2Dispositivos.agregarDispositivoEstandar(unDispositivoEncendido);
-        //unClienteCon2Dispositivos.agregarDispositivoEstandar(unDispositivoApagado);
         when(otroDispositivo.getConsumoTotal()).thenReturn(200.0);
 
+        unClienteConDEyDI.agregarDispositivoInteligente(unDIEncendido);
+        unClienteConDEyDI.agregarDispositivoInteligente(unDIApagado);
+
     }
+
+    @Test
+    public void testPuntosAcumuladosDespuesDeAgregar2DICliente()
+    {
+        assertEquals(30.0, unClienteConDEyDI.puntosAcumulados());
+    }
+
+    @Test
+    public void testPuntosAcumuladorDespuesDeAgregarAdaptadorAUnDE()
+    {
+        unClienteConDEyDI.agregarModuloAdaptador(unDE);
+        assertEquals(55.0, unClienteConDEyDI.puntosAcumulados());
+    }
+
+    @Test
+    public void testAlgunDIestaEncendidoClienteCon2DI()
+    {
+        assertEquals(true,unSI.algunDIencendido(unClienteConDEyDI));
+    }
+
+    @Test
+    public void testCantidadDIencendidosClienteCon2DI()
+    {
+        assertEquals(1,unSI.cantidadDIencendidos(unClienteConDEyDI));
+    }
+
+    @Test
+    public void testCantidadDIapagadosClienteCon2DI()
+    {
+        assertEquals(1,unSI.cantidadDIapagados(unClienteConDEyDI));
+    }
+
+    @Test
+    public void testCantidadDispositivosClienteCon2DIy1DE()
+    {
+        assertEquals(5,unSI.cantidadDispositivos(unClienteConDEyDI));
+    }
+
 
     /*
     @Ignore
@@ -92,8 +152,8 @@ public class testCliente {
     */
     @Test
     public void testConsumoEnergeticoTotalDeUnCliente() {
-        assertEquals(51.0, unClienteCon2Dispositivos.consumoDEEnergeticoTotal());
-        assertEquals(0.0, unClienteSinDispositivos.consumoDEEnergeticoTotal());
+        assertEquals(51.0, unClienteConDEyDI.consumoDEEnergeticoTotal());
+        assertEquals(0.0, unClienteSinDEyConDI.consumoDEEnergeticoTotal());
     }
 
     /*
@@ -117,9 +177,9 @@ public class testCliente {
         assertEquals("CategoriaR2", unClienteCon2Dispositivos.nombreCategoria());
 
     }
-    */
 
-    /*
+
+
     @Test
     public void testObtenerGastosAproximadosCliente() throws ProcessingDataFailedException {
 
