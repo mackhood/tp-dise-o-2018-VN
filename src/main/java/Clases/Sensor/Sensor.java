@@ -11,11 +11,13 @@ public class Sensor {
         this.regla = unaRegla;
     }
 
+    //notificarMedicion y tomarMedicion capaz se podria haberlo hecho todo dentro de un mismo metodo;
     public void notificarMedicion() {
         regla.recibirMedicion(medicion);
     }
 
-    private void tomarMedicion(Medicion unaMedicion) {
+    public void tomarMedicion(Medicion unaMedicion) {
         this.medicion = unaMedicion;
+        this.notificarMedicion();
     }
 }

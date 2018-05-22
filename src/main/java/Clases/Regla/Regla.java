@@ -21,7 +21,7 @@ public class Regla {
         if (!estaEntreLosObservers(medicionTomada)) {
             this.agregarMedicion(medicionTomada);
             this.tratarActualizarEstadoRegla();
-            this.templateEjecutar();
+            this.ejecutar();
         }
     }
 
@@ -31,7 +31,7 @@ public class Regla {
     }
 
     public final boolean estaEntreLosObservers(Medicion medicionTomada) {
-        return medicionesACumplir.stream().anyMatch(medicionACumplir -> medicionACumplir.compararMedicion(medicionTomada));
+        return medicionesObservers.stream().anyMatch(medicionObserver -> medicionObserver.compararMedicion(medicionTomada));
     }
 
     public final void cambiarEstado(EstadoRegla nuevoEstadoRegla) {
@@ -43,7 +43,7 @@ public class Regla {
             estado.cambiarEstado(this);
     }
 
-    public void templateEjecutar() {
+    public void ejecutar() {
         if (estado.cumpleCondiciones())
             actuador.ejecutar();
     }

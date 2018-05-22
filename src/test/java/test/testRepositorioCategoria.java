@@ -5,6 +5,7 @@ import Clases.entities.ProcessingDataFailedException;
 import Clases.repositories.RepositorioCategoria;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
+import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;

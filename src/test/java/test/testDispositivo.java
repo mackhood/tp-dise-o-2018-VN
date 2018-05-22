@@ -5,9 +5,14 @@ import Clases.Actuador.*;
 import Clases.Dispositivo.*;
 
 import Clases.Regla.Regla;
+import Clases.Sensor.Medicion;
+import Clases.Sensor.MedicionMovimiento;
+import Clases.Sensor.MedicionTemperatura;
 import Clases.Sensor.Sensor;
 import org.junit.Before;
 import org.junit.Test;
+import java.util.ArrayList;
+import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertSame;
@@ -24,6 +29,7 @@ public class testDispositivo {
     private ConsultaConsumoUltimasXHoras consultaConsumoUltimasXHoras;
     private ConsultaEstaApagado consultaEstaApagado;
     private ConsultaEstaEncendido consultaEstaEncendido;
+
     private OrdenApagarDI ordenApagarDI;
     private OrdenEncenderDI ordenEncenderDI;
     private OrdenPonerModoAhorro ordenPonerModoAhorro;
@@ -34,6 +40,8 @@ public class testDispositivo {
     private Sensor sensorTemperaturaAmbiente;
     private Fabricante fabricante;
 
+    private MedicionMovimiento medicionMovimiento = new MedicionMovimiento(true);
+    private MedicionTemperatura medicionTemperatura = new MedicionTemperatura(true);
 
     @Before
     public void setUp() {
@@ -52,8 +60,22 @@ public class testDispositivo {
         ordenApagarDI = new OrdenApagarDI(unDIEncendido);
         ordenEncenderDI = new OrdenEncenderDI(unDIApagado);
         ordenPonerModoAhorro = new OrdenPonerModoAhorro(unDIApagado);
+
+        ordenSubirIntensidad = new OrdenSubirIntensidad(unDIEncendido);
+        List<Medicion> listaMedicionesACumplir = new ArrayList<>();
+        listaMedicionesACumplir.add(medicionMovimiento);
+        listaMedicionesACumplir.add(medicionTemperatura);
+        reglaParaAumentarIntensidadAlAireAcondicionado = new Regla(ordenSubirIntensidad,listaMedicionesACumplir);
+        sensorTemperaturaAmbiente = new Sensor(reglaParaAumentarIntensidadAlAireAcondicionado);
     }
 
+    @Test
+    public void testSensorTemperaturaAmbienteTomaMediciones()
+    {
+        sensorTemperaturaAmbiente.tomarMedicion(medicionTemperatura);
+        sensorTemperaturaAmbiente.tomarMedicion(medicionMovimiento);
+        assertEquals(150.0, unDIEncendido.consumoEstimadoPorHora());
+    }
     @Test
     public void testDEUsadoPor5HorasConsumoTotal() {
         unDE.serUsado(5);
