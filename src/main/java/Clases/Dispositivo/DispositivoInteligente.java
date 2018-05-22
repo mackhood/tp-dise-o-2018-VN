@@ -1,5 +1,8 @@
 package Clases.Dispositivo;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 import Clases.Fabricante;
 
 public class DispositivoInteligente {
@@ -11,7 +14,10 @@ public class DispositivoInteligente {
     private int idInteligente;
     private EstadoDispositivo estadoDispositivo;
     DispositivoFisico dispositivoFisico;
-
+    private LocalDateTime horaEncendido = null;
+    private LocalDateTime horaApagado = null;
+    private double consumoTotal = 0;
+    
     public DispositivoInteligente(String nombre, int idInteligente, Fabricante unFabricante) {
 
         this.nombre = nombre;
@@ -24,27 +30,25 @@ public class DispositivoInteligente {
         this.nombre=nombreNuevo;
     }
 
-    public void setConsumoHora (double consumoHora) {
+    public void setConsumoPorHora (double consumoHora) {
 
         this.consumoPorHora= consumoHora;
     }
-
-     public void setHorasDeUso (double horasUso) {
-
-        this.horasDeUso=horasUso;
-     }
-
+    
+    public void setHorasDeUso (double horas) {
+    	
+    	this.horasDeUso += horas;
+    }
+    
     public void SetFabricante ( Fabricante fabricanteNuevo ) {
         this.fabricante=fabricanteNuevo;
 
     }
 
-
     public void  SetIdInteligente( int idNuevo) {
         this.idInteligente=idNuevo;
 
     }
-
 
     private int getIdInteligente() {
         return idInteligente;
@@ -62,39 +66,66 @@ public class DispositivoInteligente {
         return this.idInteligente == dispositivoInteligente.getIdInteligente();
     }
 
-    public void apagar() {
+    public void apagar(LocalDateTime horaApagado) {
         estadoDispositivo.apagar(this);
         dispositivoFisico.apagar();
+        this.horaApagado = horaApagado;
     }
 
-    public void encender() {
-        estadoDispositivo.apagar(this);
+    public void encender(LocalDateTime horaEncendido) {
+        
+    	estadoDispositivo.encender(this);
         dispositivoFisico.encender();
-
+        this.horaEncendido = horaEncendido;
     }
 
     public void ponerModoAhorro() {
         estadoDispositivo.ponerModoAhorro(this);
         dispositivoFisico.ahorro();
     }
-
-
-    public double consumoUltimasXHoras(double X) {
-        //Falta hacer la logica
-        return 0;
+    
+    public void serUsado(long horas) {
+    	
+    	LocalDateTime horaActual = LocalDateTime.now();
+    	this.encender(horaActual);
+    	this.apagar(horaActual.plusHours(horas));
+    	
+    	double consumoGenerado = calcularConsumo(horaEncendido,horaApagado);
+    	this.consumoTotal += consumoGenerado;
+    	this.horasDeUso += horas;
+    }
+    
+    public double calcularConsumo(LocalDateTime unHorario, LocalDateTime otroHorario) {
+    	 
+    	horasDeUso = unHorario.until(otroHorario, ChronoUnit.HOURS);
+    	return horasDeUso*consumoPorHora;
+    }
+    
+    /* Para este metodo de abajo no se me ocurre otra idea que hacer varios if con las distintas situaciones
+      	tipo si la hora de encendido y apagado estan antes del intervalo de consulta, etc.
+      		Si alguien tiene una mejor idea u otra forma de implementarlo buenisimo.
+     */
+    
+    public double consumoUltimasXHoras(long horas) {
+        
+    	LocalDateTime hasta = LocalDateTime.now();
+    	LocalDateTime desde = hasta.minusHours(horas);
+        calcularConsumo(desde,hasta);
+    	return 0;
     }
 
     public void cambiarEstado(EstadoDispositivo estadoNuevo) {
-        estadoDispositivo = estadoNuevo;
+       
+    	estadoDispositivo = estadoNuevo;
     }
-
 
     public void ejecutar (DispositivoFisico dispositivoFisico) {
 
         dispositivoFisico.ejecutar();
     }
 
-   /* public double getConsumoTotal() {
+    public double getConsumoTotal() {
 
-    }     Lo hace solo (no entendi como o¡implementarlo)*/
+    	return consumoTotal;
+    }
 }

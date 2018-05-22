@@ -9,7 +9,7 @@ public class Convertidor {
 
 
         nuevo.setNombre(dispositivoBasico.getNombre());
-        nuevo.setConsumoHora(dispositivoBasico.consumoEstimadoPorHora());
+        nuevo.setConsumoPorHora(dispositivoBasico.consumoEstimadoPorHora());
         nuevo.setHorasDeUso( dispositivoBasico.getHorasDeUso());
         nuevo.SetFabricante(dispositivoBasico.getFabricante()) ;
         nuevo.SetIdInteligente(dispositivoBasico.getIdEstandar());

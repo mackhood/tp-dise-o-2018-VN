@@ -2,9 +2,11 @@ package Clases.Usuario;
 
 import Clases.Categoria.AsignadorDeCategoria;
 import Clases.Categoria.Categoria;
+import Clases.Dispositivo.Convertidor;
 import Clases.Dispositivo.Dispositivo;
 import Clases.Dispositivo.DispositivoEstandar;
 import Clases.Dispositivo.DispositivoInteligente;
+import Clases.Dispositivo.DispositivoEstandarInteligente;
 import Clases.Dispositivo.EstadoApagado;
 import Clases.Dispositivo.EstadoDispositivo;
 import Clases.Dispositivo.EstadoEncendido;
@@ -26,11 +28,11 @@ public class Cliente {
     private String username;
     private String password;
     private double puntosAcumulados = 0;
-    private List<Dispositivo> dispositivosEstandar = new ArrayList<>();
-    private List<Dispositivo> dispositivosInteligentes = new ArrayList<>();
+    private List<DispositivoEstandar> dispositivosEstandar = new ArrayList<>();
+    private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
 
     public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
-                   List<Dispositivo> dispEstandar, List <Dispositivo> dispInteligentes) {
+                   List<DispositivoEstandar> dispEstandar, List <DispositivoInteligente> dispInteligentes) {
 
         this.nombre = unNombre;
         this.apellido = unApellido;
@@ -42,51 +44,61 @@ public class Cliente {
         this.dispositivosInteligentes = dispInteligentes;
         this.fechaDeAlta = LocalDate.now();
     }
-    
-    public List<Dispositivo> todosLosDispositivos() {
-    	
-    	List <Dispositivo> todos = new ArrayList<>();
-    	
-    	todos.addAll(dispositivosEstandar);
-    	todos.addAll(dispositivosInteligentes);
-    	return todos;
-    }
+
     
     public double puntosAcumulados() {
         return puntosAcumulados;
     }
 
-    public void agregarModuloAdaptador(DispositivoEstandar disp) {
-        disp.agregarAdaptadorInteligente();
-        this.sumarPuntos(10);
+    public void agregarModuloAdaptador(Convertidor moduloAdaptador, DispositivoEstandar disp) {
+    	
+    	if (this.tieneDispositivo(disp)) {
+    		
+    		DispositivoEstandarInteligente nuevo = null;
+			moduloAdaptador.convertirInteligente(disp, nuevo);
+			dispositivosEstandar.remove(disp);
+    		dispositivosInteligentes.add(nuevo);
+            this.sumarPuntos(10);
+    	}
+    	
+    /* Esto se cambia, lo pongo asi para ir haciendo lo demas 
+    	  y despues tratar las excepciones todas juntas. Para mi si quiere convertir un disp
+     		que no tiene debería tirar excepcion, pero es charlable */
+    	
+    	else throw new RuntimeException();
     }
-
+    
+    public boolean tieneDispositivo (DispositivoEstandar disp) {
+    	
+    	return dispositivosEstandar.contains(disp);
+    }
+    
     public boolean algunDispositivoEncendido() {
     	
-    	return todosLosDispositivos().stream().anyMatch(disp -> disp.esCiertoEstado(new EstadoEncendido()));
+    	return dispositivosInteligentes.stream().anyMatch(disp -> disp.estaEncendido());
     }
 
     public long cantidadDeDispositivosEncendidos() {
     	
-    	return todosLosDispositivos().stream().filter(disp -> disp.esCiertoEstado(new EstadoEncendido())).count();
+    	return dispositivosInteligentes.stream().filter(disp -> disp.estaEncendido()).count();
     }
 
     public long cantidadDeDispositivosApagados() {
 
-        return todosLosDispositivos().stream().filter(disp -> disp.esCiertoEstado(new EstadoApagado())).count();
+        return dispositivosInteligentes.stream().filter(disp -> disp.estaApagado()).count();
     }
 
     public int cantidadDeDispositivos() {
-        return todosLosDispositivos().size();
+        return dispositivosEstandar.size() + dispositivosInteligentes.size();
     }
 
-    public void agregarDispositivoInteligente(Dispositivo disp) {
+    public void agregarDispositivoInteligente(DispositivoInteligente disp) {
 
         dispositivosInteligentes.add(disp);
         this.sumarPuntos(15);
     }
     
-    public void agregarDispositivoEstandar(Dispositivo disp) {
+    public void agregarDispositivoEstandar(DispositivoEstandar disp) {
     	
     	dispositivosEstandar.add(disp);
     }
@@ -95,16 +107,30 @@ public class Cliente {
         puntosAcumulados = puntosAcumulados + puntos;
     }
 
-    public void usarDispositivo(Dispositivo dispositivo, int cantHorasEstimativa) {
+    public void usarDispositivo(DispositivoEstandar dispositivo, int cantHorasEstimativa) {
         
     	dispositivo.serUsado(cantHorasEstimativa);
     }
+    
+    /* Asi como lo definimos ahora esto tendria que hacerse asi, y si volamos la clase dispositivo
+     	va a quedar logica repetida en cada calculo que comprenda a ambas listas, creo que habria
+     		que repensar dispositivo como clase abstracta de nuevo y hacer heredar a las otras dos */
+    
+    public double consumoEnergeticoEstandar() {
 
-    public double consumoEnergeticoTotal() {
-
-        return todosLosDispositivos().stream().mapToDouble(disp -> disp.getConsumoTotal()).sum();
+        return dispositivosEstandar.stream().mapToDouble(disp -> disp.getConsumoTotal()).sum();
     }
+    
+    public double consumoEnergeticoInteligentes() {
 
+        return dispositivosInteligentes.stream().mapToDouble(disp -> disp.getConsumoTotal()).sum();
+    }
+    
+    public double consumoEnergeticoTotal() {
+    	
+    	return this.consumoEnergeticoEstandar() + this.consumoEnergeticoInteligentes();
+    }
+    
     public double obtenerGastosAproximados() {
 
         return categoria.calcularCostosPara(this);
