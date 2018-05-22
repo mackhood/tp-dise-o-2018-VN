@@ -2,81 +2,39 @@ package Clases.Dispositivo;
 
 import Clases.Fabricante;
 
-public class DispositivoEstandar {
-    String nombre;
-    int idEstandar;
-    Fabricante fabricante;
-    double consumoEstimadoPorHora;
-    double horasEstimadasDeUso = 0;
-    EstadoDispositivo estadoDispositivo = new EstadoNulo();
+public class DispositivoEstandar extends Dispositivo {
     AdapterEstandar adapter = new AdapterEstandarDefecto();
+    int idEstandar;
 
-    public DispositivoEstandar(String nombre, int idEstandar, Fabricante unFabricante, double consumoEstimadoPorHora) {
+    public DispositivoEstandar(String nombre, double consumoEstimadoPorHora, Fabricante unFabricante) {
+
         this.nombre = nombre;
         this.consumoEstimadoPorHora = consumoEstimadoPorHora;
-        this.idEstandar = idEstandar;
         this.fabricante = unFabricante;
-    }
-
-    public void encender() {
-        adapter.encender();
-    }
-
-    public void apagar() {
-        adapter.apagar();
-    }
-
-    public void ponerModoAhorro() {
-        adapter.ponerModoAhorro();
-    }
-
-
-
-
-    public int getIdEstandar() {
-        return idEstandar;
-    }
-
-    public Fabricante getFabricante() {
-        return fabricante;
-    }
-
-    public String getNombre() {
-        return nombre;
     }
 
     public void agregarAdaptadorInteligente() {
         adapter = new AdapterEstandarAInteligente(this);
     }
 
+    public void apagar() {
+        adapter.apagar();
+    }
+
+    public void encender() {
+        adapter.encender();
+    }
+
     public EstadoDispositivo estadoDispositivo() {
         return adapter.estadoDispositivo();
     }
 
-    public double getConsumoEstimadoPorHora() {
-        return consumoEstimadoPorHora * horasEstimadasDeUso;
-    }
-    private int getIdInteligente() {
-        return idInteligente;
+    public double getConsumoTotal() {
+        return this.consumoEstimadoPorHora * this.horasDeUso;
     }
 
-    public boolean estaEncendido() {
-        return estadoDispositivo.estaEncendido();
+    public int getIdEstandar() {
+        return idEstandar;
     }
 
-    public boolean estaApagado() {
-        return estadoDispositivo.estaApagado();
-    }
-
-    public boolean sonIguales(DispositivoInteligente dispositivoInteligente) {
-        return adapter.
-    }
-
-    public int identificadorFabrica() {
-        return fabricante.idFabrica();
-    }
-
-    public void cambiarEstado(EstadoDispositivo estadoNuevo) {
-        estadoDispositivo = estadoNuevo;
-    }
 }

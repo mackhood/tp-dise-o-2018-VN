@@ -2,14 +2,15 @@ package Clases.Dispositivo;
 
 import Clases.Fabricante;
 
-public class DispositivoInteligente {
+public class DispositivoInteligente extends Dispositivo {
 
     String nombre;
-    Fabricante fabricante;
     int idInteligente;
     EstadoDispositivo estadoDispositivo;
 
+
     public DispositivoInteligente(String nombre, int idInteligente, Fabricante unFabricante) {
+
         this.nombre = nombre;
         this.idInteligente = idInteligente;
         this.fabricante = unFabricante;
@@ -41,10 +42,6 @@ public class DispositivoInteligente {
 
     public void ponerModoAhorro() {
         estadoDispositivo.ponerModoAhorro(this);
-    }
-
-    public int getIdFabrica() {
-        return fabricante.idFabrica();
     }
 
 

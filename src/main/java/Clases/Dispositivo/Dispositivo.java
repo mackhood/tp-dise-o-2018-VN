@@ -1,34 +1,29 @@
 package Clases.Dispositivo;
 
+import Clases.Fabricante;
+
 public abstract class Dispositivo {
 
     protected String nombre;
     protected EstadoDispositivo estado = null;
     protected double consumoEstimadoPorHora;
     protected double horasDeUso = 0;
+    Fabricante fabricante;
 
-    public Dispositivo(String nombre, double consumoEstimadoPorHora) {
-        this.nombre = nombre;
-        this.consumoEstimadoPorHora = consumoEstimadoPorHora;
-    }
 
     public void serUsado(int cantHorasEstimativa) {
         horasDeUso = horasDeUso + cantHorasEstimativa;
     }
 
-    public void encender() {
-        estado = EstadoDispositivo.ENCENDIDO;
-    }
+    public abstract void encender();
 
-    public void apagar() {
-        estado = EstadoDispositivo.APAGADO;
-    }
+    public abstract void apagar();
 
     public double consumoEstimadoPorHora() {
         return consumoEstimadoPorHora;
     }
 
-    public String nombre() {
+    public String getNombre() {
 
         return nombre;
     }
@@ -36,6 +31,14 @@ public abstract class Dispositivo {
     public double getConsumoTotal() {
 
         return consumoEstimadoPorHora * horasDeUso;
+    }
+
+    public int getIdFabrica() {
+        return fabricante.idFabrica();
+    }
+
+    public Fabricante getFabricante() {
+        return fabricante;
     }
 
     public EstadoDispositivo estadoDispositivo() {
