@@ -12,11 +12,11 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public   class Repositorio implements RepositorioInterfaz{
+public   class Repositorio {
 
  String archivo;
 
-
+    Class clase;
 
 
 
@@ -25,7 +25,7 @@ public   class Repositorio implements RepositorioInterfaz{
         return getClass().getClassLoader().getResource(archivo).getFile();
     }
 
-    public List<RepositorioInterfaz> obtenerLista() throws ProcessingDataFailedException {
+    public List<> obtenerLista() throws ProcessingDataFailedException {
 
         try {
             FileReader file = new FileReader(getJsonFile());
@@ -36,7 +36,7 @@ public   class Repositorio implements RepositorioInterfaz{
             Type tipoListaEmpleados = new TypeToken<List<Cliente>>() {
             }.getType();
 
-            List<RepositorioInterfaz> lista = gson.fromJson(json, tipoListaEmpleados);
+            List<Class> lista = gson.fromJson(json, tipoListaEmpleados);
 
 
 
