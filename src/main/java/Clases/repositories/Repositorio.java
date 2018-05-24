@@ -25,7 +25,7 @@ public   class Repositorio implements RepositorioInterfaz{
         return getClass().getClassLoader().getResource(archivo).getFile();
     }
 
-    public List<RepositorioInterfaz> obtenerLista() throws ProcessingDataFailedException {
+   // public List<//RepositorioInterfaz//> obtenerLista() throws ProcessingDataFailedException {
 
         try {
             FileReader file = new FileReader(getJsonFile());
@@ -36,7 +36,7 @@ public   class Repositorio implements RepositorioInterfaz{
             Type tipoListaEmpleados = new TypeToken<List<Cliente>>() {
             }.getType();
 
-            List<RepositorioInterfaz> lista = gson.fromJson(json, tipoListaEmpleados);
+          //  List<ClaseRepositorio> lista = gson.fromJson(json, tipoListaEmpleados); //Y CATEGORIA REPOSITORIO SEA UNA INTERFAZ QUE CUMPLA CLIENTE ADMINISTARDOR Y DISPOSITIVO
 
 
 
