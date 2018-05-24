@@ -14,10 +14,9 @@ import Clases.Categoria.AsignadorDeCategoria;
 
 
 
-public class RepositorioClientes <Cliente> extends Repositorio<Cliente> {
+public class RepositorioClientes   extends Repositorio implements RepositorioInterfaz{
 
     String archivo = "Clientes.json";
-
 
     public static RepositorioClientes getInstance() {
         return instance;
@@ -25,9 +24,9 @@ public class RepositorioClientes <Cliente> extends Repositorio<Cliente> {
 
     private static RepositorioClientes instance = new RepositorioClientes();
 
+
     private RepositorioClientes() {
     }
-
 
 
 }

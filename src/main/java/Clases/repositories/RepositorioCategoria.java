@@ -3,7 +3,7 @@ package Clases.repositories;
 
 
 
-public class RepositorioCategoria <Categoria> extends Repositorio<Categoria> {
+public class RepositorioCategoria  extends Repositorio implements RepositorioInterfaz {
 
     String archivo = "Categoria.json";
 

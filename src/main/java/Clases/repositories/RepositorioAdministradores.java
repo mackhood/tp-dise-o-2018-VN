@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class RepositorioAdministradores <Administrador> extends Repositorio<Administrador> {
+public class RepositorioAdministradores extends Repositorio implements RepositorioInterfaz {
 
     String archivo = "Administradores.json";
 
