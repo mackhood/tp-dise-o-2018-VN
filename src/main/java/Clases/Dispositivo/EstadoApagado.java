@@ -7,7 +7,7 @@ public class EstadoApagado implements EstadoDispositivo {
     }
 
     public void encender(DispositivoInteligente disp) {
-        disp.cambiarEstado(new EstadoApagado());
+        disp.cambiarEstado(new EstadoEncendido());
     }
 
     public void ponerModoAhorro(DispositivoInteligente disp) {
@@ -21,4 +21,8 @@ public class EstadoApagado implements EstadoDispositivo {
     public boolean estaApagado() {
         return true;
     }
+
+	public boolean estaEnModoAhorro() {
+		return false;
+	}
 }

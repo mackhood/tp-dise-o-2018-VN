@@ -1,6 +1,7 @@
 package Clases.Dispositivo;
 
 public interface EstadoDispositivo {
+
     void apagar(DispositivoInteligente disp);
 
     void encender(DispositivoInteligente disp);
@@ -11,4 +12,5 @@ public interface EstadoDispositivo {
 
     boolean estaApagado();
     
+	boolean estaEnModoAhorro();
 }

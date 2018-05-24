@@ -152,7 +152,12 @@ public class Cliente {
     }
 
     public String nombre() {
-        return this.nombre;
+ 
+		return this.nombre;
     }
+	
+	public List<DispositivoInteligente> getDispositivosInteligentes() { 
 
+		return dispositivosInteligentes; 
+	} 
 }

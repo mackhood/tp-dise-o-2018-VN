@@ -2,7 +2,7 @@ package Clases.Sensor;
 
 import Clases.Regla.Regla;
 
-public abstract class Sensor {
+public class Sensor {
 
     private Regla regla;
     private Medicion medicion;
@@ -16,6 +16,7 @@ public abstract class Sensor {
     }
 
     private void tomarMedicion(MedioExterno unaMedicion) {
-        this.medicion = unaMedicion.obtenerMedicion();
+        this.medicion = unaMedicion;
+		this.notificarMedicion();
     }
 }

@@ -24,4 +24,10 @@ public class EstadoNulo implements EstadoDispositivo {
         return false;
     }
 
+	@Override
+
+	public boolean estaEnModoAhorro() {
+
+		return false;
+	}
 }

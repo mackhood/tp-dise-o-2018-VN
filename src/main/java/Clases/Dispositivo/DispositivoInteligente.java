@@ -37,7 +37,7 @@ public class DispositivoInteligente {
     
     public void setHorasDeUso (double horas) {
     	
-    	this.horasDeUso += horas;
+    	this.horasDeUso = horas;
     }
     
     public void SetFabricante ( Fabricante fabricanteNuevo ) {

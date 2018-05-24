@@ -1,92 +1,134 @@
 package test;
 
 import Clases.*;
-import Clases.Dispositivo.DispositivoEstandar;
-import Clases.Dispositivo.DispositivoInteligente;
-import Clases.Dispositivo.EstadoDispositivo;
+import Clases.Actuador.*;
+import Clases.Dispositivo.*;
 
 import Clases.Regla.Regla;
+import Clases.Sensor.Medicion;
+import Clases.Sensor.MedicionMovimiento;
+import Clases.Sensor.MedicionTemperatura;
 import Clases.Sensor.Sensor;
 import org.junit.Before;
 import org.junit.Test;
+import java.util.ArrayList;
+import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertSame;
 import static org.mockito.Mockito.spy;
 
 public class testDispositivo {
 
-    public DispositivoEstandar unDispositivoEstandar;
-    public DispositivoInteligente unDispositivoInteligente;
-    private SubirIntensidad subirIntensidad;
+
+    private DispositivoEstandar unDE;
+    private DispositivoInteligente unDIApagado;
+    private DispositivoInteligente unDIEncendido;
+    private DispositivoInteligente unDETransformado;
+
+    private ConsultaConsumoUltimasXHoras consultaConsumoUltimasXHoras;
+    private ConsultaEstaApagado consultaEstaApagado;
+    private ConsultaEstaEncendido consultaEstaEncendido;
+
+    private OrdenApagarDI ordenApagarDI;
+    private OrdenEncenderDI ordenEncenderDI;
+    private OrdenPonerModoAhorro ordenPonerModoAhorro;
+    private OrdenSubirIntensidad ordenSubirIntensidad;
+
     private Sensor sensorMedirTemperaturaAfuera;
-    private Regla regla1;
-    private Sensor sensorMovimiento;
+    private Regla reglaParaAumentarIntensidadAlAireAcondicionado;
+    private Sensor sensorTemperaturaAmbiente;
     private Fabricante fabricante;
+
+    private MedicionMovimiento medicionMovimiento = new MedicionMovimiento(true);
+    private MedicionTemperatura medicionTemperatura = new MedicionTemperatura(true);
 
     @Before
     public void setUp() {
 
-        unDispositivoEstandar = new DispositivoEstandar("a1", 300);
-        unDispositivoInteligente = new DispositivoInteligente("da", 500);
         fabricante = new Fabricante(1);
-        sensorMedirTemperaturaAfuera = new Sensor("MedirTemperaturaAfuera");
-        sensorMovimiento = new Sensor("MedirMovimiento");
-        subirIntensidad = new SubirIntensidad(unDispositivoInteligente, fabricante);
-        regla1 = new Regla(subirIntensidad, sensorMedirTemperaturaAfuera);
+        unDE = new DispositivoEstandar("a1", 300, fabricante);
+        unDIApagado = new DispositivoInteligente("da", 500, fabricante);
+        unDIEncendido = new DispositivoInteligente("AireAcondicionado", 100, fabricante);
+        unDIEncendido.encender();
+        unDIEncendido.serUsado(10);
+        unDE.agregarAdaptadorInteligente();
+        unDETransformado = unDE.getDispositivoEstandarInteligente();
+
+        consultaEstaApagado = new ConsultaEstaApagado(unDIApagado);
+        consultaEstaEncendido = new ConsultaEstaEncendido(unDIApagado);
+        ordenApagarDI = new OrdenApagarDI(unDIEncendido);
+        ordenEncenderDI = new OrdenEncenderDI(unDIApagado);
+        ordenPonerModoAhorro = new OrdenPonerModoAhorro(unDIApagado);
+
+        ordenSubirIntensidad = new OrdenSubirIntensidad(unDIEncendido);
+        List<Medicion> listaMedicionesACumplir = new ArrayList<>();
+        listaMedicionesACumplir.add(medicionMovimiento);
+        listaMedicionesACumplir.add(medicionTemperatura);
+        reglaParaAumentarIntensidadAlAireAcondicionado = new Regla(ordenSubirIntensidad,listaMedicionesACumplir);
+        sensorTemperaturaAmbiente = new Sensor(reglaParaAumentarIntensidadAlAireAcondicionado);
     }
 
     @Test
-    public void testSensorIntensidadConRegla1() {
-        sensorMedirTemperaturaAfuera.comunicarMedicion(regla1);
-        assertEquals(650.0, unDispositivoInteligente.consumoEstimadoPorHora());
+    public void testSensorTemperaturaAmbienteTomaMediciones()
+    {
+        sensorTemperaturaAmbiente.tomarMedicion(medicionTemperatura);
+        sensorTemperaturaAmbiente.tomarMedicion(medicionMovimiento);
+        assertEquals(150.0, unDIEncendido.consumoEstimadoPorHora());
+    }
+    @Test
+    public void testDEUsadoPor5HorasConsumoTotal() {
+        unDE.serUsado(5);
+        assertEquals(1500.0, unDE.getConsumoTotal());
+    }
+
+    @Test
+    public void testDETUsadoPor90HorasConsumoUltimas3Horas() {
+        unDETransformado.serUsado(90);
+        consultaConsumoUltimasNHoras = new ConsultaConsumoUltimasNHoras(unDETransformado, 3);
+        assertEquals(900.0, consultaConsumoUltimasNHoras.consultar());
+    }
+
+    @Test
+    public void testDIEncendidoConsumoUltimas2Horas() {
+        consultaConsumoUltimasNHoras = new ConsultaConsumoUltimasNHoras(unDIEncendido, 2);
+        assertEquals(200.0, consultaConsumoUltimasNHoras.consultar());
+    }
+
+    @Test
+    public void testDIEncendidoConsumoUltimas100Horas() {
+        consultaConsumoUltimasNHoras = new ConsultaConsumoUltimasNHoras(unDIEncendido, 100);
+        assertEquals(1000.0, consultaConsumoUltimasNHoras.consultar());
+    }
+
+    @Test
+    public void testDEConsultaDeConsumoTotalDeUnDispositivoEstandarUsadoPor3Horas() {
+        unDE.serUsado(3);
+        assertEquals(900.0, unDE.getConsumoTotal());
+    }
+
+    @Test
+    public void testDEConsultaConsumoDeUnDispositivoPorHoraEstandar() {
+        assertEquals(300.0, unDE.consumoEstimadoPorHora());
+    }
+
+    @Test
+    public void testDIApagadoSeEnciende() {
+        ordenEncenderDI.ejecutar();
+        assertEquals(true, unDIApagado.estaEncendido());
     }
 
 
     @Test
-    public void testSensorMovimientoConRegla1() {
-        sensorMovimiento.comunicarMedicion(regla1);
-        assertEquals(500.0, unDispositivoInteligente.consumoEstimadoPorHora());
+    public void testDIApagadoSePoneEnModoAhorro() {
+        ordenPonerModoAhorro.ejecutar();
+        assertEquals(false, unDIApagado.estaEnModoAhorro());
     }
 
     @Test
-    public void testConsultaDeEstadoDeUnDispositivoEstandar() {
-        assertEquals("Como es estandar => Nulo", null, unDispositivoEstandar.estadoDispositivo());
-    }
-
-    @Test
-    public void testConsumoTotal() {
-        assertEquals(0.0, unDispositivoEstandar.getConsumoTotal());
-    }
-
-    @Test
-    public void testConsultaDeConsumoTotalDeUnDispositivoEstandar() {
-
-        assertEquals(0.0, unDispositivoEstandar.getConsumoTotal());
-    }
-
-    @Test
-    public void testConsultaConsumoDeUnDispositivoPorHoraEstandar() {
-        assertEquals(300.0, unDispositivoEstandar.consumoEstimadoPorHora());
-    }
-
-    @Test
-    public void testDispositivoInteligenteEncendido() {
-        unDispositivoInteligente.encender();
-        assertEquals(EstadoDispositivo.ENCENDIDO, unDispositivoInteligente.estadoDispositivo());
-    }
-
-
-    @Test
-    public void testDispositivoInteligenteModoAhorro() {
-        unDispositivoInteligente.modoAhorroDeEnergia();
-        assertEquals(EstadoDispositivo.MODOAHORRO, unDispositivoInteligente.estadoDispositivo());
-    }
-
-    @Test
-    public void testDispositivoInteligenteEnergiaConsumidaDuranteLasUltimas3Horas() {
-        unDispositivoInteligente.encender();
-        unDispositivoInteligente.serUsado(10);
-        assertEquals(5000.0, unDispositivoInteligente.consumoUltimasXHoras(89));
+    public void testDIEncendidoSeApaga() {
+        ordenApagarDI.ejecutar();
+        assertEquals(true, unDIEncendido.estaApagado());
     }
 
 }

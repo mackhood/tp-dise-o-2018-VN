@@ -1,45 +1,32 @@
-/*package Clases.Dispositivo;
+package Clases.Dispositivo;
 
-import Clases.Actuador.Actuador;
-import Clases.Actuador.ConsultaConsumo;
-import Clases.Actuador.ConsultaEstado;
-/*
+import Clases.Actuador.*;
+import Clases.Usuario.Cliente;
 
-public abstract class SistemaInteligente {
-    //List<DispositivoInteligente> inteligentes;
+import java.util.stream.Collectors;
 
-    /*
-    public boolean consultaEstaEncendido(DispositivoInteligente dispositivo) {
-        return this.buscarDispositivo(dispositivo).estaEncendido();
-    }
 
-    public boolean consultaEstaApagado(DispositivoInteligente dispositivo) {
-        return this.buscarDispositivo(dispositivo).estaApagado();
-    }
-    */
-
-    /*
-    public DispositivoInteligente buscarDispositivo(DispositivoInteligente unDisp) {
-        return inteligentes.stream().filter(inteligente -> inteligente.sonIguales(unDisp)).collect(Collectors.toList()).get(0);
-    }
-
-    public double consultaEnergiaConsumidaEnLasUltimasXHoras(DispositivoInteligente unDisp, double horas) {
-        return this.buscarDispositivo(unDisp).consumoUltimasXHoras(horas);
-    }
-    */
-
-   /* public boolean consultarEstado(ConsultaEstado consulta)
+public class SistemaInteligente {
+    public boolean algunDIencendido(Cliente unCliente)
     {
-        consulta.consultar();
+        ConsultaEstaEncendido consultaEstaEncendido = new ConsultaEstaEncendido();
+        return unCliente.getDispositivosInteligentes().stream().anyMatch( unDI ->  consultaEstaEncendido.consultarDI(unDI));
     }
 
-    public double consultaConsumo(ConsultaConsumo consulta)
+    public int cantidadDIencendidos(Cliente unCliente)
     {
-        consulta.consultar();
+        ConsultaEstaEncendido consultaEstaEncendido = new ConsultaEstaEncendido();
+        return unCliente.getDispositivosInteligentes().stream().filter(unDI -> consultaEstaEncendido.consultarDI(unDI)).collect(Collectors.toList()).size();
     }
 
-    public void darOrden(Actuador unaOrden) {
-        unaOrden.ejecutar();
+    public int cantidadDIapagados(Cliente unCliente)
+    {
+        ConsultaEstaApagado consultaEstaApagado = new ConsultaEstaApagado();
+        return unCliente.getDispositivosInteligentes().stream().filter(unDI -> consultaEstaApagado.consultarDI(unDI)).collect(Collectors.toList()).size();
     }
 
-}*/
+    public int cantidadDispositivos(Cliente unCliente)
+    {
+        return unCliente.cantidadDeDispositivos();
+    }
+}

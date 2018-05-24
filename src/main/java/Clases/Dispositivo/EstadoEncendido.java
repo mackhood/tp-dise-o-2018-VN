@@ -21,4 +21,9 @@ public class EstadoEncendido implements EstadoDispositivo {
     public boolean estaApagado() {
         return false;
     }
+
+	public boolean estaEnModoAhorro() {
+
+		return false;
+	}
 }
