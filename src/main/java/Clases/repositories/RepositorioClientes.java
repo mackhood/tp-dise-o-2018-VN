@@ -10,9 +10,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
+import Clases.Categoria.AsignadorDeCategoria;
 
 
-public class RepositorioClientes {
+
+public class RepositorioClientes <Cliente> extends Repositorio<Cliente> {
+
+    String archivo = "Clientes.json";
+
 
     public static RepositorioClientes getInstance() {
         return instance;
@@ -20,40 +25,9 @@ public class RepositorioClientes {
 
     private static RepositorioClientes instance = new RepositorioClientes();
 
-    private RepositorioClientes() { //dejar en privado para que no puedan hacer otra instancia
+    private RepositorioClientes() {
     }
 
-    public void updateClientes(List<Cliente> clientes) {
-        clientes.stream().forEach(x -> {
-            x.actualizarCategoria();
-        });
-    }
 
-    public List<Cliente> obtenerClientes() throws ProcessingDataFailedException {
 
-        try {
-            FileReader file = new FileReader(getJsonFile());
-            BufferedReader bufferedReader = new BufferedReader(file);
-            Gson gson = new Gson();
-            Object jsonObject = gson.fromJson(bufferedReader, Object.class);
-            String json = jsonObject.toString();
-            Type tipoListaEmpleados = new TypeToken<List<Cliente>>() {
-            }.getType();
-
-            List<Cliente> clientes = gson.fromJson(json, tipoListaEmpleados);
-
-            this.updateClientes(clientes);
-
-            return clientes;
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new ProcessingDataFailedException(e.getLocalizedMessage());
-        }
-
-    }
-
-    private String getJsonFile() { //Separe este metodo para poder mockearlo al momento de testear
-        return getClass().getClassLoader().getResource("Clientes.json").getFile();
-    }
 }

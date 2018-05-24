@@ -1,51 +1,19 @@
 package Clases.repositories;
 
-import Clases.Categoria.Categoria;
-import Clases.entities.ProcessingDataFailedException;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.lang.reflect.Type;
-import java.util.List;
 
-public class RepositorioCategoria {
-//Aca va la logica para extraer del JSON de categorias las distintas categorias existentes
+
+public class RepositorioCategoria <Categoria> extends Repositorio<Categoria> {
+
+    String archivo = "Categoria.json";
 
     private static RepositorioCategoria instance = new RepositorioCategoria();
 
-    private RepositorioCategoria() { //dejar en privado para que no puedan hacer otra instancia
+    private RepositorioCategoria() {
     }
 
     public static RepositorioCategoria getInstance() {
         return instance;
-    }
-
-    public List<Categoria> obtenerCategorias() throws ProcessingDataFailedException {
-        try {
-            FileReader file = new FileReader(getJsonFile());
-            BufferedReader bufferedReader = new BufferedReader(file);
-
-            Gson gson = new Gson();
-            Object jsonObject = gson.fromJson(bufferedReader, Object.class);
-            String json = jsonObject.toString();
-            Type tipoListaCategorias = new TypeToken<List<Categoria>>() {
-            }.getType();
-            List<Categoria> categorias = gson.fromJson(json, tipoListaCategorias);
-
-            return categorias;
-
-        } catch (FileNotFoundException e) {
-            throw new ProcessingDataFailedException(e.getLocalizedMessage());
-        }
-    }
-
-    //Separe este metodo para poder mockearlo al momento de testear
-    //Lo hice publico para poder mockearlo
-    public String getJsonFile() {
-        return getClass().getClassLoader().getResource("Categoria.json").getFile();
     }
 
 
