@@ -25,7 +25,7 @@ public class AsignadorDeCategoria {
 
         List<Categoria> categoriasPosibles = null;
         try {
-            categoriasPosibles = repositorio.obtenerCategorias();
+            categoriasPosibles = repositorio.obtenerLista();
         } catch (ProcessingDataFailedException e) {
             throw new ProcessingDataFailedException(e.getLocalizedMessage());
         }

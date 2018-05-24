@@ -29,7 +29,7 @@ public   class Repositorio<T> {
         return getClass().getClassLoader().getResource(archivo).getFile();
     }
 
-    public List<T> obtenerLista(T objeto) throws ProcessingDataFailedException {
+    public List<T> obtenerLista() throws ProcessingDataFailedException {
 
         try {
             FileReader file = new FileReader(getJsonFile());

@@ -14,9 +14,9 @@ public class testRepositorioClientes {
     public void testDadoUnJsonDeTestSeObtieneCorrectamenteLaCantidadDeRegistros() throws Exception {
         RepositorioCategoria repositorio = Mockito.mock(RepositorioCategoria.class);
         when(repositorio.getJsonFile()).thenReturn(this.getJsonTestFile());
-        when(repositorio.obtenerCategorias()).thenCallRealMethod();
+        when(repositorio.obtenerLista()).thenCallRealMethod();
 
-        int sizeExoected = repositorio.obtenerCategorias().size();
+        int sizeExoected = repositorio.obtenerLista().size();
 
         Assert.assertEquals("Se obtienen todas las categorias en el json y se valida su cantidad", 1, sizeExoected);
     }
