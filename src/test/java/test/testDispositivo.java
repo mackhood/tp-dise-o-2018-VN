@@ -8,7 +8,10 @@ import Clases.Regla.Regla;
 import Clases.Sensor.Medicion;
 import Clases.Sensor.MedicionMovimiento;
 import Clases.Sensor.MedicionTemperatura;
+import Clases.Sensor.MedioExterno;
 import Clases.Sensor.Sensor;
+import Clases.Usuario.Cliente;
+
 import org.junit.Before;
 import org.junit.Test;
 import java.util.ArrayList;
@@ -26,7 +29,7 @@ public class testDispositivo {
     private DispositivoInteligente unDIEncendido;
     private DispositivoInteligente unDETransformado;
 
-    private ConsultaConsumoUltimasXHoras consultaConsumoUltimasXHoras;
+    private ConsultaConsumoUltimasNHoras consultaConsumoUltimasNHoras;
     private ConsultaEstaApagado consultaEstaApagado;
     private ConsultaEstaEncendido consultaEstaEncendido;
 
@@ -43,6 +46,11 @@ public class testDispositivo {
     private MedicionMovimiento medicionMovimiento = new MedicionMovimiento(true);
     private MedicionTemperatura medicionTemperatura = new MedicionTemperatura(true);
 
+    private Cliente unCliente;
+    private Convertidor moduloAdaptador;
+    
+    private MedioExterno unMedio;
+    
     @Before
     public void setUp() {
 
@@ -52,8 +60,7 @@ public class testDispositivo {
         unDIEncendido = new DispositivoInteligente("AireAcondicionado", 100, fabricante);
         unDIEncendido.encender();
         unDIEncendido.serUsado(10);
-        unDE.agregarAdaptadorInteligente();
-        unDETransformado = unDE.getDispositivoEstandarInteligente();
+        unDETransformado = unCliente.agregarModuloAdaptador(moduloAdaptador, unDE);
 
         consultaEstaApagado = new ConsultaEstaApagado(unDIApagado);
         consultaEstaEncendido = new ConsultaEstaEncendido(unDIApagado);
@@ -72,8 +79,7 @@ public class testDispositivo {
     @Test
     public void testSensorTemperaturaAmbienteTomaMediciones()
     {
-        sensorTemperaturaAmbiente.tomarMedicion(medicionTemperatura);
-        sensorTemperaturaAmbiente.tomarMedicion(medicionMovimiento);
+        sensorTemperaturaAmbiente.tomarMedicion(unMedio);
         assertEquals(150.0, unDIEncendido.consumoEstimadoPorHora());
     }
     @Test

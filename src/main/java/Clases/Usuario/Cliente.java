@@ -49,8 +49,16 @@ public class Cliente {
     public double puntosAcumulados() {
         return puntosAcumulados;
     }
+    
+    public List<Dispositivo> todosLosDispositivos() {
+    	
+    	List<Dispositivo> todos = new ArrayList<>();
+    	todos.addAll(dispositivosEstandar);
+    	todos.addAll(dispositivosInteligentes);
+    	return todos;
+    }
 
-    public void agregarModuloAdaptador(Convertidor moduloAdaptador, DispositivoEstandar disp) {
+    public DispositivoInteligente agregarModuloAdaptador(Convertidor moduloAdaptador, DispositivoEstandar disp) {
     	
     	if (this.tieneDispositivo(disp)) {
     		
@@ -59,6 +67,7 @@ public class Cliente {
 			dispositivosEstandar.remove(disp);
     		dispositivosInteligentes.add(nuevo);
             this.sumarPuntos(10);
+            return nuevo; 
     	}
     	
     /* Esto se cambia, lo pongo asi para ir haciendo lo demas 
@@ -89,7 +98,8 @@ public class Cliente {
     }
 
     public int cantidadDeDispositivos() {
-        return dispositivosEstandar.size() + dispositivosInteligentes.size();
+    
+    	return todosLosDispositivos().size();
     }
 
     public void agregarDispositivoInteligente(DispositivoInteligente disp) {
@@ -112,23 +122,9 @@ public class Cliente {
     	dispositivo.serUsado(cantHorasEstimativa);
     }
     
-    /* Asi como lo definimos ahora esto tendria que hacerse asi, y si volamos la clase dispositivo
-     	va a quedar logica repetida en cada calculo que comprenda a ambas listas, creo que habria
-     		que repensar dispositivo como clase abstracta de nuevo y hacer heredar a las otras dos */
-    
-    public double consumoEnergeticoEstandar() {
-
-        return dispositivosEstandar.stream().mapToDouble(disp -> disp.getConsumoTotal()).sum();
-    }
-    
-    public double consumoEnergeticoInteligentes() {
-
-        return dispositivosInteligentes.stream().mapToDouble(disp -> disp.getConsumoTotal()).sum();
-    }
-    
     public double consumoEnergeticoTotal() {
-    	
-    	return this.consumoEnergeticoEstandar() + this.consumoEnergeticoInteligentes();
+
+        return todosLosDispositivos().stream().mapToDouble(disp -> disp.getConsumoTotal()).sum();
     }
     
     public double obtenerGastosAproximados() {

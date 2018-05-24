@@ -5,7 +5,7 @@ import java.time.temporal.ChronoUnit;
 
 import Clases.Fabricante;
 
-public class DispositivoInteligente {
+public class DispositivoInteligente extends Dispositivo {
 
     String nombre;
     private double consumoPorHora;
@@ -133,4 +133,10 @@ public class DispositivoInteligente {
 
     	return consumoTotal;
     }
+
+
+	public boolean estaEnModoAhorro() {
+		
+		return estadoDispositivo.estaEnModoAhorro();
+	}
 }

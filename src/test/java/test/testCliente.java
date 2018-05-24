@@ -31,7 +31,9 @@ public class testCliente {
     private DispositivoInteligente unDIApagado;
     private DispositivoInteligente unDIEncendido;
     private DispositivoInteligente unDETransformado;
-
+    
+    private Convertidor convertidor;
+    
     private SistemaInteligente unSI;
 
     private Fabricante fabricante;
@@ -91,7 +93,7 @@ public class testCliente {
     @Test
     public void testPuntosAcumuladorDespuesDeAgregarAdaptadorAUnDE()
     {
-        unClienteConDEyDI.agregarModuloAdaptador(unDE);
+        unClienteConDEyDI.agregarModuloAdaptador(convertidor, unDE);
         assertEquals(55.0, unClienteConDEyDI.puntosAcumulados());
     }
 
@@ -152,8 +154,8 @@ public class testCliente {
     */
     @Test
     public void testConsumoEnergeticoTotalDeUnCliente() {
-        assertEquals(51.0, unClienteConDEyDI.consumoDEEnergeticoTotal());
-        assertEquals(0.0, unClienteSinDEyConDI.consumoDEEnergeticoTotal());
+        assertEquals(51.0, unClienteConDEyDI.consumoEnergeticoTotal());
+        assertEquals(0.0, unClienteSinDEyConDI.consumoEnergeticoTotal());
     }
 
     /*

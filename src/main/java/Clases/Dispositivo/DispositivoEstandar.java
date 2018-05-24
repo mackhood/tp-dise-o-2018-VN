@@ -2,7 +2,7 @@ package Clases.Dispositivo;
 
 import Clases.Fabricante;
 
-public class DispositivoEstandar implements InterfazDispositivo {
+public class DispositivoEstandar extends Dispositivo {
     private String nombre;
     private double consumoEstimadoPorHora;
     private double horasDeUso = 0;
