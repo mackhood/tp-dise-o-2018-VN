@@ -4,7 +4,7 @@ import Clases.Dispositivo.DispositivoInteligente;
 
 public class ConsultaConsumoUltimasNHoras extends ConsultaConsumo {
 
-    public ConsultaConsumoUltimasNHoras(DispositivoInteligente unDI, double ultimasNHoras) {
+    public ConsultaConsumoUltimasNHoras(DispositivoInteligente unDI, long ultimasNHoras) {
         super(unDI,ultimasNHoras);
     }
 

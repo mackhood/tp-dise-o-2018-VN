@@ -5,11 +5,11 @@ import Clases.Dispositivo.DispositivoInteligente;
 public abstract class ConsultaConsumo {
 
     DispositivoInteligente unDI;
-    double ultimasNHoras;
+    long ultimasNHoras;
 
     public ConsultaConsumo(){}
 
-    public ConsultaConsumo(DispositivoInteligente dispInteligente, double ultimasNHoras) {
+    public ConsultaConsumo(DispositivoInteligente dispInteligente, long ultimasNHoras) {
         this.unDI = dispInteligente;
         this.ultimasNHoras = ultimasNHoras;
     }

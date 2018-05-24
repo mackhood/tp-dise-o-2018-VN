@@ -66,17 +66,17 @@ public class DispositivoInteligente {
         return this.idInteligente == dispositivoInteligente.getIdInteligente();
     }
 
-    public void apagar(LocalDateTime horaApagado) {
+    public void apagar() {
         estadoDispositivo.apagar(this);
         dispositivoFisico.apagar();
-        this.horaApagado = horaApagado;
+        this.horaApagado = LocalDateTime.now();
     }
 
-    public void encender(LocalDateTime horaEncendido) {
+    public void encender() {
         
     	estadoDispositivo.encender(this);
         dispositivoFisico.encender();
-        this.horaEncendido = horaEncendido;
+        this.horaEncendido = LocalDateTime.now();
     }
 
     public void ponerModoAhorro() {
@@ -87,8 +87,8 @@ public class DispositivoInteligente {
     public void serUsado(long horas) {
     	
     	LocalDateTime horaActual = LocalDateTime.now();
-    	this.encender(horaActual);
-    	this.apagar(horaActual.plusHours(horas));
+    	this.horaEncendido = horaActual;
+    	this.horaApagado = horaActual.plusHours(horas);
     	
     	double consumoGenerado = calcularConsumo(horaEncendido,horaApagado);
     	this.consumoTotal += consumoGenerado;
@@ -106,7 +106,7 @@ public class DispositivoInteligente {
       		Si alguien tiene una mejor idea u otra forma de implementarlo buenisimo.
      */
     
-    public double consumoUltimasXHoras(long horas) {
+    public double consumoUltimasNHoras(long horas) {
         
     	LocalDateTime hasta = LocalDateTime.now();
     	LocalDateTime desde = hasta.minusHours(horas);
@@ -123,7 +123,12 @@ public class DispositivoInteligente {
 
         dispositivoFisico.ejecutar();
     }
-
+    
+    public void aumentarConsumoPor(double cantidad) {
+    	
+    	this.consumoPorHora += cantidad;
+    }
+    
     public double getConsumoTotal() {
 
     	return consumoTotal;
