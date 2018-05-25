@@ -13,7 +13,7 @@ public class DispositivoInteligente extends Dispositivo {
     private Fabricante fabricante;
     private int idInteligente;
     private EstadoDispositivo estadoDispositivo;
-    DispositivoFisico dispositivoFisico;
+    //DispositivoFisico dispositivoFisico;
     private LocalDateTime horaEncendido = null;
     private LocalDateTime horaApagado = null;
     private double consumoTotal = 0;
@@ -23,6 +23,7 @@ public class DispositivoInteligente extends Dispositivo {
         this.nombre = nombre;
         this.idInteligente = idInteligente;
         this.fabricante = unFabricante;
+        estadoDispositivo = new EstadoApagado();
     }
 
 
@@ -68,20 +69,20 @@ public class DispositivoInteligente extends Dispositivo {
 
     public void apagar() {
         estadoDispositivo.apagar(this);
-        dispositivoFisico.apagar();
+        //dispositivoFisico.apagar();
         this.horaApagado = LocalDateTime.now();
     }
 
     public void encender() {
         
     	estadoDispositivo.encender(this);
-        dispositivoFisico.encender();
+        //dispositivoFisico.encender();
         this.horaEncendido = LocalDateTime.now();
     }
 
     public void ponerModoAhorro() {
         estadoDispositivo.ponerModoAhorro(this);
-        dispositivoFisico.ahorro();
+        //dispositivoFisico.ahorro();
     }
     
     public void serUsado(long horas) {

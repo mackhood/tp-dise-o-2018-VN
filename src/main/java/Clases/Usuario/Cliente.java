@@ -63,16 +63,16 @@ public class Cliente {
     	if (this.tieneDispositivo(disp)) {
     		
     		DispositivoEstandarInteligente nuevo = null;
-			moduloAdaptador.convertirInteligente(disp, nuevo);
+			DispositivoEstandarInteligente nuevoDispositivo =moduloAdaptador.convertirInteligente(disp, nuevo);
 			dispositivosEstandar.remove(disp);
-    		dispositivosInteligentes.add(nuevo);
+    		dispositivosInteligentes.add(nuevoDispositivo);
             this.sumarPuntos(10);
             return nuevo; 
     	}
     	
     /* Esto se cambia, lo pongo asi para ir haciendo lo demas 
     	  y despues tratar las excepciones todas juntas. Para mi si quiere convertir un disp
-     		que no tiene debería tirar excepcion, pero es charlable */
+     		que no tiene deberï¿½a tirar excepcion, pero es charlable */
     	
     	else throw new RuntimeException();
     }

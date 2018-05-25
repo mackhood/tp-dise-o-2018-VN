@@ -44,7 +44,10 @@ public class testCliente {
         unSI = new SistemaInteligente();
         unDispositivoEncendido = mock(DispositivoEstandar.class);
         unDispositivoApagado = mock(DispositivoEstandar.class);
+        //unDispositivoEncendido = new DispositivoEstandar("da", 500, fabricante);
+        //unDispositivoApagado = new DispositivoEstandar("AireAcondicionado", 100, fabricante);
         otroDispositivo = mock(Dispositivo.class);
+
 
         fabricante = new Fabricante(1);
         unDE = new DispositivoEstandar("a1", 300, fabricante);
@@ -62,12 +65,12 @@ public class testCliente {
         List<DispositivoInteligente> listaDispInteligentes = new ArrayList<>();
 
 
-        /*
-        when(unDispositivoEncendido.esCiertoEstado(new EstadoEncendido()).thenReturn(false);
-        when(unDispositivoApagado.esCiertoEstado(EstadoDispositivo.APAGADO)).thenReturn(false);
-        */
-        when(unDispositivoEncendido.getConsumoTotal()).thenReturn(25.5);
-        when(unDispositivoApagado.getConsumoTotal()).thenReturn(25.5);
+
+        //when(unDispositivoEncendido.esCiertoEstado(new EstadoEncendido()).thenReturn(false);
+        //when(unDispositivoApagado.esCiertoEstado(EstadoDispositivo.APAGADO)).thenReturn(false);
+
+       when(unDispositivoEncendido.getConsumoTotal()).thenReturn(25.5);
+       when(unDispositivoApagado.getConsumoTotal()).thenReturn(25.5);
 
         listaDispositivosEstandar.add(unDispositivoApagado);
         listaDispositivosEstandar.add(unDispositivoApagado);
