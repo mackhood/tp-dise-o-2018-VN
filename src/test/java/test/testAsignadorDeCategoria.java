@@ -25,7 +25,6 @@ public class testAsignadorDeCategoria {
         unClienteMock = mock(Cliente.class);
         categoria1Mock = mock(Categoria.class);
         categoria2Mock = mock(Categoria.class);
-        when(unClienteMock.consumoEnergeticoTotal()).thenReturn(200.1);
         when(categoria1Mock.cumpleCondicion(unClienteMock)).thenReturn(true);
         when(categoria2Mock.cumpleCondicion(unClienteMock)).thenReturn(false);
         unAsignadorDeCategoria = AsignadorDeCategoria.getInstance();

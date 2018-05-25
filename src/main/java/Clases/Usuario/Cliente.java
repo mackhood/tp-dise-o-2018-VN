@@ -12,6 +12,7 @@ import Clases.Dispositivo.EstadoDispositivo;
 import Clases.Dispositivo.EstadoEncendido;
 import Clases.entities.ProcessingDataFailedException;
 
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -155,5 +156,6 @@ public class Cliente {
 	public List<DispositivoInteligente> getDispositivosInteligentes() { 
 
 		return dispositivosInteligentes; 
-	} 
+	}
+
 }

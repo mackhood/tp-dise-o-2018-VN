@@ -12,6 +12,8 @@ import Clases.entities.ProcessingDataFailedException;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -161,28 +163,38 @@ public class testCliente {
         assertEquals(0.0, unClienteSinDEyConDI.consumoEnergeticoTotal());
     }
 
-    /*
+
     @Test
-    public void testVerififarCategoriaDeUnCliente() throws ProcessingDataFailedException {
+    public void testVerificarActualizacionDeCategoriaCliente() throws ProcessingDataFailedException {
 
-        Categoria unaCategoriaMock = mock(Categoria.class);
-        when(unaCategoriaMock.getNombreCategoria()).thenReturn("CategoriaR1");
-        unClienteCon2Dispositivos.setCategoria(unaCategoriaMock);
+        Categoria unaCategoriaMockSeteada = mock(Categoria.class);
+        Categoria categoriaMocktest1 = mock(Categoria.class);
+        Categoria categoriaMocktest2 = mock(Categoria.class);
 
-        assertEquals("CategoriaR1", unClienteCon2Dispositivos.nombreCategoria());
+        List<Categoria> listaCategoriaMock = new ArrayList<>();
 
-        Categoria categoriaMock = mock(Categoria.class);
-        when(categoriaMock.cumpleCondicion(unClienteCon2Dispositivos)).thenReturn(true);
-        AsignadorDeCategoria asignadorMock = mock(AsignadorDeCategoria.class);
-        when(asignadorMock.definirCategoriaPara(unClienteCon2Dispositivos)).thenReturn(unaCategoriaMock);
-        when(unClienteCon2Dispositivos.asignadorDeCategoria()).thenReturn(asignadorMock);
-        when(unaCategoriaMock.getNombreCategoria()).thenReturn("CategoriaR2");
+        listaCategoriaMock.add(categoriaMocktest1);
+        listaCategoriaMock.add(categoriaMocktest2);
 
-        unClienteCon2Dispositivos.actualizarCategoria();
-        assertEquals("CategoriaR2", unClienteCon2Dispositivos.nombreCategoria());
+        when(unaCategoriaMockSeteada.getNombreCategoria()).thenReturn("CategoriaR1");
+        unClienteConDEyDI.setCategoria(unaCategoriaMockSeteada);
+
+        assertEquals("CategoriaR1", unClienteConDEyDI.nombreCategoria());
+
+        when(categoriaMocktest1.cumpleCondicion(unClienteConDEyDI)).thenReturn(true);
+        when(categoriaMocktest2.cumpleCondicion(unClienteConDEyDI)).thenReturn(false);
+
+        AsignadorDeCategoria asignadorMock = mock(AsignadorDeCategoria.class, Mockito.CALLS_REAL_METHODS);
+
+        when(asignadorMock.getObtenerCategoriasDelRepositorio()).thenReturn(listaCategoriaMock);
+
+        when(categoriaMocktest1.getNombreCategoria()).thenReturn("CategoriaR2");
+
+        asignadorMock.actualizarPara(unClienteConDEyDI);
+        assertEquals("CategoriaR2", unClienteConDEyDI.nombreCategoria());
 
     }
-
+    /*
 
 
     @Test

@@ -15,20 +15,26 @@ public class AsignadorDeCategoria {
     
     }
 
-    RepositorioCategoria repositorio = RepositorioCategoria.getInstance();
-
+    //Cambios para poder usar mock y spy sin necesidad de llamar al verdadero repo
+    //O usar un archivo json de prueba.
+    public RepositorioCategoria getObtenerRepositorio(){
+         return  RepositorioCategoria.getInstance();
+    }
+    public List <Categoria> getObtenerCategoriasDelRepositorio() throws ProcessingDataFailedException{
+        try {
+            return this.getObtenerRepositorio().obtenerCategorias();
+        } catch (ProcessingDataFailedException e) {
+            throw new ProcessingDataFailedException(e.getLocalizedMessage());
+        }
+    }
     public static AsignadorDeCategoria getInstance() {
         return instance;
     }
 
     public Categoria definirCategoriaPara(Cliente cliente) throws ProcessingDataFailedException {
 
-        List<Categoria> categoriasPosibles = null;
-        try {
-            categoriasPosibles = repositorio.obtenerCategorias();
-        } catch (ProcessingDataFailedException e) {
-            throw new ProcessingDataFailedException(e.getLocalizedMessage());
-        }
+        List <Categoria> categoriasPosibles = this.getObtenerCategoriasDelRepositorio();
+
         return categoriaCliente(cliente, categoriasPosibles);
 
     }
