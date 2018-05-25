@@ -1,5 +1,6 @@
 package Clases.repositories;
 
+import Clases.Categoria.AsignadorDeCategoria;
 import Clases.Usuario.Cliente;
 import Clases.entities.ProcessingDataFailedException;
 import com.google.gson.Gson;
@@ -24,9 +25,8 @@ public class RepositorioClientes {
     }
 
     public void updateClientes(List<Cliente> clientes) {
-        clientes.stream().forEach(x -> {
-            x.actualizarCategoria();
-        });
+        AsignadorDeCategoria asignadorDeCategoria = AsignadorDeCategoria.getInstance();
+        clientes.stream().forEach(asignadorDeCategoria::actualizarPara);
     }
 
     public List<Cliente> obtenerClientes() throws ProcessingDataFailedException {
