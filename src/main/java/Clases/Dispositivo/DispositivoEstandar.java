@@ -51,7 +51,7 @@ public class DispositivoEstandar extends Dispositivo {
     }
 
     public int getPuntos() {
-        return 5;
+        return 10;
     }
 
 }

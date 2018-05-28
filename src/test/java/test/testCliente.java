@@ -40,6 +40,12 @@ public class testCliente {
 
     private Fabricante fabricante;
 
+    Categoria categoriaMocktest1;
+    Categoria categoriaMocktest2;
+    List<Categoria>  listaCategoriaMock;
+    AsignadorDeCategoria asignadorMock;
+
+
     @Before
     public void setUp() {
 
@@ -87,6 +93,22 @@ public class testCliente {
         unClienteConDEyDI.agregarDispositivoInteligente(unDIEncendido);
         unClienteConDEyDI.agregarDispositivoInteligente(unDIApagado);
 
+
+        //Siguientes lineas Utilizadas para test de actualizar categoria y gastos aproximados.
+        asignadorMock = mock(AsignadorDeCategoria.class, Mockito.CALLS_REAL_METHODS);
+        categoriaMocktest1 = mock(Categoria.class);
+        categoriaMocktest2 = mock(Categoria.class);
+
+        when(categoriaMocktest1.cumpleCondicion(unClienteConDEyDI)).thenReturn(true);
+        when(categoriaMocktest2.cumpleCondicion(unClienteConDEyDI)).thenReturn(false);
+
+        listaCategoriaMock = new ArrayList<>();
+
+        listaCategoriaMock.add(categoriaMocktest1);
+        listaCategoriaMock.add(categoriaMocktest2);
+
+
+
     }
 
     @Test
@@ -98,13 +120,15 @@ public class testCliente {
     @Test
     public void testPuntosAcumuladorDespuesDeAgregarAdaptadorAUnDE()
     {
+        convertidor = new Convertidor();
         unClienteConDEyDI.agregarModuloAdaptador(convertidor, unDE);
-        assertEquals(55.0, unClienteConDEyDI.puntosAcumulados());
+        assertEquals(35.0, unClienteConDEyDI.puntosAcumulados());
     }
 
     @Test
     public void testAlgunDIestaEncendidoClienteCon2DI()
     {
+
         assertEquals(true,unSI.algunDIencendido(unClienteConDEyDI));
     }
 
@@ -127,36 +151,6 @@ public class testCliente {
     }
 
 
-    /*
-    @Ignore
-    public void testClienteCon2DispositivosEstandaresLigando1ModuloAdaptadorAUnDispEstandarNuevo() {
-        DispositivoEstandar dispEstandar = new DispositivoEstandar("asd", 100);
-        unClienteCon2Dispositivos.agregarDispositivo(dispEstandar);
-        unClienteCon2Dispositivos.agregarModuloAdaptador(dispEstandar);
-        assertEquals(55.0, unClienteCon2Dispositivos.puntosAcumulados());
-    }
-    */
-
-    /*
-    @Test
-    public void testCantidadDispositivosDeUnCliente() {
-        assertEquals(2, unClienteCon2Dispositivos.cantidadDeDispositivos());
-        assertEquals(0, unClienteSinDispositivos.cantidadDeDispositivos());
-
-    }
-
-    @Test
-    public void testCantidadDispositivosApagadosDeUnCliente() {
-        assertEquals(1, unClienteCon2Dispositivos.cantidadDeDispositivosEncendidos());
-        assertEquals(0, unClienteSinDispositivos.cantidadDeDispositivosApagados());
-    }
-
-    @Test
-    public void testCantidadDispositivosEncedidosDeUnCliente() {
-        assertEquals(1, unClienteCon2Dispositivos.cantidadDeDispositivosEncendidos());
-        assertEquals(0, unClienteSinDispositivos.cantidadDeDispositivosEncendidos());
-    }
-    */
     @Test
     public void testConsumoEnergeticoTotalDeUnCliente() {
         assertEquals(51.0, unClienteConDEyDI.consumoEnergeticoTotal());
@@ -168,21 +162,12 @@ public class testCliente {
     public void testVerificarActualizacionDeCategoriaCliente() throws ProcessingDataFailedException {
 
         Categoria unaCategoriaMockSeteada = mock(Categoria.class);
-        Categoria categoriaMocktest1 = mock(Categoria.class);
-        Categoria categoriaMocktest2 = mock(Categoria.class);
-
-        List<Categoria> listaCategoriaMock = new ArrayList<>();
-
-        listaCategoriaMock.add(categoriaMocktest1);
-        listaCategoriaMock.add(categoriaMocktest2);
 
         when(unaCategoriaMockSeteada.getNombreCategoria()).thenReturn("CategoriaR1");
         unClienteConDEyDI.setCategoria(unaCategoriaMockSeteada);
 
         assertEquals("CategoriaR1", unClienteConDEyDI.nombreCategoria());
 
-        when(categoriaMocktest1.cumpleCondicion(unClienteConDEyDI)).thenReturn(true);
-        when(categoriaMocktest2.cumpleCondicion(unClienteConDEyDI)).thenReturn(false);
 
         AsignadorDeCategoria asignadorMock = mock(AsignadorDeCategoria.class, Mockito.CALLS_REAL_METHODS);
 
@@ -194,7 +179,6 @@ public class testCliente {
         assertEquals("CategoriaR2", unClienteConDEyDI.nombreCategoria());
 
     }
-    /*
 
 
     @Test
@@ -205,62 +189,24 @@ public class testCliente {
         //ConsumoCliente=51.0
         //35.32+0.644*51.0= 68.164
 
-        Categoria categoriaMock = mock(Categoria.class);
-        when(categoriaMock.getCargoVariable()).thenReturn(0.644);
-        Double gasto = 35.32 + categoriaMock.getCargoVariable() * unClienteCon2Dispositivos.consumoEnergeticoTotal();
-        AsignadorDeCategoria asignadorMock = mock(AsignadorDeCategoria.class);
-        when(asignadorMock.definirCategoriaPara(unClienteCon2Dispositivos)).thenReturn(categoriaMock);
-        when(categoriaMock.calcularCostosPara(unClienteCon2Dispositivos)).thenReturn(gasto);
-        doReturn(asignadorMock)
-                .when(unClienteCon2Dispositivos)
-                .asignadorDeCategoria();
-        unClienteCon2Dispositivos.actualizarCategoria();
-        unClienteCon2Dispositivos.obtenerGastosAproximados();
+
+        when(categoriaMocktest1.getCargoVariable()).thenReturn(0.644);
+        double gasto = 35.32 + categoriaMocktest1.getCargoVariable() * unClienteConDEyDI.consumoEnergeticoTotal();
 
 
-        verify(categoriaMock).calcularCostosPara(unClienteCon2Dispositivos);
+
+        when(asignadorMock.getObtenerCategoriasDelRepositorio()).thenReturn(listaCategoriaMock);
+
+        when(categoriaMocktest1.calcularCostosPara(unClienteConDEyDI)).thenReturn(gasto);
+
+        asignadorMock.actualizarPara(unClienteConDEyDI);
+
+        unClienteConDEyDI.obtenerGastosAproximados();
+
+        verify(categoriaMocktest1).calcularCostosPara(unClienteConDEyDI);
 
 
-        assertEquals(68.164, unClienteCon2Dispositivos.obtenerGastosAproximados());
+        assertEquals(68.164, unClienteConDEyDI.obtenerGastosAproximados());
 
     }
-
-    @Test
-    public void testObtenerGastosAproximadosConMockCategoria() throws ProcessingDataFailedException {
-
-        Categoria categoriaMock = mock(Categoria.class);
-
-        //Se le agrega otro dispositivo
-        unClienteCon2Dispositivos.agregarDispositivo(otroDispositivo);
-
-        //Se actualiza su categoria
-        unClienteCon2Dispositivos.actualizarCategoria();
-
-        //Cargofijo=500
-        //CargoVariable=0.7
-        //ConsumoCliente=251.0
-        //500+0.7*251.0=196.964
-        double costo = 500.0 + 0.7 * unClienteCon2Dispositivos.consumoEnergeticoTotal();
-
-        when(categoriaMock.calcularCostosPara(unClienteCon2Dispositivos)).thenReturn(costo);
-        assertEquals(675.7, categoriaMock.calcularCostosPara(unClienteCon2Dispositivos));
-    }
-
-    @Test
-    public void testActualizacionCategoriaClienteConSpy() throws ProcessingDataFailedException {
-
-        List<Dispositivo> listaDispositivosParaOtroCliente = new ArrayList<>();
-        Cliente unClienteSpy = spy(new Cliente("Nicolas", "Sierra", "fer22", new ID(TiposId.DNI, "200"), new Domicilio("bariloche", 3118, 1, 'a'), 250, listaDispositivosParaOtroCliente));
-        Categoria unaCategoriaMock = mock(Categoria.class);
-        AsignadorDeCategoria asignadorMock = mock(AsignadorDeCategoria.class);
-        when(asignadorMock.definirCategoriaPara(unClienteSpy)).thenReturn(unaCategoriaMock);
-        doReturn(asignadorMock)
-                .when(unClienteSpy)
-                .asignadorDeCategoria();
-        unClienteSpy.actualizarCategoria();
-        verify(asignadorMock).definirCategoriaPara(unClienteSpy);
-        assertEquals(unaCategoriaMock, unClienteSpy.getCategoria());
-    }
-
-    */
 }
