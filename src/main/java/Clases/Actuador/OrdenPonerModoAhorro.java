@@ -2,14 +2,17 @@ package Clases.Actuador;
 
 import Clases.Dispositivo.DispositivoInteligente;
 
-public class OrdenPonerModoAhorro extends Actuador{
+import java.util.List;
 
-    public OrdenPonerModoAhorro(DispositivoInteligente dispInteligente) {
+public class OrdenPonerModoAhorro extends  ActuadorDeDispositivos implements  Actuador{
+
+    public OrdenPonerModoAhorro(List<DispositivoInteligente> dispInteligente) {
+
         super(dispInteligente);
     }
 
     @Override
     public void ejecutar() {
-        dispInteligente.ponerModoAhorro();
+        dispositivoInteligenteList.stream().forEach(DispositivoInteligente::ponerModoAhorro);
     }
 }

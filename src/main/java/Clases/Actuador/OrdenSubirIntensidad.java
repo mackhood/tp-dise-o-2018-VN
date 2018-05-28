@@ -2,12 +2,13 @@ package Clases.Actuador;
 
 import Clases.Dispositivo.DispositivoInteligente;
 
-public class OrdenSubirIntensidad extends Actuador {
+import java.util.List;
 
-    public OrdenSubirIntensidad(DispositivoInteligente unDI){ super(unDI); }
+public class OrdenSubirIntensidad extends ActuadorDeDispositivos implements  Actuador {
+
+    public OrdenSubirIntensidad(List<DispositivoInteligente> unDI){ super(unDI); }
 
     public void ejecutar() {
-    
-		dispInteligente.aumentarConsumoPor(50);
+        dispositivoInteligenteList.stream().forEach(x-> x.aumentarConsumoPor(50));
     }
 }

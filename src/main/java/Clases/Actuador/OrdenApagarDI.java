@@ -2,14 +2,16 @@ package Clases.Actuador;
 
 import Clases.Dispositivo.DispositivoInteligente;
 
-public class OrdenApagarDI extends Actuador{
+import java.util.List;
 
-    public OrdenApagarDI(DispositivoInteligente dispInteligente) {
+public class OrdenApagarDI extends  ActuadorDeDispositivos implements Actuador{
+
+    public OrdenApagarDI(List<DispositivoInteligente> dispInteligente) {
         super(dispInteligente);
     }
 
     @Override
     public void ejecutar() {
-        this.dispInteligente.apagar();
+        dispositivoInteligenteList.stream().forEach(DispositivoInteligente::apagar);
     }
 }

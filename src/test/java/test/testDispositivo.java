@@ -64,11 +64,20 @@ public class testDispositivo {
 
         consultaEstaApagado = new ConsultaEstaApagado(unDIApagado);
         consultaEstaEncendido = new ConsultaEstaEncendido(unDIApagado);
-        ordenApagarDI = new OrdenApagarDI(unDIEncendido);
-        ordenEncenderDI = new OrdenEncenderDI(unDIApagado);
-        ordenPonerModoAhorro = new OrdenPonerModoAhorro(unDIApagado);
+        List <DispositivoInteligente> listDispEncendidos= new ArrayList<>();
+        listDispEncendidos.add(unDIEncendido);
 
-        ordenSubirIntensidad = new OrdenSubirIntensidad(unDIEncendido);
+        List <DispositivoInteligente> listDispApagados= new ArrayList<>();
+        listDispApagados.add(unDIApagado);
+
+        List <DispositivoInteligente> listDispModoAhorro= new ArrayList<>();
+        listDispModoAhorro.add(unDIApagado);
+
+        ordenApagarDI = new OrdenApagarDI(listDispApagados);
+        ordenEncenderDI = new OrdenEncenderDI(listDispEncendidos);
+        ordenPonerModoAhorro = new OrdenPonerModoAhorro(listDispModoAhorro);
+
+        ordenSubirIntensidad = new OrdenSubirIntensidad(listDispEncendidos);
         List<Medicion> listaMedicionesACumplir = new ArrayList<>();
         listaMedicionesACumplir.add(medicionMovimiento);
         listaMedicionesACumplir.add(medicionTemperatura);
