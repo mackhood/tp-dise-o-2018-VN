@@ -7,7 +7,6 @@ import Clases.Fabricante;
 public abstract class Dispositivo {
 
     protected String nombre;
-    protected EstadoDispositivo estado = null;
     protected double consumoEstimadoPorHora;
     protected double horasDeUso = 0;
     Fabricante fabricante;
@@ -17,9 +16,6 @@ public abstract class Dispositivo {
         horasDeUso = horasDeUso + cantHorasEstimativa;
     }
 
-    public abstract void encender();
-
-    public abstract void apagar();
 
     public double consumoEstimadoPorHora() {
         return consumoEstimadoPorHora;
@@ -43,13 +39,7 @@ public abstract class Dispositivo {
         return fabricante;
     }
 
-    public EstadoDispositivo estadoDispositivo() {
-        return estado;
-    }
 
-    public boolean esCiertoEstado(EstadoDispositivo estadoCond) {
-        return estado.equals(estadoCond);
-    }
 
     public void aumentarConsumoPor(int aumento) {
         consumoEstimadoPorHora = consumoEstimadoPorHora + aumento;

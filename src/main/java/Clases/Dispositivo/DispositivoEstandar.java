@@ -42,15 +42,6 @@ public class DispositivoEstandar extends Dispositivo {
 
 
 
-    public void apagar() {
-
-    }
-
-    public void encender() {
-
-    }
-
-
     public double getConsumoTotal() {
         return this.consumoEstimadoPorHora * this.horasDeUso;
     }

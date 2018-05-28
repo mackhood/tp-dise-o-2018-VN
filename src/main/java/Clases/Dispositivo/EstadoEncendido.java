@@ -1,9 +1,14 @@
 package Clases.Dispositivo;
 
 public class EstadoEncendido implements EstadoDispositivo {
+    private static EstadoEncendido instance = new EstadoEncendido();
+
+    public static EstadoEncendido getInstance() {
+        return instance;
+    }
 
     public void apagar(DispositivoInteligente disp) {
-        disp.cambiarEstado(new EstadoApagado());
+        disp.cambiarEstado(EstadoApagado.getInstance());
     }
 
     public void encender(DispositivoInteligente disp) {
@@ -11,7 +16,7 @@ public class EstadoEncendido implements EstadoDispositivo {
     }
 
     public void ponerModoAhorro(DispositivoInteligente disp) {
-        disp.cambiarEstado(new EstadoModoAhorro());
+        disp.cambiarEstado(EstadoModoAhorro.getInstance());
     }
 
     public boolean estaEncendido() {

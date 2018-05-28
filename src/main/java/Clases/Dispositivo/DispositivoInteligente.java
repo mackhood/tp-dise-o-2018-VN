@@ -17,7 +17,7 @@ public class DispositivoInteligente extends Dispositivo {
     private LocalDateTime horaEncendido = null;
     private LocalDateTime horaApagado = null;
     private double consumoTotal = 0;
-    
+
     public DispositivoInteligente(String nombre, int idInteligente, Fabricante unFabricante) {
 
         this.nombre = nombre;
@@ -26,6 +26,13 @@ public class DispositivoInteligente extends Dispositivo {
         estadoDispositivo = new EstadoApagado();
     }
 
+    public EstadoDispositivo estadoDispositivo() {
+        return estadoDispositivo;
+    }
+
+    public boolean esCiertoEstado(EstadoDispositivo estadoCond) {
+        return estadoDispositivo.equals(estadoCond);
+    }
 
     public  void  setNombre ( String nombreNuevo ){
         this.nombre=nombreNuevo;

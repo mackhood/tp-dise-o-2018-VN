@@ -2,6 +2,12 @@ package Clases.Dispositivo;
 
 public class EstadoModoAhorro implements EstadoDispositivo {
 
+    private static EstadoModoAhorro instance = new EstadoModoAhorro();
+
+    public static EstadoModoAhorro getInstance() {
+        return instance;
+    }
+
     public void apagar(DispositivoInteligente disp) {
 
     }
