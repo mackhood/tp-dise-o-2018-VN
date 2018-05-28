@@ -1,21 +1,16 @@
 package Clases.Usuario;
 
-import Clases.Categoria.AsignadorDeCategoria;
 import Clases.Categoria.Categoria;
 import Clases.Dispositivo.Convertidor;
 import Clases.Dispositivo.Dispositivo;
 import Clases.Dispositivo.DispositivoEstandar;
 import Clases.Dispositivo.DispositivoInteligente;
 import Clases.Dispositivo.DispositivoEstandarInteligente;
-import Clases.Dispositivo.EstadoApagado;
-import Clases.Dispositivo.EstadoDispositivo;
-import Clases.Dispositivo.EstadoEncendido;
-import Clases.entities.ProcessingDataFailedException;
 
-import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class Cliente {
 
@@ -48,7 +43,7 @@ public class Cliente {
 
     
     public double puntosAcumulados() {
-        return puntosAcumulados;
+        return this.sumarPuntos();
     }
     
     public List<Dispositivo> todosLosDispositivos() {
@@ -67,7 +62,6 @@ public class Cliente {
 			DispositivoEstandarInteligente nuevoDispositivo =moduloAdaptador.convertirInteligente(disp, nuevo);
 			dispositivosEstandar.remove(disp);
     		dispositivosInteligentes.add(nuevoDispositivo);
-            this.sumarPuntos(10);
             return nuevo; 
     	}
     	
@@ -106,7 +100,6 @@ public class Cliente {
     public void agregarDispositivoInteligente(DispositivoInteligente disp) {
 
         dispositivosInteligentes.add(disp);
-        this.sumarPuntos(15);
     }
     
     public void agregarDispositivoEstandar(DispositivoEstandar disp) {
@@ -114,8 +107,9 @@ public class Cliente {
     	dispositivosEstandar.add(disp);
     }
 
-    public void sumarPuntos(int puntos) {
-        puntosAcumulados = puntosAcumulados + puntos;
+    public int sumarPuntos() {
+
+        return todosLosDispositivos().stream().mapToInt(dispositivo -> dispositivo.getPuntos()).sum();
     }
 
     public void usarDispositivo(DispositivoEstandar dispositivo, int cantHorasEstimativa) {

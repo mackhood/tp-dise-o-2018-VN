@@ -147,4 +147,7 @@ public class DispositivoInteligente extends Dispositivo {
 		
 		return estadoDispositivo.estaEnModoAhorro();
 	}
+    public int getPuntos() {
+        return 10;
+    }
 }

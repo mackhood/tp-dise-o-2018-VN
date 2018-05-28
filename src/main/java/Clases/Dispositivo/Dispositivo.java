@@ -45,4 +45,6 @@ public abstract class Dispositivo {
         consumoEstimadoPorHora = consumoEstimadoPorHora + aumento;
     }
 
+
+    public abstract int getPuntos();
 }

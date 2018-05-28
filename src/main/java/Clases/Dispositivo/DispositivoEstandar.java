@@ -50,4 +50,8 @@ public class DispositivoEstandar extends Dispositivo {
         return idEstandar;
     }
 
+    public int getPuntos() {
+        return 5;
+    }
+
 }

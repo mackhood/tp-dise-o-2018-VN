@@ -10,7 +10,8 @@ public class DispositivoEstandarInteligente extends DispositivoInteligente {
         super (nombre, idInteligente, unFabricante);
     }
 
-
-
-
+    @Override
+    public int getPuntos() {
+        return 15;
+    }
 }
