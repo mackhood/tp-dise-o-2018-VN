@@ -58,12 +58,11 @@ public class Cliente {
     	
     	if (this.tieneDispositivo(disp)) {
     		
-    		DispositivoEstandarInteligente nuevo = null;
-			DispositivoEstandarInteligente nuevoDispositivo = moduloAdaptador.convertirInteligente(disp);
+    		DispositivoEstandarInteligente nuevoDispositivo = moduloAdaptador.convertirInteligente(disp);
 
 			dispositivosEstandar.remove(disp);
     		dispositivosInteligentes.add(nuevoDispositivo);
-            return nuevo; 
+            return nuevoDispositivo;
     	}
     	
     /* Esto se cambia, lo pongo asi para ir haciendo lo demas 

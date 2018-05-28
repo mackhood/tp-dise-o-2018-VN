@@ -60,6 +60,8 @@ public class testDispositivo {
         unDIEncendido = new DispositivoInteligente("AireAcondicionado", 100, fabricante);
         unDIEncendido.encender();
         unDIEncendido.serUsado(10);
+
+        moduloAdaptador = new Convertidor();
         unDETransformado = unCliente.agregarModuloAdaptador(moduloAdaptador, unDE);
 
         consultaEstaApagado = new ConsultaEstaApagado(unDIApagado);
