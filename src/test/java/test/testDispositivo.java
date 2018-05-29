@@ -12,6 +12,9 @@ import Clases.Sensor.MedioExterno;
 import Clases.Sensor.Sensor;
 import Clases.Usuario.Cliente;
 
+import Clases.Usuario.Domicilio;
+import Clases.Usuario.ID;
+import Clases.Usuario.TiposId;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ import java.util.List;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertSame;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 public class testDispositivo {
 
@@ -60,23 +64,36 @@ public class testDispositivo {
         unDIEncendido = new DispositivoInteligente("AireAcondicionado", 100, fabricante);
         unDIEncendido.encender();
         unDIEncendido.serUsado(10);
-
-        moduloAdaptador = new Convertidor();
-        unDETransformado = unCliente.agregarModuloAdaptador(moduloAdaptador, unDE);
-
-        consultaEstaApagado = new ConsultaEstaApagado(unDIApagado);
-        consultaEstaEncendido = new ConsultaEstaEncendido(unDIApagado);
-        List <DispositivoInteligente> listDispEncendidos= new ArrayList<>();
-        listDispEncendidos.add(unDIEncendido);
-
         List <DispositivoInteligente> listDispApagados= new ArrayList<>();
         listDispApagados.add(unDIApagado);
 
         List <DispositivoInteligente> listDispModoAhorro= new ArrayList<>();
         listDispModoAhorro.add(unDIApagado);
 
-        ordenApagarDI = new OrdenApagarDI(listDispApagados);
-        ordenEncenderDI = new OrdenEncenderDI(listDispEncendidos);
+        List <DispositivoInteligente> listDispEncendidos= new ArrayList<>();
+        listDispEncendidos.add(unDIEncendido);
+
+        List <DispositivoEstandar> listaDispositivosEstandard = new ArrayList<>();
+        List <DispositivoInteligente> listaDispositivosInteligentes = new ArrayList<>();
+
+        listaDispositivosEstandard.add(unDE);
+
+
+        unCliente = spy(new Cliente("Nicolas", "Sierra", "fer25", new ID(TiposId.DNI, "200"),
+                new Domicilio("bariloche", 3118, 1, 'a'), 250, listaDispositivosEstandard, listaDispositivosInteligentes));
+
+        moduloAdaptador = new Convertidor();
+        unDETransformado = unCliente.agregarModuloAdaptador(moduloAdaptador, unDE);
+
+        consultaEstaApagado = new ConsultaEstaApagado(unDIApagado);
+        consultaEstaEncendido = new ConsultaEstaEncendido(unDIApagado);
+
+
+
+
+
+        ordenApagarDI = new OrdenApagarDI(listDispEncendidos);
+        ordenEncenderDI = new OrdenEncenderDI(listDispApagados);
         ordenPonerModoAhorro = new OrdenPonerModoAhorro(listDispModoAhorro);
 
         ordenSubirIntensidad = new OrdenSubirIntensidad(listDispEncendidos);
@@ -139,7 +156,7 @@ public class testDispositivo {
     @Test
     public void testDIApagadoSePoneEnModoAhorro() {
         ordenPonerModoAhorro.ejecutar();
-        assertEquals(false, unDIApagado.estaEnModoAhorro());
+        assertEquals(true, unDIApagado.estaEnModoAhorro());
     }
 
     @Test
