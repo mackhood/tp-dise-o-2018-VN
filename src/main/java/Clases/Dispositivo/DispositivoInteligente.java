@@ -118,8 +118,7 @@ public class DispositivoInteligente extends Dispositivo {
         
     	LocalDateTime hasta = LocalDateTime.now();
     	LocalDateTime desde = hasta.minusHours(horas);
-        calcularConsumo(desde,hasta);
-    	return 0;
+    	return calcularConsumo(desde,hasta);
     }
 
     public void cambiarEstado(EstadoDispositivo estadoNuevo) {

@@ -102,6 +102,8 @@ public class testDispositivo {
         listaMedicionesACumplir.add(medicionTemperatura);
         reglaParaAumentarIntensidadAlAireAcondicionado = new Regla(ordenSubirIntensidad,listaMedicionesACumplir);
         sensorTemperaturaAmbiente = new Sensor(reglaParaAumentarIntensidadAlAireAcondicionado);
+
+        unDIEncendido.setConsumoPorHora(100);
     }
 
     @Test
@@ -131,7 +133,9 @@ public class testDispositivo {
 
     @Test
     public void testDIEncendidoConsumoUltimas100Horas() {
-        consultaConsumoUltimasNHoras = new ConsultaConsumoUltimasNHoras(unDIEncendido, 100);
+
+        consultaConsumoUltimasNHoras = new ConsultaConsumoUltimasNHoras(unDIEncendido, 10);
+
         assertEquals(1000.0, consultaConsumoUltimasNHoras.consultar());
     }
 
