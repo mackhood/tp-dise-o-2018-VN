@@ -3,30 +3,19 @@ package Clases.Dispositivo;
 import Clases.Fabricante;
 
 public class DispositivoEstandar extends Dispositivo {
-    private String nombre;
-    private double consumoEstimadoPorHora;
-    private double horasDeUso = 0;
-   private Fabricante fabricante;
-    private   int idEstandar;
 
-    public DispositivoEstandar(String nombre, double consumoEstimadoPorHora, Fabricante unFabricante) {
+    public DispositivoEstandar(String nombre, double consumoEstimadoPorHora) {
 
         this.nombre = nombre;
         this.consumoEstimadoPorHora = consumoEstimadoPorHora;
-        this.fabricante = unFabricante;
     }
 
-    public Fabricante  getFabricante() {
-
-        return fabricante;
-
-    }
 
      public double getHorasDeUso () {
         return horasDeUso;
      }
 
-    public double consumoEstimadoPorHora() {
+    public double getConsumoEstimadoPorHora() {
         return consumoEstimadoPorHora;
     }
 
@@ -36,7 +25,7 @@ public class DispositivoEstandar extends Dispositivo {
     }
 
 
-    public void serUsado(int cantHorasEstimativa) {
+    public void serUsado(double cantHorasEstimativa) {
         horasDeUso = horasDeUso + cantHorasEstimativa;
     }
 
@@ -46,12 +35,11 @@ public class DispositivoEstandar extends Dispositivo {
         return this.consumoEstimadoPorHora * this.horasDeUso;
     }
 
-    public int getIdEstandar() {
-        return idEstandar;
-    }
-
     public int getPuntos() {
-        return 10;
+        return 0;
     }
 
+    public void serUsado(int cantHorasEstimativa) {
+        horasDeUso = horasDeUso + cantHorasEstimativa;
+    }
 }

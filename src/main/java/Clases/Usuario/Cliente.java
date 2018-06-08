@@ -6,13 +6,14 @@ import Clases.Dispositivo.Dispositivo;
 import Clases.Dispositivo.DispositivoEstandar;
 import Clases.Dispositivo.DispositivoInteligente;
 import Clases.Dispositivo.DispositivoEstandarInteligente;
+import Clases.repositories.TypeRepo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class Cliente {
+public class Cliente implements TypeRepo {
 
     private String nombre;
     private String apellido;
@@ -23,7 +24,6 @@ public class Cliente {
     private Categoria categoria;
     private String username;
     private String password;
-    private double puntosAcumulados = 0;
     private List<DispositivoEstandar> dispositivosEstandar = new ArrayList<>();
     private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
 
@@ -43,9 +43,10 @@ public class Cliente {
 
     
     public double puntosAcumulados() {
-        return this.sumarPuntos();
+        return dispositivosInteligentes.stream().mapToDouble(inte -> inte.getPuntos()).sum()
+                + dispositivosEstandar.stream().mapToDouble(estandar -> estandar.getPuntos()).sum();
     }
-    
+
     public List<Dispositivo> todosLosDispositivos() {
     	
     	List<Dispositivo> todos = new ArrayList<>();
@@ -54,15 +55,13 @@ public class Cliente {
     	return todos;
     }
 
-    public DispositivoInteligente agregarModuloAdaptador(Convertidor moduloAdaptador, DispositivoEstandar disp) {
+    public void agregarModuloAdaptador(DispositivoEstandar disp) {
     	
     	if (this.tieneDispositivo(disp)) {
-    		
-    		DispositivoEstandarInteligente nuevoDispositivo = moduloAdaptador.convertirInteligente(disp);
 
-			dispositivosEstandar.remove(disp);
-    		dispositivosInteligentes.add(nuevoDispositivo);
-            return nuevoDispositivo;
+    	    Convertidor convertidor = new Convertidor();
+    		
+    		convertidor.convertirInteligente(disp, dispositivosEstandar, dispositivosInteligentes);
     	}
     	
     /* Esto se cambia, lo pongo asi para ir haciendo lo demas 
@@ -105,11 +104,6 @@ public class Cliente {
     public void agregarDispositivoEstandar(DispositivoEstandar disp) {
     	
     	dispositivosEstandar.add(disp);
-    }
-
-    public int sumarPuntos() {
-
-        return todosLosDispositivos().stream().mapToInt(dispositivo -> dispositivo.getPuntos()).sum();
     }
 
     public void usarDispositivo(DispositivoEstandar dispositivo, int cantHorasEstimativa) {

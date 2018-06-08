@@ -1,8 +1,9 @@
 package Clases.Categoria;
 
 import Clases.Usuario.Cliente;
+import Clases.repositories.TypeRepo;
 
-public class Categoria {
+public class Categoria implements TypeRepo {
     private String nombreCategoria;
     private double consumoMinimo;
     private double consumoMaximo;

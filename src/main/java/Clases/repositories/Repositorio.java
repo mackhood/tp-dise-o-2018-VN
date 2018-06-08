@@ -11,22 +11,11 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
+public abstract class Repositorio {
 
-public class RepositorioAdministradores extends Repositorio{
-
-    String nombreArchivo = "Administradores.json";
-    private static RepositorioAdministradores instance = new RepositorioAdministradores();
-
-    private RepositorioAdministradores() { //dejar en privado para que no puedan hacer otra instancia
-    }
-
-    public static RepositorioAdministradores getInstance() {
-        return instance;
-    }
-
-
-    public List<Administrador> obtenerAdministradores() throws ProcessingDataFailedException {
-
+    String nombreArchivo;
+    /*
+    public List<TypeRepo> obtenerLista() throws ProcessingDataFailedException{
         try {
             FileReader file = new FileReader(getJsonFile());
             BufferedReader bufferedReader = new BufferedReader(file);
@@ -35,20 +24,19 @@ public class RepositorioAdministradores extends Repositorio{
             Object jsonObject = gson.fromJson(bufferedReader, Object.class);
             String json = jsonObject.toString();
 
-            Type tipoListaAdmins = new TypeToken<List<Administrador>>() {
+            Type tipoLista = new TypeToken<List<TypeRepo>>() {
             }.getType();
-            List<Administrador> admins = gson.fromJson(json, tipoListaAdmins);
+            List<TypeRepo> lista = gson.fromJson(json, tipoLista);
 
-            return admins;
+            return lista;
 
         } catch (IOException e) {
             e.printStackTrace();
             throw new ProcessingDataFailedException(e.getLocalizedMessage());
         }
     }
-
-    /*
+    */
     public String getJsonFile() { //Separe este metodo para poder mockearlo al momento de testear
-        return getClass().getClassLoader().getResource("Administradores.json").getFile();
-    }*/
+        return getClass().getClassLoader().getResource(nombreArchivo).getFile();
+    }
 }

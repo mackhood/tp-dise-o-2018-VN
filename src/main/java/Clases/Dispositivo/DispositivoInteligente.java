@@ -7,23 +7,31 @@ import Clases.Fabricante;
 
 public class DispositivoInteligente extends Dispositivo {
 
-    String nombre;
-    private double consumoPorHora;
-    private double horasDeUso = 0;
-    private Fabricante fabricante;
-    private int idInteligente;
     private EstadoDispositivo estadoDispositivo;
-    //DispositivoFisico dispositivoFisico;
-    private LocalDateTime horaEncendido = null;
-    private LocalDateTime horaApagado = null;
-    private double consumoTotal = 0;
+    public LocalDateTime horaEncendido = null;
+    public LocalDateTime horaApagado = null;
 
-    public DispositivoInteligente(String nombre, int idInteligente, Fabricante unFabricante) {
+    public DispositivoInteligente(String nombre, double consumoEstimadoPorHora) {
 
         this.nombre = nombre;
-        this.idInteligente = idInteligente;
-        this.fabricante = unFabricante;
+        this.consumoEstimadoPorHora = consumoEstimadoPorHora;
         estadoDispositivo = new EstadoApagado();
+    }
+
+    public void setHoraEncendido(LocalDateTime horaEncendido) {
+        this.horaEncendido = horaEncendido;
+    }
+
+    public void setHoraApagado(LocalDateTime horaApagado) {
+        this.horaApagado = horaApagado;
+    }
+
+    public LocalDateTime getHoraEncendido() {
+        return horaEncendido;
+    }
+
+    public LocalDateTime getHoraApagado() {
+        return horaApagado;
     }
 
     public EstadoDispositivo estadoDispositivo() {
@@ -34,32 +42,9 @@ public class DispositivoInteligente extends Dispositivo {
         return estadoDispositivo.equals(estadoCond);
     }
 
-    public  void  setNombre ( String nombreNuevo ){
-        this.nombre=nombreNuevo;
-    }
+    public void setHorasDeUso(double horas) {
 
-    public void setConsumoPorHora (double consumoHora) {
-
-        this.consumoPorHora= consumoHora;
-    }
-    
-    public void setHorasDeUso (double horas) {
-    	
-    	this.horasDeUso = horas;
-    }
-    
-    public void SetFabricante ( Fabricante fabricanteNuevo ) {
-        this.fabricante=fabricanteNuevo;
-
-    }
-
-    public void  SetIdInteligente( int idNuevo) {
-        this.idInteligente=idNuevo;
-
-    }
-
-    private int getIdInteligente() {
-        return idInteligente;
+        this.horasDeUso = horas;
     }
 
     public boolean estaEncendido() {
@@ -70,83 +55,65 @@ public class DispositivoInteligente extends Dispositivo {
         return estadoDispositivo.estaApagado();
     }
 
-    public boolean sonIguales(DispositivoInteligente dispositivoInteligente) {
-        return this.idInteligente == dispositivoInteligente.getIdInteligente();
-    }
 
     public void apagar() {
         estadoDispositivo.apagar(this);
-        //dispositivoFisico.apagar();
-        this.horaApagado = LocalDateTime.now();
     }
 
     public void encender() {
-        
-    	estadoDispositivo.encender(this);
-        //dispositivoFisico.encender();
-        this.horaEncendido = LocalDateTime.now();
+
+        estadoDispositivo.encender(this);
     }
 
     public void ponerModoAhorro() {
         estadoDispositivo.ponerModoAhorro(this);
-        //dispositivoFisico.ahorro();
     }
-    
-    public void serUsado(long horas) {
-    	
-    	LocalDateTime horaActual = LocalDateTime.now();
-    	this.horaEncendido = horaActual;
-    	this.horaApagado = horaActual.plusHours(horas);
-    	
-    	double consumoGenerado = calcularConsumo(horaEncendido,horaApagado);
-    	this.consumoTotal += consumoGenerado;
-    	this.horasDeUso += horas;
-    }
-    
-    public double calcularConsumo(LocalDateTime unHorario, LocalDateTime otroHorario) {
-    	 
-    	horasDeUso = unHorario.until(otroHorario, ChronoUnit.HOURS);
-    	return horasDeUso*consumoPorHora;
+
+    public void sumarHorasDeUso(LocalDateTime unHorario, LocalDateTime otroHorario) {
+
+        horasDeUso = horasDeUso + unHorario.until(otroHorario, ChronoUnit.HOURS);
     }
     
     /* Para este metodo de abajo no se me ocurre otra idea que hacer varios if con las distintas situaciones
       	tipo si la hora de encendido y apagado estan antes del intervalo de consulta, etc.
       		Si alguien tiene una mejor idea u otra forma de implementarlo buenisimo.
      */
-    
-    public double consumoUltimasNHoras(long horas) {
-        
-    	LocalDateTime hasta = LocalDateTime.now();
-    	LocalDateTime desde = hasta.minusHours(horas);
-    	return calcularConsumo(desde,hasta);
+
+    public double consumoUltimasNHoras(double horas) {
+        if (horas > horasDeUso) {
+            return consumoEstimadoPorHora * horasDeUso;
+        } else {
+            return consumoEstimadoPorHora * horas;
+        }
     }
 
     public void cambiarEstado(EstadoDispositivo estadoNuevo) {
-       
-    	estadoDispositivo = estadoNuevo;
+
+        estadoDispositivo = estadoNuevo;
     }
 
-    public void ejecutar (DispositivoFisico dispositivoFisico) {
+    public void ejecutar(DispositivoFisico dispositivoFisico) {
 
         dispositivoFisico.ejecutar();
     }
-    
+
     public void aumentarConsumoPor(double cantidad) {
-    	
-    	this.consumoPorHora += cantidad;
+
+        this.consumoEstimadoPorHora += cantidad;
     }
-    
+
     public double getConsumoTotal() {
 
-    	return consumoTotal;
+        return horasDeUso * consumoEstimadoPorHora;
     }
 
 
-	public boolean estaEnModoAhorro() {
-		
-		return estadoDispositivo.estaEnModoAhorro();
-	}
+    public boolean estaEnModoAhorro() {
+
+        return estadoDispositivo.estaEnModoAhorro();
+    }
+
     public int getPuntos() {
-        return 10;
+        return 15;
     }
 }

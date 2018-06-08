@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 
-public class RepositorioClientes {
+public class RepositorioClientes extends Repositorio{
 
     public static RepositorioClientes getInstance() {
         return instance;
@@ -37,8 +37,7 @@ public class RepositorioClientes {
             Gson gson = new Gson();
             Object jsonObject = gson.fromJson(bufferedReader, Object.class);
             String json = jsonObject.toString();
-            Type tipoListaEmpleados = new TypeToken<List<Cliente>>() {
-            }.getType();
+            Type tipoListaEmpleados = new TypeToken<List<Cliente>>() {}.getType();
 
             List<Cliente> clientes = gson.fromJson(json, tipoListaEmpleados);
 
@@ -53,7 +52,7 @@ public class RepositorioClientes {
 
     }
 
-    private String getJsonFile() { //Separe este metodo para poder mockearlo al momento de testear
+    /*private String getJsonFile() { //Separe este metodo para poder mockearlo al momento de testear
         return getClass().getClassLoader().getResource("Clientes.json").getFile();
-    }
+    }*/
 }

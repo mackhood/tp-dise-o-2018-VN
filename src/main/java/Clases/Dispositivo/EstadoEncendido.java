@@ -1,5 +1,7 @@
 package Clases.Dispositivo;
 
+import java.time.LocalDateTime;
+
 public class EstadoEncendido implements EstadoDispositivo {
     private static EstadoEncendido instance = new EstadoEncendido();
 
@@ -8,6 +10,9 @@ public class EstadoEncendido implements EstadoDispositivo {
     }
 
     public void apagar(DispositivoInteligente disp) {
+
+        disp.horaApagado = LocalDateTime.now();
+        disp.sumarHorasDeUso(disp.horaEncendido, disp.horaApagado);
         disp.cambiarEstado(EstadoApagado.getInstance());
     }
 

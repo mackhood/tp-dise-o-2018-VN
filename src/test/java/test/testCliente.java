@@ -33,12 +33,8 @@ public class testCliente {
     private DispositivoInteligente unDIApagado;
     private DispositivoInteligente unDIEncendido;
     private DispositivoInteligente unDETransformado;
-    
-    private Convertidor convertidor;
-    
-    private SistemaInteligente unSI;
 
-    private Fabricante fabricante;
+    private SistemaInteligente unSI;
 
     Categoria categoriaMocktest1;
     Categoria categoriaMocktest2;
@@ -52,17 +48,14 @@ public class testCliente {
         unSI = new SistemaInteligente();
         unDispositivoEncendido = mock(DispositivoEstandar.class);
         unDispositivoApagado = mock(DispositivoEstandar.class);
-        //unDispositivoEncendido = new DispositivoEstandar("da", 500, fabricante);
-        //unDispositivoApagado = new DispositivoEstandar("AireAcondicionado", 100, fabricante);
         otroDispositivo = mock(Dispositivo.class);
 
 
-        fabricante = new Fabricante(1);
-        unDE = new DispositivoEstandar("a1", 300, fabricante);
-        unDIApagado = new DispositivoInteligente("da", 500, fabricante);
-        unDIEncendido = new DispositivoInteligente("AireAcondicionado", 100, fabricante);
+        unDE = new DispositivoEstandar("a1", 300);
+        unDIApagado = new DispositivoInteligente("da", 500);
+        unDIEncendido = new DispositivoInteligente("AireAcondicionado", 100);
+        unDIEncendido.setHorasDeUso(1);
         unDIEncendido.encender();
-        unDIEncendido.serUsado(10);
 
         List<DispositivoEstandar> listaDispositivosEstandar = new ArrayList<>();
 
@@ -72,9 +65,8 @@ public class testCliente {
 
         List<DispositivoInteligente> listaDispInteligentes = new ArrayList<>();
 
-
-       when(unDispositivoEncendido.getConsumoTotal()).thenReturn(25.5);
-       when(unDispositivoApagado.getConsumoTotal()).thenReturn(25.5);
+        when(unDispositivoEncendido.getConsumoTotal()).thenReturn(25.5);
+        when(unDispositivoApagado.getConsumoTotal()).thenReturn(25.5);
 
         listaDispositivosEstandar.add(unDispositivoApagado);
         listaDispositivosEstandar.add(unDispositivoApagado);
@@ -88,6 +80,7 @@ public class testCliente {
 
         unClienteConDEyDI.agregarDispositivoInteligente(unDIEncendido);
         unClienteConDEyDI.agregarDispositivoInteligente(unDIApagado);
+
 
 
         //Siguientes lineas Utilizadas para test de actualizar categoria y gastos aproximados.
@@ -116,9 +109,8 @@ public class testCliente {
     @Test
     public void testPuntosAcumuladorDespuesDeAgregarAdaptadorAUnDE()
     {
-        convertidor = new Convertidor();
-        unClienteConDEyDI.agregarModuloAdaptador(convertidor, unDE);
-        assertEquals(35.0, unClienteConDEyDI.puntosAcumulados());
+        unClienteConDEyDI.agregarModuloAdaptador(unDE);
+        assertEquals(40.0, unClienteConDEyDI.puntosAcumulados());
     }
 
     @Test
@@ -149,8 +141,7 @@ public class testCliente {
 
     @Test
     public void testConsumoEnergeticoTotalDeUnCliente() {
-        assertEquals(51.0, unClienteConDEyDI.consumoEnergeticoTotal());
-        assertEquals(0.0, unClienteSinDEyConDI.consumoEnergeticoTotal());
+        assertEquals(151.0, unClienteConDEyDI.consumoEnergeticoTotal());
     }
 
 

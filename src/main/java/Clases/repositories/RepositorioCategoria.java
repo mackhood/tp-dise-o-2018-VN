@@ -11,9 +11,10 @@ import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class RepositorioCategoria {
+public class RepositorioCategoria extends Repositorio {
 //Aca va la logica para extraer del JSON de categorias las distintas categorias existentes
 
+    String nombreArchivo = "Categoria.json";
     private static RepositorioCategoria instance = new RepositorioCategoria();
 
     private RepositorioCategoria() { //dejar en privado para que no puedan hacer otra instancia
@@ -44,9 +45,10 @@ public class RepositorioCategoria {
 
     //Separe este metodo para poder mockearlo al momento de testear
     //Lo hice publico para poder mockearlo
-    public String getJsonFile() {
+
+    /*public String getJsonFile() {
         return getClass().getClassLoader().getResource("Categoria.json").getFile();
-    }
+    }*/
 
 
 }

@@ -7,14 +7,14 @@ public class DispositivoEstandarInteligente extends DispositivoInteligente {
 
     DispositivoEstandar  dispositivoEstandar ;
 
-    public DispositivoEstandarInteligente(DispositivoEstandar dispositivoEstandar,String nombre, int idInteligente, Fabricante unFabricante) {
-        super (nombre, idInteligente, unFabricante);
+    public DispositivoEstandarInteligente(DispositivoEstandar dispositivoEstandar) {
+        super (dispositivoEstandar.getNombre(),dispositivoEstandar.getConsumoEstimadoPorHora());
         this.dispositivoEstandar = dispositivoEstandar ;
-        this.setConsumoPorHora(dispositivoEstandar.consumoEstimadoPorHora());
+        this.horasDeUso = dispositivoEstandar.getHorasDeUso();
     }
 
     @Override
     public int getPuntos() {
-        return 15;
+        return 10;
     }
 }

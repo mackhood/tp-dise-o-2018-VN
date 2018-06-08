@@ -1,9 +1,11 @@
 package Clases.Usuario;
 
+import Clases.repositories.TypeRepo;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-public class Administrador {
+public class Administrador implements TypeRepo {
 
     private String nombre;
     private String apellido;

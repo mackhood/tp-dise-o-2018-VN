@@ -7,7 +7,7 @@ public interface Actuador {
     //El actuador sabe a que dispositivo tiene que afectar
     DispositivoInteligente dispInteligente = null;
 
-    public abstract void ejecutar();
+    void ejecutar();
 
 
 }

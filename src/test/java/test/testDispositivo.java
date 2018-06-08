@@ -15,8 +15,13 @@ import Clases.Usuario.Cliente;
 import Clases.Usuario.Domicilio;
 import Clases.Usuario.ID;
 import Clases.Usuario.TiposId;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,11 +64,13 @@ public class testDispositivo {
     public void setUp() {
 
         fabricante = new Fabricante(1);
-        unDE = new DispositivoEstandar("a1", 300, fabricante);
-        unDIApagado = new DispositivoInteligente("da", 500, fabricante);
-        unDIEncendido = new DispositivoInteligente("AireAcondicionado", 100, fabricante);
+        unDE = new DispositivoEstandar("a1", 300);
+        unDIApagado = new DispositivoInteligente("da", 500);
+        unDIEncendido = new DispositivoInteligente("AireAcondicionado", 100);
+        unDIEncendido.setConsumoEstimadoPorHora(23);
+        unDIEncendido.setHorasDeUso(2);
         unDIEncendido.encender();
-        unDIEncendido.serUsado(10);
+        //unDIEncendido.serUsado(10);
         List <DispositivoInteligente> listDispApagados= new ArrayList<>();
         listDispApagados.add(unDIApagado);
 
@@ -82,8 +89,7 @@ public class testDispositivo {
         unCliente = spy(new Cliente("Nicolas", "Sierra", "fer25", new ID(TiposId.DNI, "200"),
                 new Domicilio("bariloche", 3118, 1, 'a'), 250, listaDispositivosEstandard, listaDispositivosInteligentes));
 
-        moduloAdaptador = new Convertidor();
-        unDETransformado = unCliente.agregarModuloAdaptador(moduloAdaptador, unDE);
+        //unDETransformado = unCliente.agregarModuloAdaptador(moduloAdaptador, unDE);
 
         consultaEstaApagado = new ConsultaEstaApagado(unDIApagado);
         consultaEstaEncendido = new ConsultaEstaEncendido(unDIApagado);
@@ -103,9 +109,20 @@ public class testDispositivo {
         reglaParaAumentarIntensidadAlAireAcondicionado = new Regla(ordenSubirIntensidad,listaMedicionesACumplir);
         sensorTemperaturaAmbiente = new Sensor(reglaParaAumentarIntensidadAlAireAcondicionado);
 
-        unDIEncendido.setConsumoPorHora(100);
+        unDIEncendido.setConsumoEstimadoPorHora(100);
     }
 
+    @Test
+    public void testConsumoDIEncendidoLuegoApagado(){
+        LocalDateTime horaEncendido = LocalDateTime.of(2018,6,8,15,30,30,100);
+        unDIEncendido.setHoraEncendido(horaEncendido);
+        unDIEncendido.apagar();
+        //Assert.assertEquals(0,horaEncendido.until(LocalDateTime.of(2018,8,6,20,45,30,100),ChronoUnit.HOURS));
+        //Assert.assertEquals(0,horaEncendido.until(unDIEncendido.getHoraApagado(),ChronoUnit.HOURS));
+        //Assert.assertEquals(0,unDIEncendido.getHoraApagado().until(horaEncendido,ChronoUnit.HOURS));
+        Assert.assertEquals(600.0,unDIEncendido.getConsumoTotal(),10);
+        //Assert.assertEquals(0,LocalDateTime.now());
+    }
     @Test
     public void testSensorTemperaturaAmbienteTomaMediciones()
     {
@@ -120,9 +137,11 @@ public class testDispositivo {
 
     @Test
     public void testDETUsadoPor90HorasConsumoUltimas3Horas() {
-        unDETransformado.serUsado(90);
-        consultaConsumoUltimasNHoras = new ConsultaConsumoUltimasNHoras(unDETransformado, 3);
-        assertEquals(900.0, consultaConsumoUltimasNHoras.consultar());
+        unDE.serUsado(1);
+        DispositivoEstandarInteligente unDET = new DispositivoEstandarInteligente(unDE);
+        unCliente.agregarModuloAdaptador(unDE);
+        consultaConsumoUltimasNHoras = new ConsultaConsumoUltimasNHoras(unDET, 3);
+        assertEquals(300.0, consultaConsumoUltimasNHoras.consultar());
     }
 
     @Test
@@ -132,11 +151,11 @@ public class testDispositivo {
     }
 
     @Test
-    public void testDIEncendidoConsumoUltimas100Horas() {
-
+    public void testDIEncendidoConsumoUltimas10Horas() {
+        unDIEncendido.apagar();
         consultaConsumoUltimasNHoras = new ConsultaConsumoUltimasNHoras(unDIEncendido, 10);
 
-        assertEquals(1000.0, consultaConsumoUltimasNHoras.consultar());
+        assertEquals(200.0, consultaConsumoUltimasNHoras.consultar());
     }
 
     @Test

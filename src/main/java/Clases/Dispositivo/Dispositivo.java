@@ -9,12 +9,7 @@ public abstract class Dispositivo {
     protected String nombre;
     protected double consumoEstimadoPorHora;
     protected double horasDeUso = 0;
-    Fabricante fabricante;
 
-
-    public void serUsado(int cantHorasEstimativa) {
-        horasDeUso = horasDeUso + cantHorasEstimativa;
-    }
 
 
     public double consumoEstimadoPorHora() {
@@ -26,20 +21,30 @@ public abstract class Dispositivo {
         return nombre;
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public double getConsumoEstimadoPorHora() {
+        return consumoEstimadoPorHora;
+    }
+
+    public void setConsumoEstimadoPorHora(double consumoEstimadoPorHora) {
+        this.consumoEstimadoPorHora = consumoEstimadoPorHora;
+    }
+
+    public double getHorasDeUso() {
+        return horasDeUso;
+    }
+
+    public void setHorasDeUso(double horasDeUso) {
+        this.horasDeUso = horasDeUso;
+    }
+
     public double getConsumoTotal() {
 
         return consumoEstimadoPorHora * horasDeUso;
     }
-
-    public int getIdFabrica() {
-        return fabricante.idFabrica();
-    }
-
-    public Fabricante getFabricante() {
-        return fabricante;
-    }
-
-
 
     public void aumentarConsumoPor(int aumento) {
         consumoEstimadoPorHora = consumoEstimadoPorHora + aumento;
