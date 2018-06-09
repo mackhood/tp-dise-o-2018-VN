@@ -1,58 +1,29 @@
 package Clases.Regla;
 
 import Clases.Actuador.Actuador;
-import Clases.Sensor.Medicion;
+import Clases.Sensor.Condicion;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Regla {
     Actuador actuador;
-    List<Medicion> medicionesACumplir = new ArrayList<>();
-    List<Medicion> medicionesObservers = new ArrayList();
+    List<Condicion> condicionesACumplir = new ArrayList<>();
     EstadoRegla estado = new ReglaNoCumplida();
 
-    public Regla(Actuador actuador, List<Medicion> medicionesACumplir) {
+    public Regla(Actuador actuador, List<Condicion> condicionesACumplir) {
         this.actuador = actuador;
-        this.medicionesACumplir = medicionesACumplir;
+        this.condicionesACumplir = condicionesACumplir;
     }
 
-    public final void recibirMedicion(Medicion medicionTomada) {
-        if (!estaEntreLosObservers(medicionTomada)) {
-            this.agregarMedicion(medicionTomada);
-			this.actualizarEstadoRegla();
-            this.ejecutar();
-        }
+    public boolean cumpleTodasLasCondiciones(){
+        return condicionesACumplir.stream().allMatch(cond -> cond.cumpleCondicion());
+    }
+    public void ejecutarActuador(){
+        actuador.ejecutar();
     }
 
-    private void agregarMedicion(Medicion medicionTomada) {
-
-        medicionesObservers.add(medicionTomada);
+    public List<Condicion> getCondicionesACumplir() {
+        return condicionesACumplir;
     }
-
-    public final boolean estaEntreLosObservers(Medicion medicionTomada) {
-        
-		return medicionesObservers.stream().anyMatch(medicionObs -> medicionObs.compararMedicion(medicionTomada));
-    }
-
-    public final void cambiarEstado(EstadoRegla nuevoEstadoRegla) {
-        
-		estado = nuevoEstadoRegla;
-    }
-
-    public final void actualizarEstadoRegla() {
-        
-		if (medicionesACumplir.size() == medicionesObservers.size())
-            
-			estado.cambiarEstado(this);
-    }
-
-    public void ejecutar() {
-        
-		if (estado.cumpleCondiciones())
-        
-			actuador.ejecutar();
-    }
-
-
 }

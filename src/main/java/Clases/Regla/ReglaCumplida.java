@@ -6,9 +6,9 @@ public class ReglaCumplida implements EstadoRegla {
     }
 
 
-    public void cambiarEstado(Regla unaRegla) {
+    /*public void cambiarEstado(Regla unaRegla) {
         unaRegla.cambiarEstado(new ReglaNoCumplida());
-    }
+    }*/
 
     public boolean cumpleCondiciones() {
         return true;
