@@ -1,8 +1,9 @@
 package Clases.Categoria;
 
 import Clases.Usuario.Cliente;
+import Clases.repositories.InterfazRepositorioClase;
 
-public class Categoria {
+public class Categoria  implements InterfazRepositorioClase {
     private String nombreCategoria;
     private double consumoMinimo;
     private double consumoMaximo;
@@ -16,6 +17,8 @@ public class Categoria {
         this.cargoFijo = cargo_fijo;
         this.cargoVariable = cargoVariable;
     }
+
+
 
     private Double getConsumoMinimo() {
 

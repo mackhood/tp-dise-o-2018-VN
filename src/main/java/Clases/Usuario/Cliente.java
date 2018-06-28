@@ -11,12 +11,13 @@ import Clases.Dispositivo.EstadoApagado;
 import Clases.Dispositivo.EstadoDispositivo;
 import Clases.Dispositivo.EstadoEncendido;
 import Clases.entities.ProcessingDataFailedException;
+import Clases.repositories.InterfazRepositorioClase;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cliente {
+public class Cliente  implements InterfazRepositorioClase  {
 
     private String nombre;
     private String apellido;
