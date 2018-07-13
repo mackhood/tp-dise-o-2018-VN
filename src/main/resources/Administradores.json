@@ -1,6 +1,6 @@
 [
   {
-    "nombreCompleto": "AAAAA",
+    "nombre": "AAAAA",
     "apellido": "BBBBBB",
     "fechaAlta": {
       "year": 2016,
@@ -10,7 +10,7 @@
     "numId": 0
   },
   {
-    "nombreCompleto": "XXXX",
+    "nombre": "XXXX",
     "apellido": "ZZZZ",
     "fechaAlta": {
       "year": 2014,

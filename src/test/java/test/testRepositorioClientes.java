@@ -1,30 +1,29 @@
 package test;
 
-import Clases.Cliente;
-import Clases.repositories.RepositorioClientes;
-import org.junit.BeforeClass;
+import Clases.repositories.RepositorioCategoria;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.Mockito;
 
-import static junit.framework.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
 public class testRepositorioClientes {
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-	//Reemplazar por json de Prueba
-	@Test
-	public void testObtenerCargoVariableDeLaCategoriaDelCliente() throws Exception{
+    @Ignore
+    public void testDadoUnJsonDeTestSeObtieneCorrectamenteLaCantidadDeRegistros() throws Exception {
+        RepositorioCategoria repositorio = Mockito.mock(RepositorioCategoria.class);
+        when(repositorio.getJsonFile()).thenReturn(this.getJsonTestFile());
+        when(repositorio.obtenerCategorias()).thenCallRealMethod();
 
+        int sizeExoected = repositorio.obtenerCategorias().size();
 
-			RepositorioClientes repositorio =RepositorioClientes.getInstance();
-		    Cliente unCliente = repositorio.obtenerClientes().get(0);
-			assertEquals("Ema",unCliente.nombreCompleto());
-			assertEquals(18.76,unCliente.getCategoria().getCargoVariable());
+        Assert.assertEquals("Se obtienen todas las categorias en el json y se valida su cantidad", 1, sizeExoected);
+    }
 
-	}
-
-
+    public String getJsonTestFile() {
+        return getClass().getClassLoader().getResource("testClientes.json").getFile();
+    }
 
 
 }

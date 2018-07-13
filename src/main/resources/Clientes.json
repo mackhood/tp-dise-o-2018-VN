@@ -1,6 +1,6 @@
 [
   {
-    "nombreCompleto": "Ema",
+    "nombre": "Ema",
     "apellido": "Emma",
     "identificacion": {
       "tipoID": "DNI",
@@ -48,7 +48,7 @@
     ]
   },
   {
-    "nombreCompleto": "nombreASD",
+    "nombre": "nombreASD",
     "apellido": "apellidoASD",
     "identificacion": {
       "tipoID": "DNI",

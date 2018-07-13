@@ -1,6 +1,9 @@
-package Clases;
+package Clases.Categoria;
 
-public class Categoria {
+import Clases.Usuario.Cliente;
+import Clases.repositories.TypeRepo;
+
+public class Categoria implements TypeRepo {
     private String nombreCategoria;
     private double consumoMinimo;
     private double consumoMaximo;
@@ -24,10 +27,9 @@ public class Categoria {
         return this.consumoMaximo;
     }
 
-
     public boolean cumpleCondicion(Cliente cliente) {
-    	
-    	//Si consumo maximo es null quiere decir que cualquier numero es menor a este
+
+        //Si consumo maximo es null quiere decir que cualquier numero es menor a este
         return cliente.consumoEnergeticoTotal() >= getConsumoMinimo() &&
                 (getConsumoMaximo() == null || cliente.consumoEnergeticoTotal() <= getConsumoMaximo());
     }
@@ -42,9 +44,10 @@ public class Categoria {
     }
 
     public Double calcularCostosPara(Cliente cliente) {
-         return this.getCargoFijo() + this.getCargoVariable() * cliente.consumoEnergeticoTotal();
+        return this.getCargoFijo() + this.getCargoVariable() * cliente.consumoEnergeticoTotal();
     }
-    public String getNombreCategoria(){
+
+    public String getNombreCategoria() {
         return this.nombreCategoria;
     }
 

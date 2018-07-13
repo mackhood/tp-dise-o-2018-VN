@@ -3,6 +3,7 @@ package Clases.entities;
 import java.io.IOException;
 
 public class ProcessingDataFailedException extends IOException {
+
     public ProcessingDataFailedException(String msg) {
         super(msg);
     }

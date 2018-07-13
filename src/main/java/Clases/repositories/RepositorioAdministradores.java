@@ -1,6 +1,6 @@
 package Clases.repositories;
 
-import Clases.Administrador;
+import Clases.Usuario.Administrador;
 import Clases.entities.ProcessingDataFailedException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -12,8 +12,9 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 
-public class RepositorioAdministradores {
+public class RepositorioAdministradores extends Repositorio{
 
+    String nombreArchivo = "Administradores.json";
     private static RepositorioAdministradores instance = new RepositorioAdministradores();
 
     private RepositorioAdministradores() { //dejar en privado para que no puedan hacer otra instancia
@@ -22,6 +23,7 @@ public class RepositorioAdministradores {
     public static RepositorioAdministradores getInstance() {
         return instance;
     }
+
 
     public List<Administrador> obtenerAdministradores() throws ProcessingDataFailedException {
 
@@ -45,7 +47,8 @@ public class RepositorioAdministradores {
         }
     }
 
+    /*
     public String getJsonFile() { //Separe este metodo para poder mockearlo al momento de testear
         return getClass().getClassLoader().getResource("Administradores.json").getFile();
-    }
+    }*/
 }
