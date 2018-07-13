@@ -6,12 +6,16 @@ import Clases.Dispositivo.Dispositivo;
 import Clases.Dispositivo.DispositivoEstandar;
 import Clases.Dispositivo.DispositivoInteligente;
 import Clases.Dispositivo.DispositivoEstandarInteligente;
+import Clases.Simplex.Simplex;
 import Clases.repositories.TypeRepo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
+
+
+
 
 public class Cliente implements TypeRepo {
 
@@ -26,9 +30,10 @@ public class Cliente implements TypeRepo {
     private String password;
     private List<DispositivoEstandar> dispositivosEstandar = new ArrayList<>();
     private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
-
+    private Simplex resolvedor;
+    private  boolean ahorroAutomatico=false;
     public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
-                   List<DispositivoEstandar> dispEstandar, List <DispositivoInteligente> dispInteligentes) {
+                   List<DispositivoEstandar> dispEstandar, List <DispositivoInteligente> dispInteligentes,Simplex resolvedor) {
 
         this.nombre = unNombre;
         this.apellido = unApellido;
@@ -39,9 +44,9 @@ public class Cliente implements TypeRepo {
         this.dispositivosEstandar = dispEstandar;
         this.dispositivosInteligentes = dispInteligentes;
         this.fechaDeAlta = LocalDate.now();
+        this.resolvedor= resolvedor;
     }
 
-    
     public double puntosAcumulados() {
         return dispositivosInteligentes.stream().mapToDouble(inte -> inte.getPuntos()).sum()
                 + dispositivosEstandar.stream().mapToDouble(estandar -> estandar.getPuntos()).sum();
@@ -145,5 +150,25 @@ public class Cliente implements TypeRepo {
 
 		return dispositivosInteligentes; 
 	}
+
+    public void activarAhorroAutomatico() {
+
+
+        this.ahorroAutomatico=true;
+
+    }
+
+
+
+
+
+    public boolean esHogarEficiente() {
+
+        resolvedor.agregarDispositivos(this.todosLosDispositivos());
+        return   this.consumoEnergeticoTotal()<resolvedor.getResultadoFuncionEconomica();
+
+    }
+
+
 
 }

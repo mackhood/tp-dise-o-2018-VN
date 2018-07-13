@@ -19,6 +19,18 @@ public class Simplex {
     double[] horasMaximasDispositivo;
     double resultadoFuncionEconomica;
 
+   /* public   Simplex (List<Dispositivo> dispositivos  ) {
+
+        this.dispositivos=dispositivos;
+    } */
+
+
+    public void agregarDispositivos(List<Dispositivo> dispositivos )
+    {
+       this.dispositivos=dispositivos;
+    }
+
+
     public void agregarDispositivo(Dispositivo dispositivo)
     {
         dispositivos.add(dispositivo);
