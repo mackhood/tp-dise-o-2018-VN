@@ -26,8 +26,8 @@ public class Transformador {
 			tomando la lista de usuarios, sacar una lista de dispositivos conectados a la red
 				dados los disp de cada usuario, pense que se podia castear pero no */
 		
-		List <Dispositivo> disp = usuariosConectados.stream().flatMap(user -> user.todosLosDispositivos());
-		dispositivosConectados.addAll(disp);
+		//List <Dispositivo> disp = usuariosConectados.stream().flatMap(user -> user.todosLosDispositivos());
+		//dispositivosConectados.addAll(disp);
 	}
 	
 	public double suministroActual() {
