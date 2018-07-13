@@ -46,10 +46,7 @@ public class testSimplex {
         dispositivos.add(lavarropas5kgAgua);
         simplex = new Simplex();
 
-        simplex.agregarDispositivo(aireAcondicionado3500);
-        simplex.agregarDispositivo(lampara11W);
-        simplex.agregarDispositivo(lavarropas5kgAgua);
-        simplex.execute();
+        simplex.execute(unCliente.todosLosDispositivos());
     }
     @Test
     public void testPrimerDispositivo()

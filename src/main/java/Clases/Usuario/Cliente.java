@@ -45,7 +45,6 @@ public class Cliente implements TypeRepo {
         this.dispositivosInteligentes = dispInteligentes;
         this.fechaDeAlta = LocalDate.now();
         this.resolvedor = new Simplex();
-        this.resolvedor.agregarDispositivos(this.todosLosDispositivos());
     }
 
     public double puntosAcumulados() {
@@ -105,13 +104,11 @@ public class Cliente implements TypeRepo {
     public void agregarDispositivoInteligente(DispositivoInteligente disp) {
 
         dispositivosInteligentes.add(disp);
-        resolvedor.agregarDispositivo(disp);
     }
     
     public void agregarDispositivoEstandar(DispositivoEstandar disp) {
     	
     	dispositivosEstandar.add(disp);
-    	resolvedor.agregarDispositivo(disp);
     }
 
     public void usarDispositivo(DispositivoEstandar dispositivo, int cantHorasEstimativa) {
@@ -163,14 +160,14 @@ public class Cliente implements TypeRepo {
 
     public double horasTotalesConsumidasPorLosDispositivos()
     {
-        this.resolvedor.execute();
+        this.resolvedor.execute(this.todosLosDispositivos());
         return resolvedor.getResultadoFuncionEconomica();
     }
 
 
     public double[] horasMaximasDeConsumoPorDispositivo()
     {
-        this.resolvedor.execute();
+        this.resolvedor.execute(this.todosLosDispositivos());
         return resolvedor.getHorasMaximasDispositivo();
     }
     public boolean esHogarEficiente()
