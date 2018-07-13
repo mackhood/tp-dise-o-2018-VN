@@ -20,7 +20,7 @@ private List<Cliente> clientes = new ArrayList<>();
 
  public  Transformador devolverTransformadorCercano (Cliente cliente) {
 
-OptionalDouble d= transformadores.stream().mapToDouble(transformador->transformador.calcularDistancia(cliente)).min();
+        return this.getIndexOfMin(transformadores,cliente);
 
 
  
@@ -31,5 +31,19 @@ double consumoTotal () {
 
     return transformadores.stream().mapToDouble(transformador->transformador.energiaSuministrada()).sum();
 }
+public Transformador getIndexOfMin(List<Transformador> data,Cliente cliente) {
+        Double min = Double.MAX_VALUE;
+        Transformador transformador = null;
+        int index = -1;
+        for (int i = 0; i < data.size(); i++) {
+            Double f = data.get(i).calcularDistancia(cliente);
+            if (min > f) {
+                min = f;
+                index = i;
+                transformador = data.get(i);
+            }
+        }
+        return transformador;
+ }
 
 }
