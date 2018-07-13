@@ -31,9 +31,15 @@ public class Cliente implements TypeRepo {
     private List<DispositivoEstandar> dispositivosEstandar = new ArrayList<>();
     private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
     private Simplex resolvedor;
+    private  int posicionX;
+    private int posicionY;
+    private ZonaGeografica zona;
+
+
     private  boolean ahorroAutomatico=false;
     public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
-                   List<DispositivoEstandar> dispEstandar, List <DispositivoInteligente> dispInteligentes,Simplex resolvedor) {
+                   List<DispositivoEstandar> dispEstandar, List <DispositivoInteligente> dispInteligentes,Simplex resolvedor,
+                   int posicionX,int posicionY,ZonaGeografica zona) {
 
         this.nombre = unNombre;
         this.apellido = unApellido;
@@ -45,6 +51,9 @@ public class Cliente implements TypeRepo {
         this.dispositivosInteligentes = dispInteligentes;
         this.fechaDeAlta = LocalDate.now();
         this.resolvedor= resolvedor;
+        this.posicionX=posicionX;
+        this.posicionY=posicionY;
+        this.zona=zona;
     }
 
     public double puntosAcumulados() {
@@ -158,13 +167,28 @@ public class Cliente implements TypeRepo {
 
     }
 
+    void agregarDispositivosResolvedor() {
+
+        resolvedor.agregarDispositivos(this.todosLosDispositivos());
+
+
+    }
 
 
 
+
+    public double [] recomendacion () {
+        this.agregarDispositivosResolvedor();
+        resolvedor.execute();
+
+        double[] listaHoras;
+        listaHoras = resolvedor.getHorasMaximasDispositivo();
+        return  listaHoras;
+    }
 
     public boolean esHogarEficiente() {
 
-        resolvedor.agregarDispositivos(this.todosLosDispositivos());
+       this.agregarDispositivosResolvedor();
         return   this.consumoEnergeticoTotal()<resolvedor.getResultadoFuncionEconomica();
 
     }
