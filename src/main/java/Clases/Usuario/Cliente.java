@@ -39,6 +39,21 @@ public class Cliente implements TypeRepo {
 
     private  boolean ahorroAutomatico=false;
     public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
+                   List<DispositivoEstandar> estandares, List<DispositivoInteligente> inteligentes)
+    {
+
+        this.nombre = unNombre;
+        this.apellido = unApellido;
+        this.identificacion = id;
+        this.username = username;
+        this.domicilio = unDomicilio;
+        this.telefono = unTelefono;
+        this.dispositivosEstandar = estandares;
+        this.dispositivosInteligentes = inteligentes;
+        this.fechaDeAlta = LocalDate.now();
+        this.resolvedor = new Simplex();
+    }
+    public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
                    int posicionX,int posicionY,ZonaGeografica zona) {
 
         this.nombre = unNombre;
@@ -47,8 +62,8 @@ public class Cliente implements TypeRepo {
         this.username = username;
         this.domicilio = unDomicilio;
         this.telefono = unTelefono;
-        this.dispositivosEstandar = dispEstandar;
-        this.dispositivosInteligentes = dispInteligentes;
+        //this.dispositivosEstandar = dispEstandar;
+        //this.dispositivosInteligentes = dispInteligentes;
         this.fechaDeAlta = LocalDate.now();
         this.resolvedor = new Simplex();
         this.posicionX=posicionX;
