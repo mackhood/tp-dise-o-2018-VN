@@ -17,6 +17,37 @@ public class DispositivoInteligente extends Dispositivo {
         this.consumoEstimadoPorHora = consumoEstimadoPorHora;
         estadoDispositivo = new EstadoApagado();
     }
+    public DispositivoInteligente(String nombre, double restriccionMinima, double restriccionMaxima)
+    {
+        this.nombre = nombre;
+        this.restriccionMinima = restriccionMinima;
+        this.restriccionMaxima = restriccionMaxima;
+    }
+    public DispositivoInteligente(String nombre, String equipoConcreto, boolean esBajoConsumo, double consumoEstimadoPorHora, double restriccionMinima, double restriccionMaxima)
+    {
+        this.nombre = nombre;
+        estadoDispositivo = new EstadoApagado();
+        this.equipoConcreto = equipoConcreto;
+        this.esBajoConsumo = esBajoConsumo;
+        this.consumoEstimadoPorHora = consumoEstimadoPorHora;
+        this.restriccionMinima = restriccionMinima;
+        this.restriccionMaxima = restriccionMaxima;
+    }
+    public DispositivoInteligente(String nombre, String equipoConcreto, boolean esBajoConsumo, double consumoEstimadoPorHora)
+    {
+        this.nombre = nombre;
+        estadoDispositivo = new EstadoApagado();
+        this.equipoConcreto = equipoConcreto;
+        this.esBajoConsumo = esBajoConsumo;
+        this.consumoEstimadoPorHora = consumoEstimadoPorHora;
+    }
+    public DispositivoInteligente(String nombre, String equipoConcreto, boolean esBajoConsumo)
+    {
+        this.nombre = nombre;
+        estadoDispositivo = new EstadoApagado();
+        this.equipoConcreto = equipoConcreto;
+        this.esBajoConsumo = esBajoConsumo;
+    }
 
     public void setHoraEncendido(LocalDateTime horaEncendido) {
         this.horaEncendido = horaEncendido;
@@ -105,6 +136,11 @@ public class DispositivoInteligente extends Dispositivo {
     public double getConsumoTotal() {
 
         return horasDeUso * consumoEstimadoPorHora;
+    }
+
+    @Override
+    public boolean esInteligente() {
+        return true;
     }
 
 

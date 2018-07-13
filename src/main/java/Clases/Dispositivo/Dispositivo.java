@@ -8,7 +8,11 @@ public abstract class Dispositivo {
 
     protected String nombre;
     protected double consumoEstimadoPorHora;
+    protected String equipoConcreto;
+    protected boolean esBajoConsumo;
     protected double horasDeUso = 0;
+    protected double restriccionMinima;
+    protected double restriccionMaxima;
 
 
 
@@ -50,6 +54,28 @@ public abstract class Dispositivo {
         consumoEstimadoPorHora = consumoEstimadoPorHora + aumento;
     }
 
+    public abstract boolean esInteligente();
 
     public abstract int getPuntos();
+
+    public String  getEquipoConcreto()
+    {
+        return equipoConcreto;
+    }
+
+    public double getRestriccionMinima() {
+        return restriccionMinima;
+    }
+
+    public void setRestriccionMinima(double restriccionMinima) {
+        this.restriccionMinima = restriccionMinima;
+    }
+
+    public double getRestriccionMaxima() {
+        return restriccionMaxima;
+    }
+
+    public void setRestriccionMaxima(double restriccionMaxima) {
+        this.restriccionMaxima = restriccionMaxima;
+    }
 }
