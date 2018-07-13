@@ -34,6 +34,7 @@ public class Cliente implements TypeRepo {
     private  int posicionX;
     private int posicionY;
     private ZonaGeografica zona;
+    private  Transformador transformador;
 
 
     private  boolean ahorroAutomatico=false;
@@ -172,7 +173,7 @@ public class Cliente implements TypeRepo {
         return resolvedor.getResultadoFuncionEconomica();
     }
 
-        resolvedor.agregarDispositivos(this.todosLosDispositivos());
+
 
     public double[] horasMaximasDeConsumoPorDispositivo()
     {
@@ -182,6 +183,24 @@ public class Cliente implements TypeRepo {
     public boolean esHogarEficiente()
     {
         return   this.consumoEnergeticoTotal()<resolvedor.getResultadoFuncionEconomica();
+    }
+
+
+
+    public  void conectarseTransformadorCercano () {
+        this.transformador = zona.devolverTransformadorCercano(this);
+
+
+    }
+
+
+    public double getPosicionX () {
+
+        return posicionX;
+    }
+    public double getPosicionY () {
+
+        return posicionY;
     }
 
 
