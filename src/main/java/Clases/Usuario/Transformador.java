@@ -40,4 +40,7 @@ return usuariosConectados.stream().mapToDouble(usuario->usuario.consumoEnergetic
 }
 
 
+    public Double getRadio() {
+       return  radio;
+    }
 }
