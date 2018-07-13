@@ -8,11 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RepositorioDispositivo {
-    //public static RepositorioDispositivo instance;
+public class RepositorioConsumoKWhDispositivo {
     List<Dispositivo> dispositivos = new ArrayList<>();
 
-    public RepositorioDispositivo()
+    public RepositorioConsumoKWhDispositivo()
     {
         DispositivoInteligente aireAcondicionado3500 = new DispositivoInteligente("aireAcondicionado","De 3500 frigorias", false,1.613,90,360);
         DispositivoInteligente aireAcondicionado2200 = new DispositivoInteligente("aireAcondicionado","De 2200 frigorias", true,1.013,90,360);
@@ -92,15 +91,6 @@ public class RepositorioDispositivo {
         double[] arrayCoef = new double[listaCoeficientes.size()];
         for(int i = 0; i < listaCoeficientes.size();i++)
             arrayCoef[i] = listaCoeficientes.get(i);
-
-        return arrayCoef;
-    }
-    public double[] coeficientesVariables(List<Dispositivo> dispositivos)
-    {
-        List<Double> listaCoeficientes = dispositivos.stream().map(disp -> this.coefConsumokwh(disp)).collect(Collectors.toList());
-        double[] arrayCoef = new double[listaCoeficientes.size()];
-        for(int i = 0; i < listaCoeficientes.size();i++)
-            arrayCoef[i] = 1;
 
         return arrayCoef;
     }

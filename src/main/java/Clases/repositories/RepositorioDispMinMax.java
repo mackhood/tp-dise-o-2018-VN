@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class RepositorioDispMinMax {
     List<Dispositivo> dispositivos = new ArrayList<>();
-    double[] coefsRestriccion;
+    //double[] coefsRestriccion;
     public RepositorioDispMinMax()
     {
         DispositivoInteligente aireAcondicionado = new DispositivoInteligente("aireAcondicionado",90,360);
@@ -29,18 +29,6 @@ public class RepositorioDispMinMax {
         dispositivos.add(microondas);
         dispositivos.add(plancha);
         dispositivos.add(ventilador);
-        coefsRestriccion = new double[dispositivos.size()];
-    }
-    public void agregarCerosAlArray()
-    {
-        for(int i=0;i<dispositivos.size();i++)
-        {
-            coefsRestriccion[i] = 0;
-        }
-    }
-    public void modificarElemArray(int index)
-    {
-        coefsRestriccion[index] = 1;
     }
     public List<Dispositivo> getDispositivos()
     {
@@ -58,19 +46,4 @@ public class RepositorioDispMinMax {
     {
         return this.buscarDispositivo(dispositivo).getRestriccionMaxima();
     }
-    public int posicionDispositivoBusq(Dispositivo dispositivo)
-    {
-        return this.getDispositivos().indexOf(this.buscarDispositivo(dispositivo));
-    }
-    public double[] coefsResctriccionDeUnDispositivo(Dispositivo dispositivo)
-    {
-        this.agregarCerosAlArray();
-        this.modificarElemArray(this.posicionDispositivoBusq(dispositivo));
-        return coefsRestriccion;
-    }
-    /*
-    public double[] coefsFuncionEconomica(List<Dispositivo> dispositivos)
-    {
-        double[] coefsFuncionEco = new double(dispositivos.size());
-    }*/
 }

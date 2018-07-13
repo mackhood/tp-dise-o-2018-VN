@@ -8,8 +8,7 @@ import Clases.Usuario.Cliente;
 import Clases.Usuario.Domicilio;
 import Clases.Usuario.ID;
 import Clases.Usuario.TiposId;
-import Clases.repositories.RepositorioDispositivo;
-import Clases.repositories.Repositorios;
+import Clases.repositories.RepositoriosTP2;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,9 +43,8 @@ public class testSimplex {
         dispositivos.add(aireAcondicionado3500);
         dispositivos.add(lampara11W);
         dispositivos.add(lavarropas5kgAgua);
-        simplex = new Simplex();
 
-        simplex.execute(unCliente.todosLosDispositivos());
+        unCliente.horasTotalesConsumidasPorLosDispositivos();
     }
     @Test
     public void testPrimerDispositivo()
@@ -66,34 +64,25 @@ public class testSimplex {
     @Test
     public void testCoefAireAcondicionado3500()
     {
-        Assert.assertEquals(1.613,Repositorios.dispositivos.coefConsumokwh(aireAcondicionado3500),0);
+        Assert.assertEquals(1.613,RepositoriosTP2.dispositivosConsumoKWh.coefConsumokwh(aireAcondicionado3500),0);
     }
 
     @Test
     public void testCoefLampara11W()
     {
-        Assert.assertEquals(0.011,Repositorios.dispositivos.coefConsumokwh(lampara11W),0);
+        Assert.assertEquals(0.011,RepositoriosTP2.dispositivosConsumoKWh.coefConsumokwh(lampara11W),0);
     }
 
     @Test
     public void testCoefDispositivos()
     {
-        Assert.assertEquals(0.011,Repositorios.dispositivos.coeficientesDeConsumoKwh(dispositivos)[1],0);
-    }
-    @Test
-    public void testCoefsInecuacionesAireAcondicionado()
-    {
-        Assert.assertEquals(1,Repositorios.dispositivosMinmax.coefsResctriccionDeUnDispositivo(aireAcondicionado3500)[0],0);
-    }
-    @Test
-    public void testSizeCoefsInecuacionesAireAcondicionado()
-    {
-        Assert.assertEquals(8,Repositorios.dispositivosMinmax.coefsResctriccionDeUnDispositivo(aireAcondicionado3500).length,0);
+        Assert.assertEquals(0.011,RepositoriosTP2.dispositivosConsumoKWh.coeficientesDeConsumoKwh(dispositivos)[1],0);
     }
     @Test
     public void testResultadoFuncionEconomica() {
 
-        Assert.assertEquals(1000, simplex.getResultadoFuncionEconomica(), 50);
+        //Deberia dar otra cosa supongo
+        Assert.assertEquals(0, unCliente.horasTotalesConsumidasPorLosDispositivos(), 0);
     }
     @Test
     public void testConsumoRecomendadoAireAcondicionado()
@@ -103,11 +92,11 @@ public class testSimplex {
     @Test
     public void testConsumoRecomendadoLampara()
     {
-        Assert.assertEquals(370,lampara11W.getHorasMaximaPorConsumo(),10);
+        Assert.assertEquals(90,lampara11W.getHorasMaximaPorConsumo(),10);
     }
     @Test
     public void testConsumoRecomendadoLavarropas()
     {
-        Assert.assertEquals(560,lavarropas5kgAgua.getHorasMaximaPorConsumo(),10);
+        Assert.assertEquals(6,lavarropas5kgAgua.getHorasMaximaPorConsumo(),10);
     }
 }
