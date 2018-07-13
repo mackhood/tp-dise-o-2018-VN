@@ -95,9 +95,6 @@ public class testCliente {
 
         listaCategoriaMock.add(categoriaMocktest1);
         listaCategoriaMock.add(categoriaMocktest2);
-
-
-
     }
 
     @Test

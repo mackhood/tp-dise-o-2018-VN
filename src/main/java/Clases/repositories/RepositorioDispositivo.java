@@ -12,7 +12,7 @@ public class RepositorioDispositivo {
     //public static RepositorioDispositivo instance;
     List<Dispositivo> dispositivos = new ArrayList<>();
 
-    public void RepositorioDispositivo()
+    public RepositorioDispositivo()
     {
         DispositivoInteligente aireAcondicionado3500 = new DispositivoInteligente("aireAcondicionado","De 3500 frigorias", false,1.613,90,360);
         DispositivoInteligente aireAcondicionado2200 = new DispositivoInteligente("aireAcondicionado","De 2200 frigorias", true,1.013,90,360);

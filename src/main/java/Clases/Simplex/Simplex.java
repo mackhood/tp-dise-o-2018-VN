@@ -55,13 +55,20 @@ public class Simplex {
         for(int i=0; i< dispositivos.size(); i++) {
             constraints.add(new LinearConstraint(Repositorios.dispositivosMinmax.coefsResctriccionDeUnDispositivo(dispositivos.get(i)), Relationship.GEQ,
                     Repositorios.dispositivosMinmax.restriccionMinima(dispositivos.get(i))));
-            constraints.add(new LinearConstraint(Repositorios.dispositivosMinmax.coefsResctriccionDeUnDispositivo(dispositivos.get(i)), Relationship.GEQ,
-                    Repositorios.dispositivosMinmax.restriccionMinima(dispositivos.get(i))));
+            constraints.add(new LinearConstraint(Repositorios.dispositivosMinmax.coefsResctriccionDeUnDispositivo(dispositivos.get(i)), Relationship.LEQ,
+                    Repositorios.dispositivosMinmax.restriccionMaxima(dispositivos.get(i))));
         }
-        PointValuePair solution = solver.optimize(new MaxIter(100), funcion, new LinearConstraintSet(constraints), GoalType.MINIMIZE ,new NonNegativeConstraint(true));
+        PointValuePair solution = solver.optimize(new MaxIter(100), funcion, new LinearConstraintSet(constraints), GoalType.MAXIMIZE ,new NonNegativeConstraint(true));
         horasMaximasDispositivo = solution.getPoint();
         resultadoFuncionEconomica = funcion.value(horasMaximasDispositivo);
+        this.asignarHorasMaximaPorDispositivo();
     }
-
+    public void asignarHorasMaximaPorDispositivo()
+    {
+        for (int i=0; i< dispositivos.size();i++)
+        {
+            dispositivos.get(i).setHorasMaximaPorConsumo(this.horasMaximasDispositivo[i]);
+        }
+    }
 
 }

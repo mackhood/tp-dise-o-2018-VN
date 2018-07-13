@@ -33,7 +33,7 @@ public class Cliente implements TypeRepo {
     private Simplex resolvedor;
     private  boolean ahorroAutomatico=false;
     public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
-                   List<DispositivoEstandar> dispEstandar, List <DispositivoInteligente> dispInteligentes,Simplex resolvedor) {
+                   List<DispositivoEstandar> dispEstandar, List <DispositivoInteligente> dispInteligentes) {
 
         this.nombre = unNombre;
         this.apellido = unApellido;
@@ -44,7 +44,8 @@ public class Cliente implements TypeRepo {
         this.dispositivosEstandar = dispEstandar;
         this.dispositivosInteligentes = dispInteligentes;
         this.fechaDeAlta = LocalDate.now();
-        this.resolvedor= resolvedor;
+        this.resolvedor = new Simplex();
+        this.resolvedor.agregarDispositivos(this.todosLosDispositivos());
     }
 
     public double puntosAcumulados() {
@@ -55,9 +56,9 @@ public class Cliente implements TypeRepo {
     public List<Dispositivo> todosLosDispositivos() {
     	
     	List<Dispositivo> todos = new ArrayList<>();
-    	todos.addAll(dispositivosEstandar);
     	todos.addAll(dispositivosInteligentes);
-    	return todos;
+        todos.addAll(dispositivosEstandar);
+        return todos;
     }
 
     public void agregarModuloAdaptador(DispositivoEstandar disp) {
@@ -104,11 +105,13 @@ public class Cliente implements TypeRepo {
     public void agregarDispositivoInteligente(DispositivoInteligente disp) {
 
         dispositivosInteligentes.add(disp);
+        resolvedor.agregarDispositivo(disp);
     }
     
     public void agregarDispositivoEstandar(DispositivoEstandar disp) {
     	
     	dispositivosEstandar.add(disp);
+    	resolvedor.agregarDispositivo(disp);
     }
 
     public void usarDispositivo(DispositivoEstandar dispositivo, int cantHorasEstimativa) {
@@ -158,15 +161,21 @@ public class Cliente implements TypeRepo {
 
     }
 
+    public double horasTotalesConsumidasPorLosDispositivos()
+    {
+        this.resolvedor.execute();
+        return resolvedor.getResultadoFuncionEconomica();
+    }
 
 
-
-
-    public boolean esHogarEficiente() {
-
-        resolvedor.agregarDispositivos(this.todosLosDispositivos());
+    public double[] horasMaximasDeConsumoPorDispositivo()
+    {
+        this.resolvedor.execute();
+        return resolvedor.getHorasMaximasDispositivo();
+    }
+    public boolean esHogarEficiente()
+    {
         return   this.consumoEnergeticoTotal()<resolvedor.getResultadoFuncionEconomica();
-
     }
 
 
