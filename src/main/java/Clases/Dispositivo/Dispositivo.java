@@ -13,8 +13,15 @@ public abstract class Dispositivo {
     protected double horasDeUso = 0;
     protected double restriccionMinima;
     protected double restriccionMaxima;
+    protected double horasMaximaPorConsumo;
 
+    public double getHorasMaximaPorConsumo() {
+        return horasMaximaPorConsumo;
+    }
 
+    public void setHorasMaximaPorConsumo(double horasMaximaPorConsumo) {
+        this.horasMaximaPorConsumo = horasMaximaPorConsumo;
+    }
 
     public double consumoEstimadoPorHora() {
         return consumoEstimadoPorHora;
