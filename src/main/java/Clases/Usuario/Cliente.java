@@ -7,12 +7,14 @@ import Clases.Dispositivo.DispositivoEstandar;
 import Clases.Dispositivo.DispositivoInteligente;
 import Clases.Dispositivo.DispositivoEstandarInteligente;
 import Clases.Simplex.Simplex;
+import Clases.Transformador.Transformador;
 import Clases.repositories.TypeRepo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
+import Clases.ZonaGeografica.ZonaGeografica;
 
 
 
@@ -34,7 +36,6 @@ public class Cliente implements TypeRepo {
     private  int posicionX;
     private int posicionY;
     private ZonaGeografica zona;
-    private  Transformador transformador;
 
 
     private  boolean ahorroAutomatico=false;
@@ -202,9 +203,9 @@ public class Cliente implements TypeRepo {
 
 
 
-    public  void conectarseTransformadorCercano () {
-        this.transformador = zona.devolverTransformadorCercano(this);
+    public Transformador conectarseTransformadorCercano () {
 
+        return zona.devolverTransformadorCercano(this);
 
     }
 
@@ -217,7 +218,5 @@ public class Cliente implements TypeRepo {
 
         return posicionY;
     }
-
-
 
 }

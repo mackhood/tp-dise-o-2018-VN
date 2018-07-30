@@ -1,24 +1,36 @@
 package Clases.ZonaGeografica;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import Clases.Transformador.Transformador;
+import Clases.Usuario.Cliente;
 
-	public class ZonaGeografica {
+public class ZonaGeografica {
 
 protected List<Transformador> transformadores = new ArrayList<>() ;
 
 protected List<ZonaGeografica> zonasCercanas = new ArrayList<>();
 
-protected float radioCubierto;
 
-	
-	public ZonaGeografica(float radio) {
-	
-		radioCubierto = radio;
-}
+
+	public ZonaGeografica (List<Transformador> transformadores, List<Cliente> clientes) {
+	 	 this.transformadores=transformadores;
+	}
+
+
+	double consumoTotal () {
+
+		return transformadores.stream().mapToDouble(transformador->transformador.energiaSuministrada()).sum();
+	}
+	public Transformador devolverTransformadorCercano (Cliente cliente) {
+
+		Comparator<Transformador> comparator = Comparator.comparingDouble(transformador -> transformador.calcularDistancia(cliente));
+		return transformadores.stream().min((comparator)).get();
+	}
+
 
 	public boolean hayAlgunTransformador() {
 		

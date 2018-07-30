@@ -7,32 +7,48 @@ import java.util.stream.Stream;
 
 import Clases.Dispositivo.Dispositivo;
 import Clases.Usuario.Cliente;
+import Clases.ZonaGeografica.Ubicacion;
 import Clases.ZonaGeografica.ZonaGeografica;
 
 public class Transformador {
 
 	protected ZonaGeografica unaZona;
 	List<Cliente> usuariosConectados = new ArrayList<>();
-	List <Dispositivo> dispositivosConectados = new ArrayList<>();
-	
-	public Transformador(ZonaGeografica zona) {
-		
-		unaZona = zona;
+
+	private Ubicacion ubicacion;
+
+	protected float radioCubierto;
+
+	public Transformador (ZonaGeografica zona, List<Cliente> usuariosConectados,Ubicacion ubicacion,float radioCubierto) {
+
+		this.ubicacion=ubicacion;
+		this.unaZona=zona;
+		this.usuariosConectados=usuariosConectados;
+		this.radioCubierto=radioCubierto;
 	}
-	
-	public void dispositivosUsandoRed() {
+
+	public List<Dispositivo> dispositivosUsandoRed() {
 		
-		/* No se como convertir el stream a lista de dispositivos, la idea era
-			tomando la lista de usuarios, sacar una lista de dispositivos conectados a la red
-				dados los disp de cada usuario, pense que se podia castear pero no */
-		
-		//List <Dispositivo> disp = usuariosConectados.stream().flatMap(user -> user.todosLosDispositivos());
-		//dispositivosConectados.addAll(disp);
+		List<Dispositivo> dispositivosRed = new ArrayList<>();
+		usuariosConectados.forEach(usuariosConectado->dispositivosRed.addAll(usuariosConectado.getDispositivosInteligentes()));
+		return  dispositivosRed;
+
 	}
 	
 	public double suministroActual() {
 		
-		return dispositivosConectados.stream().mapToDouble(disp -> disp.getConsumoEstimadoPorHora()).sum();
+		return this.dispositivosUsandoRed().stream().mapToDouble(disp -> disp.getConsumoEstimadoPorHora()).sum();
 		
+	}
+
+	public double energiaSuministrada() {
+
+		return usuariosConectados.stream().mapToDouble(usuario->usuario.consumoEnergeticoTotal()).sum();
+
+	}
+	public Double calcularDistancia (Cliente cliente) {
+
+		return ubicacion.calcularDistancia(cliente);
+
 	}
 }
