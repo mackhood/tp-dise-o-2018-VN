@@ -1,9 +1,8 @@
 package test;
 
-import Clases.repositories.RepositorioAdministradores;
+import Dominio.repositories.RepositorioAdministradores;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
-import org.junit.Test;
 import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;

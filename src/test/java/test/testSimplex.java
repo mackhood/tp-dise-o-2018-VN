@@ -1,15 +1,14 @@
 package test;
 
-import Clases.Dispositivo.Dispositivo;
-import Clases.Dispositivo.DispositivoEstandar;
-import Clases.Dispositivo.DispositivoInteligente;
-import Clases.Simplex.Simplex;
-import Clases.Usuario.Cliente;
-import Clases.Usuario.Domicilio;
-import Clases.Usuario.ID;
-import Clases.Usuario.TiposId;
-import Clases.repositories.RepositorioDispositivo;
-import Clases.repositories.Repositorios;
+import Dominio.Dispositivo.Dispositivo;
+import Dominio.Dispositivo.DispositivoEstandar;
+import Dominio.Dispositivo.DispositivoInteligente;
+import Dominio.Simplex.Simplex;
+import Dominio.Usuario.Cliente;
+import Dominio.Usuario.Domicilio;
+import Dominio.Usuario.ID;
+import Dominio.Usuario.TiposId;
+import Dominio.repositories.Repositorios;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

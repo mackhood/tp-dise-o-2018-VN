@@ -1,7 +1,7 @@
 package test;
 
-import Clases.Categoria.Categoria;
-import Clases.Usuario.Cliente;
+import Dominio.Categoria.Categoria;
+import Dominio.Usuario.Cliente;
 import org.junit.Before;
 import org.junit.Test;
 

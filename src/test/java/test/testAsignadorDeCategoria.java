@@ -1,8 +1,8 @@
 package test;
 
-import Clases.Categoria.AsignadorDeCategoria;
-import Clases.Categoria.Categoria;
-import Clases.Usuario.Cliente;
+import Dominio.Categoria.AsignadorDeCategoria;
+import Dominio.Categoria.Categoria;
+import Dominio.Usuario.Cliente;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,18 +1,15 @@
 package test;
 
-import Clases.Categoria.AsignadorDeCategoria;
-import Clases.Categoria.Categoria;
-import Clases.Dispositivo.*;
-import Clases.Fabricante;
-import Clases.Usuario.Cliente;
-import Clases.Usuario.Domicilio;
-import Clases.Usuario.ID;
-import Clases.Usuario.TiposId;
-import Clases.entities.ProcessingDataFailedException;
+import Dominio.Categoria.AsignadorDeCategoria;
+import Dominio.Categoria.Categoria;
+import Dominio.Dispositivo.*;
+import Dominio.Usuario.Cliente;
+import Dominio.Usuario.Domicilio;
+import Dominio.Usuario.ID;
+import Dominio.Usuario.TiposId;
+import Dominio.entities.ProcessingDataFailedException;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
