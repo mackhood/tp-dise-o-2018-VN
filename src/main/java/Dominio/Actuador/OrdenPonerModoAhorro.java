@@ -13,6 +13,6 @@ public class OrdenPonerModoAhorro extends  ActuadorDeDispositivos implements  Ac
 
     @Override
     public void ejecutar() {
-        dispositivoInteligenteList.stream().forEach(DispositivoInteligente::ponerModoAhorro);
+        dispositivosInteligentes.stream().forEach(DispositivoInteligente::ponerModoAhorro);
     }
 }

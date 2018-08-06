@@ -12,6 +12,6 @@ public class OrdenApagarDI extends  ActuadorDeDispositivos implements Actuador{
 
     @Override
     public void ejecutar() {
-        dispositivoInteligenteList.stream().forEach(DispositivoInteligente::apagar);
+        dispositivosInteligentes.stream().forEach(DispositivoInteligente::apagar);
     }
 }

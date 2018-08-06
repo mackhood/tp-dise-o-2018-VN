@@ -7,10 +7,10 @@ import java.util.List;
 
 public abstract class  ActuadorDeDispositivos {
 
-    List<DispositivoInteligente> dispositivoInteligenteList = new ArrayList<>();
+    List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
 
     ActuadorDeDispositivos(List<DispositivoInteligente> disp) {
-        this.dispositivoInteligenteList.addAll(disp);
+        this.dispositivosInteligentes.addAll(disp);
     }
 
 }

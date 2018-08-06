@@ -14,7 +14,7 @@ public class OrdenEncenderDI extends  ActuadorDeDispositivos implements Actuador
     @Override
     public void ejecutar() {
 
-        dispositivoInteligenteList.stream().forEach(DispositivoInteligente::encender);
+        dispositivosInteligentes.stream().forEach(DispositivoInteligente::encender);
 
     }
 

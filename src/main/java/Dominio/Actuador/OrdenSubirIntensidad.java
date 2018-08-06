@@ -9,6 +9,6 @@ public class OrdenSubirIntensidad extends ActuadorDeDispositivos implements  Act
     public OrdenSubirIntensidad(List<DispositivoInteligente> unDI){ super(unDI); }
 
     public void ejecutar() {
-        dispositivoInteligenteList.stream().forEach(x-> x.aumentarConsumoPor(50));
+        dispositivosInteligentes.stream().forEach(x-> x.aumentarConsumoPor(50));
     }
 }
