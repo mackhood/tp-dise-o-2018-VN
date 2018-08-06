@@ -1,4 +1,4 @@
-package Clases.entities;
+package Dominio.entities;
 
 public class DispositivoEstandarException extends Exception {
     public DispositivoEstandarException(String msg) {

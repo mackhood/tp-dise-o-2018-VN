@@ -1,7 +1,7 @@
-package Clases.repositories;
+package Dominio.repositories;
 
-import Clases.Categoria.Categoria;
-import Clases.entities.ProcessingDataFailedException;
+import Dominio.Categoria.Categoria;
+import Dominio.entities.ProcessingDataFailedException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

@@ -1,4 +1,4 @@
-package Clases.repositories;
+package Dominio.repositories;
 
 public interface TypeRepo {
 }

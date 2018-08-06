@@ -1,4 +1,4 @@
-package Clases.entities;
+package Dominio.entities;
 
 import java.io.IOException;
 

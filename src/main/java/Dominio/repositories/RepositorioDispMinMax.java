@@ -1,7 +1,7 @@
-package Clases.repositories;
+package Dominio.repositories;
 
-import Clases.Dispositivo.Dispositivo;
-import Clases.Dispositivo.DispositivoInteligente;
+import Dominio.Dispositivo.Dispositivo;
+import Dominio.Dispositivo.DispositivoInteligente;
 
 import java.util.ArrayList;
 import java.util.List;

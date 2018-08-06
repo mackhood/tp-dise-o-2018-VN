@@ -1,6 +1,6 @@
-package Clases.Actuador;
+package Dominio.Actuador;
 
-import Clases.Dispositivo.DispositivoInteligente;
+import Dominio.Dispositivo.DispositivoInteligente;
 
 public abstract class ConsultaEstado {
     
