@@ -22,8 +22,8 @@ protected List<Transformador> transformadores = new ArrayList<>() ;
 	}
 	public Transformador devolverTransformadorCercano (Cliente cliente) {
 
-		Comparator<Transformador> comparator = Comparator.comparingDouble(transformador -> transformador.calcularDistancia(cliente));
-		return transformadores.stream().min((comparator)).get();
+		return transformadores.stream().min(Comparator.comparingDouble(t -> t.calcularDistancia(cliente))).get();
+
 	}
 
 	public boolean hayAlgunTransformador() {
@@ -46,7 +46,7 @@ protected List<Transformador> transformadores = new ArrayList<>() ;
     }
 
 	public void conectarATransformadorCercano(Cliente cliente) {
-		Transformador transformadorCercano = transformadores.stream().min((t1,t2)-> Double.compare(t1.calcularDistancia(cliente),t1.calcularDistancia(cliente))).get();
+		Transformador transformadorCercano = this.devolverTransformadorCercano(cliente);
 		transformadorCercano.agregarCliente(cliente);
 
 	}

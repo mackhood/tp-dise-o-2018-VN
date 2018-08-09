@@ -40,6 +40,8 @@ public class testParaZonaTransformadores{
     private ZonaGeografica zonaGeografica1;
     private ZonaGeografica zonaGeografica2;
 
+    private Ubicacion ubicacionMock;
+
     private List<Transformador> listaTransformadorZona1 = new ArrayList<>();;
     @Before
     public void setUp() {
@@ -82,6 +84,14 @@ public class testParaZonaTransformadores{
 
         zonaGeografica1 = new ZonaGeografica(listaTransformadorZona1);
         zonaGeografica2 = new ZonaGeografica(listaTransformadorOtraZona);
+
+        ubicacionMock = mock(Ubicacion.class);
+
+        when(ubicacionMock.getPosicionX()).thenReturn(3.0);
+        when(ubicacionMock.getPosicionY()).thenReturn(4.0);
+
+        when(clienteMock1.getPosicion()).thenReturn(ubicacionMock);
+
     }
 
 
@@ -111,6 +121,12 @@ public class testParaZonaTransformadores{
 
         // Consumo transformador 1 = 750 + conssumo transformador 2 = 200 -> 950
         assertTrue(zonaGeografica1.energiaMayorA900());
+
+    }
+    @Test
+    public void testTransformadorMasCercano(){
+
+        assertEquals(transformador2_Zona1,zonaGeografica1.devolverTransformadorCercano(clienteMock1));
 
     }
 
