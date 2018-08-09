@@ -5,8 +5,8 @@ import Dominio.repositories.TypeRepo;
 
 public class Categoria implements TypeRepo {
     private String nombre;
-    private double consumoMinimo;
-    private double consumoMaximo;
+    private Integer consumoMinimo;
+    private Integer consumoMaximo;
     private Double cargoFijo;
     private Double cargoVariable;
 
@@ -18,20 +18,12 @@ public class Categoria implements TypeRepo {
         this.cargoVariable = cargoVariable;
     }
 
-    private Double getConsumoMinimo() {
-
-        return this.consumoMinimo;
-    }
-
-    private Double getConsumoMaximo() {
-        return this.consumoMaximo;
-    }
 
     public boolean cumpleCondicion(Cliente cliente) {
 
         //Si consumo maximo es null quiere decir que cualquier numero es menor a este
-        return cliente.consumoEnergeticoTotal() >= getConsumoMinimo() &&
-                (getConsumoMaximo() == null || cliente.consumoEnergeticoTotal() <= getConsumoMaximo());
+        return cliente.consumoEnergeticoTotal() >= consumoMinimo &&
+                (consumoMaximo == null || cliente.consumoEnergeticoTotal() <= consumoMaximo);
     }
 
 

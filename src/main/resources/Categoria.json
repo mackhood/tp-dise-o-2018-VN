@@ -42,7 +42,7 @@
     "cargoVariable":0.832
   },
   {
-    "nombre":"R7",  
+    "nombre":"R7",
     "consumoMinimo":601,
     "consumoMaximo":700,
     "cargoFijo":443.59,
