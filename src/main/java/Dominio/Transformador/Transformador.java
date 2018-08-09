@@ -11,15 +11,13 @@ import Dominio.ZonaGeografica.ZonaGeografica;
 
 public class Transformador {
 
-	protected ZonaGeografica unaZona;
 	private List<Cliente> usuariosConectados = new ArrayList<>();
 	private Ubicacion ubicacion;
 	protected float radioCubierto;
 
-	public Transformador (ZonaGeografica zona, List<Cliente> usuariosConectados,Ubicacion ubicacion,float radioCubierto) {
+	public Transformador ( List<Cliente> usuariosConectados,Ubicacion ubicacion,float radioCubierto) {
 
 		this.ubicacion=ubicacion;
-		this.unaZona=zona;
 		this.usuariosConectados=usuariosConectados;
 		this.radioCubierto=radioCubierto;
 	}

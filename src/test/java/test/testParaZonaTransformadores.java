@@ -68,8 +68,8 @@ public class testParaZonaTransformadores{
         listaClientesTransformador2.add(clienteMock3);
 
 
-        transformador1_Zona1 = new Transformador(zonaGeografica1,listaClientesTransformador1,new Ubicacion(20.0,20.0),40);
-        transformador2_Zona1 = new Transformador(zonaGeografica1,listaClientesTransformador2,new Ubicacion(10.0,10.0),5);
+        transformador1_Zona1 = new Transformador(listaClientesTransformador1,new Ubicacion(20.0,20.0),40);
+        transformador2_Zona1 = new Transformador(listaClientesTransformador2,new Ubicacion(10.0,10.0),5);
 
 
         when(clienteMock1.consumoEnergeticoTotal()).thenReturn(350.0);
@@ -82,8 +82,8 @@ public class testParaZonaTransformadores{
         listaTransformadorZona1.add(transformador1_Zona1);
         listaTransformadorZona1.add(transformador2_Zona1);
 
-        zonaGeografica1 = new ZonaGeografica(listaTransformadorZona1);
-        zonaGeografica2 = new ZonaGeografica(listaTransformadorOtraZona);
+        zonaGeografica1 = new ZonaGeografica("Zona1",listaTransformadorZona1);
+        zonaGeografica2 = new ZonaGeografica("Zona2",listaTransformadorOtraZona);
 
         ubicacionMock = mock(Ubicacion.class);
 

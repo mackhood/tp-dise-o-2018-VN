@@ -12,9 +12,11 @@ import Dominio.Usuario.Cliente;
 public class ZonaGeografica {
 
 protected List<Transformador> transformadores = new ArrayList<>() ;
+private String descripcion;
 
-	public ZonaGeografica (List<Transformador> transformadores) {
+	public ZonaGeografica (String descripcion ,List<Transformador> transformadores) {
 	 	 this.transformadores=transformadores;
+	 	 this.descripcion = descripcion;
 	}
 
 	public double consumoTotal () {
