@@ -1,30 +1,26 @@
 package test;
 
-import Clases.*;
-import Clases.Actuador.*;
-import Clases.Dispositivo.*;
+import Dominio.Actuador.*;
+import Dominio.Dispositivo.*;
 
-import Clases.Regla.Regla;
-import Clases.Sensor.*;
-import Clases.Usuario.Cliente;
+import Dominio.Regla.Regla;
+import Dominio.Sensor.*;
+import Dominio.Usuario.Cliente;
 
-import Clases.Usuario.Domicilio;
-import Clases.Usuario.ID;
-import Clases.Usuario.TiposId;
+import Dominio.Usuario.Domicilio;
+import Dominio.Usuario.ID;
+import Dominio.Usuario.TiposId;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertSame;
 import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
 
 public class testDispositivo {
 

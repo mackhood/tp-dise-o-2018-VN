@@ -1,9 +1,8 @@
 package test;
 
-import Clases.repositories.RepositorioCategoria;
+import Dominio.repositories.RepositorioCategoria;
 import org.junit.Assert;
 import org.junit.Ignore;
-import org.junit.Test;
 import org.mockito.Mockito;
 
 import static org.mockito.Mockito.when;
