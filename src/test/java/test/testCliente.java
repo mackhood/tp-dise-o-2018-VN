@@ -9,6 +9,7 @@ import Clases.Usuario.Domicilio;
 import Clases.Usuario.ID;
 import Clases.Usuario.TiposId;
 import Clases.entities.ProcessingDataFailedException;
+import Clases.repositories.RepositorioCategoria;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -173,17 +174,20 @@ public class testCliente {
         //ConsumoCliente=51.0
         //35.32+0.644*51.0= 68.164
 
+        AsignadorDeCategoria asignadorSpy = spy (new AsignadorDeCategoria());
 
         when(categoriaMocktest1.getCargoVariable()).thenReturn(0.644);
         double gasto = 35.32 + categoriaMocktest1.getCargoVariable() * unClienteConDEyDI.consumoEnergeticoTotal();
 
+        //this.getObtenerRepositorio().obtenerCategorias()
+//      when(asignadorSpy.getObtenerRepositorio()).thenReturn((RepositorioCategoria) listaCategoriaMock);
 
 
-        when(asignadorMock.getObtenerCategoriasDelRepositorio()).thenReturn(listaCategoriaMock);
+        when(asignadorSpy.getObtenerCategoriasDelRepositorio()).thenReturn(listaCategoriaMock);
 
         when(categoriaMocktest1.calcularCostosPara(unClienteConDEyDI)).thenReturn(gasto);
 
-        asignadorMock.actualizarPara(unClienteConDEyDI);
+        asignadorSpy.actualizarPara(unClienteConDEyDI);
 
         unClienteConDEyDI.obtenerGastosAproximados();
 

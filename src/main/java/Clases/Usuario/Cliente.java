@@ -8,6 +8,7 @@ import Clases.Dispositivo.DispositivoInteligente;
 import Clases.Dispositivo.DispositivoEstandarInteligente;
 import Clases.Simplex.Simplex;
 import Clases.Transformador.Transformador;
+import Clases.ZonaGeografica.Ubicacion;
 import Clases.repositories.TypeRepo;
 
 import java.time.LocalDate;
@@ -33,29 +34,13 @@ public class Cliente implements TypeRepo {
     private List<DispositivoEstandar> dispositivosEstandar = new ArrayList<>();
     private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
     private Simplex resolvedor;
-    private  int posicionX;
-    private int posicionY;
-    private ZonaGeografica zona;
-
-
+    private Transformador transformador;
     private  boolean ahorroAutomatico=false;
-    public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
-                   List<DispositivoEstandar> estandares, List<DispositivoInteligente> inteligentes)
-    {
+    private Ubicacion ubicacion;
 
-        this.nombre = unNombre;
-        this.apellido = unApellido;
-        this.identificacion = id;
-        this.username = username;
-        this.domicilio = unDomicilio;
-        this.telefono = unTelefono;
-        this.dispositivosEstandar = estandares;
-        this.dispositivosInteligentes = inteligentes;
-        this.fechaDeAlta = LocalDate.now();
-        this.resolvedor = new Simplex();
-    }
+    //constructor para TP2A
     public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
-                   int posicionX,int posicionY,ZonaGeografica zona) {
+                   Ubicacion ubicacion ) {
 
         this.nombre = unNombre;
         this.apellido = unApellido;
@@ -67,9 +52,28 @@ public class Cliente implements TypeRepo {
         //this.dispositivosInteligentes = dispInteligentes;
         this.fechaDeAlta = LocalDate.now();
         this.resolvedor = new Simplex();
-        this.posicionX=posicionX;
-        this.posicionY=posicionY;
-        this.zona=zona;
+        this.ubicacion = ubicacion;
+
+    }
+
+
+
+    public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
+                   List<DispositivoEstandar> estandares, List<DispositivoInteligente> inteligentes)
+    {
+
+
+        this.nombre = unNombre;
+        this.apellido = unApellido;
+        this.identificacion = id;
+        this.username = username;
+        this.domicilio = unDomicilio;
+        this.telefono = unTelefono;
+        this.dispositivosEstandar = estandares;
+        this.dispositivosInteligentes = inteligentes;
+        this.fechaDeAlta = LocalDate.now();
+        this.resolvedor = new Simplex();
+
     }
 
     public double puntosAcumulados() {
@@ -201,22 +205,15 @@ public class Cliente implements TypeRepo {
         return   this.consumoEnergeticoTotal()<resolvedor.getResultadoFuncionEconomica();
     }
 
+    public void conectarseTransformadorCercano (ZonaGeografica zona) {
 
-
-    public Transformador conectarseTransformadorCercano () {
-
-        return zona.devolverTransformadorCercano(this);
+        this.transformador = zona.devolverTransformadorCercano(this);
 
     }
 
-
-    public double getPosicionX () {
-
-        return posicionX;
+    public Ubicacion getPosicion () {
+        return ubicacion;
     }
-    public double getPosicionY () {
 
-        return posicionY;
-    }
 
 }

@@ -14,23 +14,18 @@ protected List<Transformador> transformadores = new ArrayList<>() ;
 
 protected List<ZonaGeografica> zonasCercanas = new ArrayList<>();
 
-
-
-	public ZonaGeografica (List<Transformador> transformadores, List<Cliente> clientes) {
+	public ZonaGeografica (List<Transformador> transformadores) {
 	 	 this.transformadores=transformadores;
 	}
 
-
-	double consumoTotal () {
-
-		return transformadores.stream().mapToDouble(transformador->transformador.energiaSuministrada()).sum();
+	public double consumoTotal () {
+		return transformadores.stream().mapToDouble(transformador->transformador.energiaConsumidaClientes()).sum();
 	}
 	public Transformador devolverTransformadorCercano (Cliente cliente) {
 
 		Comparator<Transformador> comparator = Comparator.comparingDouble(transformador -> transformador.calcularDistancia(cliente));
 		return transformadores.stream().min((comparator)).get();
 	}
-
 
 	public boolean hayAlgunTransformador() {
 		
@@ -51,4 +46,12 @@ protected List<ZonaGeografica> zonasCercanas = new ArrayList<>();
 		
 		return transformadores.stream().mapToDouble(transformador -> transformador.suministroActual()).sum();
 	}
+
+    public boolean energiaMayorA900() {
+	    return this.consumoTotal() > 900;
+    }
+    public List<Transformador> getTransformadores(){
+	    return  transformadores;
+
+    }
 }

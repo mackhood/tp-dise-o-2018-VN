@@ -15,10 +15,18 @@ public class Ubicacion {
 
     public Double calcularDistancia (Cliente cliente) {
 
-        double a= cliente.getPosicionX();
-        double b=cliente.getPosicionY();
-        double z = Math.hypot(posicionX-a, posicionY-b);
-        return z;
+        Ubicacion ubicacionCliente= cliente.getPosicion();
+        double posicionXcliente =ubicacionCliente.getPosicionX();
+        double posicionYcliente =ubicacionCliente.getPosicionX();
+        return Math.hypot(posicionXcliente-posicionX, posicionYcliente-posicionY);
+
     }
 
+    public double getPosicionX() {
+        return posicionX;
+    }
+
+    public double getPosicionY() {
+        return posicionY;
+    }
 }
