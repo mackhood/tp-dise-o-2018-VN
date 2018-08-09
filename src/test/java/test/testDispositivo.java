@@ -1,6 +1,9 @@
 package test;
 
 import Dominio.Actuador.*;
+import Dominio.Consultores.ConsultaConsumoUltimasNHoras;
+import Dominio.Consultores.ConsultaEstaApagado;
+import Dominio.Consultores.ConsultaEstaEncendido;
 import Dominio.Dispositivo.*;
 
 import Dominio.Regla.Regla;

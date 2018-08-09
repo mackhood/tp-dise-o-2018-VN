@@ -1,4 +1,4 @@
-package Dominio.Actuador;
+package Dominio.Consultores;
 
 import Dominio.Dispositivo.DispositivoInteligente;
 
