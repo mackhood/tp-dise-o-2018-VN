@@ -3,6 +3,7 @@ package Dominio.ZonaGeografica;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import Dominio.Transformador.Transformador;
@@ -11,8 +12,6 @@ import Dominio.Usuario.Cliente;
 public class ZonaGeografica {
 
 protected List<Transformador> transformadores = new ArrayList<>() ;
-
-protected List<ZonaGeografica> zonasCercanas = new ArrayList<>();
 
 	public ZonaGeografica (List<Transformador> transformadores) {
 	 	 this.transformadores=transformadores;
@@ -31,17 +30,8 @@ protected List<ZonaGeografica> zonasCercanas = new ArrayList<>();
 		
 		return !this.transformadores.isEmpty();
 	}
-	
-	public void setZonaCercana(ZonaGeografica unaZona) {
-		
-		this.zonasCercanas.add(unaZona);
-	}
-	
-	public ZonaGeografica zonaConTransformadorMasCercana() {
-		
-		return zonasCercanas.stream().filter(zona -> zona.hayAlgunTransformador()).collect(Collectors.toList()).get(0);
-	}
-	
+
+
 	public double consumoTotalZona() {
 		
 		return transformadores.stream().mapToDouble(transformador -> transformador.suministroActual()).sum();
@@ -54,4 +44,10 @@ protected List<ZonaGeografica> zonasCercanas = new ArrayList<>();
 	    return  transformadores;
 
     }
+
+	public void conectarATransformadorCercano(Cliente cliente) {
+		Transformador transformadorCercano = transformadores.stream().min((t1,t2)-> Double.compare(t1.calcularDistancia(cliente),t1.calcularDistancia(cliente))).get();
+		transformadorCercano.agregarCliente(cliente);
+
+	}
 }

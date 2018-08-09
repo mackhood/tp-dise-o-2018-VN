@@ -58,4 +58,8 @@ public class Transformador {
 
         return this.energiaConsumidaClientes() > 700;
     }
+    public void agregarCliente(Cliente cliente){
+
+		usuariosConectados.add(cliente);
+	}
 }

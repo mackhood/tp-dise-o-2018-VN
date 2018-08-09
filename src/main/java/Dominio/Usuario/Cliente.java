@@ -31,7 +31,7 @@ public class Cliente implements TypeRepo {
     private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
     private Simplex resolvedor;
     private Ubicacion ubicacion;
-    private ZonaGeografica zona;
+
 
 
     private  boolean ahorroAutomatico=false;
@@ -197,9 +197,9 @@ public class Cliente implements TypeRepo {
 
 
 
-    public Transformador conectarseTransformadorCercano () {
+    public void conectarseTransformadorCercano (ZonaGeografica zona) {
 
-        return zona.devolverTransformadorCercano(this);
+        zona.conectarATransformadorCercano(this);
 
     }
     public Ubicacion getPosicion() {
