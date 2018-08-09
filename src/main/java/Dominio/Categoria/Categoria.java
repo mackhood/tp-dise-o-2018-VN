@@ -4,17 +4,17 @@ import Dominio.Usuario.Cliente;
 import Dominio.repositories.TypeRepo;
 
 public class Categoria implements TypeRepo {
-    private String nombreCategoria;
+    private String nombre;
     private double consumoMinimo;
     private double consumoMaximo;
     private Double cargoFijo;
     private Double cargoVariable;
 
-    public Categoria(String nombreCategoria, Integer consumoMinimo, Integer consumoMaximo, Double cargo_fijo, Double cargoVariable) {
-        this.nombreCategoria = nombreCategoria;
+    public Categoria(String nombreCategoria, Integer consumoMinimo, Integer consumoMaximo, Double cargoFijo, Double cargoVariable) {
+        this.nombre = nombreCategoria;
         this.consumoMinimo = consumoMinimo;
         this.consumoMaximo = consumoMaximo;
-        this.cargoFijo = cargo_fijo;
+        this.cargoFijo = cargoFijo;
         this.cargoVariable = cargoVariable;
     }
 
@@ -48,7 +48,7 @@ public class Categoria implements TypeRepo {
     }
 
     public String getNombreCategoria() {
-        return this.nombreCategoria;
+        return this.nombre;
     }
 
 }
