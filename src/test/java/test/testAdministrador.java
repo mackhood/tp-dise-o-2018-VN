@@ -1,7 +1,7 @@
 package test;
 
 
-import Dominio.Usuario.Administrador;
+import dominio.usuario.Administrador;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

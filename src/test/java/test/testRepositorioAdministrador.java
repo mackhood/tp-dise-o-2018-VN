@@ -1,6 +1,6 @@
 package test;
 
-import Dominio.repositories.RepositorioAdministradores;
+import dominio.repositories.RepositorioAdministradores;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.mockito.Mockito;

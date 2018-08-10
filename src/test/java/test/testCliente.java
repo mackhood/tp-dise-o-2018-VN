@@ -1,19 +1,15 @@
 package test;
 
-import Dominio.Categoria.AsignadorDeCategoria;
-import Dominio.Categoria.Categoria;
-import Dominio.Dispositivo.*;
-import Dominio.Fabricante;
-import Dominio.Usuario.Cliente;
-import Dominio.Usuario.Domicilio;
-import Dominio.Usuario.ID;
-import Dominio.Usuario.TiposId;
-import Dominio.entities.ProcessingDataFailedException;
-import Dominio.repositories.RepositorioCategoria;
+import dominio.categoria.AsignadorDeCategoria;
+import dominio.categoria.Categoria;
+import dominio.dispositivo.*;
+import dominio.usuario.Cliente;
+import dominio.usuario.Domicilio;
+import dominio.usuario.ID;
+import dominio.usuario.TiposId;
+import dominio.entities.ProcessingDataFailedException;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;

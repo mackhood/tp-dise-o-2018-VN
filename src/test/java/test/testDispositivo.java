@@ -1,18 +1,18 @@
 package test;
 
-import Dominio.Actuador.*;
-import Dominio.Consultores.ConsultaConsumoUltimasNHoras;
-//import Dominio.Consultores.ConsultaEstaApagado;
-//import Dominio.Consultores.ConsultaEstaEncendido;
-import Dominio.Dispositivo.*;
+import dominio.actuador.*;
+import dominio.consultores.ConsultaConsumoUltimasNHoras;
+//import dominio.consultores.ConsultaEstaApagado;
+//import dominio.consultores.ConsultaEstaEncendido;
+import dominio.dispositivo.*;
 
-import Dominio.Regla.Regla;
-import Dominio.Sensor.*;
-import Dominio.Usuario.Cliente;
+import dominio.regla.Regla;
+import dominio.sensor.*;
+import dominio.usuario.Cliente;
 
-import Dominio.Usuario.Domicilio;
-import Dominio.Usuario.ID;
-import Dominio.Usuario.TiposId;
+import dominio.usuario.Domicilio;
+import dominio.usuario.ID;
+import dominio.usuario.TiposId;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

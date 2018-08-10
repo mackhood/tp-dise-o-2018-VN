@@ -1,6 +1,6 @@
 package test;
 
-import Dominio.repositories.RepositorioCategoria;
+import dominio.repositories.RepositorioCategoria;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.mockito.Mockito;

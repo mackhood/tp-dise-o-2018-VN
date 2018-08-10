@@ -1,26 +1,14 @@
 package test;
 
-import Dominio.Dispositivo.Dispositivo;
-import Dominio.Dispositivo.DispositivoEstandar;
-import Dominio.Dispositivo.DispositivoInteligente;
-import Dominio.Simplex.Simplex;
-import Dominio.Transformador.Transformador;
-import Dominio.Usuario.Cliente;
-import Dominio.Usuario.Domicilio;
-import Dominio.Usuario.ID;
-import Dominio.Usuario.TiposId;
-import Dominio.ZonaGeografica.Ubicacion;
-import Dominio.ZonaGeografica.ZonaGeografica;
-import Dominio.repositories.RepositorioDispositivo;
-import Dominio.repositories.Repositorios;
-import org.junit.Assert;
+import dominio.transformador.Transformador;
+import dominio.usuario.Cliente;
+import dominio.zonageografica.Ubicacion;
+import dominio.zonageografica.ZonaGeografica;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.Assert.*;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;

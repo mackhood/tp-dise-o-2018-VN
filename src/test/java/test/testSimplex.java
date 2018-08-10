@@ -1,14 +1,14 @@
 package test;
 
-import Dominio.Dispositivo.Dispositivo;
-import Dominio.Dispositivo.DispositivoEstandar;
-import Dominio.Dispositivo.DispositivoInteligente;
-import Dominio.Simplex.Simplex;
-import Dominio.Usuario.Cliente;
-import Dominio.Usuario.Domicilio;
-import Dominio.Usuario.ID;
-import Dominio.Usuario.TiposId;
-import Dominio.repositories.Repositorios;
+import dominio.dispositivo.Dispositivo;
+import dominio.dispositivo.DispositivoEstandar;
+import dominio.dispositivo.DispositivoInteligente;
+import dominio.simplexserviceautomatic.Simplex;
+import dominio.usuario.Cliente;
+import dominio.usuario.Domicilio;
+import dominio.usuario.ID;
+import dominio.usuario.TiposId;
+import dominio.repositories.Repositorios;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,8 +1,8 @@
 package test;
 
-import Dominio.Categoria.Categoria;
-import Dominio.entities.ProcessingDataFailedException;
-import Dominio.repositories.RepositorioCategoria;
+import dominio.categoria.Categoria;
+import dominio.entities.ProcessingDataFailedException;
+import dominio.repositories.RepositorioCategoria;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.mockito.Mockito;
