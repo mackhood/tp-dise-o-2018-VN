@@ -1,55 +1,56 @@
 package Dominio.ZonaGeografica;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 import Dominio.Transformador.Transformador;
 import Dominio.Usuario.Cliente;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 public class ZonaGeografica {
 
-protected List<Transformador> transformadores = new ArrayList<>() ;
-private String descripcion;
+    protected List<Transformador> transformadores = new ArrayList<>();
+    private String descripcion;
 
-	public ZonaGeografica (String descripcion ,List<Transformador> transformadores) {
-	 	 this.transformadores=transformadores;
-	 	 this.descripcion = descripcion;
-	}
+    public ZonaGeografica(String descripcion, List<Transformador> transformadores) {
+        this.transformadores = transformadores;
+        this.descripcion = descripcion;
+    }
 
-	public double consumoTotal () {
-		return transformadores.stream().mapToDouble(transformador->transformador.energiaConsumidaClientes()).sum();
-	}
-	public Transformador devolverTransformadorCercano (Cliente cliente) {
+    public double consumoTotal() {
+        return transformadores.stream().mapToDouble(transformador -> transformador.energiaConsumidaClientes()).sum();
+    }
 
-		return transformadores.stream().min(Comparator.comparingDouble(t -> t.calcularDistancia(cliente))).get();
+    public Transformador devolverTransformadorCercano(Cliente cliente) {
 
-	}
+        return transformadores.stream().min(Comparator.comparingDouble(t -> t.calcularDistancia(cliente))).get();
 
-	public boolean hayAlgunTransformador() {
-		
-		return !this.transformadores.isEmpty();
-	}
+    }
+
+    public boolean hayAlgunTransformador() {
+
+        return !this.transformadores.isEmpty();
+    }
 
 
-	public double consumoTotalZona() {
-		
-		return transformadores.stream().mapToDouble(transformador -> transformador.suministroActual()).sum();
-	}
+    public double consumoTotalZona() {
+
+        return transformadores.stream().mapToDouble(transformador -> transformador.suministroActual()).sum();
+    }
 
     public boolean energiaMayorA900() {
-	    return this.consumoTotal() > 900;
-    }
-    public List<Transformador> getTransformadores(){
-	    return  transformadores;
-
+        return this.consumoTotal() > 900;
     }
 
-	public void conectarATransformadorCercano(Cliente cliente) {
-		Transformador transformadorCercano = this.devolverTransformadorCercano(cliente);
-		transformadorCercano.agregarCliente(cliente);
+    public List<Transformador> getTransformadores() {
+        return transformadores;
 
-	}
+    }
+
+    public void conectarATransformadorCercano(Cliente cliente) {
+        Transformador transformadorCercano = this.devolverTransformadorCercano(cliente);
+        transformadorCercano.agregarCliente(cliente);
+
+    }
 }
+
