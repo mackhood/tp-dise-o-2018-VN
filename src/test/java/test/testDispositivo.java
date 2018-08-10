@@ -2,8 +2,8 @@ package test;
 
 import Dominio.Actuador.*;
 import Dominio.Consultores.ConsultaConsumoUltimasNHoras;
-import Dominio.Consultores.ConsultaEstaApagado;
-import Dominio.Consultores.ConsultaEstaEncendido;
+//import Dominio.Consultores.ConsultaEstaApagado;
+//import Dominio.Consultores.ConsultaEstaEncendido;
 import Dominio.Dispositivo.*;
 
 import Dominio.Regla.Regla;
@@ -34,8 +34,6 @@ public class testDispositivo {
     private DispositivoInteligente unDETransformado;
 
     private ConsultaConsumoUltimasNHoras consultaConsumoUltimasNHoras;
-    private ConsultaEstaApagado consultaEstaApagado;
-    private ConsultaEstaEncendido consultaEstaEncendido;
 
     private OrdenApagarDI ordenApagarDI;
     private OrdenEncenderDI ordenEncenderDI;
@@ -88,8 +86,6 @@ public class testDispositivo {
 
         //unDETransformado = unCliente.agregarModuloAdaptador(moduloAdaptador, unDE);
 
-        consultaEstaApagado = new ConsultaEstaApagado(unDIApagado);
-        consultaEstaEncendido = new ConsultaEstaEncendido(unDIApagado);
 
 
 
