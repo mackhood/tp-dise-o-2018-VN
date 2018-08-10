@@ -2,13 +2,18 @@ package Dominio.Actuador;
 
 import Dominio.Dispositivo.DispositivoInteligente;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class OrdenPonerModoAhorro extends  ActuadorDeDispositivos implements  Actuador{
+public class OrdenPonerModoAhorro  implements  Actuador{
+
+    List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
+
+
 
     public OrdenPonerModoAhorro(List<DispositivoInteligente> dispInteligente) {
 
-        super(dispInteligente);
+        this.dispositivosInteligentes=dispInteligente  ;
     }
 
     @Override

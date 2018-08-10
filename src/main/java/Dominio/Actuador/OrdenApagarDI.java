@@ -2,12 +2,16 @@ package Dominio.Actuador;
 
 import Dominio.Dispositivo.DispositivoInteligente;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class OrdenApagarDI extends  ActuadorDeDispositivos implements Actuador{
+public class OrdenApagarDI  implements Actuador{
+
+    List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
+
 
     public OrdenApagarDI(List<DispositivoInteligente> dispInteligente) {
-        super(dispInteligente);
+      this.dispositivosInteligentes=dispInteligente  ;
     }
 
     @Override
