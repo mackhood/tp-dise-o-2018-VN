@@ -1,13 +1,13 @@
-package Dominio.Categoria;
+package dominio.categoria;
 
-import Dominio.Usuario.*;
+import dominio.usuario.*;
 
 import java.util.Date;
 import java.util.Timer;
 
 public class ActualizadorAutomatizado {
 	
-	AccionProgramada accion = new AccionProgramada("Actualizar Categoria- ");
+	AccionProgramada accion = new AccionProgramada("Actualizar categoria- ");
 	
     public AsignadorDeCategoria asignador() {
         return AsignadorDeCategoria.getInstance();

@@ -1,4 +1,4 @@
-package Dominio.Dispositivo;
+package dominio.dispositivo;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;

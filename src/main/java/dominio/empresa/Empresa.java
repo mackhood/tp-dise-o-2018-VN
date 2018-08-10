@@ -1,10 +1,10 @@
-package Dominio.Empresa;
+package dominio.empresa;
 
 
 import java.util.List;
 import java.util.ArrayList;
 
-import Dominio.Usuario.*;
+import dominio.usuario.*;
 
 public class Empresa {
 

@@ -1,4 +1,4 @@
-package Dominio.Dispositivo;
+package dominio.dispositivo;
 
 public class EstadoModoAhorro implements EstadoDispositivo {
 

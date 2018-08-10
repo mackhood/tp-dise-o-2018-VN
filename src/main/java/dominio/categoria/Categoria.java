@@ -1,7 +1,7 @@
-package Dominio.Categoria;
+package dominio.categoria;
 
-import Dominio.Usuario.Cliente;
-import Dominio.repositories.TypeRepo;
+import dominio.usuario.Cliente;
+import dominio.repositories.TypeRepo;
 
 public class Categoria implements TypeRepo {
     private String nombre;

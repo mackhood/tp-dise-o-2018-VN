@@ -1,6 +1,4 @@
-package Dominio.Actuador;
-
-import Dominio.Dispositivo.DispositivoInteligente;
+package dominio.actuador;
 
 public interface Actuador {
     //Cada uno de los distintos Actuadores va a tener su propia logica a implementar en ejecutar

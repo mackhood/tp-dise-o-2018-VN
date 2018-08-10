@@ -1,6 +1,6 @@
 
 
-package Dominio.Dispositivo;
+package dominio.dispositivo;
 
 public abstract class Dispositivo {
 

@@ -1,6 +1,6 @@
-package Dominio.Actuador;
+package dominio.actuador;
 
-import Dominio.Dispositivo.DispositivoInteligente;
+import dominio.dispositivo.DispositivoInteligente;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package Dominio.entities;
+package dominio.entities;
 
 import java.io.IOException;
 

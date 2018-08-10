@@ -1,8 +1,8 @@
-package Dominio.Categoria;
+package dominio.categoria;
 
-import Dominio.Usuario.Cliente;
-import Dominio.entities.ProcessingDataFailedException;
-import Dominio.repositories.RepositorioCategoria;
+import dominio.usuario.Cliente;
+import dominio.entities.ProcessingDataFailedException;
+import dominio.repositories.RepositorioCategoria;
 
 import java.util.List;
 import java.util.stream.Collectors;

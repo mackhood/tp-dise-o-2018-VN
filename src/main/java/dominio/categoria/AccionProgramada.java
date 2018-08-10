@@ -1,6 +1,6 @@
-package Dominio.Categoria;
+package dominio.categoria;
 
-import Dominio.Empresa.*;
+import dominio.empresa.*;
 
 import java.util.TimerTask;
 

@@ -1,6 +1,6 @@
-package Dominio.Dispositivo;
+package dominio.dispositivo;
 
-import Dominio.Usuario.Cliente;
+import dominio.usuario.Cliente;
 
 import java.util.stream.Collectors;
 

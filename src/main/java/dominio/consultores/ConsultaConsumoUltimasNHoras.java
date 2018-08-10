@@ -1,6 +1,6 @@
-package Dominio.Consultores;
+package dominio.consultores;
 
-import Dominio.Dispositivo.DispositivoInteligente;
+import dominio.dispositivo.DispositivoInteligente;
 
 public class ConsultaConsumoUltimasNHoras extends ConsultaConsumo {
 
