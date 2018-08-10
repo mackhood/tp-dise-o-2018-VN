@@ -1,15 +1,18 @@
 package Dominio.Dispositivo;
 
+import Dominio.Usuario.Cliente;
+
 import java.util.List;
 
 public class Convertidor {
 
 
-    public void convertirInteligente (DispositivoEstandar dispositivoBasico, List<DispositivoEstandar> estandares, List<DispositivoInteligente> inteligentes){
+
+    public void convertirInteligente (Cliente cliente, DispositivoEstandar dispositivoBasico, List<DispositivoInteligente> inteligentes){
 
         DispositivoEstandarInteligente nuevo = new DispositivoEstandarInteligente(dispositivoBasico);
-        estandares.remove(dispositivoBasico);
-        inteligentes.add(nuevo);
+       cliente.sacarDispositivoEstandarLista(dispositivoBasico);
+        cliente.agregarDispositivoInteligente(nuevo);
     }
 
 

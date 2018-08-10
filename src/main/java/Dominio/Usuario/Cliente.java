@@ -85,7 +85,7 @@ public class Cliente implements TypeRepo {
 
             Convertidor convertidor = new Convertidor();
 
-            convertidor.convertirInteligente(disp, dispositivosEstandar, dispositivosInteligentes);
+            convertidor.convertirInteligente(this,disp, dispositivosInteligentes);
         }
 
     /* Esto se cambia, lo pongo asi para ir haciendo lo demas
@@ -94,6 +94,7 @@ public class Cliente implements TypeRepo {
 
         else throw new RuntimeException();
     }
+
 
     public boolean tieneDispositivo (DispositivoEstandar disp) {
 
@@ -205,4 +206,16 @@ public class Cliente implements TypeRepo {
     public Ubicacion getPosicion() {
         return ubicacion;
     }
+
+
+    public DispositivoEstandar sacarDispositivoEstandarLista (DispositivoEstandar estandar) {
+
+        dispositivosEstandar.remove(estandar);
+        return estandar;
+    }
+
+
+
 }
+
+
