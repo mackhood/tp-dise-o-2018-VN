@@ -36,6 +36,7 @@ public class testAsignadorDeCategoria {
         listaCategoriaMock.add(categoria1Mock);
         listaCategoriaMock.add(categoria2Mock);
         assertEquals(categoria1Mock, unAsignadorDeCategoria.categoriaCliente(unClienteMock, listaCategoriaMock));
+
     }
 
 }

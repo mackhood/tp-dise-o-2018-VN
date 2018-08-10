@@ -11,7 +11,7 @@ public class AsignadorDeCategoria {
 
     private static AsignadorDeCategoria instance = new AsignadorDeCategoria();
 
-    private AsignadorDeCategoria() {
+    public AsignadorDeCategoria() {
     
     }
 

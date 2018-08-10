@@ -7,6 +7,7 @@ import Dominio.Dispositivo.DispositivoEstandar;
 import Dominio.Dispositivo.DispositivoInteligente;
 import Dominio.Simplex.Simplex;
 import Dominio.Transformador.Transformador;
+import Dominio.ZonaGeografica.Ubicacion;
 import Dominio.repositories.TypeRepo;
 
 import java.time.LocalDate;
@@ -14,9 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Dominio.ZonaGeografica.ZonaGeografica;
-
-
-
 
 public class Cliente implements TypeRepo {
 
@@ -32,9 +30,8 @@ public class Cliente implements TypeRepo {
     private List<DispositivoEstandar> dispositivosEstandar = new ArrayList<>();
     private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
     private Simplex resolvedor;
-    private  int posicionX;
-    private int posicionY;
-    private ZonaGeografica zona;
+    private Ubicacion ubicacion;
+
 
 
     private  boolean ahorroAutomatico=false;
@@ -54,7 +51,7 @@ public class Cliente implements TypeRepo {
         this.resolvedor = new Simplex();
     }
     public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
-                   int posicionX,int posicionY,ZonaGeografica zona) {
+                   Ubicacion ubicacion) {
 
         this.nombre = unNombre;
         this.apellido = unApellido;
@@ -66,9 +63,7 @@ public class Cliente implements TypeRepo {
         //this.dispositivosInteligentes = dispInteligentes;
         this.fechaDeAlta = LocalDate.now();
         this.resolvedor = new Simplex();
-        this.posicionX=posicionX;
-        this.posicionY=posicionY;
-        this.zona=zona;
+        this.ubicacion=ubicacion;
     }
 
     public double puntosAcumulados() {
@@ -77,42 +72,42 @@ public class Cliente implements TypeRepo {
     }
 
     public List<Dispositivo> todosLosDispositivos() {
-    	
-    	List<Dispositivo> todos = new ArrayList<>();
-    	todos.addAll(dispositivosInteligentes);
+
+        List<Dispositivo> todos = new ArrayList<>();
+        todos.addAll(dispositivosInteligentes);
         todos.addAll(dispositivosEstandar);
         return todos;
     }
 
     public void agregarModuloAdaptador(DispositivoEstandar disp) {
-    	
-    	if (this.tieneDispositivo(disp)) {
 
-    	    Convertidor convertidor = new Convertidor();
-    		
-    		convertidor.convertirInteligente(disp, dispositivosEstandar, dispositivosInteligentes);
-    	}
-    	
-    /* Esto se cambia, lo pongo asi para ir haciendo lo demas 
+        if (this.tieneDispositivo(disp)) {
+
+            Convertidor convertidor = new Convertidor();
+
+            convertidor.convertirInteligente(disp, dispositivosEstandar, dispositivosInteligentes);
+        }
+
+    /* Esto se cambia, lo pongo asi para ir haciendo lo demas
     	  y despues tratar las excepciones todas juntas. Para mi si quiere convertir un disp
      		que no tiene deber�a tirar excepcion, pero es charlable */
-    	
-    	else throw new RuntimeException();
+
+        else throw new RuntimeException();
     }
-    
+
     public boolean tieneDispositivo (DispositivoEstandar disp) {
-    	
-    	return dispositivosEstandar.contains(disp);
+
+        return dispositivosEstandar.contains(disp);
     }
-    
+
     public boolean algunDispositivoEncendido() {
-    	
-    	return dispositivosInteligentes.stream().anyMatch(disp -> disp.estaEncendido());
+
+        return dispositivosInteligentes.stream().anyMatch(disp -> disp.estaEncendido());
     }
 
     public long cantidadDeDispositivosEncendidos() {
-    	
-    	return dispositivosInteligentes.stream().filter(disp -> disp.estaEncendido()).count();
+
+        return dispositivosInteligentes.stream().filter(disp -> disp.estaEncendido()).count();
     }
 
     public long cantidadDeDispositivosApagados() {
@@ -121,30 +116,30 @@ public class Cliente implements TypeRepo {
     }
 
     public int cantidadDeDispositivos() {
-    
-    	return todosLosDispositivos().size();
+
+        return todosLosDispositivos().size();
     }
 
     public void agregarDispositivoInteligente(DispositivoInteligente disp) {
 
         dispositivosInteligentes.add(disp);
     }
-    
+
     public void agregarDispositivoEstandar(DispositivoEstandar disp) {
-    	
-    	dispositivosEstandar.add(disp);
+
+        dispositivosEstandar.add(disp);
     }
 
     public void usarDispositivo(DispositivoEstandar dispositivo, int cantHorasEstimativa) {
-        
-    	dispositivo.serUsado(cantHorasEstimativa);
+
+        dispositivo.serUsado(cantHorasEstimativa);
     }
-    
+
     public double consumoEnergeticoTotal() {
 
         return todosLosDispositivos().stream().mapToDouble(disp -> disp.getConsumoTotal()).sum();
     }
-    
+
     public double obtenerGastosAproximados() {
 
         return categoria.calcularCostosPara(this);
@@ -166,14 +161,14 @@ public class Cliente implements TypeRepo {
     }
 
     public String nombre() {
- 
-		return this.nombre;
-    }
-	
-	public List<DispositivoInteligente> getDispositivosInteligentes() { 
 
-		return dispositivosInteligentes; 
-	}
+        return this.nombre;
+    }
+
+    public List<DispositivoInteligente> getDispositivosInteligentes() {
+
+        return dispositivosInteligentes;
+    }
 
     public void activarAhorroAutomatico() {
 
@@ -202,20 +197,12 @@ public class Cliente implements TypeRepo {
 
 
 
-    public Transformador conectarseTransformadorCercano () {
+    public void conectarseTransformadorCercano (ZonaGeografica zona) {
 
-        return zona.devolverTransformadorCercano(this);
+        zona.conectarATransformadorCercano(this);
 
     }
-
-
-    public double getPosicionX () {
-
-        return posicionX;
+    public Ubicacion getPosicion() {
+        return ubicacion;
     }
-    public double getPosicionY () {
-
-        return posicionY;
-    }
-
 }

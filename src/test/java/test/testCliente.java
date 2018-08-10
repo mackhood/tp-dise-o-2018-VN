@@ -3,13 +3,17 @@ package test;
 import Dominio.Categoria.AsignadorDeCategoria;
 import Dominio.Categoria.Categoria;
 import Dominio.Dispositivo.*;
+import Dominio.Fabricante;
 import Dominio.Usuario.Cliente;
 import Dominio.Usuario.Domicilio;
 import Dominio.Usuario.ID;
 import Dominio.Usuario.TiposId;
 import Dominio.entities.ProcessingDataFailedException;
+import Dominio.repositories.RepositorioCategoria;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -170,17 +174,20 @@ public class testCliente {
         //ConsumoCliente=51.0
         //35.32+0.644*51.0= 68.164
 
+        AsignadorDeCategoria asignadorSpy = spy (new AsignadorDeCategoria());
 
         when(categoriaMocktest1.getCargoVariable()).thenReturn(0.644);
         double gasto = 35.32 + categoriaMocktest1.getCargoVariable() * unClienteConDEyDI.consumoEnergeticoTotal();
 
+        //this.getObtenerRepositorio().obtenerCategorias()
+//      when(asignadorSpy.getObtenerRepositorio()).thenReturn((RepositorioCategoria) listaCategoriaMock);
 
 
-        when(asignadorMock.getObtenerCategoriasDelRepositorio()).thenReturn(listaCategoriaMock);
+        when(asignadorSpy.getObtenerCategoriasDelRepositorio()).thenReturn(listaCategoriaMock);
 
         when(categoriaMocktest1.calcularCostosPara(unClienteConDEyDI)).thenReturn(gasto);
 
-        asignadorMock.actualizarPara(unClienteConDEyDI);
+        asignadorSpy.actualizarPara(unClienteConDEyDI);
 
         unClienteConDEyDI.obtenerGastosAproximados();
 

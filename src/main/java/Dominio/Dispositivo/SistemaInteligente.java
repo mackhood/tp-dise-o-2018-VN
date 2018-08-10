@@ -1,6 +1,7 @@
 package Dominio.Dispositivo;
 
-import Dominio.Actuador.*;
+import Dominio.Consultores.ConsultaEstaApagado;
+import Dominio.Consultores.ConsultaEstaEncendido;
 import Dominio.Usuario.Cliente;
 
 import java.util.stream.Collectors;

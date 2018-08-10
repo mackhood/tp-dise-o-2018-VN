@@ -3,6 +3,7 @@ package Dominio.Transformador;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import Dominio.Dispositivo.Dispositivo;
 import Dominio.Usuario.Cliente;
 import Dominio.ZonaGeografica.Ubicacion;
@@ -10,17 +11,13 @@ import Dominio.ZonaGeografica.ZonaGeografica;
 
 public class Transformador {
 
-	protected ZonaGeografica unaZona;
-	List<Cliente> usuariosConectados = new ArrayList<>();
-
+	private List<Cliente> usuariosConectados = new ArrayList<>();
 	private Ubicacion ubicacion;
-
 	protected float radioCubierto;
 
-	public Transformador (ZonaGeografica zona, List<Cliente> usuariosConectados,Ubicacion ubicacion,float radioCubierto) {
+	public Transformador ( List<Cliente> usuariosConectados,Ubicacion ubicacion,float radioCubierto) {
 
 		this.ubicacion=ubicacion;
-		this.unaZona=zona;
 		this.usuariosConectados=usuariosConectados;
 		this.radioCubierto=radioCubierto;
 	}
@@ -39,14 +36,28 @@ public class Transformador {
 		
 	}
 
-	public double energiaSuministrada() {
+	//Metodo creado para TestearConsumo de clientes
+	public Double calcularConsumoClientes (List<Cliente> clientes){
 
-		return usuariosConectados.stream().mapToDouble(usuario->usuario.consumoEnergeticoTotal()).sum();
+		return clientes.stream().mapToDouble(usuario->usuario.consumoEnergeticoTotal()).sum();
+	}
+	public double energiaConsumidaClientes() {
+
+		return this.calcularConsumoClientes(usuariosConectados);
 
 	}
 	public Double calcularDistancia (Cliente cliente) {
 
 		return ubicacion.calcularDistancia(cliente);
 
+	}
+
+    public boolean energiaMayorA700() {
+
+        return this.energiaConsumidaClientes() > 700;
+    }
+    public void agregarCliente(Cliente cliente){
+
+		usuariosConectados.add(cliente);
 	}
 }

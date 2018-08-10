@@ -1,62 +1,62 @@
 [
   {
-   "nombreCategoria":"R1",
+   "nombre":"R1",
     "consumoMinimo":0,
     "consumoMaximo":150,
     "cargoFijo":18.76,
     "cargoVariable":0.644
   },
   {
-    "nombreCategoria":"R2",
+    "nombre":"R2",
     "consumoMinimo":151,
     "consumoMaximo":325,
     "cargoFijo":35.32,
     "cargoVariable":0.644
   },
   {
-    "nombreCategoria":"R3",
+    "nombre":"R3",
     "consumoMinimo":326,
     "consumoMaximo":400,
     "cargoFijo":60.71,
     "cargoVariable":0.681
   },
   {
-    "nombreCategoria":"R4",
+    "nombre":"R4",
     "consumoMinimo":401,
     "consumoMaximo":450,
     "cargoFijo":71.74,
     "cargoVariable":0.644
   },
   {
-    "nombreCategoria":"R5",
+    "nombre":"R5",
     "consumoMinimo":451,
     "consumoMaximo":500,
     "cargoFijo":110.38,
     "cargoVariable":0.794
   },
   {
-    "nombreCategoria":"R6",
+    "nombre":"R6",
     "consumoMinimo":501,
     "consumoMaximo":600,
     "cargoFijo":220.75,
     "cargoVariable":0.832
   },
   {
-    "nombreCategoria":"R7",
+    "nombre":"R7",
     "consumoMinimo":601,
     "consumoMaximo":700,
     "cargoFijo":443.59,
     "cargoVariable":0.851
   },
   {
-    "nombreCategoria":"R8",
+    "nombre":"R8",
     "consumoMinimo":701,
     "consumoMaximo":1400,
     "cargoFijo":545.96,
     "cargoVariable":0.851
   },
   {
-    "nombreCategoria":"R9",
+    "nombre":"R9",
     "consumoMinimo":1401,
     "consumoMaximo":null, //Validar que si viene null no compare por el maximo
     "cargoFijo":887.19,
