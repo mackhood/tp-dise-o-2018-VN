@@ -13,9 +13,8 @@ public class Ubicacion {
         this.posicionY=posicionY;
     }
 
-    public Double calcularDistancia (Cliente cliente) {
+    public Double calcularDistancia (Ubicacion ubicacionCliente) {
 
-        Ubicacion ubicacionCliente= cliente.getPosicion();
         double posicionXcliente =ubicacionCliente.getPosicionX();
         double posicionYcliente =ubicacionCliente.getPosicionX();
         return Math.hypot(posicionXcliente-posicionX, posicionYcliente-posicionY);

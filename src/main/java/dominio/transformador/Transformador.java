@@ -45,9 +45,9 @@ public class Transformador {
 		return this.calcularConsumoClientes(usuariosConectados);
 
 	}
-	public Double calcularDistancia (Cliente cliente) {
+	public Double calcularDistancia (Ubicacion ubicacionCliente) {
 
-		return ubicacion.calcularDistancia(cliente);
+		return ubicacion.calcularDistancia(ubicacionCliente);
 
 	}
 

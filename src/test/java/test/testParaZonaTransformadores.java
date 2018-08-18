@@ -101,10 +101,6 @@ public class testParaZonaTransformadores{
     @Test
     public void testConsumoZona()
     {
-        //assertEquals(750.0,transformador1_Zona1.energiaConsumidaClientes());
-        //assertNotNull(zonaGeografica1.getTransformadores());
-        //assertEquals(listaTransformadorZona1,zonaGeografica1.getTransformadores());
-
         //assertEquals(transformador1_Zona1,zonaGeografica1.getTransformadores().get(0));
 
         // Consumo transformador 1 = 750 + conssumo transformador 2 = 200 -> 950
@@ -114,7 +110,7 @@ public class testParaZonaTransformadores{
     @Test
     public void testTransformadorMasCercano(){
 
-        assertEquals(transformador2_Zona1,zonaGeografica1.devolverTransformadorCercano(clienteMock1));
+        assertEquals(transformador2_Zona1,zonaGeografica1.devolverTransformadorCercano(clienteMock1.getPosicion()));
 
     }
 

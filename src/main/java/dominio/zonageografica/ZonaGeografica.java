@@ -2,6 +2,7 @@ package dominio.zonageografica;
 
 import dominio.transformador.Transformador;
 import dominio.usuario.Cliente;
+import dominio.zonageografica.Ubicacion;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -21,9 +22,9 @@ public class ZonaGeografica {
         return transformadores.stream().mapToDouble(transformador -> transformador.energiaConsumidaClientes()).sum();
     }
 
-    public Transformador devolverTransformadorCercano(Cliente cliente) {
+    public Transformador devolverTransformadorCercano(Ubicacion ubicacionCliente) {
 
-        return transformadores.stream().min(Comparator.comparingDouble(t -> t.calcularDistancia(cliente))).get();
+        return transformadores.stream().min(Comparator.comparingDouble(t -> t.calcularDistancia(ubicacionCliente))).get();
 
     }
 
@@ -48,7 +49,7 @@ public class ZonaGeografica {
     }
 
     public void conectarATransformadorCercano(Cliente cliente) {
-        Transformador transformadorCercano = this.devolverTransformadorCercano(cliente);
+        Transformador transformadorCercano = this.devolverTransformadorCercano(cliente.getPosicion());
         transformadorCercano.agregarCliente(cliente);
 
     }
