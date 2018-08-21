@@ -5,20 +5,16 @@ import dominio.dispositivo.DispositivoInteligente;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrdenEncenderDI  implements Actuador {
+public class OrdenEncenderDI extends Actuador {
 
-    List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
-
-    public OrdenEncenderDI(List<DispositivoInteligente> dispInteligente) {
-        this.dispositivosInteligentes=dispInteligente  ;;
-    }
+    public OrdenEncenderDI(List<DispositivoInteligente> dispositivosAfectados) {
+		super(dispositivosAfectados);
+	}
 
     @Override
     public void ejecutar() {
 
-        dispositivosInteligentes.stream().forEach(DispositivoInteligente::encender);
+        dispositivos.forEach(DispositivoInteligente::encender);
 
     }
-
-
 }

@@ -5,19 +5,16 @@ import dominio.dispositivo.DispositivoInteligente;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrdenPonerModoAhorro  implements  Actuador{
+public class OrdenPonerModoAhorro extends Actuador {
 
-    List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
-
-
-
-    public OrdenPonerModoAhorro(List<DispositivoInteligente> dispInteligente) {
-
-        this.dispositivosInteligentes=dispInteligente  ;
-    }
+    public OrdenPonerModoAhorro(List<DispositivoInteligente> dispositivosAfectados) {
+		super(dispositivosAfectados);
+	}
 
     @Override
     public void ejecutar() {
-        dispositivosInteligentes.stream().forEach(DispositivoInteligente::ponerModoAhorro);
+
+        dispositivos.forEach(DispositivoInteligente::ponerModoAhorro);
+
     }
 }

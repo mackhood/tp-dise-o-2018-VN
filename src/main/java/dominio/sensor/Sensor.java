@@ -8,29 +8,29 @@ import java.util.List;
 public class Sensor {
 
     private Regla regla;
-    String tipo;
     List<Condicion> observers = new ArrayList<>();
-    int estado;
-    public Sensor(Regla unaRegla, String tipoSensor) {
+    double ultimaMedicion;
+    
+    
+    public Sensor(Regla unaRegla) {
         this.regla = unaRegla;
-        this.tipo = tipoSensor;
-        observers = unaRegla.getCondicionesACumplir();
+        this.observers = unaRegla.getCondicionesACumplir();
     }
 
-    public void recibirMedicion(int estado){
-        this.estado = estado;
+    public void recibirMedicion(double medicion){
+        this.ultimaMedicion = medicion;
         this.notificar();
     }
+    
     public void notificar(){
-        this.getObservers().stream().forEach(obs -> obs.actualizar(this));
+        this.getObservers().forEach(obs -> obs.actualizar(this));
     }
 
     public List<Condicion> getObservers() {
         return regla.getCondicionesACumplir();
     }
-
-    public String getTipo() {
-        return tipo;
+    
+    public double getUltimaMedicion() {
+    	return ultimaMedicion;
     }
-    public int getEstadoSensor(){return estado;}
 }

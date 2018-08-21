@@ -5,15 +5,15 @@ import dominio.dispositivo.DispositivoInteligente;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrdenSubirIntensidad  implements  Actuador {
+public class OrdenSubirIntensidad extends Actuador {
 
-    List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
+    public OrdenSubirIntensidad(List<DispositivoInteligente> dispositivosAfectados) {
+		super(dispositivosAfectados);
+	}
 
-
-
-    public OrdenSubirIntensidad(List<DispositivoInteligente> unDI){this.dispositivosInteligentes=unDI  ; }
-
+    @Override
     public void ejecutar() {
-        dispositivosInteligentes.stream().forEach(x-> x.aumentarConsumoPor(50));
+
+        dispositivos.forEach(d -> d.aumentarConsumoPor(50));
     }
 }

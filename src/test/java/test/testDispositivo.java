@@ -50,7 +50,7 @@ public class testDispositivo {
 
     private Regla reglaParaEncenderAlAireAcondicionado;
     Condicion hayMovimientoEnLaCasa;
-    Condicion temperaturaMayor30;
+    CondicionPorMayor mayorA30;
     DispositivoInteligente unDIAireApagado;
     List<DispositivoInteligente> listaInteligentesTestRegla = new ArrayList<>();
 
@@ -93,7 +93,6 @@ public class testDispositivo {
         ordenApagarDI = new OrdenApagarDI(listDispEncendidos);
         ordenEncenderDI = new OrdenEncenderDI(listDispApagados);
         ordenPonerModoAhorro = new OrdenPonerModoAhorro(listDispModoAhorro);
-
         ordenSubirIntensidad = new OrdenSubirIntensidad(listDispEncendidos);
 
 
@@ -103,20 +102,20 @@ public class testDispositivo {
         ordenEncenderDITestRegla = new OrdenEncenderDI(listaInteligentesTestRegla);
         List<Condicion> listaCondicionesCumplir = new ArrayList<>();
         reglaParaEncenderAlAireAcondicionado = new Regla(ordenEncenderDITestRegla,listaCondicionesCumplir);
-        hayMovimientoEnLaCasa = new Condicion(reglaParaEncenderAlAireAcondicionado,1, "hayMovimientoEnLaCasa");
-        temperaturaMayor30 = new Condicion(reglaParaEncenderAlAireAcondicionado,1,"temperaturaMayor30");
-        listaCondicionesCumplir.add(hayMovimientoEnLaCasa);
-        listaCondicionesCumplir.add(temperaturaMayor30);
-        sensorTemperaturaMayor30 = new Sensor(reglaParaEncenderAlAireAcondicionado,"temperaturaMayor30");
-        sensorHayMovimientoEnLaCasa = new Sensor(reglaParaEncenderAlAireAcondicionado,"hayMovimientoEnLaCasa");
+       // hayMovimientoEnLaCasa = new Condicion(reglaParaEncenderAlAireAcondicionado,1, "hayMovimientoEnLaCasa");
+        mayorA30 = new CondicionPorMayor(reglaParaEncenderAlAireAcondicionado,30);
+        // listaCondicionesCumplir.add(hayMovimientoEnLaCasa);
+        listaCondicionesCumplir.add(mayorA30);
+        sensorTemperaturaMayor30 = new Sensor(reglaParaEncenderAlAireAcondicionado);
+        sensorHayMovimientoEnLaCasa = new Sensor(reglaParaEncenderAlAireAcondicionado);
 
         unDIEncendido.setConsumoEstimadoPorHora(100);
     }
 
     @Test
     public void testReglaParaEncenderAlAireAcondicionado(){
-        sensorHayMovimientoEnLaCasa.recibirMedicion(1);
-        sensorTemperaturaMayor30.recibirMedicion(1);
+    //    sensorHayMovimientoEnLaCasa.recibirMedicion(1);
+        sensorTemperaturaMayor30.recibirMedicion(35);
         Assert.assertEquals(true,unDIAireApagado.estaEncendido());
 
     }
