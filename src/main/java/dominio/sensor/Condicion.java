@@ -18,7 +18,9 @@ public abstract class Condicion {
     
    /* Esto sigue la siguiente logica: al instanciar una condicion, se define lo que llame valor limite
     	y si el valor medido esta por abajo o por arriba de este dependiendo si la cond es por mayor o por menor, se considera cumplida la misma.
-    	  Lo pense de esta manera porque Franco nos dijo que podiamos tomar todas las mediciones como double */
+    	  Lo pense de esta manera porque Franco nos dijo que podiamos tomar todas las mediciones como double y por esto mismo
+    			para sensar movimiento utilizo "booleanos" de la forma <0/1>. Todas las mediciones quedan como double en cuanto a su valor
+    				y se diferencian por su tipo */
     
     public abstract boolean cumpleCondicion();
 
