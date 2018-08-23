@@ -4,8 +4,8 @@ import dominio.regla.Regla;
 
 public class CondicionPorMenor extends Condicion {
 	
-	public CondicionPorMenor(Regla regla, double valorLimite) {
-		super(regla,valorLimite);};
+	public CondicionPorMenor(Regla regla, double valorLimite, String tipo) {
+		super(regla,valorLimite,tipo);};
 
 	@Override
 	public boolean cumpleCondicion() {

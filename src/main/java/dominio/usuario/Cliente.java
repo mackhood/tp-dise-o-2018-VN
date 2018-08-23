@@ -31,9 +31,8 @@ public class Cliente implements TypeRepo {
     private Simplex resolvedor;
     private Ubicacion ubicacion;
 
-
-
     private  boolean ahorroAutomatico=false;
+    
     public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
                    List<DispositivoEstandar> estandares, List<DispositivoInteligente> inteligentes)
     {
@@ -212,9 +211,6 @@ public class Cliente implements TypeRepo {
         dispositivosEstandar.remove(estandar);
         return estandar;
     }
-
-
-
 }
 
 

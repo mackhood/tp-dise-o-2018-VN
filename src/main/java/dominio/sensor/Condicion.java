@@ -5,13 +5,15 @@ import dominio.regla.Regla;
 public abstract class Condicion {
     
 	double valorLimite;
+	String tipo;
 	double medicionActual;
 	Regla regla;
 
-    public Condicion(Regla regla, double valorLimite){
+    public Condicion(Regla regla, double valorLimite, String tipo){
         
         this.regla = regla;
         this.valorLimite = valorLimite;
+        this.tipo = tipo;
     }
     
    /* Esto sigue la siguiente logica: al instanciar una condicion, se define lo que llame valor limite
@@ -22,7 +24,17 @@ public abstract class Condicion {
 
     public void actualizar(Sensor unSensor) {
         
-            this.medicionActual = unSensor.getUltimaMedicion();
+            medicionActual = unSensor.getValorMedicion();
             regla.serNotificadaPor(this);
+    }
+    
+    public String getTipo() {
+    	
+    	return tipo;
+    }
+    
+    public double getMedicionActual() {
+    	
+    	return medicionActual;
     }
 }

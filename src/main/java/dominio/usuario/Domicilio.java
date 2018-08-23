@@ -1,5 +1,6 @@
 package dominio.usuario;
 
+import dominio.zonageografica.Ubicacion;
 import dominio.zonageografica.ZonaGeografica;
 
 public class Domicilio {
@@ -15,8 +16,6 @@ public class Domicilio {
         this.altura = altura;
         this.piso = piso;
         this.departamento = departamento;
-    	//this.zona = zona;
     }
-    
 
 }

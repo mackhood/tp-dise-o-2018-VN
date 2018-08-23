@@ -9,6 +9,7 @@ import dominio.dispositivo.*;
 import dominio.regla.Regla;
 import dominio.sensor.*;
 import dominio.usuario.Cliente;
+import dominio.zonageografica.*;
 
 import dominio.usuario.Domicilio;
 import dominio.usuario.ID;
@@ -23,6 +24,7 @@ import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertSame;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.spy;
 
 public class testDispositivo {
@@ -43,13 +45,15 @@ public class testDispositivo {
 
     private Regla reglaParaAumentarIntensidadAlAireAcondicionado;
     private Sensor sensorTemperaturaMayor30;
-    private Sensor sensorHayMovimientoEnLaCasa;
-
+    private Sensor sensorMovimiento;
+    private Medicion medicion32Grados;
+    private Medicion medicionHayMovimiento;
+    
     private Cliente unCliente;
     private Convertidor moduloAdaptador;
 
     private Regla reglaParaEncenderAlAireAcondicionado;
-    Condicion hayMovimientoEnLaCasa;
+    CondicionPorIgual hayMovimiento;
     CondicionPorMayor mayorA30;
     DispositivoInteligente unDIAireApagado;
     List<DispositivoInteligente> listaInteligentesTestRegla = new ArrayList<>();
@@ -82,13 +86,9 @@ public class testDispositivo {
 
 
         unCliente = spy(new Cliente("Nicolas", "Sierra", "fer25", new ID(TiposId.DNI, "200"),
-                new Domicilio("bariloche", 3118, 1, 'a'), 250, listaDispositivosEstandard, listaDispositivosInteligentes));
+                new Domicilio("Bariloche", 3118, 1, 'a'), 250, listaDispositivosEstandard, listaDispositivosInteligentes));
 
         //unDETransformado = unCliente.agregarModuloAdaptador(moduloAdaptador, unDE);
-
-
-
-
 
         ordenApagarDI = new OrdenApagarDI(listDispEncendidos);
         ordenEncenderDI = new OrdenEncenderDI(listDispApagados);
@@ -100,24 +100,26 @@ public class testDispositivo {
         unDIAireApagado = new DispositivoInteligente("AireAcondicionado", 50);
         listaInteligentesTestRegla.add(unDIAireApagado);
         ordenEncenderDITestRegla = new OrdenEncenderDI(listaInteligentesTestRegla);
-        List<Condicion> listaCondicionesCumplir = new ArrayList<>();
-        reglaParaEncenderAlAireAcondicionado = new Regla(ordenEncenderDITestRegla,listaCondicionesCumplir);
-       // hayMovimientoEnLaCasa = new Condicion(reglaParaEncenderAlAireAcondicionado,1, "hayMovimientoEnLaCasa");
-        mayorA30 = new CondicionPorMayor(reglaParaEncenderAlAireAcondicionado,30);
-        // listaCondicionesCumplir.add(hayMovimientoEnLaCasa);
-        listaCondicionesCumplir.add(mayorA30);
+        List<Condicion> listaCondicionesACumplir = new ArrayList<>();
+        reglaParaEncenderAlAireAcondicionado = new Regla(ordenEncenderDITestRegla,listaCondicionesACumplir);
+        mayorA30 = new CondicionPorMayor(reglaParaEncenderAlAireAcondicionado,30,"Temperatura");
+        hayMovimiento = new CondicionPorIgual(reglaParaEncenderAlAireAcondicionado,1,"Movimiento");
+        listaCondicionesACumplir.add(mayorA30);
+        listaCondicionesACumplir.add(hayMovimiento);
         sensorTemperaturaMayor30 = new Sensor(reglaParaEncenderAlAireAcondicionado);
-        sensorHayMovimientoEnLaCasa = new Sensor(reglaParaEncenderAlAireAcondicionado);
-
+        sensorMovimiento = new Sensor(reglaParaEncenderAlAireAcondicionado);
+        medicion32Grados = new Medicion(32,"Temperatura");
+        medicionHayMovimiento = new Medicion(1,"Movimiento");
+        
         unDIEncendido.setConsumoEstimadoPorHora(100);
     }
-
+    
     @Test
     public void testReglaParaEncenderAlAireAcondicionado(){
-    //    sensorHayMovimientoEnLaCasa.recibirMedicion(1);
-        sensorTemperaturaMayor30.recibirMedicion(35);
+        sensorTemperaturaMayor30.recibirMedicion(medicion32Grados);
+        sensorMovimiento.recibirMedicion(medicionHayMovimiento);
         Assert.assertEquals(true,unDIAireApagado.estaEncendido());
-
+        
     }
     @Test
     public void testConsumoDIEncendidoLuegoApagado(){
@@ -133,6 +135,7 @@ public class testDispositivo {
         Assert.assertEquals(700.0,unDIEncendido.getConsumoTotal(),10);
         //Assert.assertEquals(0,LocalDateTime.now());
     }
+    
     @Test
     public void testDEUsadoPor5HorasConsumoTotal() {
         unDE.serUsado(5);

@@ -4,8 +4,8 @@ import dominio.regla.Regla;
 
 public class CondicionPorIgual extends Condicion {
 
-	public CondicionPorIgual(Regla regla, double valorLimite) {
-		super(regla, valorLimite);
+	public CondicionPorIgual(Regla regla, double valorLimite, String tipo) {
+		super(regla, valorLimite,tipo);
 	}
 
 	@Override

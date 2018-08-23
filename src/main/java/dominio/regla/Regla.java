@@ -5,6 +5,7 @@ import dominio.sensor.Condicion;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Regla {
 	
@@ -16,20 +17,22 @@ public class Regla {
         this.condicionesACumplir = condicionesACumplir;
     }
 
-    public boolean cumpleTodasLasCondiciones(){
-        return condicionesACumplir.stream().allMatch(cond -> cond.cumpleCondicion());
+    public boolean cumpleTodasLasCondiciones() {
+    	
+        return condicionesACumplir.isEmpty();
     }
     
     public void ejecutarActuador(){
-        if (this.cumpleTodasLasCondiciones() ) {
+    	
     	actuador.ejecutar();
-        }
+      
     }
 
     public List<Condicion> getCondicionesACumplir() {
-        return condicionesACumplir;
+        
+    	return condicionesACumplir;
     }
-    
+   
     public void agregarCondicion(Condicion unaCondicion) {
     	
     	condicionesACumplir.add(unaCondicion);
@@ -40,6 +43,14 @@ public class Regla {
     
     public void serNotificadaPor(Condicion condicion) {
     	
-    	this.ejecutarActuador();
+    	if (condicion.cumpleCondicion() ) {
+    		
+    		condicionesACumplir.remove(condicion);
+    		
+    			if (condicionesACumplir.isEmpty()) {
+    				
+    				this.ejecutarActuador();
+    			}
+    	}
     }
 }

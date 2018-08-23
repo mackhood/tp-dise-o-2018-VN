@@ -4,33 +4,44 @@ import dominio.regla.Regla;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Sensor {
 
     private Regla regla;
     List<Condicion> observers = new ArrayList<>();
-    double ultimaMedicion;
-    
+    Medicion ultimaMedicion;
     
     public Sensor(Regla unaRegla) {
         this.regla = unaRegla;
-        this.observers = unaRegla.getCondicionesACumplir();
     }
 
-    public void recibirMedicion(double medicion){
-        this.ultimaMedicion = medicion;
+    public void recibirMedicion(Medicion medicion){
+        ultimaMedicion = medicion;
         this.notificar();
     }
     
-    public void notificar(){
-        this.getObservers().forEach(obs -> obs.actualizar(this));
+    public List <Condicion> mismoTipo() {
+    	
+    	return this.getObservers().stream().filter(cond -> cond.getTipo().equals(ultimaMedicion.getTipo()) ).collect(Collectors.toList());
+    }
+    
+    public void notificar() 
+    
+    {
+        this.mismoTipo().forEach(cond -> cond.actualizar(this));
     }
 
     public List<Condicion> getObservers() {
         return regla.getCondicionesACumplir();
     }
     
-    public double getUltimaMedicion() {
+    public Medicion getUltimaMedicion() {
     	return ultimaMedicion;
+    }
+    
+    public double getValorMedicion() {
+    	
+    	return ultimaMedicion.getValor();
     }
 }
