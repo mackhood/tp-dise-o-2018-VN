@@ -37,9 +37,7 @@ public class Regla {
     	
     	condicionesACumplir.add(unaCondicion);
     }
-    
-    /* cada vez que una condicion recibe una nueva medicion notifica a la regla que la contiene y esta intenta ejecutar
-    		el actuador, si todas las condiciones se cumplen ejecuta y sino no pasa nada */
+
     
     public void serNotificadaPor(Condicion condicion) {
     	
