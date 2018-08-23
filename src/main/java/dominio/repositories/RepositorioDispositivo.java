@@ -1,5 +1,5 @@
 package dominio.repositories;
-
+/*
 import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
@@ -105,3 +105,4 @@ public class RepositorioDispositivo {
         return arrayCoef;
     }
 }
+*/
