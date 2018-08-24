@@ -4,7 +4,7 @@ public class DispositivoEstandar extends Dispositivo
 {
 
 
-    private DispositivoEstandar(dispositivoEstandarBuilder builder) {
+    private DispositivoEstandar(DispositivoEstandarBuilder builder) {
         this.nombre= builder.nombre;
         this.consumoEstimadoPorHora= builder.consumoEstimadoPorHora;
         this.equipoConcreto= builder.equipoConcreto;
@@ -55,9 +55,9 @@ public class DispositivoEstandar extends Dispositivo
 
 
 
-        static  class dispositivoEstandarBuilder {
+       public static  class DispositivoEstandarBuilder {
 
-           private  String nombre;
+           private final String nombre;
             private double consumoEstimadoPorHora;
             private String equipoConcreto;
             private boolean esBajoConsumo;
@@ -67,44 +67,48 @@ public class DispositivoEstandar extends Dispositivo
             private double horasMaximaPorConsumo;
 
 
-            public dispositivoEstandarBuilder(String firstName) {
+            public DispositivoEstandarBuilder(String firstName) {
                 this.nombre = firstName;
 
             }
 
-            public dispositivoEstandarBuilder() {
 
-            }
 
-            public dispositivoEstandarBuilder age(double  consumoEstimadoPorHora) {
+            public DispositivoEstandarBuilder consumoEstimadoPorHora(Double  consumoEstimadoPorHora) {
                 this.consumoEstimadoPorHora = consumoEstimadoPorHora;
                 return this;
             }
 
-            public dispositivoEstandarBuilder phone(String equipoConcreto) {
+            public DispositivoEstandarBuilder equipoConcreto(String equipoConcreto) {
                 this.equipoConcreto = equipoConcreto;
                 return this;
             }
 
-            public dispositivoEstandarBuilder address(Boolean esBajoConsumo) {
+            public DispositivoEstandarBuilder esBajoConsumo(Boolean esBajoConsumo) {
                 this.esBajoConsumo = esBajoConsumo;
                 return this;
             }
 
 
 
-            public dispositivoEstandarBuilder restriccionMinima(Double restriccionMinima) {
+            public DispositivoEstandarBuilder restriccionMinima(Double restriccionMinima) {
                 this.restriccionMinima = restriccionMinima;
                 return this;
             }
 
 
-            public dispositivoEstandarBuilder restriccionMaxima(Double restriccionMaxima) {
+            public DispositivoEstandarBuilder restriccionMaxima(Double restriccionMaxima) {
                 this.restriccionMaxima = restriccionMaxima;
                 return this;
             }
 
-            public dispositivoEstandarBuilder horasMaximaPorConsumo(Double horasMaximaPorConsumo) {
+
+           public DispositivoEstandarBuilder horasDeUso(Double horasDeUso) {
+               this.restriccionMaxima = horasDeUso;
+               return this;
+           }
+
+            public DispositivoEstandarBuilder horasMaximaPorConsumo(Double horasMaximaPorConsumo) {
                 this.restriccionMaxima = horasMaximaPorConsumo;
                 return this;
             }

@@ -1,5 +1,5 @@
 package dominio.repositories;
-/*
+
 import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
@@ -16,9 +16,9 @@ public class RepositorioDispositivo {
     {
         DispositivoInteligente aireAcondicionado3500 = new DispositivoInteligente("aireAcondicionado","De 3500 frigorias", false,1.613,90,360);
         DispositivoInteligente aireAcondicionado2200 = new DispositivoInteligente("aireAcondicionado","De 2200 frigorias", true,1.013,90,360);
-        DispositivoEstandar televisorTuboFluor21 = new DispositivoEstandar("televisor","Color de tubo fluorescente de 21", false,0.075,90,360);
-        DispositivoEstandar televisorTuboFluor2943 = new DispositivoEstandar("televisor","Color de tubo fluorescente de 29 a 34", false,0.175,90,360);
-        DispositivoEstandar televisorLCD40 = new DispositivoEstandar("televisor","LCD de 40", false,0.18,90,360);
+        DispositivoEstandar televisorTuboFluor21 = new DispositivoEstandar.DispositivoEstandarBuilder("televisor").equipoConcreto("Color de tubo fluorescente de 21").esBajoConsumo( false).consumoEstimadoPorHora(0.075).restriccionMinima((double) 90).restriccionMaxima((double)360).build();
+        DispositivoEstandar televisorTuboFluor2943 = new DispositivoEstandar.DispositivoEstandarBuilder("televisor").equipoConcreto("Color de tubo fluorescente de 29 a 34").esBajoConsumo(false).consumoEstimadoPorHora(0.175).restriccionMinima((double)90).restriccionMaxima((double)360).build();
+        DispositivoEstandar televisorLCD40 = new DispositivoEstandar.DispositivoEstandarBuilder("televisor").equipoConcreto("LCD de 40").esBajoConsumo( false).consumoEstimadoPorHora(0.18).restriccionMinima((double)90).restriccionMaxima((double)360).build();
         DispositivoInteligente televisorLED24 = new DispositivoInteligente("televisor","LED de 24", true,0.04,90,360);
         DispositivoInteligente televisorLED32 = new DispositivoInteligente("televisor","LED de 32", true,0.055,90,360);
         DispositivoInteligente televisorLED40= new DispositivoInteligente("televisor","LED de 40", true,0.08,90,360);
@@ -26,11 +26,14 @@ public class RepositorioDispositivo {
         DispositivoInteligente heladeraConFreezer = new DispositivoInteligente("heladera","Con freezer",true,0.09);
         DispositivoInteligente heladeraSinFreezer = new DispositivoInteligente("heladera","Sin freezer",true,0.075);
 
-        DispositivoEstandar lavarropas5kgAgua = new DispositivoEstandar("lavarropas","Automatico de 5kg con calentamiento de agua",false,0.875,6,30);
+        DispositivoEstandar lavarropas5kgAgua = new DispositivoEstandar.DispositivoEstandarBuilder("lavarropas").equipoConcreto("Automatico de 5kg con calentamiento de agua").esBajoConsumo(false).consumoEstimadoPorHora(0.875).restriccionMinima((double)6).restriccionMaxima((double)30).build();
         DispositivoInteligente lavarropas5kg = new DispositivoInteligente("lavarropas","Automatico de 5kg",true,0.175,6,30);
-        DispositivoEstandar lavarropas5kgSemiautomatico = new DispositivoEstandar("lavarropas","Semi-automatico de 5kg",true,0.1275,6,30);
 
-        DispositivoEstandar ventiladorDePie = new DispositivoEstandar("ventilador","De pie",true,0.09,120,360);
+
+        DispositivoEstandar lavarropas5kgSemiautomatico = new DispositivoEstandar.DispositivoEstandarBuilder("lavarropas").equipoConcreto("Semi-automatico de 5kg").esBajoConsumo(true).consumoEstimadoPorHora(0.1275).restriccionMinima((double)6).restriccionMaxima((double)30).build();
+
+
+        DispositivoEstandar ventiladorDePie = new DispositivoEstandar.DispositivoEstandarBuilder("ventilador").equipoConcreto("De pie").esBajoConsumo(true).consumoEstimadoPorHora(0.09).restriccionMinima((double)120).restriccionMaxima((double)360).build();
         DispositivoInteligente ventiladorDeTecho = new DispositivoInteligente("ventilador","De techo",true,0.06,120,360);
 
         DispositivoInteligente lamparaHalogena40W = new DispositivoInteligente("lampara","Halogena de 40W",false,0.04,90,360);
@@ -42,8 +45,11 @@ public class RepositorioDispositivo {
 
         DispositivoInteligente pc = new DispositivoInteligente("PC", "De escritorio",true,0.4,60,360);
 
-        DispositivoEstandar microondas = new DispositivoEstandar("microondas","Convencional",true,0.64,3,15);
-        DispositivoEstandar plancha = new DispositivoEstandar("plancha","A vapor", true,0.75,3,30);
+
+
+        DispositivoEstandar microondas =new DispositivoEstandar.DispositivoEstandarBuilder("microondas").equipoConcreto("Convencional").esBajoConsumo(true).consumoEstimadoPorHora(0.64).restriccionMinima((double)3).restriccionMaxima((double)15).build();
+        DispositivoEstandar plancha =new DispositivoEstandar.DispositivoEstandarBuilder("plancha").equipoConcreto("A vapor").esBajoConsumo(true).consumoEstimadoPorHora(0.75).restriccionMinima((double)3).restriccionMaxima((double)30).build();
+
 
         dispositivos.add(aireAcondicionado3500);
         dispositivos.add(aireAcondicionado2200);
@@ -105,4 +111,3 @@ public class RepositorioDispositivo {
         return arrayCoef;
     }
 }
-*/
