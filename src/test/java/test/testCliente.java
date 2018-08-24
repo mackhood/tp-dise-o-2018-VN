@@ -48,7 +48,7 @@ public class testCliente {
         otroDispositivo = mock(Dispositivo.class);
 
 
-        unDE = new DispositivoEstandar("a1", 300);
+        unDE = new DispositivoEstandar.DispositivoEstandarBuilder("a1").consumoEstimadoPorHora((double) 30).build();
         unDIApagado = new DispositivoInteligente("da", 500);
         unDIEncendido = new DispositivoInteligente("AireAcondicionado", 100);
         unDIEncendido.setHorasDeUso(1);

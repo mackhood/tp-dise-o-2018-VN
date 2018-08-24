@@ -8,7 +8,7 @@ public class Convertidor {
 
 
 
-    public void convertirInteligente (Cliente cliente, DispositivoEstandar dispositivoBasico, List<DispositivoInteligente> inteligentes){
+    public void convertirInteligente (Cliente cliente, DispositivoEstandar dispositivoBasico){
 
         DispositivoEstandarInteligente nuevo = new DispositivoEstandarInteligente(dispositivoBasico);
        cliente.sacarDispositivoEstandarLista(dispositivoBasico);

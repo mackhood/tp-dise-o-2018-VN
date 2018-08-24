@@ -62,7 +62,7 @@ public class testDispositivo {
     @Before
     public void setUp() {
 
-        unDE = new DispositivoEstandar("a1", 300);
+        unDE = new DispositivoEstandar.DispositivoEstandarBuilder("a1").consumoEstimadoPorHora((double) 300).build();
         unDIApagado = new DispositivoInteligente("da", 500);
         unDIEncendido = new DispositivoInteligente("AireAcondicionado", 100);
         unDIEncendido.setConsumoEstimadoPorHora(23);

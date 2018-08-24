@@ -82,7 +82,7 @@ public class Cliente  {
 
             Convertidor convertidor = new Convertidor();
 
-            convertidor.convertirInteligente(this,disp, dispositivosInteligentes);
+            convertidor.convertirInteligente(this,disp);
         }
 
     /* Esto se cambia, lo pongo asi para ir haciendo lo demas

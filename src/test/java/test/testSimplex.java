@@ -31,7 +31,7 @@ public class testSimplex {
     public void setUp() {
         aireAcondicionado3500 = new DispositivoInteligente("aireAcondicionado", "De 3500 frigorias", false, 0.05);
         lampara11W = new DispositivoInteligente("lampara", "De 11W", true,0.0004);
-        lavarropas5kgAgua = new DispositivoEstandar("lavarropas","Automatico de 5kg con calentamiento de agua",false,0.005);
+        lavarropas5kgAgua = new DispositivoEstandar.DispositivoEstandarBuilder("lavarropas").equipoConcreto("Automatico de 5kg con calentamiento de agua").esBajoConsumo(false).consumoEstimadoPorHora(0.005).build();
 
         estandares.add(lavarropas5kgAgua);
         inteligentes.add(aireAcondicionado3500);
