@@ -7,7 +7,6 @@ import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.simplexserviceautomatic.Simplex;
 import dominio.zonageografica.Ubicacion;
-import dominio.repositories.TypeRepo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ import java.util.List;
 
 import dominio.zonageografica.ZonaGeografica;
 
-public class Cliente implements TypeRepo {
+public class Cliente  {
 
     private String nombre;
     private String apellido;

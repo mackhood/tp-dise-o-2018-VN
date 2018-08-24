@@ -1,9 +1,8 @@
 package dominio.categoria;
 
 import dominio.usuario.Cliente;
-import dominio.repositories.TypeRepo;
 
-public class Categoria implements TypeRepo {
+public class Categoria  {
     private String nombre;
     private Integer consumoMinimo;
     private Integer consumoMaximo;

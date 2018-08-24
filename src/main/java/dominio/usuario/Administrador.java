@@ -1,11 +1,11 @@
 package dominio.usuario;
 
-import dominio.repositories.TypeRepo;
+
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-public class Administrador implements TypeRepo {
+public class Administrador  {
 
     private String nombre;
     private String apellido;
