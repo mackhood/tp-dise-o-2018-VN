@@ -3,7 +3,6 @@ package dominio.transformador;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import dominio.dispositivo.Dispositivo;
 import dominio.usuario.Cliente;
 import dominio.zonageografica.Ubicacion;
@@ -14,48 +13,52 @@ public class Transformador {
 	private Ubicacion ubicacion;
 	protected float radioCubierto;
 
-	public Transformador ( List<Cliente> usuariosConectados,Ubicacion ubicacion,float radioCubierto) {
+	public Transformador(List<Cliente> usuariosConectados, Ubicacion ubicacion, float radioCubierto) {
 
-		this.ubicacion=ubicacion;
-		this.usuariosConectados=usuariosConectados;
-		this.radioCubierto=radioCubierto;
+		this.ubicacion = ubicacion;
+		this.usuariosConectados = usuariosConectados;
+		this.radioCubierto = radioCubierto;
 	}
 
 	public List<Dispositivo> dispositivosUsandoRed() {
-		
+
 		List<Dispositivo> dispositivosRed = new ArrayList<>();
-		usuariosConectados.forEach(usuariosConectado->dispositivosRed.addAll(usuariosConectado.getDispositivosInteligentes()));
-		return  dispositivosRed;
+		usuariosConectados
+				.forEach(usuariosConectado -> dispositivosRed.addAll(usuariosConectado.getDispositivosInteligentes()));
+		return dispositivosRed;
 
 	}
-	
+
 	public double suministroActual() {
-		
+
 		return this.dispositivosUsandoRed().stream().mapToDouble(disp -> disp.getConsumoEstimadoPorHora()).sum();
-		
+
 	}
 
-	//Metodo creado para TestearConsumo de clientes
-	public Double calcularConsumoClientes (List<Cliente> clientes){
+	// Metodo creado para TestearConsumo de clientes
+	public Double calcularConsumoClientes(List<Cliente> clientes) {
 
-		return clientes.stream().mapToDouble(usuario->usuario.consumoEnergeticoTotal()).sum();
+		return clientes.stream().mapToDouble(usuario -> usuario.consumoEnergeticoTotal()).sum();
 	}
+
 	public double energiaConsumidaClientes() {
 
 		return this.calcularConsumoClientes(usuariosConectados);
 
 	}
-	public Double calcularDistancia (Ubicacion ubicacionCliente) {
+
+	public Double calcularDistancia(Ubicacion ubicacionCliente) {
 
 		return ubicacion.calcularDistancia(ubicacionCliente);
 
 	}
 
-    public boolean energiaMayorA700() {
+	public boolean energiaMayorA700() {
 
-        return this.energiaConsumidaClientes() > 700;
-    }
-    public void agregarCliente(Cliente cliente){
+		return this.energiaConsumidaClientes() > 700;
+	}
+
+	public void agregarCliente(Cliente cliente) {
 
 		usuariosConectados.add(cliente);
 	}

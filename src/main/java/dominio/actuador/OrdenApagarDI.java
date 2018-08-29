@@ -5,14 +5,14 @@ import dominio.dispositivo.DispositivoInteligente;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrdenApagarDI extends Actuador{
+public class OrdenApagarDI extends Actuador {
 
-    public OrdenApagarDI(List<DispositivoInteligente> dispositivosAfectados) {
+	public OrdenApagarDI(List<DispositivoInteligente> dispositivosAfectados) {
 		super(dispositivosAfectados);
 	}
 
 	@Override
-    public void ejecutar() {
-        dispositivos.forEach(DispositivoInteligente::apagar);
-    }
+	public void ejecutar() {
+		dispositivos.forEach(DispositivoInteligente::apagar);
+	}
 }

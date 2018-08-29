@@ -14,202 +14,195 @@ import java.util.List;
 
 import dominio.zonageografica.ZonaGeografica;
 
-public class Cliente  {
+public class Cliente {
 
-    private String nombre;
-    private String apellido;
-    private ID identificacion;
-    private long telefono;
-    private Domicilio domicilio;
-    private LocalDate fechaDeAlta;
-    private Categoria categoria;
-    private String username;
-    private String password;
-    private List<DispositivoEstandar> dispositivosEstandar = new ArrayList<>();
-    private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
-    private Simplex resolvedor;
-    private Ubicacion ubicacion;
+	private String nombre;
+	private String apellido;
+	private ID identificacion;
+	private long telefono;
+	private Domicilio domicilio;
+	private LocalDate fechaDeAlta;
+	private Categoria categoria;
+	private String username;
+	private String password;
+	private List<DispositivoEstandar> dispositivosEstandar = new ArrayList<>();
+	private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
+	private Simplex resolvedor;
+	private Ubicacion ubicacion;
 
-    private  boolean ahorroAutomatico=false;
-    
-    public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
-                   List<DispositivoEstandar> estandares, List<DispositivoInteligente> inteligentes)
-    {
+	private boolean ahorroAutomatico = false;
 
-        this.nombre = unNombre;
-        this.apellido = unApellido;
-        this.identificacion = id;
-        this.username = username;
-        this.domicilio = unDomicilio;
-        this.telefono = unTelefono;
-        this.dispositivosEstandar = estandares;
-        this.dispositivosInteligentes = inteligentes;
-        this.fechaDeAlta = LocalDate.now();
-        this.resolvedor = new Simplex();
-    }
-    public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
-                   Ubicacion ubicacion) {
+	public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
+			List<DispositivoEstandar> estandares, List<DispositivoInteligente> inteligentes) {
 
-        this.nombre = unNombre;
-        this.apellido = unApellido;
-        this.identificacion = id;
-        this.username = username;
-        this.domicilio = unDomicilio;
-        this.telefono = unTelefono;
-        //this.dispositivosEstandar = dispEstandar;
-        //this.dispositivosInteligentes = dispInteligentes;
-        this.fechaDeAlta = LocalDate.now();
-        this.resolvedor = new Simplex();
-        this.ubicacion=ubicacion;
-    }
+		this.nombre = unNombre;
+		this.apellido = unApellido;
+		this.identificacion = id;
+		this.username = username;
+		this.domicilio = unDomicilio;
+		this.telefono = unTelefono;
+		this.dispositivosEstandar = estandares;
+		this.dispositivosInteligentes = inteligentes;
+		this.fechaDeAlta = LocalDate.now();
+		this.resolvedor = new Simplex();
+	}
 
-    public double puntosAcumulados() {
-        return dispositivosInteligentes.stream().mapToDouble(inte -> inte.getPuntos()).sum()
-                + dispositivosEstandar.stream().mapToDouble(estandar -> estandar.getPuntos()).sum();
-    }
+	public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
+			Ubicacion ubicacion) {
 
-    public List<Dispositivo> todosLosDispositivos() {
+		this.nombre = unNombre;
+		this.apellido = unApellido;
+		this.identificacion = id;
+		this.username = username;
+		this.domicilio = unDomicilio;
+		this.telefono = unTelefono;
+		// this.dispositivosEstandar = dispEstandar;
+		// this.dispositivosInteligentes = dispInteligentes;
+		this.fechaDeAlta = LocalDate.now();
+		this.resolvedor = new Simplex();
+		this.ubicacion = ubicacion;
+	}
 
-        List<Dispositivo> todos = new ArrayList<>();
-        todos.addAll(dispositivosInteligentes);
-        todos.addAll(dispositivosEstandar);
-        return todos;
-    }
+	public double puntosAcumulados() {
+		return dispositivosInteligentes.stream().mapToDouble(inte -> inte.getPuntos()).sum()
+				+ dispositivosEstandar.stream().mapToDouble(estandar -> estandar.getPuntos()).sum();
+	}
 
-    public void agregarModuloAdaptador(DispositivoEstandar disp) {
+	public List<Dispositivo> todosLosDispositivos() {
 
-        if (this.tieneDispositivo(disp)) {
+		List<Dispositivo> todos = new ArrayList<>();
+		todos.addAll(dispositivosInteligentes);
+		todos.addAll(dispositivosEstandar);
+		return todos;
+	}
 
-            Convertidor convertidor = new Convertidor();
+	public void agregarModuloAdaptador(DispositivoEstandar disp) {
 
-            convertidor.convertirInteligente(this,disp);
-        }
+		if (this.tieneDispositivo(disp)) {
 
-    /* Esto se cambia, lo pongo asi para ir haciendo lo demas
-    	  y despues tratar las excepciones todas juntas. Para mi si quiere convertir un disp
-     		que no tiene deber�a tirar excepcion, pero es charlable */
+			Convertidor convertidor = new Convertidor();
 
-        else throw new RuntimeException();
-    }
+			convertidor.convertirInteligente(this, disp);
+		}
 
+		/*
+		 * Esto se cambia, lo pongo asi para ir haciendo lo demas y despues tratar las
+		 * excepciones todas juntas. Para mi si quiere convertir un disp que no tiene
+		 * deber�a tirar excepcion, pero es charlable
+		 */
 
-    public boolean tieneDispositivo (DispositivoEstandar disp) {
+		else
+			throw new RuntimeException();
+	}
 
-        return dispositivosEstandar.contains(disp);
-    }
+	public boolean tieneDispositivo(DispositivoEstandar disp) {
 
-    public boolean algunDispositivoEncendido() {
+		return dispositivosEstandar.contains(disp);
+	}
 
-        return dispositivosInteligentes.stream().anyMatch(disp -> disp.estaEncendido());
-    }
+	public boolean algunDispositivoEncendido() {
 
-    public long cantidadDeDispositivosEncendidos() {
+		return dispositivosInteligentes.stream().anyMatch(disp -> disp.estaEncendido());
+	}
 
-        return dispositivosInteligentes.stream().filter(disp -> disp.estaEncendido()).count();
-    }
+	public long cantidadDeDispositivosEncendidos() {
 
-    public long cantidadDeDispositivosApagados() {
+		return dispositivosInteligentes.stream().filter(disp -> disp.estaEncendido()).count();
+	}
 
-        return dispositivosInteligentes.stream().filter(disp -> disp.estaApagado()).count();
-    }
+	public long cantidadDeDispositivosApagados() {
 
-    public int cantidadDeDispositivos() {
+		return dispositivosInteligentes.stream().filter(disp -> disp.estaApagado()).count();
+	}
 
-        return todosLosDispositivos().size();
-    }
+	public int cantidadDeDispositivos() {
 
-    public void agregarDispositivoInteligente(DispositivoInteligente disp) {
+		return todosLosDispositivos().size();
+	}
 
-        dispositivosInteligentes.add(disp);
-    }
+	public void agregarDispositivoInteligente(DispositivoInteligente disp) {
 
-    public void agregarDispositivoEstandar(DispositivoEstandar disp) {
+		dispositivosInteligentes.add(disp);
+	}
 
-        dispositivosEstandar.add(disp);
-    }
+	public void agregarDispositivoEstandar(DispositivoEstandar disp) {
 
-    public void usarDispositivo(DispositivoEstandar dispositivo, int cantHorasEstimativa) {
+		dispositivosEstandar.add(disp);
+	}
 
-        dispositivo.serUsado(cantHorasEstimativa);
-    }
+	public void usarDispositivo(DispositivoEstandar dispositivo, int cantHorasEstimativa) {
 
-    public double consumoEnergeticoTotal() {
+		dispositivo.serUsado(cantHorasEstimativa);
+	}
 
-        return todosLosDispositivos().stream().mapToDouble(disp -> disp.getConsumoTotal()).sum();
-    }
+	public double consumoEnergeticoTotal() {
 
-    public double obtenerGastosAproximados() {
+		return todosLosDispositivos().stream().mapToDouble(disp -> disp.getConsumoTotal()).sum();
+	}
 
-        return categoria.calcularCostosPara(this);
-    }
+	public double obtenerGastosAproximados() {
 
-    public void setCategoria(Categoria unaCategoria) {
+		return categoria.calcularCostosPara(this);
+	}
 
-        categoria = unaCategoria;
-    }
+	public void setCategoria(Categoria unaCategoria) {
 
-    public Categoria getCategoria() {
+		categoria = unaCategoria;
+	}
 
-        return this.categoria;
-    }
+	public Categoria getCategoria() {
 
-    public String nombreCategoria() {
+		return this.categoria;
+	}
 
-        return this.categoria.getNombreCategoria();
-    }
+	public String nombreCategoria() {
 
-    public String nombre() {
+		return this.categoria.getNombreCategoria();
+	}
 
-        return this.nombre;
-    }
+	public String nombre() {
 
-    public List<DispositivoInteligente> getDispositivosInteligentes() {
+		return this.nombre;
+	}
 
-        return dispositivosInteligentes;
-    }
+	public List<DispositivoInteligente> getDispositivosInteligentes() {
 
-    public void activarAhorroAutomatico() {
+		return dispositivosInteligentes;
+	}
 
+	public void activarAhorroAutomatico() {
 
-        this.ahorroAutomatico=true;
+		this.ahorroAutomatico = true;
 
-    }
+	}
 
-    public double horasTotalesConsumidasPorLosDispositivos()
-    {
-        this.resolvedor.execute(this.todosLosDispositivos());
-        return resolvedor.getResultadoFuncionEconomica();
-    }
+	public double horasTotalesConsumidasPorLosDispositivos() {
+		this.resolvedor.execute(this.todosLosDispositivos());
+		return resolvedor.getResultadoFuncionEconomica();
+	}
 
+	public double[] horasMaximasDeConsumoPorDispositivo() {
+		this.resolvedor.execute(this.todosLosDispositivos());
+		return resolvedor.getHorasMaximasDispositivo();
+	}
 
+	public boolean esHogarEficiente() {
+		return this.consumoEnergeticoTotal() < resolvedor.getResultadoFuncionEconomica();
+	}
 
-    public double[] horasMaximasDeConsumoPorDispositivo()
-    {
-        this.resolvedor.execute(this.todosLosDispositivos());
-        return resolvedor.getHorasMaximasDispositivo();
-    }
-    public boolean esHogarEficiente()
-    {
-        return   this.consumoEnergeticoTotal()<resolvedor.getResultadoFuncionEconomica();
-    }
+	public void conectarseTransformadorCercano(ZonaGeografica zona) {
 
+		zona.conectarATransformadorCercano(this);
 
+	}
 
-    public void conectarseTransformadorCercano (ZonaGeografica zona) {
+	public Ubicacion getPosicion() {
+		return ubicacion;
+	}
 
-        zona.conectarATransformadorCercano(this);
+	public DispositivoEstandar sacarDispositivoEstandarLista(DispositivoEstandar estandar) {
 
-    }
-    public Ubicacion getPosicion() {
-        return ubicacion;
-    }
-
-
-    public DispositivoEstandar sacarDispositivoEstandarLista (DispositivoEstandar estandar) {
-
-        dispositivosEstandar.remove(estandar);
-        return estandar;
-    }
+		dispositivosEstandar.remove(estandar);
+		return estandar;
+	}
 }
-
-

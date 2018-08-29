@@ -7,14 +7,14 @@ import java.util.List;
 
 public class OrdenPonerModoAhorro extends Actuador {
 
-    public OrdenPonerModoAhorro(List<DispositivoInteligente> dispositivosAfectados) {
+	public OrdenPonerModoAhorro(List<DispositivoInteligente> dispositivosAfectados) {
 		super(dispositivosAfectados);
 	}
 
-    @Override
-    public void ejecutar() {
+	@Override
+	public void ejecutar() {
 
-        dispositivos.forEach(DispositivoInteligente::ponerModoAhorro);
+		dispositivos.forEach(DispositivoInteligente::ponerModoAhorro);
 
-    }
+	}
 }

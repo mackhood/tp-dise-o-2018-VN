@@ -38,7 +38,7 @@ public class Regla {
     }
 
     
-    public void serNotificadaPor(Condicion condicion) {
+	public void serNotificadaPor(Condicion condicion) {
     	
     	if (condicion.cumpleCondicion() && this.cumpleTodasLasCondiciones() ) {
     		

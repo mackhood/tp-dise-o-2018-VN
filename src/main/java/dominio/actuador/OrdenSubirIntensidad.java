@@ -7,13 +7,13 @@ import java.util.List;
 
 public class OrdenSubirIntensidad extends Actuador {
 
-    public OrdenSubirIntensidad(List<DispositivoInteligente> dispositivosAfectados) {
+	public OrdenSubirIntensidad(List<DispositivoInteligente> dispositivosAfectados) {
 		super(dispositivosAfectados);
 	}
 
-    @Override
-    public void ejecutar() {
+	@Override
+	public void ejecutar() {
 
-        dispositivos.forEach(d -> d.aumentarConsumoPor(50));
-    }
+		dispositivos.forEach(d -> d.aumentarConsumoPor(50));
+	}
 }

@@ -11,44 +11,43 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
+public class RepositorioAdministradores extends Repositorio {
 
-public class RepositorioAdministradores extends Repositorio{
+	String nombreArchivo = "Administradores.json";
+	private static RepositorioAdministradores instance = new RepositorioAdministradores();
 
-    String nombreArchivo = "Administradores.json";
-    private static RepositorioAdministradores instance = new RepositorioAdministradores();
+	private RepositorioAdministradores() { // dejar en privado para que no puedan hacer otra instancia
+	}
 
-    private RepositorioAdministradores() { //dejar en privado para que no puedan hacer otra instancia
-    }
+	public static RepositorioAdministradores getInstance() {
+		return instance;
+	}
 
-    public static RepositorioAdministradores getInstance() {
-        return instance;
-    }
+	public List<Administrador> obtenerAdministradores() throws ProcessingDataFailedException {
 
+		try {
+			FileReader file = new FileReader(getJsonFile());
+			BufferedReader bufferedReader = new BufferedReader(file);
+			Gson gson = new Gson();
 
-    public List<Administrador> obtenerAdministradores() throws ProcessingDataFailedException {
+			Object jsonObject = gson.fromJson(bufferedReader, Object.class);
+			String json = jsonObject.toString();
 
-        try {
-            FileReader file = new FileReader(getJsonFile());
-            BufferedReader bufferedReader = new BufferedReader(file);
-            Gson gson = new Gson();
+			Type tipoListaAdmins = new TypeToken<List<Administrador>>() {
+			}.getType();
+			List<Administrador> admins = gson.fromJson(json, tipoListaAdmins);
 
-            Object jsonObject = gson.fromJson(bufferedReader, Object.class);
-            String json = jsonObject.toString();
+			return admins;
 
-            Type tipoListaAdmins = new TypeToken<List<Administrador>>() {
-            }.getType();
-            List<Administrador> admins = gson.fromJson(json, tipoListaAdmins);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new ProcessingDataFailedException(e.getLocalizedMessage());
+		}
+	}
 
-            return admins;
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new ProcessingDataFailedException(e.getLocalizedMessage());
-        }
-    }
-
-    /*
-    public String getJsonFile() { //Separe este metodo para poder mockearlo al momento de testear
-        return getClass().getClassLoader().getResource("Administradores.json").getFile();
-    }*/
+	/*
+	 * public String getJsonFile() { //Separe este metodo para poder mockearlo al
+	 * momento de testear return
+	 * getClass().getClassLoader().getResource("Administradores.json").getFile(); }
+	 */
 }

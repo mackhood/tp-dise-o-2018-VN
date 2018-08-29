@@ -12,43 +12,52 @@ import java.util.Collection;
 import java.util.List;
 
 public class Simplex {
-    double consumoMaximo = 612;
-    double[] horasMaximasDispositivo;
-    double resultadoFuncionEconomica;
+	double consumoMaximo = 612;
+	double[] horasMaximasDispositivo;
+	double resultadoFuncionEconomica;
 
-    public double[] getHorasMaximasDispositivo() {
-        return horasMaximasDispositivo;
-    }
+	public double[] getHorasMaximasDispositivo() {
+		return horasMaximasDispositivo;
+	}
 
-    public double getResultadoFuncionEconomica() {
-        return resultadoFuncionEconomica;
-    }
+	public double getResultadoFuncionEconomica() {
+		return resultadoFuncionEconomica;
+	}
 
-    public void execute(List<Dispositivo> dispositivosDelCliente)
-    {
-        SimplexSolver solver = new SimplexSolver();
+	public void execute(List<Dispositivo> dispositivosDelCliente) {
+		SimplexSolver solver = new SimplexSolver();
 
-        LinearObjectiveFunction funcion = new LinearObjectiveFunction(Repositorios.dispositivos.coeficientesVariables(dispositivosDelCliente), 0);
-        Collection<LinearConstraint> constraints = new ArrayList<LinearConstraint>();
+		LinearObjectiveFunction funcion = new LinearObjectiveFunction(
+				Repositorios.dispositivos.coeficientesVariables(dispositivosDelCliente), 0);
+		Collection<LinearConstraint> constraints = new ArrayList<LinearConstraint>();
 
-        constraints.add(new LinearConstraint(Repositorios.dispositivos.coeficientesDeConsumoKwh(dispositivosDelCliente),Relationship.GEQ, consumoMaximo));
-        for(int i=0; i< dispositivosDelCliente.size(); i++) {
-            constraints.add(new LinearConstraint(Repositorios.dispositivosMinmax.coefsResctriccionDeUnDispositivo(dispositivosDelCliente.get(i)), Relationship.GEQ,
-                    Repositorios.dispositivosMinmax.restriccionMinima(dispositivosDelCliente.get(i))));
-            constraints.add(new LinearConstraint(Repositorios.dispositivosMinmax.coefsResctriccionDeUnDispositivo(dispositivosDelCliente.get(i)), Relationship.LEQ,
-                    Repositorios.dispositivosMinmax.restriccionMaxima(dispositivosDelCliente.get(i))));
-        }
-        PointValuePair solution = solver.optimize(new MaxIter(100), funcion, new LinearConstraintSet(constraints), GoalType.MAXIMIZE ,new NonNegativeConstraint(true));
-        horasMaximasDispositivo = solution.getPoint();
-        resultadoFuncionEconomica = funcion.value(horasMaximasDispositivo);
-        this.asignarHorasMaximaPorDispositivo(dispositivosDelCliente);
-    }
-    public void asignarHorasMaximaPorDispositivo(List<Dispositivo> dispositivosDelCliente)
-    {
-        for (int i=0; i< dispositivosDelCliente.size();i++)
-        {
-            dispositivosDelCliente.get(i).setHorasMaximaPorConsumo(this.horasMaximasDispositivo[i]);
-        }
-    }
+		constraints.add(new LinearConstraint(Repositorios.dispositivos.coeficientesDeConsumoKwh(dispositivosDelCliente),
+				Relationship.GEQ, consumoMaximo));
+		for (int i = 0; i < dispositivosDelCliente.size(); i++) {
+			constraints
+					.add(new LinearConstraint(
+							Repositorios.dispositivosMinmax
+									.coefsResctriccionDeUnDispositivo(dispositivosDelCliente.get(i)),
+							Relationship.GEQ,
+							Repositorios.dispositivosMinmax.restriccionMinima(dispositivosDelCliente.get(i))));
+			constraints
+					.add(new LinearConstraint(
+							Repositorios.dispositivosMinmax
+									.coefsResctriccionDeUnDispositivo(dispositivosDelCliente.get(i)),
+							Relationship.LEQ,
+							Repositorios.dispositivosMinmax.restriccionMaxima(dispositivosDelCliente.get(i))));
+		}
+		PointValuePair solution = solver.optimize(new MaxIter(100), funcion, new LinearConstraintSet(constraints),
+				GoalType.MAXIMIZE, new NonNegativeConstraint(true));
+		horasMaximasDispositivo = solution.getPoint();
+		resultadoFuncionEconomica = funcion.value(horasMaximasDispositivo);
+		this.asignarHorasMaximaPorDispositivo(dispositivosDelCliente);
+	}
+
+	public void asignarHorasMaximaPorDispositivo(List<Dispositivo> dispositivosDelCliente) {
+		for (int i = 0; i < dispositivosDelCliente.size(); i++) {
+			dispositivosDelCliente.get(i).setHorasMaximaPorConsumo(this.horasMaximasDispositivo[i]);
+		}
+	}
 
 }

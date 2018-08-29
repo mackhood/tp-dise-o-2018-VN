@@ -22,33 +22,26 @@ import static org.mockito.Mockito.spy;
 
 public class testConvertidor {
 
-    private Convertidor convertidor;
-    private Cliente unMockCliente;
-    private DispositivoEstandar dispositivoEstandar;
-    private List<DispositivoEstandar> listaDispositivosEstandard=new ArrayList<>();
-    private List<DispositivoInteligente> listaDispositivosInteligentes= new ArrayList<>();
+	private Convertidor convertidor;
+	private Cliente unMockCliente;
+	private DispositivoEstandar dispositivoEstandar;
+	private List<DispositivoEstandar> listaDispositivosEstandard = new ArrayList<>();
+	private List<DispositivoInteligente> listaDispositivosInteligentes = new ArrayList<>();
 
+	@Before
+	public void setup() {
+		dispositivoEstandar = mock(DispositivoEstandar.class);
+		unMockCliente = spy(new Cliente("Nicolas", "Sierra", "fer25", new ID(TiposId.DNI, "200"),
+				new Domicilio("Bariloche", 3118, 1, 'a'), 250, listaDispositivosEstandard,
+				listaDispositivosInteligentes));
+	}
 
-@Before
-    public void setup() {
-    dispositivoEstandar = mock(DispositivoEstandar.class);
-    unMockCliente = spy(new Cliente("Nicolas", "Sierra", "fer25", new ID(TiposId.DNI, "200"),
-            new Domicilio("Bariloche", 3118, 1, 'a'), 250, listaDispositivosEstandard, listaDispositivosInteligentes));
+	@Test
 
+	public void testConvertidorInteligente() {
 
-
-}
-
-
-
-@Test
-
-    public void testConvertidorInteligente () {
-
-    convertidor.convertirInteligente(unMockCliente,dispositivoEstandar);
-    assertTrue(unMockCliente.getDispositivosInteligentes().contains(dispositivoEstandar));
-
-}
-
+		convertidor.convertirInteligente(unMockCliente, dispositivoEstandar);
+		assertTrue(unMockCliente.getDispositivosInteligentes().contains(dispositivoEstandar));
+	}
 
 }

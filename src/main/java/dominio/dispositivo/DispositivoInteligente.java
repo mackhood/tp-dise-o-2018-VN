@@ -5,154 +5,156 @@ import java.time.temporal.ChronoUnit;
 
 public class DispositivoInteligente extends Dispositivo {
 
-    private EstadoDispositivo estadoDispositivo;
-    public LocalDateTime horaEncendido = null;
-    public LocalDateTime horaApagado = null;
+	private EstadoDispositivo estadoDispositivo;
+	public LocalDateTime horaEncendido = null;
+	public LocalDateTime horaApagado = null;
 
-    public DispositivoInteligente(String nombre, double consumoEstimadoPorHora) {
+	public DispositivoInteligente(String nombre, double consumoEstimadoPorHora) {
 
-        this.nombre = nombre;
-        this.consumoEstimadoPorHora = consumoEstimadoPorHora;
-        estadoDispositivo = new EstadoApagado();
-    }
-    public DispositivoInteligente(String nombre, double restriccionMinima, double restriccionMaxima)
-    {
-        this.nombre = nombre;
-        this.restriccionMinima = restriccionMinima;
-        this.restriccionMaxima = restriccionMaxima;
-    }
-    public DispositivoInteligente(String nombre, String equipoConcreto, boolean esBajoConsumo, double consumoEstimadoPorHora, double restriccionMinima, double restriccionMaxima)
-    {
-        this.nombre = nombre;
-        estadoDispositivo = new EstadoApagado();
-        this.equipoConcreto = equipoConcreto;
-        this.esBajoConsumo = esBajoConsumo;
-        this.consumoEstimadoPorHora = consumoEstimadoPorHora;
-        this.restriccionMinima = restriccionMinima;
-        this.restriccionMaxima = restriccionMaxima;
-    }
-    public DispositivoInteligente(String nombre, String equipoConcreto, boolean esBajoConsumo, double consumoEstimadoPorHora)
-    {
-        this.nombre = nombre;
-        estadoDispositivo = new EstadoApagado();
-        this.equipoConcreto = equipoConcreto;
-        this.esBajoConsumo = esBajoConsumo;
-        this.consumoEstimadoPorHora = consumoEstimadoPorHora;
-    }
-    public DispositivoInteligente(String nombre, String equipoConcreto, boolean esBajoConsumo)
-    {
-        this.nombre = nombre;
-        estadoDispositivo = new EstadoApagado();
-        this.equipoConcreto = equipoConcreto;
-        this.esBajoConsumo = esBajoConsumo;
-    }
+		this.nombre = nombre;
+		this.consumoEstimadoPorHora = consumoEstimadoPorHora;
+		estadoDispositivo = new EstadoApagado();
+	}
 
-    public void setHoraEncendido(LocalDateTime horaEncendido) {
-        this.horaEncendido = horaEncendido;
-    }
+	public DispositivoInteligente(String nombre, double restriccionMinima, double restriccionMaxima) {
+		this.nombre = nombre;
+		this.restriccionMinima = restriccionMinima;
+		this.restriccionMaxima = restriccionMaxima;
+	}
 
-    public void setHoraApagado(LocalDateTime horaApagado) {
-        this.horaApagado = horaApagado;
-    }
+	public DispositivoInteligente(String nombre, String equipoConcreto, boolean esBajoConsumo,
+			double consumoEstimadoPorHora, double restriccionMinima, double restriccionMaxima) {
+		this.nombre = nombre;
+		estadoDispositivo = new EstadoApagado();
+		this.equipoConcreto = equipoConcreto;
+		this.esBajoConsumo = esBajoConsumo;
+		this.consumoEstimadoPorHora = consumoEstimadoPorHora;
+		this.restriccionMinima = restriccionMinima;
+		this.restriccionMaxima = restriccionMaxima;
+	}
 
-    public LocalDateTime getHoraEncendido() {
-        return horaEncendido;
-    }
+	public DispositivoInteligente(String nombre, String equipoConcreto, boolean esBajoConsumo,
+			double consumoEstimadoPorHora) {
+		this.nombre = nombre;
+		estadoDispositivo = new EstadoApagado();
+		this.equipoConcreto = equipoConcreto;
+		this.esBajoConsumo = esBajoConsumo;
+		this.consumoEstimadoPorHora = consumoEstimadoPorHora;
+	}
 
-    public LocalDateTime getHoraApagado() {
-        return horaApagado;
-    }
+	public DispositivoInteligente(String nombre, String equipoConcreto, boolean esBajoConsumo) {
+		this.nombre = nombre;
+		estadoDispositivo = new EstadoApagado();
+		this.equipoConcreto = equipoConcreto;
+		this.esBajoConsumo = esBajoConsumo;
+	}
 
-    public EstadoDispositivo estadoDispositivo() {
-        return estadoDispositivo;
-    }
-    
-    public double getConsumoEstimadoPorHora() {
-    	
-    	return consumoEstimadoPorHora;
-    }
-    
-    public boolean esCiertoEstado(EstadoDispositivo estadoCond) {
-        return estadoDispositivo.equals(estadoCond);
-    }
+	public void setHoraEncendido(LocalDateTime horaEncendido) {
+		this.horaEncendido = horaEncendido;
+	}
 
-    public void setHorasDeUso(double horas) {
+	public void setHoraApagado(LocalDateTime horaApagado) {
+		this.horaApagado = horaApagado;
+	}
 
-        this.horasDeUso = horas;
-    }
+	public LocalDateTime getHoraEncendido() {
+		return horaEncendido;
+	}
 
-    public boolean estaEncendido() {
-        return estadoDispositivo.estaEncendido();
-    }
+	public LocalDateTime getHoraApagado() {
+		return horaApagado;
+	}
 
-    public boolean estaApagado() {
-        return estadoDispositivo.estaApagado();
-    }
+	public EstadoDispositivo estadoDispositivo() {
+		return estadoDispositivo;
+	}
 
+	public double getConsumoEstimadoPorHora() {
 
-    public void apagar() {
-        estadoDispositivo.apagar(this);
-    }
+		return consumoEstimadoPorHora;
+	}
 
-    public void encender() {
+	public boolean esCiertoEstado(EstadoDispositivo estadoCond) {
+		return estadoDispositivo.equals(estadoCond);
+	}
 
-        estadoDispositivo.encender(this);
-    }
+	public void setHorasDeUso(double horas) {
 
-    public void ponerModoAhorro() {
-        estadoDispositivo.ponerModoAhorro(this);
-    }
+		this.horasDeUso = horas;
+	}
 
-    public void sumarHorasDeUso(LocalDateTime unHorario, LocalDateTime otroHorario) {
+	public boolean estaEncendido() {
+		return estadoDispositivo.estaEncendido();
+	}
 
-        horasDeUso = horasDeUso + unHorario.until(otroHorario, ChronoUnit.HOURS);
-    }
-    
-    /* Para este metodo de abajo no se me ocurre otra idea que hacer varios if con las distintas situaciones
-      	tipo si la hora de encendido y apagado estan antes del intervalo de consulta, etc.
-      		Si alguien tiene una mejor idea u otra forma de implementarlo buenisimo.
-     */
+	public boolean estaApagado() {
+		return estadoDispositivo.estaApagado();
+	}
 
-    public double consumoUltimasNHoras(double horas) {
-        if (horas > horasDeUso) {
-            return consumoEstimadoPorHora * horasDeUso;
-        } else {
-            return consumoEstimadoPorHora * horas;
-        }
-    }
+	public void apagar() {
+		estadoDispositivo.apagar(this);
+	}
 
-    public void cambiarEstado(EstadoDispositivo estadoNuevo) {
+	public void encender() {
 
-        estadoDispositivo = estadoNuevo;
-    }
+		estadoDispositivo.encender(this);
+	}
 
-    public void ejecutar(DispositivoFisico dispositivoFisico) {
+	public void ponerModoAhorro() {
+		estadoDispositivo.ponerModoAhorro(this);
+	}
 
-        dispositivoFisico.ejecutar();
-    }
+	public void sumarHorasDeUso(LocalDateTime unHorario, LocalDateTime otroHorario) {
 
-    public void aumentarConsumoPor(double cantidad) {
+		horasDeUso = horasDeUso + unHorario.until(otroHorario, ChronoUnit.HOURS);
+	}
 
-        this.consumoEstimadoPorHora += cantidad;
-    }
+	/*
+	 * Para este metodo de abajo no se me ocurre otra idea que hacer varios if con
+	 * las distintas situaciones tipo si la hora de encendido y apagado estan antes
+	 * del intervalo de consulta, etc. Si alguien tiene una mejor idea u otra forma
+	 * de implementarlo buenisimo.
+	 */
 
-    public double getConsumoTotal() {
+	public double consumoUltimasNHoras(double horas) {
+		if (horas > horasDeUso) {
+			return consumoEstimadoPorHora * horasDeUso;
+		} else {
+			return consumoEstimadoPorHora * horas;
+		}
+	}
 
-        return horasDeUso * consumoEstimadoPorHora;
-    }
+	public void cambiarEstado(EstadoDispositivo estadoNuevo) {
 
-    @Override
-    public boolean esInteligente() {
-        return true;
-    }
+		estadoDispositivo = estadoNuevo;
+	}
 
+	public void ejecutar(DispositivoFisico dispositivoFisico) {
 
-    public boolean estaEnModoAhorro() {
+		dispositivoFisico.ejecutar();
+	}
 
-        return estadoDispositivo.estaEnModoAhorro();
-    }
+	public void aumentarConsumoPor(double cantidad) {
 
-    public int getPuntos() {
-        return 15;
-    }
+		this.consumoEstimadoPorHora += cantidad;
+	}
+
+	public double getConsumoTotal() {
+
+		return horasDeUso * consumoEstimadoPorHora;
+	}
+
+	@Override
+	public boolean esInteligente() {
+		return true;
+	}
+
+	public boolean estaEnModoAhorro() {
+
+		return estadoDispositivo.estaEnModoAhorro();
+	}
+
+	public int getPuntos() {
+		return 15;
+	}
 }
