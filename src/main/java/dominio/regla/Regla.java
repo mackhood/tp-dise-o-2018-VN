@@ -19,7 +19,7 @@ public class Regla {
 
     private boolean cumpleTodasLasCondiciones() {
     	
-        return condicionesACumplir.stream().allMatch(cond -> cond.getEstado().estaCumplida());
+        return condicionesACumplir.stream().allMatch(cond -> cond.cumpleCondicion());
     }
     
     private void ejecutarActuador(){

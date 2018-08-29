@@ -8,7 +8,6 @@ public abstract class Condicion {
 	private String tipo;
 	protected double medicionActual;
 	private Regla regla;
-	private Estado estado = new Pendiente();
 
 	public Condicion(Regla regla, double valorLimite, String tipo) {
 
@@ -35,7 +34,6 @@ public abstract class Condicion {
 
 		if (this.cumpleCondicion()) {
 
-			this.estado = new Cumplida();
 			regla.serNotificadaPor(this);
 		}
 	}
@@ -50,8 +48,4 @@ public abstract class Condicion {
 		return medicionActual;
 	}
 
-	public Estado getEstado() {
-
-		return estado;
-	}
 }

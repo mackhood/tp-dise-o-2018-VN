@@ -21,9 +21,9 @@ public class testRepositorioAdministrador {
 		when(repositorio.getJsonFile()).thenReturn(this.getJsonTestFile());
 		when(repositorio.obtenerAdministradores()).thenCallRealMethod();
 
-		int sizeExoected = repositorio.obtenerAdministradores().size();
+		int sizeExpected = repositorio.obtenerAdministradores().size();
 
-		assertEquals("Se obtienen todas las categorias en el json y se valida su cantidad", 1, sizeExoected);
+		assertEquals("Se obtienen todas las categorias en el json y se valida su cantidad", 1, sizeExpected);
 	}
 
 	public String getJsonTestFile() {
