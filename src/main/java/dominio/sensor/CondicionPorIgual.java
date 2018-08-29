@@ -13,6 +13,5 @@ public class CondicionPorIgual extends Condicion {
 		
 		return medicionActual == valorLimite;
 	}
-
 }
 

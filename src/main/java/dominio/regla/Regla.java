@@ -9,23 +9,22 @@ import java.util.stream.Collectors;
 
 public class Regla {
 	
-    Actuador actuador;
-    List<Condicion> condicionesACumplir = new ArrayList<>();
+    private Actuador actuador;
+    private List<Condicion> condicionesACumplir = new ArrayList<>();
 
     public Regla(Actuador actuador, List<Condicion> condicionesACumplir) {
         this.actuador = actuador;
         this.condicionesACumplir = condicionesACumplir;
     }
 
-    public boolean cumpleTodasLasCondiciones() {
+    private boolean cumpleTodasLasCondiciones() {
     	
-        return condicionesACumplir.isEmpty();
+        return condicionesACumplir.stream().allMatch(cond -> cond.getEstado().estaCumplida());
     }
     
-    public void ejecutarActuador(){
+    private void ejecutarActuador(){
     	
     	actuador.ejecutar();
-      
     }
 
     public List<Condicion> getCondicionesACumplir() {
@@ -41,14 +40,9 @@ public class Regla {
     
     public void serNotificadaPor(Condicion condicion) {
     	
-    	if (condicion.cumpleCondicion() ) {
+    	if (condicion.cumpleCondicion() && this.cumpleTodasLasCondiciones() ) {
     		
-    		condicionesACumplir.remove(condicion);
-    		
-    			if (condicionesACumplir.isEmpty()) {
-    				
-    				this.ejecutarActuador();
-    			}
+    		this.ejecutarActuador();
     	}
     }
 }

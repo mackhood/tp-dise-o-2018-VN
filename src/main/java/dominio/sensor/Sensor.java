@@ -9,8 +9,7 @@ import java.util.stream.Collectors;
 public class Sensor {
 
     private Regla regla;
-    List<Condicion> observers = new ArrayList<>();
-    Medicion ultimaMedicion;
+    private Medicion ultimaMedicion;
     
     public Sensor(Regla unaRegla) {
         this.regla = unaRegla;
@@ -23,16 +22,15 @@ public class Sensor {
     
     public List <Condicion> mismoTipo() {
     	
-    	return this.getObservers().stream().filter(cond -> cond.getTipo().equals(ultimaMedicion.getTipo()) ).collect(Collectors.toList());
+    	return this.getCondiciones().stream().filter(cond -> cond.getTipo().equals(ultimaMedicion.getTipo()) ).collect(Collectors.toList());
     }
     
-    public void notificar() 
-    
-    {
-        this.mismoTipo().forEach(cond -> cond.actualizar(this));
+    private void notificar() {
+        
+    	this.mismoTipo().forEach(cond -> cond.actualizar(this));
     }
 
-    public List<Condicion> getObservers() {
+    public List<Condicion> getCondiciones() {
         return regla.getCondicionesACumplir();
     }
     

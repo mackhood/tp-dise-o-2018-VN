@@ -9,7 +9,7 @@ public abstract class Actuador {
     //El actuador sabe a que dispositivo tiene que afectar
 //    DispositivoInteligente dispInteligente = null;
 	
-	List<DispositivoInteligente> dispositivos;
+	protected List<DispositivoInteligente> dispositivos;
 	
 	public Actuador(List <DispositivoInteligente> dispositivosAfectados) { dispositivos = dispositivosAfectados; };
 	

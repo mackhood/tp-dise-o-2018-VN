@@ -4,10 +4,11 @@ import dominio.regla.Regla;
 
 public abstract class Condicion {
     
-	double valorLimite;
-	String tipo;
-	double medicionActual;
-	Regla regla;
+	protected double valorLimite;
+	private String tipo;
+	protected double medicionActual;
+	private Regla regla;
+	private Estado estado = new Pendiente();
 
     public Condicion(Regla regla, double valorLimite, String tipo){
         
@@ -27,7 +28,12 @@ public abstract class Condicion {
     public void actualizar(Sensor unSensor) {
         
             medicionActual = unSensor.getValorMedicion();
-            regla.serNotificadaPor(this);
+            
+            if (this.cumpleCondicion() ) {
+            	
+            	this.estado = new Cumplida();
+            	regla.serNotificadaPor(this);
+            }
     }
     
     public String getTipo() {
@@ -38,5 +44,10 @@ public abstract class Condicion {
     public double getMedicionActual() {
     	
     	return medicionActual;
+    }
+    
+    public Estado getEstado() {
+    	
+    	return estado;
     }
 }
