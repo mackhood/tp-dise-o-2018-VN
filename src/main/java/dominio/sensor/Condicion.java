@@ -31,11 +31,7 @@ public abstract class Condicion {
 	public void actualizar(Sensor unSensor) {
 
 		medicionActual = unSensor.getValorMedicion();
-
-		if (this.cumpleCondicion()) {
-
-			regla.serNotificadaPor(this);
-		}
+		regla.serNotificadaPor(this);
 	}
 
 	public String getTipo() {
@@ -47,5 +43,4 @@ public abstract class Condicion {
 
 		return medicionActual;
 	}
-
 }

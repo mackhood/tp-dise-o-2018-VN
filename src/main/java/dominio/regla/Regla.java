@@ -44,5 +44,7 @@ public class Regla {
     		
     		this.ejecutarActuador();
     	}
+    	
+    	else actuador.ejecutarInversa();
     }
 }

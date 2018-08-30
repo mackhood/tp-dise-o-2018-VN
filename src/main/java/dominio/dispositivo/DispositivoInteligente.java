@@ -138,7 +138,12 @@ public class DispositivoInteligente extends Dispositivo {
 
 		this.consumoEstimadoPorHora += cantidad;
 	}
-
+	
+	public void reducirConsumoPor(double cantidad) {
+		
+		this.consumoEstimadoPorHora -= cantidad;
+	}
+	
 	public double getConsumoTotal() {
 
 		return horasDeUso * consumoEstimadoPorHora;

@@ -14,7 +14,12 @@ public class OrdenPonerModoAhorro extends Actuador {
 	@Override
 	public void ejecutar() {
 
-		dispositivos.forEach(DispositivoInteligente::ponerModoAhorro);
-
+		dispositivos.forEach(DispositivoInteligente::ponerModoAhorro);	
+	}
+	
+	@Override
+	public void ejecutarInversa() {
+		
+		dispositivos.forEach(DispositivoInteligente::encender);
 	}
 }

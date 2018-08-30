@@ -17,9 +17,11 @@ public abstract class Actuador {
 	};
 
 	public abstract void ejecutar();
-
+	
+	public abstract void ejecutarInversa();
+	
 	public void asignarDispositivo(DispositivoInteligente disp) {
-
+		
 		dispositivos.add(disp);
 	}
 

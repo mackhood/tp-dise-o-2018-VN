@@ -107,7 +107,6 @@ public class testDispositivo {
 		sensorMovimiento = new Sensor(reglaParaEncenderAlAireAcondicionado);
 		medicion32Grados = new Medicion(32, "Temperatura");
 		medicionHayMovimiento = new Medicion(1, "Movimiento");
-
 		unDIEncendido.setConsumoEstimadoPorHora(100);
 	}
 
@@ -116,7 +115,20 @@ public class testDispositivo {
 		sensorTemperaturaMayor30.recibirMedicion(medicion32Grados);
 		sensorMovimiento.recibirMedicion(medicionHayMovimiento);
 		Assert.assertEquals(true, unDIAireApagado.estaEncendido());
+	}
 
+	/*
+	 * En este test, quiero probar que al principio se cumplen ambas condiciones,
+	 * por lo que se ejecuta el actuador. Luego el sensor que verifica la
+	 * temperatura recibe una medicion que no cumple la condicion, por lo que el
+	 * actuador realiza la accion inversa (en este caso, vuelve a apagar el aire)
+	 */
+	@Test
+	public void testCambioDeEstado() {
+		sensorTemperaturaMayor30.recibirMedicion(medicion32Grados);
+		sensorMovimiento.recibirMedicion(medicionHayMovimiento);
+		sensorTemperaturaMayor30.recibirMedicion(new Medicion(29, "Temperatura"));
+		Assert.assertEquals(false, unDIAireApagado.estaEncendido());
 	}
 
 	@Test
