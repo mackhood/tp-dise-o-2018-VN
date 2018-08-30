@@ -16,10 +16,10 @@ public class OrdenEncenderDI extends Actuador {
 
 		dispositivos.forEach(DispositivoInteligente::encender);
 	}
-	
+
 	@Override
 	public void ejecutarInversa() {
-		
+
 		dispositivos.forEach(DispositivoInteligente::apagar);
 	}
 }

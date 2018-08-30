@@ -16,10 +16,10 @@ public class OrdenSubirIntensidad extends Actuador {
 
 		dispositivos.forEach(d -> d.aumentarConsumoPor(50));
 	}
-	
+
 	@Override
 	public void ejecutarInversa() {
-		
+
 		dispositivos.forEach(d -> d.reducirConsumoPor(50));
 	}
 }
