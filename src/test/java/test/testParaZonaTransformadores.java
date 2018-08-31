@@ -29,8 +29,11 @@ public class testParaZonaTransformadores {
 	private ZonaGeografica zonaGeografica2;
 
 	private Ubicacion ubicacionMock;
+	private Ubicacion ubicacionZona1;
+	private Ubicacion ubicacionZona2;
 
-	private List<Transformador> listaTransformadorZona1 = new ArrayList<>();;
+	private List<Transformador> listaTransformadorZona1 = new ArrayList<>();
+	List<Transformador> listaTransformadorOtraZona = new ArrayList<>();
 
 	@Before
 	public void setUp() {
@@ -41,7 +44,7 @@ public class testParaZonaTransformadores {
 
 		transformador_OtraZona = mock(Transformador.class);
 
-		List<Transformador> listaTransformadorOtraZona = new ArrayList<>();
+
 		listaTransformadorOtraZona.add(transformador_OtraZona);
 
 		List<Cliente> listaClientesTransformador1 = new ArrayList<>();
@@ -64,8 +67,8 @@ public class testParaZonaTransformadores {
 		listaTransformadorZona1.add(transformador1_Zona1);
 		listaTransformadorZona1.add(transformador2_Zona1);
 
-		zonaGeografica1 = new ZonaGeografica("Zona1", listaTransformadorZona1);
-		zonaGeografica2 = new ZonaGeografica("Zona2", listaTransformadorOtraZona);
+		zonaGeografica1 = new ZonaGeografica("Zona1", listaTransformadorZona1,ubicacionZona1,10.0);
+		zonaGeografica2 = new ZonaGeografica("Zona2", listaTransformadorOtraZona,ubicacionZona2,20.0);
 
 		ubicacionMock = mock(Ubicacion.class);
 
@@ -73,6 +76,16 @@ public class testParaZonaTransformadores {
 		when(ubicacionMock.getPosicionY()).thenReturn(4.0);
 
 		when(clienteMock1.getPosicion()).thenReturn(ubicacionMock);
+
+		ubicacionZona1 = mock(Ubicacion.class);
+
+		when(ubicacionZona1.getPosicionX()).thenReturn(3.0);
+		when(ubicacionZona1.getPosicionY()).thenReturn(4.0);
+
+		ubicacionZona2 = mock(Ubicacion.class);
+
+		when(ubicacionZona2.getPosicionX()).thenReturn(3.0);
+		when(ubicacionZona2.getPosicionY()).thenReturn(4.0);
 
 	}
 

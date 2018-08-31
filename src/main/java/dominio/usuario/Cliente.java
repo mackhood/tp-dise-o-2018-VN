@@ -7,6 +7,8 @@ import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.entities.NoTieneDispositivoException;
 import dominio.simplexserviceautomatic.Simplex;
+import dominio.transformador.Transformador;
+import dominio.zonageografica.AsignadorDeZonaService;
 import dominio.zonageografica.Ubicacion;
 
 import java.time.LocalDate;
@@ -30,6 +32,7 @@ public class Cliente {
 	private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
 	private Simplex solver;
 	private Ubicacion ubicacion;
+	private Transformador transformador;
 
 	private boolean ahorroAutomatico = false;
 
@@ -190,9 +193,10 @@ public class Cliente {
 		return this.consumoEnergeticoTotal() < solver.getResultadoFuncionEconomica();
 	}
 
-	public void conectarseTransformadorCercano(ZonaGeografica zona) {
+	public void conectarseTransformadorCercano(AsignadorDeZonaService asignadorDeZonaService) {
 
-		zona.conectarATransformadorCercano(this);
+		this.transformador = asignadorDeZonaService.buscarZonaCoberturaClienteYDevolverTransformador(this);
+
 
 	}
 

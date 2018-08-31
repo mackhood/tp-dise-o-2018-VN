@@ -12,10 +12,14 @@ public class ZonaGeografica {
 
 	protected List<Transformador> transformadores = new ArrayList<>();
 	private String descripcion;
+	private Double radio;
+	private Ubicacion ubicacion;
 
-	public ZonaGeografica(String descripcion, List<Transformador> transformadores) {
+	public ZonaGeografica(String descripcion, List<Transformador> transformadores,Ubicacion ubicacion,Double radio) {
 		this.transformadores = transformadores;
 		this.descripcion = descripcion;
+		this.ubicacion = ubicacion;
+		this.radio = radio;
 	}
 
 	public double consumoTotal() {
@@ -53,4 +57,12 @@ public class ZonaGeografica {
 		transformadorCercano.agregarCliente(cliente);
 
 	}
+
+	public boolean perteneceClienteAZona(Cliente cliente) {
+		return this.distanciaACliente(cliente.getPosicion()) < radio;
+	}
+	public Double distanciaACliente(Ubicacion ubicacion){
+		return ubicacion.calcularDistancia(ubicacion);
+	}
+
 }
