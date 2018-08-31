@@ -25,16 +25,17 @@ public class Categoria {
 				&& (consumoMaximo == null || cliente.consumoEnergeticoTotal() <= consumoMaximo);
 	}
 
-	private Double getCargoFijo() {
-		return this.cargoFijo;
-	}
-
 	public Double getCargoVariable() {
 		return this.cargoVariable;
 	}
-
+	
+	public Double getCargoFijo() {
+		
+		return this.cargoFijo;
+	}
+	
 	public Double calcularCostosPara(Cliente cliente) {
-		return this.getCargoFijo() + this.getCargoVariable() * cliente.consumoEnergeticoTotal();
+		return cargoFijo + cargoVariable * cliente.consumoEnergeticoTotal();
 	}
 
 	public String getNombre() {
