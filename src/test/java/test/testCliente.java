@@ -7,6 +7,7 @@ import dominio.usuario.Cliente;
 import dominio.usuario.Domicilio;
 import dominio.usuario.ID;
 import dominio.usuario.TiposId;
+import dominio.entities.NoTieneDispositivoException;
 import dominio.entities.ProcessingDataFailedException;
 import org.junit.Before;
 import org.junit.Test;
@@ -99,7 +100,7 @@ public class testCliente {
 	}
 
 	@Test
-	public void testPuntosAcumuladorDespuesDeAgregarAdaptadorAUnDE() {
+	public void testPuntosAcumuladorDespuesDeAgregarAdaptadorAUnDE() throws NoTieneDispositivoException {
 		unClienteConDEyDI.agregarModuloAdaptador(moduloAdaptador,unDE);
 		assertEquals(40.0, unClienteConDEyDI.puntosAcumulados());
 	}

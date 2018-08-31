@@ -5,6 +5,7 @@ import dominio.dispositivo.Conversor;
 import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
+import dominio.entities.NoTieneDispositivoException;
 import dominio.simplexserviceautomatic.Simplex;
 import dominio.zonageografica.Ubicacion;
 
@@ -76,21 +77,17 @@ public class Cliente {
 		return todos;
 	}
 
-	public void agregarModuloAdaptador(Conversor conversor, DispositivoEstandar disp) {
+	public void agregarModuloAdaptador(Conversor conversor, DispositivoEstandar disp)
+			throws NoTieneDispositivoException {
 
 		if (this.tieneDispositivo(disp)) {
 
 			conversor.convertirInteligente(this, disp);
 		}
 
-		/*
-		 * Esto se cambia, lo pongo asi para ir haciendo lo demas y despues tratar las
-		 * excepciones todas juntas. Para mi si quiere convertir un disp que no tiene
-		 * deber�a tirar excepcion, pero es charlable
-		 */
-
 		else
-			throw new RuntimeException();
+
+			throw new NoTieneDispositivoException("No se encuentra en posesion del dispositivo que intenta adaptar");
 	}
 
 	public boolean tieneDispositivo(DispositivoEstandar disp) {
@@ -128,9 +125,14 @@ public class Cliente {
 		dispositivosEstandar.add(disp);
 	}
 
-	public void usarDispositivo(DispositivoEstandar dispositivo, int cantHorasEstimativa) {
+	public void usarDispositivo(DispositivoEstandar dispositivo, int cantHorasEstimativa) throws NoTieneDispositivoException {
 
-		dispositivo.serUsado(cantHorasEstimativa);
+		if (this.tieneDispositivo(dispositivo) ) {
+			
+			dispositivo.serUsado(cantHorasEstimativa);
+		}
+		
+		else throw new NoTieneDispositivoException("No posee el dispositivo indicado");
 	}
 
 	public double consumoEnergeticoTotal() {

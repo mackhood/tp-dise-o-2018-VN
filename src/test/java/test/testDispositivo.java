@@ -5,7 +5,7 @@ import dominio.consultores.ConsultaConsumoUltimasNHoras;
 //import dominio.consultores.ConsultaEstaApagado;
 //import dominio.consultores.ConsultaEstaEncendido;
 import dominio.dispositivo.*;
-
+import dominio.entities.NoTieneDispositivoException;
 import dominio.regla.Regla;
 import dominio.sensor.*;
 import dominio.usuario.Cliente;
@@ -155,7 +155,7 @@ public class testDispositivo {
 	}
 
 	@Test
-	public void testDETUsadoPor90HorasConsumoUltimas3Horas() {
+	public void testDETUsadoPor90HorasConsumoUltimas3Horas() throws NoTieneDispositivoException {
 		unDE.serUsado(1);
 		DispositivoEstandarInteligente unDET = new DispositivoEstandarInteligente(unDE);
 		unCliente.agregarModuloAdaptador(moduloAdaptador, unDE);

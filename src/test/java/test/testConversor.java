@@ -3,6 +3,7 @@ package test;
 import dominio.dispositivo.Conversor;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
+import dominio.entities.NoTieneDispositivoException;
 import dominio.usuario.Cliente;
 import dominio.usuario.Domicilio;
 import dominio.usuario.ID;
@@ -38,7 +39,7 @@ public class testConversor {
 
 	@Test
 
-	public void testConvertidorInteligente() {
+	public void testConvertidorInteligente() throws NoTieneDispositivoException {
 		
 		unMockCliente.agregarModuloAdaptador(conversor, dispositivoEstandar);
 		assertTrue(!unMockCliente.getDispositivosInteligentes().isEmpty());
