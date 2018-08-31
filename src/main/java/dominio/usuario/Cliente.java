@@ -155,7 +155,7 @@ public class Cliente {
 
 	public String nombreCategoria() {
 
-		return this.categoria.getNombreCategoria();
+		return this.categoria.getNombre();
 	}
 
 	public String nombre() {

@@ -9,9 +9,9 @@ public class Categoria {
 	private Double cargoFijo;
 	private Double cargoVariable;
 
-	public Categoria(String nombreCategoria, Integer consumoMinimo, Integer consumoMaximo, Double cargoFijo,
+	public Categoria(String nombre, Integer consumoMinimo, Integer consumoMaximo, Double cargoFijo,
 			Double cargoVariable) {
-		this.nombre = nombreCategoria;
+		this.nombre = nombre;
 		this.consumoMinimo = consumoMinimo;
 		this.consumoMaximo = consumoMaximo;
 		this.cargoFijo = cargoFijo;
@@ -37,8 +37,7 @@ public class Categoria {
 		return this.getCargoFijo() + this.getCargoVariable() * cliente.consumoEnergeticoTotal();
 	}
 
-	public String getNombreCategoria() {
+	public String getNombre() {
 		return this.nombre;
 	}
-
 }

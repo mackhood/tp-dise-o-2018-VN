@@ -135,7 +135,7 @@ public class testCliente {
 
 		Categoria unaCategoriaMockSeteada = mock(Categoria.class);
 
-		when(unaCategoriaMockSeteada.getNombreCategoria()).thenReturn("CategoriaR1");
+		when(unaCategoriaMockSeteada.getNombre()).thenReturn("CategoriaR1");
 		unClienteConDEyDI.setCategoria(unaCategoriaMockSeteada);
 
 		assertEquals("CategoriaR1", unClienteConDEyDI.nombreCategoria());
@@ -144,7 +144,7 @@ public class testCliente {
 
 		when(asignadorMock.getObtenerCategoriasDelRepositorio()).thenReturn(listaCategoriaMock);
 
-		when(categoriaMocktest1.getNombreCategoria()).thenReturn("CategoriaR2");
+		when(categoriaMocktest1.getNombre()).thenReturn("CategoriaR2");
 
 		asignadorMock.actualizarPara(unClienteConDEyDI);
 		assertEquals("CategoriaR2", unClienteConDEyDI.nombreCategoria());
