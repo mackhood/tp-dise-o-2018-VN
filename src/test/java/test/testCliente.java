@@ -81,7 +81,7 @@ public class testCliente {
 
 		// Siguientes lineas Utilizadas para test de actualizar categoria y gastos
 		// aproximados.
-		asignadorMock = mock(AsignadorDeCategoria.class, Mockito.CALLS_REAL_METHODS);
+		//asignadorMock = mock(AsignadorDeCategoria.class, Mockito.CALLS_REAL_METHODS);
 		categoriaMocktest1 = mock(Categoria.class);
 		categoriaMocktest2 = mock(Categoria.class);
 
@@ -92,6 +92,12 @@ public class testCliente {
 
 		listaCategoriaMock.add(categoriaMocktest1);
 		listaCategoriaMock.add(categoriaMocktest2);
+
+
+		asignadorMock = mock(AsignadorDeCategoria.class);
+
+
+
 	}
 
 	@Test
@@ -141,14 +147,12 @@ public class testCliente {
 
 		assertEquals("CategoriaR1", unClienteConDEyDI.nombreCategoria());
 
-		AsignadorDeCategoria asignadorMock = mock(AsignadorDeCategoria.class, Mockito.CALLS_REAL_METHODS);
+        when(asignadorMock.getObtenerCategoriasDelRepositorio()).thenReturn(listaCategoriaMock);
+        when(categoriaMocktest1.getNombre()).thenReturn("CategoriaR2");
+        when(asignadorMock.definirCategoriaPara(unClienteConDEyDI)).thenCallRealMethod();
+        when(asignadorMock.categoriaCliente(unClienteConDEyDI,listaCategoriaMock)).thenCallRealMethod();
 
-		when(asignadorMock.getObtenerCategoriasDelRepositorio()).thenReturn(listaCategoriaMock);
-
-		when(categoriaMocktest1.getNombre()).thenReturn("CategoriaR2");
-
-		asignadorMock.actualizarPara(unClienteConDEyDI);
-		assertEquals("CategoriaR2", unClienteConDEyDI.nombreCategoria());
+		assertEquals("CategoriaR2", asignadorMock.definirCategoriaPara(unClienteConDEyDI).getNombre());
 
 	}
 
@@ -157,29 +161,29 @@ public class testCliente {
 
 		// Cargofijo=35.32
 		// CargoVariable=0.644
-		// ConsumoCliente=51.0
-		// 35.32+0.644*51.0= 68.164
+		// ConsumoCliente=151.0
+		// 35.32+0.644*151.0= 132.564
 
-		AsignadorDeCategoria asignadorSpy = spy(new AsignadorDeCategoria());
+        when(asignadorMock.getObtenerCategoriasDelRepositorio()).thenReturn(listaCategoriaMock);
+        when(categoriaMocktest1.getNombre()).thenReturn("CategoriaR2");
+        when(asignadorMock.definirCategoriaPara(unClienteConDEyDI)).thenCallRealMethod();
+        when(asignadorMock.categoriaCliente(unClienteConDEyDI,listaCategoriaMock)).thenCallRealMethod();
 
 		when(categoriaMocktest1.getCargoVariable()).thenReturn(0.644);
+
+
+        asignadorMock.definirCategoriaPara(unClienteConDEyDI);
+
 		double gasto = 35.32 + categoriaMocktest1.getCargoVariable() * unClienteConDEyDI.consumoEnergeticoTotal();
-
-		// this.getObtenerRepositorio().obtenerCategorias()
-		// when(asignadorSpy.getObtenerRepositorio()).thenReturn((RepositorioCategoria)
-		// listaCategoriaMock);
-
-		when(asignadorSpy.getObtenerCategoriasDelRepositorio()).thenReturn(listaCategoriaMock);
 
 		when(categoriaMocktest1.calcularCostosPara(unClienteConDEyDI)).thenReturn(gasto);
 
-		asignadorSpy.actualizarPara(unClienteConDEyDI);
-
+	    unClienteConDEyDI.setCategoria(asignadorMock.definirCategoriaPara(unClienteConDEyDI));
 		unClienteConDEyDI.obtenerGastosAproximados();
 
 		verify(categoriaMocktest1).calcularCostosPara(unClienteConDEyDI);
 
-		assertEquals(68.164, unClienteConDEyDI.obtenerGastosAproximados());
+		assertEquals(132.564, unClienteConDEyDI.obtenerGastosAproximados());
 
 	}
 }
