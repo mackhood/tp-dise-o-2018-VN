@@ -25,7 +25,9 @@ public class testCliente {
 	private Cliente unClienteConDEyDI;
 	private Cliente unClienteSinDEyConDI;
 	private Dispositivo otroDispositivo;
-
+	
+	private Conversor moduloAdaptador;
+	
 	private DispositivoEstandar unDE;
 	private DispositivoInteligente unDIApagado;
 	private DispositivoInteligente unDIEncendido;
@@ -45,7 +47,8 @@ public class testCliente {
 		unDispositivoEncendido = mock(DispositivoEstandar.class);
 		unDispositivoApagado = mock(DispositivoEstandar.class);
 		otroDispositivo = mock(Dispositivo.class);
-
+		moduloAdaptador = new Conversor();
+		
 		unDE = new DispositivoEstandar.DispositivoEstandarBuilder("a1").consumoEstimadoPorHora((double) 30).build();
 		unDIApagado = new DispositivoInteligente("da", 500);
 		unDIEncendido = new DispositivoInteligente("AireAcondicionado", 100);
@@ -97,7 +100,7 @@ public class testCliente {
 
 	@Test
 	public void testPuntosAcumuladorDespuesDeAgregarAdaptadorAUnDE() {
-		unClienteConDEyDI.agregarModuloAdaptador(unDE);
+		unClienteConDEyDI.agregarModuloAdaptador(moduloAdaptador,unDE);
 		assertEquals(40.0, unClienteConDEyDI.puntosAcumulados());
 	}
 

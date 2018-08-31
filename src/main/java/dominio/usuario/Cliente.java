@@ -1,7 +1,7 @@
 package dominio.usuario;
 
 import dominio.categoria.Categoria;
-import dominio.dispositivo.Convertidor;
+import dominio.dispositivo.Conversor;
 import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
@@ -27,7 +27,7 @@ public class Cliente {
 	private String password;
 	private List<DispositivoEstandar> dispositivosEstandar = new ArrayList<>();
 	private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
-	private Simplex resolvedor;
+	private Simplex solver;
 	private Ubicacion ubicacion;
 
 	private boolean ahorroAutomatico = false;
@@ -44,7 +44,7 @@ public class Cliente {
 		this.dispositivosEstandar = estandares;
 		this.dispositivosInteligentes = inteligentes;
 		this.fechaDeAlta = LocalDate.now();
-		this.resolvedor = new Simplex();
+		this.solver = new Simplex();
 	}
 
 	public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
@@ -59,7 +59,7 @@ public class Cliente {
 		// this.dispositivosEstandar = dispEstandar;
 		// this.dispositivosInteligentes = dispInteligentes;
 		this.fechaDeAlta = LocalDate.now();
-		this.resolvedor = new Simplex();
+		this.solver = new Simplex();
 		this.ubicacion = ubicacion;
 	}
 
@@ -76,13 +76,11 @@ public class Cliente {
 		return todos;
 	}
 
-	public void agregarModuloAdaptador(DispositivoEstandar disp) {
+	public void agregarModuloAdaptador(Conversor conversor, DispositivoEstandar disp) {
 
 		if (this.tieneDispositivo(disp)) {
 
-			Convertidor convertidor = new Convertidor();
-
-			convertidor.convertirInteligente(this, disp);
+			conversor.convertirInteligente(this, disp);
 		}
 
 		/*
@@ -177,17 +175,17 @@ public class Cliente {
 	}
 
 	public double horasTotalesConsumidasPorLosDispositivos() {
-		this.resolvedor.execute(this.todosLosDispositivos());
-		return resolvedor.getResultadoFuncionEconomica();
+		this.solver.execute(this.todosLosDispositivos());
+		return solver.getResultadoFuncionEconomica();
 	}
 
 	public double[] horasMaximasDeConsumoPorDispositivo() {
-		this.resolvedor.execute(this.todosLosDispositivos());
-		return resolvedor.getHorasMaximasDispositivo();
+		this.solver.execute(this.todosLosDispositivos());
+		return solver.getHorasMaximasDispositivo();
 	}
 
 	public boolean esHogarEficiente() {
-		return this.consumoEnergeticoTotal() < resolvedor.getResultadoFuncionEconomica();
+		return this.consumoEnergeticoTotal() < solver.getResultadoFuncionEconomica();
 	}
 
 	public void conectarseTransformadorCercano(ZonaGeografica zona) {

@@ -4,7 +4,7 @@ import dominio.usuario.Cliente;
 
 import java.util.List;
 
-public class Convertidor {
+public class Conversor {
 
 	public void convertirInteligente(Cliente cliente, DispositivoEstandar dispositivoBasico) {
 

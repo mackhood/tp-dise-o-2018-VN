@@ -49,7 +49,7 @@ public class testDispositivo {
 	private Medicion medicionHayMovimiento;
 
 	private Cliente unCliente;
-	private Convertidor moduloAdaptador;
+	private Conversor moduloAdaptador;
 
 	private Regla reglaParaEncenderAlAireAcondicionado;
 	CondicionPorIgual hayMovimiento;
@@ -66,6 +66,8 @@ public class testDispositivo {
 		unDIEncendido.setConsumoEstimadoPorHora(23);
 		unDIEncendido.setHorasDeUso(2);
 		unDIEncendido.encender();
+		
+		moduloAdaptador = new Conversor();
 
 		// unDIEncendido.serUsado(10);
 		List<DispositivoInteligente> listDispApagados = new ArrayList<>();
@@ -156,7 +158,7 @@ public class testDispositivo {
 	public void testDETUsadoPor90HorasConsumoUltimas3Horas() {
 		unDE.serUsado(1);
 		DispositivoEstandarInteligente unDET = new DispositivoEstandarInteligente(unDE);
-		unCliente.agregarModuloAdaptador(unDE);
+		unCliente.agregarModuloAdaptador(moduloAdaptador, unDE);
 		consultaConsumoUltimasNHoras = new ConsultaConsumoUltimasNHoras(unDET, 3);
 		assertEquals(300.0, consultaConsumoUltimasNHoras.consultar());
 	}
