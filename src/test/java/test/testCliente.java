@@ -26,12 +26,12 @@ public class testCliente {
 	private Cliente unClienteConDEyDI;
 	private Cliente unClienteSinDEyConDI;
 	private Dispositivo otroDispositivo;
-	
+	private  DispositivoInteligente unDIEncendido = new DispositivoInteligente();
 	private Conversor moduloAdaptador;
-	
+
 	private DispositivoEstandar unDE;
 	private DispositivoInteligente unDIApagado;
-	private DispositivoInteligente unDIEncendido;
+	//private final DispositivoInteligente unDIEncendido;
 	private DispositivoInteligente unDETransformado;
 
 	private SistemaInteligente unSI;
@@ -51,8 +51,9 @@ public class testCliente {
 		moduloAdaptador = new Conversor();
 		
 		unDE = new DispositivoEstandar.DispositivoEstandarBuilder("a1").consumoEstimadoPorHora((double) 30).build();
-		unDIApagado = new DispositivoInteligente("da", 500);
-		unDIEncendido = new DispositivoInteligente("AireAcondicionado", 100);
+		unDIApagado = new DispositivoInteligente.DispositivoInteligenteBuilder("da").consumoEstimadoPorHora((double) 500).build();
+		 unDIEncendido = new DispositivoInteligente.DispositivoInteligenteBuilder("AireAcondicionado").consumoEstimadoPorHora((double) 100).build();
+
 		unDIEncendido.setHorasDeUso(1);
 		unDIEncendido.encender();
 

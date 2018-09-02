@@ -61,8 +61,8 @@ public class testDispositivo {
 	public void setUp() {
 
 		unDE = new DispositivoEstandar.DispositivoEstandarBuilder("a1").consumoEstimadoPorHora((double) 300).build();
-		unDIApagado = new DispositivoInteligente("da", 500);
-		unDIEncendido = new DispositivoInteligente("AireAcondicionado", 100);
+		unDIEncendido = new DispositivoInteligente.DispositivoInteligenteBuilder("da").consumoEstimadoPorHora((double) 500).build();
+		unDIApagado = new DispositivoInteligente.DispositivoInteligenteBuilder("AireAcondicionado").consumoEstimadoPorHora((double) 100).build();
 		unDIEncendido.setConsumoEstimadoPorHora(23);
 		unDIEncendido.setHorasDeUso(2);
 		unDIEncendido.encender();
@@ -96,7 +96,7 @@ public class testDispositivo {
 		ordenSubirIntensidad = new OrdenSubirIntensidad(listDispEncendidos);
 
 		// Para probar la regla para encender el aire acondicionado
-		unDIAireApagado = new DispositivoInteligente("AireAcondicionado", 50);
+		unDIAireApagado = new DispositivoInteligente.DispositivoInteligenteBuilder("AireAcondicionado").consumoEstimadoPorHora((double) 50).build();
 		listaInteligentesTestRegla.add(unDIAireApagado);
 		ordenEncenderDITestRegla = new OrdenEncenderDI(listaInteligentesTestRegla);
 		List<Condicion> listaCondicionesACumplir = new ArrayList<>();

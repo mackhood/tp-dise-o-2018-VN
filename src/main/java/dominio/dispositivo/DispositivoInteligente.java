@@ -1,13 +1,49 @@
 package dominio.dispositivo;
 
+import com.sun.prism.shader.DrawSemiRoundRect_ImagePattern_Loader;
+
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 public class DispositivoInteligente extends Dispositivo {
 
+	public  EstadoDispositivo estadoDispositivo;
+	public   LocalDateTime horaEncendido ;
+	public  LocalDateTime horaApagado ;
+
+
+
+	public DispositivoInteligente(DispositivoInteligenteBuilder builder) {
+		this.nombre = builder.nombre;
+		this.consumoEstimadoPorHora = builder.consumoEstimadoPorHora;
+		this.equipoConcreto = builder.equipoConcreto;
+		this.esBajoConsumo = builder.esBajoConsumo;
+		this.horasDeUso = builder.horasDeUso;
+		this.restriccionMinima = builder.restriccionMinima;
+		this.restriccionMaxima = builder.restriccionMaxima;
+		this.horasMaximaPorConsumo = builder.horasMaximaPorConsumo;
+		this.estadoDispositivo=builder.estadoDispositivo;
+		this.horaEncendido=builder.horaEncendido;
+		this.horaApagado=builder.horaApagado;
+
+
+
+
+
+	}
+
+	public DispositivoInteligente() {
+
+	}
+
+
+	/*
+
 	private EstadoDispositivo estadoDispositivo;
 	public LocalDateTime horaEncendido = null;
 	public LocalDateTime horaApagado = null;
+
+
 
 	public DispositivoInteligente(String nombre, double consumoEstimadoPorHora) {
 
@@ -48,7 +84,7 @@ public class DispositivoInteligente extends Dispositivo {
 		this.equipoConcreto = equipoConcreto;
 		this.esBajoConsumo = esBajoConsumo;
 	}
-
+	*/
 	public void setHoraEncendido(LocalDateTime horaEncendido) {
 		this.horaEncendido = horaEncendido;
 	}
@@ -162,4 +198,111 @@ public class DispositivoInteligente extends Dispositivo {
 	public int getPuntos() {
 		return 15;
 	}
+
+
+
+
+
+
+	public static class DispositivoInteligenteBuilder {
+
+
+
+		private EstadoDispositivo estadoDispositivo= new EstadoApagado();
+		private LocalDateTime horaEncendido = null;
+		private LocalDateTime horaApagado = null;
+		private  final String nombre;
+		private double consumoEstimadoPorHora;
+		private String equipoConcreto;
+		private boolean esBajoConsumo;
+		private double horasDeUso = 0;
+		private double restriccionMinima;
+		private double restriccionMaxima;
+		private double horasMaximaPorConsumo;
+
+
+
+		public DispositivoInteligenteBuilder  (String nombre) {
+			this.nombre = nombre;
+
+		}
+
+		public DispositivoInteligenteBuilder horaEncendido(LocalDateTime horaEncendido ) {
+
+			this.horaEncendido=horaEncendido;
+			return  this;
+
+		}
+
+		public DispositivoInteligenteBuilder horaApagado (LocalDateTime horaApagado){
+
+			this.horaApagado=horaApagado;
+			return this;
+		}
+
+		public DispositivoInteligenteBuilder estadoDispositivo (EstadoDispositivo estadoDispositivo){
+
+			this.estadoDispositivo=estadoDispositivo;
+			return this;
+
+		}
+
+
+		public DispositivoInteligenteBuilder consumoEstimadoPorHora(Double consumoEstimadoPorHora) {
+			this.consumoEstimadoPorHora = consumoEstimadoPorHora;
+			return this;
+		}
+
+		public DispositivoInteligenteBuilder equipoConcreto(String equipoConcreto) {
+			this.equipoConcreto = equipoConcreto;
+			return this;
+		}
+
+		public DispositivoInteligenteBuilder esBajoConsumo(Boolean esBajoConsumo) {
+			this.esBajoConsumo = esBajoConsumo;
+			return this;
+		}
+
+		public DispositivoInteligenteBuilder restriccionMinima(Double restriccionMinima) {
+			this.restriccionMinima = restriccionMinima;
+			return this;
+		}
+
+		public DispositivoInteligenteBuilder restriccionMaxima(Double restriccionMaxima) {
+			this.restriccionMaxima = restriccionMaxima;
+			return this;
+		}
+
+		public DispositivoInteligenteBuilder horasDeUso(Double horasDeUso) {
+			this.restriccionMaxima = horasDeUso;
+			return this;
+		}
+
+		public DispositivoInteligenteBuilder horasMaximaPorConsumo(Double horasMaximaPorConsumo) {
+			this.restriccionMaxima = horasMaximaPorConsumo;
+			return this;
+		}
+
+		public DispositivoInteligente build() {
+			return new DispositivoInteligente(this);
+		}
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+

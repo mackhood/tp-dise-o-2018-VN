@@ -12,14 +12,15 @@ public class RepositorioDispMinMax {
 	double[] coefsRestriccion;
 
 	public RepositorioDispMinMax() {
-		DispositivoInteligente aireAcondicionado = new DispositivoInteligente("aireAcondicionado", 90, 360);
-		DispositivoInteligente lampara = new DispositivoInteligente("lampara", 90, 360);
-		DispositivoInteligente televisor = new DispositivoInteligente("televisor", 90, 360);
-		DispositivoInteligente computadora = new DispositivoInteligente("computadora", 60, 360);
-		DispositivoInteligente lavarropas = new DispositivoInteligente("lavarropas", 6, 30);
-		DispositivoInteligente microondas = new DispositivoInteligente("microondas", 3, 15);
-		DispositivoInteligente plancha = new DispositivoInteligente("plancha", 3, 30);
-		DispositivoInteligente ventilador = new DispositivoInteligente("ventilador", 120, 360);
+		DispositivoInteligente aireAcondicionado = new DispositivoInteligente.DispositivoInteligenteBuilder("aireAcondicionado").restriccionMinima((double) 90).restriccionMinima((double) 360).build();
+		DispositivoInteligente lampara = new DispositivoInteligente.DispositivoInteligenteBuilder("lampara").restriccionMinima((double) 90).restriccionMinima((double) 360).build();
+		DispositivoInteligente televisor = new DispositivoInteligente.DispositivoInteligenteBuilder("televisor").restriccionMinima((double) 90).restriccionMinima((double) 360).build();
+		DispositivoInteligente computadora = new DispositivoInteligente.DispositivoInteligenteBuilder("computadora").restriccionMinima((double) 60).restriccionMinima((double) 360).build();
+		DispositivoInteligente lavarropas = new DispositivoInteligente.DispositivoInteligenteBuilder("lavarropas").restriccionMinima((double) 6).restriccionMinima((double) 30).build();
+		DispositivoInteligente microondas = new DispositivoInteligente.DispositivoInteligenteBuilder("microondas").restriccionMinima((double) 3).restriccionMinima((double) 15).build();
+		DispositivoInteligente plancha = new DispositivoInteligente.DispositivoInteligenteBuilder("plancha").restriccionMinima((double) 3).restriccionMinima((double) 30).build();
+		DispositivoInteligente ventilador = new DispositivoInteligente.DispositivoInteligenteBuilder("ventilador").restriccionMinima((double) 120).restriccionMinima((double) 360).build();
+
 
 		dispositivos.add(aireAcondicionado);
 		dispositivos.add(lampara);

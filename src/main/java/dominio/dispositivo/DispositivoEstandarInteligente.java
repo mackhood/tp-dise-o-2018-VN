@@ -1,11 +1,17 @@
 package dominio.dispositivo;
 
+import javax.swing.plaf.DimensionUIResource;
+
 public class DispositivoEstandarInteligente extends DispositivoInteligente {
 
 	DispositivoEstandar dispositivoEstandar;
 
-	public DispositivoEstandarInteligente(DispositivoEstandar dispositivoEstandar) {
-		super(dispositivoEstandar.getNombre(), dispositivoEstandar.getConsumoEstimadoPorHora());
+
+	public DispositivoEstandarInteligente(DispositivoEstandar dispositivoEstandar ) {
+		super();
+
+		this.nombre=dispositivoEstandar.getNombre();
+		this.consumoEstimadoPorHora=dispositivoEstandar.consumoEstimadoPorHora();
 		this.dispositivoEstandar = dispositivoEstandar;
 		this.horasDeUso = dispositivoEstandar.getHorasDeUso();
 	}
