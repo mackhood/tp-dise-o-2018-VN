@@ -17,9 +17,11 @@ public class DispositivoInteligente extends Dispositivo {
 		this.horasDeUso = builder.horasDeUso;
 		this.restriccionMinima = builder.restriccionMinima;
 		this.restriccionMaxima = builder.restriccionMaxima;
+		this.horasMaximaPorConsumo = builder.horasMaximaPorConsumo;
 		this.estadoDispositivo = builder.estadoDispositivo;
 		this.horaEncendido = builder.horaEncendido;
 		this.horaApagado = builder.horaApagado;
+
 	}
 
 	public DispositivoInteligente() {
@@ -50,7 +52,7 @@ public class DispositivoInteligente extends Dispositivo {
 
 		return consumoEstimadoPorHora;
 	}
-
+	
 	public void setHorasDeUso(double horas) {
 
 		this.horasDeUso = horas;
@@ -131,6 +133,7 @@ public class DispositivoInteligente extends Dispositivo {
 		private double horasDeUso = 0;
 		private double restriccionMinima;
 		private double restriccionMaxima;
+		private double horasMaximaPorConsumo;
 
 		public DispositivoInteligenteBuilder(String nombre) {
 			this.nombre = nombre;
@@ -184,6 +187,11 @@ public class DispositivoInteligente extends Dispositivo {
 
 		public DispositivoInteligenteBuilder horasDeUso(Double horasDeUso) {
 			this.restriccionMaxima = horasDeUso;
+			return this;
+		}
+
+		public DispositivoInteligenteBuilder horasMaximaPorConsumo(Double horasMaximaPorConsumo) {
+			this.restriccionMaxima = horasMaximaPorConsumo;
 			return this;
 		}
 
