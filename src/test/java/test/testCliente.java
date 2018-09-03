@@ -7,6 +7,7 @@ import dominio.usuario.Cliente;
 import dominio.usuario.Domicilio;
 import dominio.usuario.ID;
 import dominio.usuario.TiposId;
+import net.bytebuddy.asm.Advice.Thrown;
 import dominio.entities.NoTieneDispositivoException;
 import dominio.entities.ProcessingDataFailedException;
 import org.junit.Before;
@@ -26,12 +27,12 @@ public class testCliente {
 	private Cliente unClienteConDEyDI;
 	private Cliente unClienteSinDEyConDI;
 	private Dispositivo otroDispositivo;
-	private  DispositivoInteligente unDIEncendido = new DispositivoInteligente();
+	private DispositivoInteligente unDIEncendido = new DispositivoInteligente();
 	private Conversor moduloAdaptador;
 
 	private DispositivoEstandar unDE;
 	private DispositivoInteligente unDIApagado;
-	//private final DispositivoInteligente unDIEncendido;
+	// private final DispositivoInteligente unDIEncendido;
 	private DispositivoInteligente unDETransformado;
 
 	private SistemaInteligente unSI;
@@ -49,10 +50,12 @@ public class testCliente {
 		unDispositivoApagado = mock(DispositivoEstandar.class);
 		otroDispositivo = mock(Dispositivo.class);
 		moduloAdaptador = new Conversor();
-		
+
 		unDE = new DispositivoEstandar.DispositivoEstandarBuilder("a1").consumoEstimadoPorHora((double) 30).build();
-		unDIApagado = new DispositivoInteligente.DispositivoInteligenteBuilder("da").consumoEstimadoPorHora((double) 500).build();
-		 unDIEncendido = new DispositivoInteligente.DispositivoInteligenteBuilder("AireAcondicionado").consumoEstimadoPorHora((double) 100).build();
+		unDIApagado = new DispositivoInteligente.DispositivoInteligenteBuilder("da")
+				.consumoEstimadoPorHora((double) 500).build();
+		unDIEncendido = new DispositivoInteligente.DispositivoInteligenteBuilder("AireAcondicionado")
+				.consumoEstimadoPorHora((double) 100).build();
 
 		unDIEncendido.setHorasDeUso(1);
 		unDIEncendido.encender();
@@ -82,7 +85,7 @@ public class testCliente {
 
 		// Siguientes lineas Utilizadas para test de actualizar categoria y gastos
 		// aproximados.
-		//asignadorMock = mock(AsignadorDeCategoria.class, Mockito.CALLS_REAL_METHODS);
+		// asignadorMock = mock(AsignadorDeCategoria.class, Mockito.CALLS_REAL_METHODS);
 		categoriaMocktest1 = mock(Categoria.class);
 		categoriaMocktest2 = mock(Categoria.class);
 
@@ -94,10 +97,7 @@ public class testCliente {
 		listaCategoriaMock.add(categoriaMocktest1);
 		listaCategoriaMock.add(categoriaMocktest2);
 
-
 		asignadorMock = mock(AsignadorDeCategoria.class);
-
-
 
 	}
 
@@ -106,9 +106,19 @@ public class testCliente {
 		assertEquals(30.0, unClienteConDEyDI.puntosAcumulados());
 	}
 
+	@Test(expected = NoTieneDispositivoException.class)
+	public void testNoPuedeAgregarModulo() throws NoTieneDispositivoException {
+		unClienteSinDEyConDI.agregarModuloAdaptador(moduloAdaptador, unDE);
+	}
+
+	@Test(expected = NoTieneDispositivoException.class)
+	public void testNoPuedeUsarDipositivoQueNoTiene() throws NoTieneDispositivoException {
+		unClienteSinDEyConDI.usarDispositivo(unDE, 5);
+	}
+
 	@Test
 	public void testPuntosAcumuladorDespuesDeAgregarAdaptadorAUnDE() throws NoTieneDispositivoException {
-		unClienteConDEyDI.agregarModuloAdaptador(moduloAdaptador,unDE);
+		unClienteConDEyDI.agregarModuloAdaptador(moduloAdaptador, unDE);
 		assertEquals(40.0, unClienteConDEyDI.puntosAcumulados());
 	}
 
@@ -148,10 +158,10 @@ public class testCliente {
 
 		assertEquals("CategoriaR1", unClienteConDEyDI.nombreCategoria());
 
-        when(asignadorMock.getObtenerCategoriasDelRepositorio()).thenReturn(listaCategoriaMock);
-        when(categoriaMocktest1.getNombre()).thenReturn("CategoriaR2");
-        when(asignadorMock.definirCategoriaPara(unClienteConDEyDI)).thenCallRealMethod();
-        when(asignadorMock.categoriaCliente(unClienteConDEyDI,listaCategoriaMock)).thenCallRealMethod();
+		when(asignadorMock.getObtenerCategoriasDelRepositorio()).thenReturn(listaCategoriaMock);
+		when(categoriaMocktest1.getNombre()).thenReturn("CategoriaR2");
+		when(asignadorMock.definirCategoriaPara(unClienteConDEyDI)).thenCallRealMethod();
+		when(asignadorMock.categoriaCliente(unClienteConDEyDI, listaCategoriaMock)).thenCallRealMethod();
 
 		assertEquals("CategoriaR2", asignadorMock.definirCategoriaPara(unClienteConDEyDI).getNombre());
 
@@ -165,21 +175,20 @@ public class testCliente {
 		// ConsumoCliente=151.0
 		// 35.32+0.644*151.0= 132.564
 
-        when(asignadorMock.getObtenerCategoriasDelRepositorio()).thenReturn(listaCategoriaMock);
-        when(categoriaMocktest1.getNombre()).thenReturn("CategoriaR2");
-        when(asignadorMock.definirCategoriaPara(unClienteConDEyDI)).thenCallRealMethod();
-        when(asignadorMock.categoriaCliente(unClienteConDEyDI,listaCategoriaMock)).thenCallRealMethod();
+		when(asignadorMock.getObtenerCategoriasDelRepositorio()).thenReturn(listaCategoriaMock);
+		when(categoriaMocktest1.getNombre()).thenReturn("CategoriaR2");
+		when(asignadorMock.definirCategoriaPara(unClienteConDEyDI)).thenCallRealMethod();
+		when(asignadorMock.categoriaCliente(unClienteConDEyDI, listaCategoriaMock)).thenCallRealMethod();
 
 		when(categoriaMocktest1.getCargoVariable()).thenReturn(0.644);
 
-
-        asignadorMock.definirCategoriaPara(unClienteConDEyDI);
+		asignadorMock.definirCategoriaPara(unClienteConDEyDI);
 
 		double gasto = 35.32 + categoriaMocktest1.getCargoVariable() * unClienteConDEyDI.consumoEnergeticoTotal();
 
 		when(categoriaMocktest1.calcularCostosPara(unClienteConDEyDI)).thenReturn(gasto);
 
-	    unClienteConDEyDI.setCategoria(asignadorMock.definirCategoriaPara(unClienteConDEyDI));
+		unClienteConDEyDI.setCategoria(asignadorMock.definirCategoriaPara(unClienteConDEyDI));
 		unClienteConDEyDI.obtenerGastosAproximados();
 
 		verify(categoriaMocktest1).calcularCostosPara(unClienteConDEyDI);

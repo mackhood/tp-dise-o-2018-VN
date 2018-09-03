@@ -1,6 +1,6 @@
 package dominio.entities;
 
-public class NoTieneDispositivoException extends Exception {
+public class NoTieneDispositivoException extends RuntimeException {
 
 	public NoTieneDispositivoException(String msg) {
 		
