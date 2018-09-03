@@ -41,9 +41,10 @@ public class testDispositivo {
 	private OrdenPonerModoAhorro ordenPonerModoAhorro;
 	private OrdenSubirIntensidad ordenSubirIntensidad;
 	private OrdenEncenderDI ordenEncenderDITestRegla;
-
+	private OrdenApagarDI ordenApagarDITestRegla;
 	private Regla reglaParaAumentarIntensidadAlAireAcondicionado;
 	private Sensor sensorTemperaturaMayor30;
+	private Sensor sensorTemperaturaMenorA20;
 	private Sensor sensorMovimiento;
 	private Medicion medicion32Grados;
 	private Medicion medicionHayMovimiento;
@@ -52,7 +53,9 @@ public class testDispositivo {
 	private Conversor moduloAdaptador;
 
 	private Regla reglaParaEncenderAlAireAcondicionado;
+	private Regla reglaParaApagarAlAireAcondicionado;
 	CondicionPorIgual hayMovimiento;
+	CondicionPorMenor menorA20;
 	CondicionPorMayor mayorA30;
 	DispositivoInteligente unDIAireApagado;
 	List<DispositivoInteligente> listaInteligentesTestRegla = new ArrayList<>();
@@ -100,6 +103,7 @@ public class testDispositivo {
 		listaInteligentesTestRegla.add(unDIAireApagado);
 		ordenEncenderDITestRegla = new OrdenEncenderDI(listaInteligentesTestRegla);
 		List<Condicion> listaCondicionesACumplir = new ArrayList<>();
+		reglaParaApagarAlAireAcondicionado = new Regla(ordenApagarDITestRegla,listaCondicionesACumplir);
 		reglaParaEncenderAlAireAcondicionado = new Regla(ordenEncenderDITestRegla, listaCondicionesACumplir);
 		mayorA30 = new CondicionPorMayor(reglaParaEncenderAlAireAcondicionado, 30, "Temperatura");
 		hayMovimiento = new CondicionPorIgual(reglaParaEncenderAlAireAcondicionado, 1, "Movimiento");
@@ -110,6 +114,9 @@ public class testDispositivo {
 		medicion32Grados = new Medicion(32, "Temperatura");
 		medicionHayMovimiento = new Medicion(1, "Movimiento");
 		unDIEncendido.setConsumoEstimadoPorHora(100);
+		
+		sensorTemperaturaMenorA20 = new Sensor(reglaParaApagarAlAireAcondicionado);
+		menorA20 = new CondicionPorMenor(reglaParaApagarAlAireAcondicionado, 20, "Temperatura");
 	}
 
 	@Test
@@ -118,7 +125,25 @@ public class testDispositivo {
 		sensorMovimiento.recibirMedicion(medicionHayMovimiento);
 		Assert.assertEquals(true, unDIAireApagado.estaEncendido());
 	}
-
+	
+	@Test
+	public void testCumpleCondicionPorMayor() {
+		sensorTemperaturaMayor30.recibirMedicion(new Medicion(41,"Temperatura"));
+		assertEquals(true,mayorA30.cumpleCondicion());
+	}
+	
+	@Test
+	public void testCumpleCondicionPorIgual() {
+		sensorMovimiento.recibirMedicion(new Medicion(1,"Movimiento"));
+		assertEquals(true,hayMovimiento.cumpleCondicion());
+	}
+	
+	@Test
+	public void testCumpleCondicionPorMenor() {
+		sensorTemperaturaMenorA20.recibirMedicion(new Medicion(4,"Temperatura"));
+		assertEquals(true,menorA20.cumpleCondicion());
+	}
+	
 	/*
 	 * En este test, quiero probar que al principio se cumplen ambas condiciones,
 	 * por lo que se ejecuta el actuador. Luego el sensor que verifica la
