@@ -58,8 +58,6 @@ public abstract class Dispositivo {
 		consumoEstimadoPorHora = consumoEstimadoPorHora + aumento;
 	}
 
-	public abstract boolean esInteligente();
-
 	public abstract int getPuntos();
 
 	public String getEquipoConcreto() {

@@ -26,17 +26,8 @@ public class DispositivoEstandar extends Dispositivo {
 		return nombre;
 	}
 
-	public void serUsado(double cantHorasEstimativa) {
-		horasDeUso = horasDeUso + cantHorasEstimativa;
-	}
-
 	public double getConsumoTotal() {
 		return this.consumoEstimadoPorHora * this.horasDeUso;
-	}
-
-	@Override
-	public boolean esInteligente() {
-		return false;
 	}
 
 	public int getPuntos() {

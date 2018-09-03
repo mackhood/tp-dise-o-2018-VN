@@ -1,17 +1,13 @@
 package dominio.dispositivo;
 
-import com.sun.prism.shader.DrawSemiRoundRect_ImagePattern_Loader;
-
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 public class DispositivoInteligente extends Dispositivo {
 
-	public  EstadoDispositivo estadoDispositivo;
-	public   LocalDateTime horaEncendido ;
-	public  LocalDateTime horaApagado ;
-
-
+	public EstadoDispositivo estadoDispositivo;
+	public LocalDateTime horaEncendido;
+	public LocalDateTime horaApagado;
 
 	public DispositivoInteligente(DispositivoInteligenteBuilder builder) {
 		this.nombre = builder.nombre;
@@ -22,21 +18,15 @@ public class DispositivoInteligente extends Dispositivo {
 		this.restriccionMinima = builder.restriccionMinima;
 		this.restriccionMaxima = builder.restriccionMaxima;
 		this.horasMaximaPorConsumo = builder.horasMaximaPorConsumo;
-		this.estadoDispositivo=builder.estadoDispositivo;
-		this.horaEncendido=builder.horaEncendido;
-		this.horaApagado=builder.horaApagado;
-
-
-
-
+		this.estadoDispositivo = builder.estadoDispositivo;
+		this.horaEncendido = builder.horaEncendido;
+		this.horaApagado = builder.horaApagado;
 
 	}
 
 	public DispositivoInteligente() {
 
 	}
-
-
 
 	public void setHoraEncendido(LocalDateTime horaEncendido) {
 		this.horaEncendido = horaEncendido;
@@ -62,11 +52,7 @@ public class DispositivoInteligente extends Dispositivo {
 
 		return consumoEstimadoPorHora;
 	}
-
-	public boolean esCiertoEstado(EstadoDispositivo estadoCond) {
-		return estadoDispositivo.equals(estadoCond);
-	}
-
+	
 	public void setHorasDeUso(double horas) {
 
 		this.horasDeUso = horas;
@@ -98,8 +84,6 @@ public class DispositivoInteligente extends Dispositivo {
 		horasDeUso = horasDeUso + unHorario.until(otroHorario, ChronoUnit.HOURS);
 	}
 
-
-
 	public double consumoUltimasNHoras(double horas) {
 		if (horas > horasDeUso) {
 			return consumoEstimadoPorHora * horasDeUso;
@@ -111,11 +95,6 @@ public class DispositivoInteligente extends Dispositivo {
 	public void cambiarEstado(EstadoDispositivo estadoNuevo) {
 
 		estadoDispositivo = estadoNuevo;
-	}
-
-	public void ejecutar(DispositivoFisico dispositivoFisico) {
-
-		dispositivoFisico.ejecutar();
 	}
 
 	public void aumentarConsumoPor(double cantidad) {
@@ -133,11 +112,6 @@ public class DispositivoInteligente extends Dispositivo {
 		return horasDeUso * consumoEstimadoPorHora;
 	}
 
-	@Override
-	public boolean esInteligente() {
-		return true;
-	}
-
 	public boolean estaEnModoAhorro() {
 
 		return estadoDispositivo.estaEnModoAhorro();
@@ -147,19 +121,12 @@ public class DispositivoInteligente extends Dispositivo {
 		return 15;
 	}
 
-
-
-
-
-
 	public static class DispositivoInteligenteBuilder {
 
-
-
-		private EstadoDispositivo estadoDispositivo= new EstadoApagado();
+		private EstadoDispositivo estadoDispositivo = new EstadoApagado();
 		private LocalDateTime horaEncendido = null;
 		private LocalDateTime horaApagado = null;
-		private  final String nombre;
+		private final String nombre;
 		private double consumoEstimadoPorHora;
 		private String equipoConcreto;
 		private boolean esBajoConsumo;
@@ -168,33 +135,30 @@ public class DispositivoInteligente extends Dispositivo {
 		private double restriccionMaxima;
 		private double horasMaximaPorConsumo;
 
-
-
-		public DispositivoInteligenteBuilder  (String nombre) {
+		public DispositivoInteligenteBuilder(String nombre) {
 			this.nombre = nombre;
 
 		}
 
-		public DispositivoInteligenteBuilder horaEncendido(LocalDateTime horaEncendido ) {
+		public DispositivoInteligenteBuilder horaEncendido(LocalDateTime horaEncendido) {
 
-			this.horaEncendido=horaEncendido;
-			return  this;
-
-		}
-
-		public DispositivoInteligenteBuilder horaApagado (LocalDateTime horaApagado){
-
-			this.horaApagado=horaApagado;
-			return this;
-		}
-
-		public DispositivoInteligenteBuilder estadoDispositivo (EstadoDispositivo estadoDispositivo){
-
-			this.estadoDispositivo=estadoDispositivo;
+			this.horaEncendido = horaEncendido;
 			return this;
 
 		}
 
+		public DispositivoInteligenteBuilder horaApagado(LocalDateTime horaApagado) {
+
+			this.horaApagado = horaApagado;
+			return this;
+		}
+
+		public DispositivoInteligenteBuilder estadoDispositivo(EstadoDispositivo estadoDispositivo) {
+
+			this.estadoDispositivo = estadoDispositivo;
+			return this;
+
+		}
 
 		public DispositivoInteligenteBuilder consumoEstimadoPorHora(Double consumoEstimadoPorHora) {
 			this.consumoEstimadoPorHora = consumoEstimadoPorHora;
@@ -237,20 +201,4 @@ public class DispositivoInteligente extends Dispositivo {
 
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
-
-
-

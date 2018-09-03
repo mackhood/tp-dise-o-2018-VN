@@ -128,14 +128,16 @@ public class Cliente {
 		dispositivosEstandar.add(disp);
 	}
 
-	public void usarDispositivo(DispositivoEstandar dispositivo, int cantHorasEstimativa) throws NoTieneDispositivoException {
+	public void usarDispositivo(DispositivoEstandar dispositivo, int cantHorasEstimativa)
+			throws NoTieneDispositivoException {
 
-		if (this.tieneDispositivo(dispositivo) ) {
-			
+		if (this.tieneDispositivo(dispositivo)) {
+
 			dispositivo.serUsado(cantHorasEstimativa);
 		}
-		
-		else throw new NoTieneDispositivoException("No posee el dispositivo indicado");
+
+		else
+			throw new NoTieneDispositivoException("No posee el dispositivo indicado");
 	}
 
 	public double consumoEnergeticoTotal() {
@@ -196,7 +198,6 @@ public class Cliente {
 	public void conectarseTransformadorCercano(AsignadorDeZonaService asignadorDeZonaService) {
 
 		this.transformador = asignadorDeZonaService.buscarZonaCoberturaClienteYDevolverTransformador(this);
-
 
 	}
 
