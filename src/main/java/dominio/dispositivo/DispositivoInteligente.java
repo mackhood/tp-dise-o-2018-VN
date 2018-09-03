@@ -37,54 +37,7 @@ public class DispositivoInteligente extends Dispositivo {
 	}
 
 
-	/*
 
-	private EstadoDispositivo estadoDispositivo;
-	public LocalDateTime horaEncendido = null;
-	public LocalDateTime horaApagado = null;
-
-
-
-	public DispositivoInteligente(String nombre, double consumoEstimadoPorHora) {
-
-		this.nombre = nombre;
-		this.consumoEstimadoPorHora = consumoEstimadoPorHora;
-		estadoDispositivo = new EstadoApagado();
-	}
-
-	public DispositivoInteligente(String nombre, double restriccionMinima, double restriccionMaxima) {
-		this.nombre = nombre;
-		this.restriccionMinima = restriccionMinima;
-		this.restriccionMaxima = restriccionMaxima;
-	}
-
-	public DispositivoInteligente(String nombre, String equipoConcreto, boolean esBajoConsumo,
-			double consumoEstimadoPorHora, double restriccionMinima, double restriccionMaxima) {
-		this.nombre = nombre;
-		estadoDispositivo = new EstadoApagado();
-		this.equipoConcreto = equipoConcreto;
-		this.esBajoConsumo = esBajoConsumo;
-		this.consumoEstimadoPorHora = consumoEstimadoPorHora;
-		this.restriccionMinima = restriccionMinima;
-		this.restriccionMaxima = restriccionMaxima;
-	}
-
-	public DispositivoInteligente(String nombre, String equipoConcreto, boolean esBajoConsumo,
-			double consumoEstimadoPorHora) {
-		this.nombre = nombre;
-		estadoDispositivo = new EstadoApagado();
-		this.equipoConcreto = equipoConcreto;
-		this.esBajoConsumo = esBajoConsumo;
-		this.consumoEstimadoPorHora = consumoEstimadoPorHora;
-	}
-
-	public DispositivoInteligente(String nombre, String equipoConcreto, boolean esBajoConsumo) {
-		this.nombre = nombre;
-		estadoDispositivo = new EstadoApagado();
-		this.equipoConcreto = equipoConcreto;
-		this.esBajoConsumo = esBajoConsumo;
-	}
-	*/
 	public void setHoraEncendido(LocalDateTime horaEncendido) {
 		this.horaEncendido = horaEncendido;
 	}
@@ -145,12 +98,7 @@ public class DispositivoInteligente extends Dispositivo {
 		horasDeUso = horasDeUso + unHorario.until(otroHorario, ChronoUnit.HOURS);
 	}
 
-	/*
-	 * Para este metodo de abajo no se me ocurre otra idea que hacer varios if con
-	 * las distintas situaciones tipo si la hora de encendido y apagado estan antes
-	 * del intervalo de consulta, etc. Si alguien tiene una mejor idea u otra forma
-	 * de implementarlo buenisimo.
-	 */
+
 
 	public double consumoUltimasNHoras(double horas) {
 		if (horas > horasDeUso) {
