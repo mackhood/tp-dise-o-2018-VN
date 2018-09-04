@@ -5,10 +5,14 @@ import java.util.List;
 import dominio.dispositivo.DispositivoInteligente;
 
 public abstract class Actuador {
-	// Cada uno de los distintos Actuadores va a tener su propia logica a
-	// implementar en ejecutar
-	// El actuador sabe a que dispositivo tiene que afectar
-	// DispositivoInteligente dispInteligente = null;
+
+	/*
+	 * Cada uno de los distintos Actuadores va a tener su propia logica a /
+	 * implementar en ejecutar / El actuador sabe a que dispositivo tiene que
+	 * afectar
+	 */
+
+	DispositivoInteligente dispInteligente = null;
 
 	protected List<DispositivoInteligente> dispositivos;
 
