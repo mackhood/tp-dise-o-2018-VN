@@ -140,6 +140,7 @@ public class Cliente {
 			throw new NoTieneDispositivoException("No posee el dispositivo indicado");
 	}
 
+
 	public double consumoEnergeticoTotal() {
 
 		return todosLosDispositivos().stream().mapToDouble(disp -> disp.getConsumoTotal()).sum();
@@ -195,12 +196,6 @@ public class Cliente {
 		return this.consumoEnergeticoTotal() < solver.getResultadoFuncionEconomica();
 	}
 
-	public void conectarseTransformadorCercano(AsignadorDeZonaService asignadorDeZonaService) {
-
-		this.transformador = asignadorDeZonaService.buscarZonaCoberturaClienteYDevolverTransformador(this);
-
-	}
-
 	public Ubicacion getPosicion() {
 		return ubicacion;
 	}
@@ -209,5 +204,13 @@ public class Cliente {
 
 		dispositivosEstandar.remove(estandar);
 		return estandar;
+	}
+
+	public void setTransformador(Transformador transformador) {
+		this.transformador=transformador;
+	}
+
+	public Transformador getTransformador() {
+		return transformador;
 	}
 }
