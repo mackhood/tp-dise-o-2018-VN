@@ -52,9 +52,10 @@ public class ZonaGeografica {
 
 	}
 
-	public void conectarATransformadorCercano(Cliente cliente) {
+	public Transformador conectarATransformadorCercano(Cliente cliente) {
 		Transformador transformadorCercano = this.devolverTransformadorCercano(cliente.getPosicion());
 		transformadorCercano.agregarCliente(cliente);
+		return  transformadorCercano;
 
 	}
 

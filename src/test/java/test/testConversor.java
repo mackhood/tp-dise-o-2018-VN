@@ -43,6 +43,7 @@ public class testConversor {
 		
 		unMockCliente.agregarModuloAdaptador(conversor, dispositivoEstandar);
 		assertTrue(!unMockCliente.getDispositivosInteligentes().isEmpty());
+
 	}
 
 }

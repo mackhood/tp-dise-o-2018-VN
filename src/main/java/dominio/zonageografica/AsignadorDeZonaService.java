@@ -1,6 +1,5 @@
 package dominio.zonageografica;
 
-import dominio.transformador.Transformador;
 import dominio.usuario.Cliente;
 
 import java.util.ArrayList;
@@ -16,18 +15,24 @@ public class AsignadorDeZonaService {
         this.listaZonas = listaZonas;
 
     }
-    public void buscarZonaCoberturaClienteYDevolverZona(Cliente cliente){
-        Optional <ZonaGeografica> zonaParaCliente = Optional.of(listaZonas.stream().filter(zona-> zona.perteneceClienteAZona(cliente)).min(Comparator.comparingDouble(t -> t.distanciaACliente(cliente.getPosicion()))).get());
-        if (zonaParaCliente.isPresent()){
-                this.buscarTransformadorParaCliente(cliente,zonaParaCliente.get());
+    public void buscarZonaCoberturaClienteYDevolverZona(Cliente cliente) {
+
+        if(this.zonaCercanaParaCliente(cliente).isPresent()){
+            this.buscarTransformadorParaCliente(cliente,this.zonaCercanaParaCliente(cliente).get());
+
+
         }
         else{
-            System.out.println("no zona de servicio para cliente");
+            System.out.println("No existe zona para cliente");
         }
-    }
 
+    }
+    public Optional<ZonaGeografica> zonaCercanaParaCliente (Cliente cliente){
+        Optional <ZonaGeografica> zonaParaCliente = Optional.of(listaZonas.stream().filter(zona-> zona.perteneceClienteAZona(cliente)).min(Comparator.comparingDouble(t -> t.distanciaACliente(cliente.getPosicion()))).get());
+        return zonaParaCliente;
+     }
     private void buscarTransformadorParaCliente(Cliente cliente, ZonaGeografica zonaGeografica) {
-        zonaGeografica.conectarATransformadorCercano(cliente);
+        cliente.setTransformador(zonaGeografica.conectarATransformadorCercano(cliente));
     }
 
 }
