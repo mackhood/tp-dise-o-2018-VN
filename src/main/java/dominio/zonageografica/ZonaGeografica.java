@@ -43,9 +43,7 @@ public class ZonaGeografica {
 		return transformadores.stream().mapToDouble(transformador -> transformador.suministroActual()).sum();
 	}
 
-	public boolean energiaMayorA900() {
-		return this.consumoTotal() > 900;
-	}
+
 
 	public List<Transformador> getTransformadores() {
 		return transformadores;

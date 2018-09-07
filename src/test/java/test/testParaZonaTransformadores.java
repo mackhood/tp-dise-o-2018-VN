@@ -10,7 +10,10 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -92,14 +95,14 @@ public class testParaZonaTransformadores {
 	@Test
 	// tengo un problema con el equals (double,double) por eso cree este metodo
 	public void testConsumoTransformadorMayorA700() {
-		// assertEquals(750.0,transformador1_Zona1.energiaConsumidaClientes());
-		assertTrue(transformador1_Zona1.energiaMayorA700());
+		assertEquals(750.0,transformador1_Zona1.energiaConsumidaClientes());
+		//assertTrue(transformador1_Zona1.energiaMayorA700());
 	}
 
 	@Test
 	public void testConsumoTransformadorMenorA700() {
-		// assertEquals(750.0,transformador1_Zona1.energiaConsumidaClientes());
-		assertFalse(transformador2_Zona1.energiaMayorA700());
+		 assertEquals(750.0,transformador1_Zona1.energiaConsumidaClientes());
+		//assertFalse(transformador2_Zona1.energiaMayorA700());
 	}
 
 	@Test
@@ -107,7 +110,8 @@ public class testParaZonaTransformadores {
 		// assertEquals(transformador1_Zona1,zonaGeografica1.getTransformadores().get(0));
 
 		// Consumo transformador 1 = 750 + conssumo transformador 2 = 200 -> 950
-		assertTrue(zonaGeografica1.energiaMayorA900());
+		assertEquals(950.0,zonaGeografica1.consumoTotal());
+
 
 	}
 

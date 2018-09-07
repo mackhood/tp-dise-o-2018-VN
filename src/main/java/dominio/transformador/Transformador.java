@@ -53,10 +53,6 @@ public class Transformador {
 
 	}
 
-	public boolean energiaMayorA700() {
-
-		return this.energiaConsumidaClientes() > 700;
-	}
 
 	public void agregarCliente(Cliente cliente) {
 
