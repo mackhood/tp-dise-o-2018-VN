@@ -171,6 +171,35 @@ public class testDispositivo {
 		sensorTemperaturaMayor30.recibirMedicion(new Medicion(29, "Temperatura"));
 		Assert.assertEquals(false, unDIAireApagado.estaEncendido());
 	}
+	
+	@Test
+	public void testAgregarCondiciones() {
+		
+		List<Condicion> listaCondiciones = new ArrayList<>();
+		List<DispositivoInteligente> listaDisp = new ArrayList<>();
+		Regla reglaTest = new Regla(new OrdenPonerModoAhorro(listaDisp), listaCondiciones);
+		reglaTest.agregarCondicion(mayorA30);
+		reglaTest.agregarCondicion(hayMovimiento);
+		assertEquals(2,reglaTest.getCondicionesACumplir().size());
+	}
+	
+	@Test
+	public void testReglaSerNotificadaCumplenTodas() {
+		
+		sensorTemperaturaMayor30.recibirMedicion(new Medicion(41,"Temperatura"));
+		sensorMovimiento.recibirMedicion(new Medicion(1,"Movimiento"));
+		reglaParaEncenderAlAireAcondicionado.serNotificada();
+		Assert.assertEquals(true,unDIAireApagado.estaEncendido());
+	}
+	
+	@Test
+	public void testReglaSerNotificadaNoCumplenTodas() {
+		
+		sensorTemperaturaMayor30.recibirMedicion(new Medicion(19,"Temperatura"));
+		sensorMovimiento.recibirMedicion(new Medicion(1,"Movimiento"));
+		reglaParaEncenderAlAireAcondicionado.serNotificada();
+		Assert.assertEquals(false, unDIAireApagado.estaEncendido());
+	}
 
 	@Test
 	public void testConsumoDIEncendidoLuegoApagado() {
