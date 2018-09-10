@@ -37,9 +37,9 @@ public class Regla {
 		condicionesACumplir.add(unaCondicion);
 	}
 
-	public void serNotificadaPor(Condicion condicion) {
+	public void serNotificada() {
 
-		if (condicion.cumpleCondicion() && this.cumpleTodasLasCondiciones()) {
+		if (this.cumpleTodasLasCondiciones()) {
 
 			this.ejecutarActuador();
 		}
