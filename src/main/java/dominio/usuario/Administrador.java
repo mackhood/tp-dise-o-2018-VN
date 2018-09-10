@@ -1,9 +1,18 @@
 package dominio.usuario;
 
+import javax.persistence.Entity;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+
+
 
 public class Administrador {
+
+
+
 
 	private String nombre;
 	private String apellido;

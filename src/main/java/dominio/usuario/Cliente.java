@@ -1,5 +1,9 @@
 package dominio.usuario;
 
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+
 import dominio.categoria.Categoria;
 import dominio.dispositivo.Conversor;
 import dominio.dispositivo.Dispositivo;
@@ -16,22 +20,54 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dominio.zonageografica.ZonaGeografica;
+import org.hibernate.engine.internal.Cascade;
+
+import javax.persistence.*;
+
+
+@Entity
+@Table(name = "CLIENTE")
 
 public class Cliente {
 
+	@GeneratedValue
+	@Id
+	private Long id;
+
+	@Column(name = "NOMBRE", nullable = false, length = 100)
 	private String nombre;
+	@Column(length=50)
 	private String apellido;
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+
+
 	private ID identificacion;
 	private long telefono;
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Domicilio domicilio;
+
+
+
+
 	private LocalDate fechaDeAlta;
 	private Categoria categoria;
+	@Column(length=150)
 	private String username;
+	@Column(length=150)
 	private String password;
+
+	@ManyToMany(fetch = FetchType.LAZY)
 	private List<DispositivoEstandar> dispositivosEstandar = new ArrayList<>();
+
+	@ManyToMany(fetch = FetchType.LAZY)
 	private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
+
+	@Transient
 	private Simplex solver;
+	@ManyToMany(fetch = FetchType.EAGER)
 	private Ubicacion ubicacion;
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Transformador transformador;
 
 	private boolean ahorroAutomatico = false;

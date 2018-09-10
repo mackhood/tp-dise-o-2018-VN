@@ -4,15 +4,28 @@ import dominio.transformador.Transformador;
 import dominio.usuario.Cliente;
 import dominio.zonageografica.Ubicacion;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+
+
+@Entity
 public class ZonaGeografica {
 
+	@GeneratedValue
+	@Id
+	private Long id;
+
+
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	protected List<Transformador> transformadores = new ArrayList<>();
+	@Column(length=150)
 	private String descripcion;
 	private Double radio;
+
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private Ubicacion ubicacion;
 
 	public ZonaGeografica(String descripcion, List<Transformador> transformadores,Ubicacion ubicacion,Double radio) {

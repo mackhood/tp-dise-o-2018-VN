@@ -1,6 +1,17 @@
 package dominio.dispositivo;
 
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class DispositivoEstandar extends Dispositivo {
+
+	@GeneratedValue
+	@Id
+	private Long id;
+
 
 	private DispositivoEstandar(DispositivoEstandarBuilder builder) {
 		this.nombre = builder.nombre;
