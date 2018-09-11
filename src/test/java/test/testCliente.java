@@ -51,10 +51,10 @@ public class testCliente {
 		otroDispositivo = mock(Dispositivo.class);
 		moduloAdaptador = new Conversor();
 
-		unDE = new DispositivoEstandar.DispositivoEstandarBuilder("a1").consumoEstimadoPorHora((double) 30).build();
-		unDIApagado = new DispositivoInteligente.DispositivoInteligenteBuilder("da")
+		unDE = new DispositivoEstandar.DispositivoEstandarBuilder("televisor").equipoConcreto("Color de tubo fluorescente de 29 a 34").consumoEstimadoPorHora((double) 30).build();
+		unDIApagado = new DispositivoInteligente.DispositivoInteligenteBuilder("televisor").equipoConcreto("LED de 24")
 				.consumoEstimadoPorHora((double) 500).build();
-		unDIEncendido = new DispositivoInteligente.DispositivoInteligenteBuilder("AireAcondicionado")
+		unDIEncendido = new DispositivoInteligente.DispositivoInteligenteBuilder("aireAcondicionado").equipoConcreto("De 2200 frigorias")
 				.consumoEstimadoPorHora((double) 100).build();
 
 		unDIEncendido.setHorasDeUso(1);
@@ -105,6 +105,7 @@ public class testCliente {
 	public void testPuntosAcumuladosDespuesDeAgregar2DICliente() {
 		assertEquals(30.0, unClienteConDEyDI.puntosAcumulados());
 	}
+
 
 	@Test(expected = NoTieneDispositivoException.class)
 	public void testNoPuedeAgregarModulo() throws NoTieneDispositivoException {
@@ -196,4 +197,5 @@ public class testCliente {
 		assertEquals(132.564, unClienteConDEyDI.obtenerGastosAproximados());
 
 	}
+
 }

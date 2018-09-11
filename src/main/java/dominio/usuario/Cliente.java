@@ -10,17 +10,13 @@ import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.entities.NoTieneDispositivoException;
-import dominio.simplexserviceautomatic.Simplex;
+import dominio.simplexservice.Recomendacion;
 import dominio.transformador.Transformador;
-import dominio.zonageografica.AsignadorDeZonaService;
 import dominio.zonageografica.Ubicacion;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import dominio.zonageografica.ZonaGeografica;
-import org.hibernate.engine.internal.Cascade;
 
 import javax.persistence.*;
 
@@ -29,6 +25,7 @@ import javax.persistence.*;
 @Table(name = "CLIENTE")
 
 public class Cliente {
+	Recomendacion recomendacion;
 
 	@GeneratedValue
 	@Id
@@ -63,8 +60,6 @@ public class Cliente {
 	@ManyToMany(fetch = FetchType.LAZY)
 	private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
 
-	@Transient
-	private Simplex solver;
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Ubicacion ubicacion;
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -83,8 +78,8 @@ public class Cliente {
 		this.telefono = unTelefono;
 		this.dispositivosEstandar = estandares;
 		this.dispositivosInteligentes = inteligentes;
+		//recomendacion = new Recomendacion(this.todosLosDispositivos());
 		this.fechaDeAlta = LocalDate.now();
-		this.solver = new Simplex();
 	}
 
 	public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
@@ -99,8 +94,8 @@ public class Cliente {
 		// this.dispositivosEstandar = dispEstandar;
 		// this.dispositivosInteligentes = dispInteligentes;
 		this.fechaDeAlta = LocalDate.now();
-		this.solver = new Simplex();
 		this.ubicacion = ubicacion;
+		//recomendacion = new Recomendacion(this.todosLosDispositivos());
 	}
 
 	public double puntosAcumulados() {
@@ -113,6 +108,7 @@ public class Cliente {
 		List<Dispositivo> todos = new ArrayList<>();
 		todos.addAll(dispositivosInteligentes);
 		todos.addAll(dispositivosEstandar);
+		//todos.stream().forEach(dispositivo -> System.out.println(dispositivo.getNombre()));
 		return todos;
 	}
 
@@ -219,17 +215,16 @@ public class Cliente {
 	}
 
 	public double horasTotalesConsumidasPorLosDispositivos() {
-		this.solver.execute(this.todosLosDispositivos());
-		return solver.getResultadoFuncionEconomica();
+
+		return recomendacion.getResultadoDeLaFuncionEconomica();
 	}
 
 	public double[] horasMaximasDeConsumoPorDispositivo() {
-		this.solver.execute(this.todosLosDispositivos());
-		return solver.getHorasMaximasDispositivo();
+		return recomendacion.getHorasMaximaDeConsumoPorDispositivo();
 	}
 
 	public boolean esHogarEficiente() {
-		return this.consumoEnergeticoTotal() < solver.getResultadoFuncionEconomica();
+		return this.consumoEnergeticoTotal() < recomendacion.getResultadoDeLaFuncionEconomica();
 	}
 
 	public Ubicacion getPosicion() {
