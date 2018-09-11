@@ -3,7 +3,8 @@ package test;
 import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
-import dominio.simplexserviceautomatic.Simplex;
+import dominio.simplexservice.Recomendacion;
+import dominio.simplexservice.VectorSimplex;
 import dominio.usuario.Cliente;
 import dominio.usuario.Domicilio;
 import dominio.usuario.ID;
@@ -21,11 +22,12 @@ public class testSimplex {
 	DispositivoInteligente aireAcondicionado3500;
 	DispositivoInteligente lampara11W;
 	DispositivoEstandar lavarropas5kgAgua;
-	Simplex simplex;
 	Cliente unCliente;
 	List<Dispositivo> dispositivos = new ArrayList<>();
 	List<DispositivoInteligente> inteligentes = new ArrayList<>();
 	List<DispositivoEstandar> estandares = new ArrayList<>();
+	VectorSimplex vectorSimplex;
+	Recomendacion recomendacionParaAriel;
 
 	@Before
 	public void setUp() {
@@ -46,11 +48,30 @@ public class testSimplex {
 		dispositivos.add(aireAcondicionado3500);
 		dispositivos.add(lampara11W);
 		dispositivos.add(lavarropas5kgAgua);
-		simplex = new Simplex();
 
-		simplex.execute(unCliente.todosLosDispositivos());
+		recomendacionParaAriel = new Recomendacion(dispositivos);
+		vectorSimplex = new VectorSimplex(dispositivos);
 	}
 
+	@Test
+	public void testRecomendacionConsumoMaximoParaAriel()
+	{
+		for (int i = 0; i < recomendacionParaAriel.getHorasMaximaDeConsumoPorDispositivo().length; i++)
+		{
+			System.out.println(recomendacionParaAriel.getHorasMaximaDeConsumoPorDispositivo()[i]);
+		}
+	}
+
+	@Test
+	public void testValorFuncionEconomica()
+	{
+		System.out.println(recomendacionParaAriel.getResultadoDeLaFuncionEconomica());
+	}
+	@Test
+	public void testVectorSimplexCantidadDeElementos()
+	{
+		Assert.assertEquals(3,vectorSimplex.coefsResctriccionDeUnDispositivo(2).length);
+	}
 	@Test
 	public void testPrimerDispositivo() {
 		Assert.assertEquals("aireAcondicionado", unCliente.todosLosDispositivos().get(0).getNombre());
@@ -68,49 +89,26 @@ public class testSimplex {
 
 	@Test
 	public void testCoefAireAcondicionado3500() {
-		Assert.assertEquals(1.613, Repositorios.dispositivos.coefConsumokwh(aireAcondicionado3500), 0);
+		Assert.assertEquals(1.613, Repositorios.dispositivos.coefConsumoKwhDispositivo(aireAcondicionado3500), 0);
 	}
 
 	@Test
 	public void testCoefLampara11W() {
-		Assert.assertEquals(0.011, Repositorios.dispositivos.coefConsumokwh(lampara11W), 0);
-	}
-
-	@Test
-	public void testCoefDispositivos() {
-		Assert.assertEquals(0.011, Repositorios.dispositivos.coeficientesDeConsumoKwh(dispositivos)[1], 0);
-	}
-
-	@Test
-	public void testCoefsInecuacionesAireAcondicionado() {
-		Assert.assertEquals(1,
-				Repositorios.dispositivosMinmax.coefsResctriccionDeUnDispositivo(aireAcondicionado3500)[0], 0);
-	}
-
-	@Test
-	public void testSizeCoefsInecuacionesAireAcondicionado() {
-		Assert.assertEquals(8,
-				Repositorios.dispositivosMinmax.coefsResctriccionDeUnDispositivo(aireAcondicionado3500).length, 0);
-	}
-
-	@Test
-	public void testResultadoFuncionEconomica() {
-
-		Assert.assertEquals(1000, simplex.getResultadoFuncionEconomica(), 50);
+		Assert.assertEquals(0.011, Repositorios.dispositivos.coefConsumoKwhDispositivo(lampara11W), 0);
 	}
 
 	@Test
 	public void testConsumoRecomendadoAireAcondicionado() {
-		Assert.assertEquals(90, aireAcondicionado3500.getHorasMaximaPorConsumo(), 10);
+		Assert.assertEquals(360, recomendacionParaAriel.getHorasMaximaDeConsumoPorDispositivo()[0], 10);
 	}
 
 	@Test
 	public void testConsumoRecomendadoLampara() {
-		Assert.assertEquals(370, lampara11W.getHorasMaximaPorConsumo(), 10);
+		Assert.assertEquals(370, recomendacionParaAriel.getHorasMaximaDeConsumoPorDispositivo()[1], 10);
 	}
 
 	@Test
 	public void testConsumoRecomendadoLavarropas() {
-		Assert.assertEquals(560, lavarropas5kgAgua.getHorasMaximaPorConsumo(), 10);
+		Assert.assertEquals(30, recomendacionParaAriel.getHorasMaximaDeConsumoPorDispositivo()[2], 10);
 	}
 }

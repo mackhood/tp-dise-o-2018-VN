@@ -96,33 +96,23 @@ public class RepositorioDispositivo {
 		return dispositivos;
 	}
 
-	public Dispositivo dispBuscado(Dispositivo dispositivo) {
+	public Dispositivo dispBuscadoDelRepositorio(Dispositivo dispositivo) {
 		return this.getDispositivos().stream()
-				.filter(disp -> dispositivo.getEquipoConcreto() == disp.getEquipoConcreto())
+				.filter(disp -> dispositivo.getEquipoConcreto() == disp.getEquipoConcreto() && dispositivo.getNombre() == disp.getNombre())
 				.collect(Collectors.toList()).get(0);
 	}
 
-	public double coefConsumokwh(Dispositivo dispositivo) {
-		return this.dispBuscado(dispositivo).getConsumoEstimadoPorHora();
+	public double coefConsumoKwhDispositivo(Dispositivo dispositivoDelCliente) {
+		return this.dispBuscadoDelRepositorio(dispositivoDelCliente).getConsumoEstimadoPorHora();
 	}
 
-	public double[] coeficientesDeConsumoKwh(List<Dispositivo> dispositivos) {
-		List<Double> listaCoeficientes = dispositivos.stream().map(disp -> this.coefConsumokwh(disp))
-				.collect(Collectors.toList());
-		double[] arrayCoef = new double[listaCoeficientes.size()];
-		for (int i = 0; i < listaCoeficientes.size(); i++)
-			arrayCoef[i] = listaCoeficientes.get(i);
-
-		return arrayCoef;
+	public double restriccionMinimaDe(Dispositivo dispositivoDelCliente)
+	{
+		return this.dispBuscadoDelRepositorio(dispositivoDelCliente).getRestriccionMinima();
+	}
+	public double restriccionMaximaDe(Dispositivo dispositivoDelCliente)
+	{
+		return this.dispBuscadoDelRepositorio(dispositivoDelCliente).getRestriccionMaxima();
 	}
 
-	public double[] coeficientesVariables(List<Dispositivo> dispositivos) {
-		List<Double> listaCoeficientes = dispositivos.stream().map(disp -> this.coefConsumokwh(disp))
-				.collect(Collectors.toList());
-		double[] arrayCoef = new double[listaCoeficientes.size()];
-		for (int i = 0; i < listaCoeficientes.size(); i++)
-			arrayCoef[i] = 1;
-
-		return arrayCoef;
-	}
 }
