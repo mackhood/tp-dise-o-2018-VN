@@ -1,6 +1,5 @@
 package dominio.usuario;
 
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
@@ -24,7 +23,6 @@ import org.hibernate.engine.internal.Cascade;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "CLIENTE")
 
@@ -36,10 +34,9 @@ public class Cliente {
 
 	@Column(name = "NOMBRE", nullable = false, length = 100)
 	private String nombre;
-	@Column(length=50)
+	@Column(length = 50)
 	private String apellido;
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 
 	private ID identificacion;
 	private long telefono;
@@ -47,14 +44,11 @@ public class Cliente {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Domicilio domicilio;
 
-
-
-
 	private LocalDate fechaDeAlta;
 	private Categoria categoria;
-	@Column(length=150)
+	@Column(length = 150)
 	private String username;
-	@Column(length=150)
+	@Column(length = 150)
 	private String password;
 
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -176,7 +170,6 @@ public class Cliente {
 			throw new NoTieneDispositivoException("No posee el dispositivo indicado");
 	}
 
-
 	public double consumoEnergeticoTotal() {
 
 		return todosLosDispositivos().stream().mapToDouble(disp -> disp.getConsumoTotal()).sum();
@@ -243,7 +236,7 @@ public class Cliente {
 	}
 
 	public void setTransformador(Transformador transformador) {
-		this.transformador=transformador;
+		this.transformador = transformador;
 	}
 
 	public Transformador getTransformador() {
