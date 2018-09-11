@@ -21,7 +21,7 @@ public class DispositivoEstandar extends Dispositivo {
 		this.horasDeUso = builder.horasDeUso;
 		this.restriccionMinima = builder.restriccionMinima;
 		this.restriccionMaxima = builder.restriccionMaxima;
-		this.horasMaximaPorConsumo = builder.horasMaximaPorConsumo;
+		this.horasMaximaRecomendadaPorConsumo = builder.horasMaximaRecomendadaPorConsumo;
 	}
 
 	public double getHorasDeUso() {
@@ -58,7 +58,7 @@ public class DispositivoEstandar extends Dispositivo {
 		private double horasDeUso = 0;
 		private double restriccionMinima;
 		private double restriccionMaxima;
-		private double horasMaximaPorConsumo;
+		private double horasMaximaRecomendadaPorConsumo;
 
 		public DispositivoEstandarBuilder(String firstName) {
 			this.nombre = firstName;
@@ -95,8 +95,8 @@ public class DispositivoEstandar extends Dispositivo {
 			return this;
 		}
 
-		public DispositivoEstandarBuilder horasMaximaPorConsumo(Double horasMaximaPorConsumo) {
-			this.restriccionMaxima = horasMaximaPorConsumo;
+		public DispositivoEstandarBuilder horasMaximaRecomendadaPorConsumo(Double horasMaximaPorConsumo) {
+			this.horasMaximaRecomendadaPorConsumo = horasMaximaPorConsumo;
 			return this;
 		}
 

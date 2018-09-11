@@ -5,200 +5,201 @@ import java.time.temporal.ChronoUnit;
 
 public class DispositivoInteligente extends Dispositivo {
 
-	public EstadoDispositivo estadoDispositivo;
-	public LocalDateTime horaEncendido;
-	public LocalDateTime horaApagado;
+    public EstadoDispositivo estadoDispositivo;
+    public LocalDateTime horaEncendido;
+    public LocalDateTime horaApagado;
 
-	public DispositivoInteligente(DispositivoInteligenteBuilder builder) {
-		this.nombre = builder.nombre;
-		this.consumoEstimadoPorHora = builder.consumoEstimadoPorHora;
-		this.equipoConcreto = builder.equipoConcreto;
-		this.esBajoConsumo = builder.esBajoConsumo;
-		this.horasDeUso = builder.horasDeUso;
-		this.restriccionMinima = builder.restriccionMinima;
-		this.restriccionMaxima = builder.restriccionMaxima;
-		this.horasMaximaPorConsumo = builder.horasMaximaPorConsumo;
-		this.estadoDispositivo = builder.estadoDispositivo;
-		this.horaEncendido = builder.horaEncendido;
-		this.horaApagado = builder.horaApagado;
+    public DispositivoInteligente(DispositivoInteligenteBuilder builder) {
+        this.nombre = builder.nombre;
+        this.consumoEstimadoPorHora = builder.consumoEstimadoPorHora;
+        this.equipoConcreto = builder.equipoConcreto;
+        this.esBajoConsumo = builder.esBajoConsumo;
+        this.horasDeUso = builder.horasDeUso;
+        this.restriccionMinima = builder.restriccionMinima;
+        this.restriccionMaxima = builder.restriccionMaxima;
+        this.horasMaximaRecomendadaPorConsumo = builder.horasMaximaRecomendadaPorConsumo;
+        this.estadoDispositivo = builder.estadoDispositivo;
+        this.horaEncendido = builder.horaEncendido;
+        this.horaApagado = builder.horaApagado;
 
-	}
+    }
 
-	public DispositivoInteligente() {
 
-	}
+    public DispositivoInteligente() {
 
-	public void setHoraEncendido(LocalDateTime horaEncendido) {
-		this.horaEncendido = horaEncendido;
-	}
+    }
 
-	public void setHoraApagado(LocalDateTime horaApagado) {
-		this.horaApagado = horaApagado;
-	}
+    public void setHoraEncendido(LocalDateTime horaEncendido) {
+        this.horaEncendido = horaEncendido;
+    }
 
-	public LocalDateTime getHoraEncendido() {
-		return horaEncendido;
-	}
+    public void setHoraApagado(LocalDateTime horaApagado) {
+        this.horaApagado = horaApagado;
+    }
 
-	public LocalDateTime getHoraApagado() {
-		return horaApagado;
-	}
+    public LocalDateTime getHoraEncendido() {
+        return horaEncendido;
+    }
 
-	public EstadoDispositivo estadoDispositivo() {
-		return estadoDispositivo;
-	}
+    public LocalDateTime getHoraApagado() {
+        return horaApagado;
+    }
 
-	public double getConsumoEstimadoPorHora() {
+    public EstadoDispositivo estadoDispositivo() {
+        return estadoDispositivo;
+    }
 
-		return consumoEstimadoPorHora;
-	}
-	
-	public void setHorasDeUso(double horas) {
+    public double getConsumoEstimadoPorHora() {
 
-		this.horasDeUso = horas;
-	}
+        return consumoEstimadoPorHora;
+    }
 
-	public boolean estaEncendido() {
-		return estadoDispositivo.estaEncendido();
-	}
+    public void setHorasDeUso(double horas) {
 
-	public boolean estaApagado() {
-		return estadoDispositivo.estaApagado();
-	}
+        this.horasDeUso = horas;
+    }
 
-	public void apagar() {
-		estadoDispositivo.apagar(this);
-	}
+    public boolean estaEncendido() {
+        return estadoDispositivo.estaEncendido();
+    }
 
-	public void encender() {
+    public boolean estaApagado() {
+        return estadoDispositivo.estaApagado();
+    }
 
-		estadoDispositivo.encender(this);
-	}
+    public void apagar() {
+        estadoDispositivo.apagar(this);
+    }
 
-	public void ponerModoAhorro() {
-		estadoDispositivo.ponerModoAhorro(this);
-	}
+    public void encender() {
 
-	public void sumarHorasDeUso(LocalDateTime unHorario, LocalDateTime otroHorario) {
+        estadoDispositivo.encender(this);
+    }
 
-		horasDeUso = horasDeUso + unHorario.until(otroHorario, ChronoUnit.HOURS);
-	}
+    public void ponerModoAhorro() {
+        estadoDispositivo.ponerModoAhorro(this);
+    }
 
-	public double consumoUltimasNHoras(double horas) {
-		if (horas > horasDeUso) {
-			return consumoEstimadoPorHora * horasDeUso;
-		} else {
-			return consumoEstimadoPorHora * horas;
-		}
-	}
+    public void sumarHorasDeUso(LocalDateTime unHorario, LocalDateTime otroHorario) {
 
-	public void cambiarEstado(EstadoDispositivo estadoNuevo) {
+        horasDeUso = horasDeUso + unHorario.until(otroHorario, ChronoUnit.HOURS);
+    }
 
-		estadoDispositivo = estadoNuevo;
-	}
+    public double consumoUltimasNHoras(double horas) {
+        if (horas > horasDeUso) {
+            return consumoEstimadoPorHora * horasDeUso;
+        } else {
+            return consumoEstimadoPorHora * horas;
+        }
+    }
 
-	public void aumentarConsumoPor(double cantidad) {
+    public void cambiarEstado(EstadoDispositivo estadoNuevo) {
 
-		this.consumoEstimadoPorHora += cantidad;
-	}
+        estadoDispositivo = estadoNuevo;
+    }
 
-	public void reducirConsumoPor(double cantidad) {
+    public void aumentarConsumoPor(double cantidad) {
 
-		this.consumoEstimadoPorHora -= cantidad;
-	}
+        this.consumoEstimadoPorHora += cantidad;
+    }
 
-	public double getConsumoTotal() {
+    public void reducirConsumoPor(double cantidad) {
 
-		return horasDeUso * consumoEstimadoPorHora;
-	}
+        this.consumoEstimadoPorHora -= cantidad;
+    }
 
-	public boolean estaEnModoAhorro() {
+    public double getConsumoTotal() {
 
-		return estadoDispositivo.estaEnModoAhorro();
-	}
+        return horasDeUso * consumoEstimadoPorHora;
+    }
 
-	public int getPuntos() {
-		return 15;
-	}
+    public boolean estaEnModoAhorro() {
 
-	public static class DispositivoInteligenteBuilder {
+        return estadoDispositivo.estaEnModoAhorro();
+    }
 
-		private EstadoDispositivo estadoDispositivo = new EstadoApagado();
-		private LocalDateTime horaEncendido = null;
-		private LocalDateTime horaApagado = null;
-		private final String nombre;
-		private double consumoEstimadoPorHora;
-		private String equipoConcreto;
-		private boolean esBajoConsumo;
-		private double horasDeUso = 0;
-		private double restriccionMinima;
-		private double restriccionMaxima;
-		private double horasMaximaPorConsumo;
+    public int getPuntos() {
+        return 15;
+    }
 
-		public DispositivoInteligenteBuilder(String nombre) {
-			this.nombre = nombre;
+    public static class DispositivoInteligenteBuilder {
 
-		}
+        private EstadoDispositivo estadoDispositivo = new EstadoApagado();
+        private LocalDateTime horaEncendido = null;
+        private LocalDateTime horaApagado = null;
+        private final String nombre;
+        private double consumoEstimadoPorHora;
+        private String equipoConcreto;
+        private boolean esBajoConsumo;
+        private double horasDeUso = 0;
+        private double restriccionMinima;
+        private double restriccionMaxima;
+        private double horasMaximaRecomendadaPorConsumo;
 
-		public DispositivoInteligenteBuilder horaEncendido(LocalDateTime horaEncendido) {
+        public DispositivoInteligenteBuilder(String nombre) {
+            this.nombre = nombre;
 
-			this.horaEncendido = horaEncendido;
-			return this;
+        }
 
-		}
+        public DispositivoInteligenteBuilder horaEncendido(LocalDateTime horaEncendido) {
 
-		public DispositivoInteligenteBuilder horaApagado(LocalDateTime horaApagado) {
+            this.horaEncendido = horaEncendido;
+            return this;
 
-			this.horaApagado = horaApagado;
-			return this;
-		}
+        }
 
-		public DispositivoInteligenteBuilder estadoDispositivo(EstadoDispositivo estadoDispositivo) {
+        public DispositivoInteligenteBuilder horaApagado(LocalDateTime horaApagado) {
 
-			this.estadoDispositivo = estadoDispositivo;
-			return this;
+            this.horaApagado = horaApagado;
+            return this;
+        }
 
-		}
+        public DispositivoInteligenteBuilder estadoDispositivo(EstadoDispositivo estadoDispositivo) {
 
-		public DispositivoInteligenteBuilder consumoEstimadoPorHora(Double consumoEstimadoPorHora) {
-			this.consumoEstimadoPorHora = consumoEstimadoPorHora;
-			return this;
-		}
+            this.estadoDispositivo = estadoDispositivo;
+            return this;
 
-		public DispositivoInteligenteBuilder equipoConcreto(String equipoConcreto) {
-			this.equipoConcreto = equipoConcreto;
-			return this;
-		}
+        }
 
-		public DispositivoInteligenteBuilder esBajoConsumo(Boolean esBajoConsumo) {
-			this.esBajoConsumo = esBajoConsumo;
-			return this;
-		}
+        public DispositivoInteligenteBuilder consumoEstimadoPorHora(Double consumoEstimadoPorHora) {
+            this.consumoEstimadoPorHora = consumoEstimadoPorHora;
+            return this;
+        }
 
-		public DispositivoInteligenteBuilder restriccionMinima(Double restriccionMinima) {
-			this.restriccionMinima = restriccionMinima;
-			return this;
-		}
+        public DispositivoInteligenteBuilder equipoConcreto(String equipoConcreto) {
+            this.equipoConcreto = equipoConcreto;
+            return this;
+        }
 
-		public DispositivoInteligenteBuilder restriccionMaxima(Double restriccionMaxima) {
-			this.restriccionMaxima = restriccionMaxima;
-			return this;
-		}
+        public DispositivoInteligenteBuilder esBajoConsumo(Boolean esBajoConsumo) {
+            this.esBajoConsumo = esBajoConsumo;
+            return this;
+        }
 
-		public DispositivoInteligenteBuilder horasDeUso(Double horasDeUso) {
-			this.restriccionMaxima = horasDeUso;
-			return this;
-		}
+        public DispositivoInteligenteBuilder restriccionMinima(Double restriccionMinima) {
+            this.restriccionMinima = restriccionMinima;
+            return this;
+        }
 
-		public DispositivoInteligenteBuilder horasMaximaPorConsumo(Double horasMaximaPorConsumo) {
-			this.restriccionMaxima = horasMaximaPorConsumo;
-			return this;
-		}
+        public DispositivoInteligenteBuilder restriccionMaxima(Double restriccionMaxima) {
+            this.restriccionMaxima = restriccionMaxima;
+            return this;
+        }
 
-		public DispositivoInteligente build() {
-			return new DispositivoInteligente(this);
-		}
+        public DispositivoInteligenteBuilder horasDeUso(Double horasDeUso) {
+            this.restriccionMaxima = horasDeUso;
+            return this;
+        }
 
-	}
+        public DispositivoInteligenteBuilder horasMaximaRecomendadaPorConsumo(Double horasMaximaRecomendadaPorConsumo) {
+            this.horasMaximaRecomendadaPorConsumo = horasMaximaRecomendadaPorConsumo;
+            return this;
+        }
+
+        public DispositivoInteligente build() {
+            return new DispositivoInteligente(this);
+        }
+
+    }
 
 }

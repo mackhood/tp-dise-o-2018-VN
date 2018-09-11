@@ -13,11 +13,13 @@ import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
 import java.util.List;
 
 public class Recomendacion {
+    Cliente unCliente;
     double resultadoDeLaFuncionEconomica;
     double[] horasMaximaDeConsumoPorDispositivo;
-    public Recomendacion(List<Dispositivo> dispositivosDelCliente)
-    {
-        SimplexBuilder simplexBuilder = new SimplexBuilder(dispositivosDelCliente);
+
+    public Recomendacion(Cliente unCliente) {
+        this.unCliente = unCliente;
+        SimplexBuilder simplexBuilder = new SimplexBuilder(unCliente.todosLosDispositivos());
         SimplexSolver simplexSolver = new SimplexSolver();
         LinearObjectiveFunction funcion = simplexBuilder.funcionEconomicaBuild();
 
@@ -37,11 +39,18 @@ public class Recomendacion {
         return horasMaximaDeConsumoPorDispositivo;
     }
 
-
-    public void asignarHorasMaximasRecomendadasACadaDispositivo(Cliente unCliente)
-    {
-        for(int i = 0; i < horasMaximaDeConsumoPorDispositivo.length; i++)
+    public void realizarRecomendacionParaLosDispositivosInteligentes() {
+        this.asignarHorasMaximasRecomendadasACadaDispositivo();
+        unCliente.getDispositivosInteligentes().stream().forEach(dispositivo ->
         {
+            if (dispositivo.consumioMasDeLaRecomendacion()) {
+                dispositivo.apagar();
+            }
+        });
+    }
+
+    public void asignarHorasMaximasRecomendadasACadaDispositivo() {
+        for (int i = 0; i < horasMaximaDeConsumoPorDispositivo.length; i++) {
             unCliente.todosLosDispositivos().get(i).setHorasMaximaPorConsumo(getHorasMaximaDeConsumoPorDispositivo()[i]);
         }
     }

@@ -11,11 +11,12 @@ public class VectorSimplex {
 
     List<Dispositivo> dispositivosDelCliente = new ArrayList<>();
     double[] coefsRestriccion;
-    public VectorSimplex(List<Dispositivo> dispositivosDelCliente)
-    {
+
+    public VectorSimplex(List<Dispositivo> dispositivosDelCliente) {
         this.dispositivosDelCliente = dispositivosDelCliente;
         coefsRestriccion = new double[dispositivosDelCliente.size()];
     }
+
     public void agregarCerosAlArray() {
         for (int i = 0; i < coefsRestriccion.length; i++) {
             coefsRestriccion[i] = 0;
@@ -25,6 +26,7 @@ public class VectorSimplex {
     public void modificarElemArray(int index) {
         coefsRestriccion[index] = 1;
     }
+
     public double[] devolverCoeficientesDeFuncionEconomicaObjetivo() {
 
         //Tomando como ejemplo del TP2, asumimos que los coeficientes de la funcion economica y objetivo son todos 1
@@ -35,6 +37,7 @@ public class VectorSimplex {
 
         return arrayCoef;
     }
+
     public double[] devolverCoeficientesDeConsumoKwhR1() {
 
         //Dependiendo de los dispositivos del cliente, en la primera restriccion cada variable tiene un coeficiente distinto
@@ -50,6 +53,7 @@ public class VectorSimplex {
 
         return arrayCoef;
     }
+
     public double[] coefsResctriccionDeUnDispositivo(int i) {
         //tiene que devolver un vector del mismo tamanio de los dispositivos del cliente pero solo la posicion del dispositivo deseado debe tener coeficiente 1, y 0 todos los demas.
         //Si tenemos en cuenta el ejemplo del enunciado de R2: 1*X1 + 0*X2 + 0*X3 + ... + 0*X8>= 90  aca tendriamos que devolver un vector [1,0,0,0,0,0,0,0,0]

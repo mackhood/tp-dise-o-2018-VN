@@ -3,37 +3,38 @@ package dominio.dispositivo;
 import java.time.LocalDateTime;
 
 public class EstadoEncendido implements EstadoDispositivo {
-	private static EstadoEncendido instance = new EstadoEncendido();
+    private static EstadoEncendido instance = new EstadoEncendido();
 
-	public static EstadoEncendido getInstance() {
-		return instance;
-	}
+    public static EstadoEncendido getInstance() {
+        return instance;
+    }
 
-	public void apagar(DispositivoInteligente disp) {
+    public void apagar(DispositivoInteligente disp) {
 
-		disp.horaApagado = LocalDateTime.now();
-		disp.sumarHorasDeUso(disp.horaEncendido, disp.horaApagado);
-		disp.cambiarEstado(EstadoApagado.getInstance());
-	}
+        disp.horaApagado = LocalDateTime.now();
+        disp.sumarHorasDeUso(disp.horaEncendido, disp.horaApagado);
 
-	public void encender(DispositivoInteligente disp) {
+        disp.cambiarEstado(EstadoApagado.getInstance());
+    }
 
-	}
+    public void encender(DispositivoInteligente disp) {
 
-	public void ponerModoAhorro(DispositivoInteligente disp) {
-		disp.cambiarEstado(EstadoModoAhorro.getInstance());
-	}
+    }
 
-	public boolean estaEncendido() {
-		return true;
-	}
+    public void ponerModoAhorro(DispositivoInteligente disp) {
+        disp.cambiarEstado(EstadoModoAhorro.getInstance());
+    }
 
-	public boolean estaApagado() {
-		return false;
-	}
+    public boolean estaEncendido() {
+        return true;
+    }
 
-	public boolean estaEnModoAhorro() {
+    public boolean estaApagado() {
+        return false;
+    }
 
-		return false;
-	}
+    public boolean estaEnModoAhorro() {
+
+        return false;
+    }
 }

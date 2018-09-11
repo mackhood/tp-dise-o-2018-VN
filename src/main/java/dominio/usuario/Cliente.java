@@ -206,20 +206,41 @@ public class Cliente {
 		this.ahorroAutomatico = true;
 
 	}
-	public void realizarRecomendacionParaLosDispositivos()
+	public boolean estaEnModoAhorroAutomatico()
 	{
-		recomendacion = new Recomendacion(this.todosLosDispositivos());
+		return ahorroAutomatico == true;
+	}
+	/*
+	public void asignarHorasMaximasRecomendadasALosDispositivos()
+	{
+		recomendacion = new Recomendacion(this);
 		recomendacion.asignarHorasMaximasRecomendadasACadaDispositivo(this);
 	}
+	*/
 
+	/*
 	public double resultadoDeLaFuncionEconomica() {
 
 		return recomendacion.getResultadoDeLaFuncionEconomica();
 	}
+	*/
 
+	//Solo se pueden apagar los dispositivos inteligentes
+	/*public void realizarRecomendacionParaLosDispositivosInteligentes()
+	{
+		this.getDispositivosInteligentes().stream().forEach(dispositivo ->
+		{
+			if(dispositivo.consumioMasDeLaRecomendacion())
+			{
+				dispositivo.apagar();
+			}
+		});
+	}*/
+	/*
 	public double[] horasMaximasDeConsumoPorDispositivo() {
 		return recomendacion.getHorasMaximaDeConsumoPorDispositivo();
 	}
+	*/
 
 	public boolean esHogarEficiente() {
 		return this.consumoEnergeticoTotal() < recomendacion.getResultadoDeLaFuncionEconomica();

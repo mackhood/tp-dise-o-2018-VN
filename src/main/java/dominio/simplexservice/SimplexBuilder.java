@@ -14,11 +14,11 @@ public class SimplexBuilder {
     VectorSimplex vectorSimplex;
     SimplexSolver simplexSolver;
 
-    public SimplexBuilder(List<Dispositivo> dispositivosDelCliente)
-    {
+    public SimplexBuilder(List<Dispositivo> dispositivosDelCliente) {
         this.dispositivosDelCliente = dispositivosDelCliente;
         vectorSimplex = new VectorSimplex(dispositivosDelCliente);
     }
+
     public LinearObjectiveFunction funcionEconomicaBuild() {
         LinearObjectiveFunction funcion = new LinearObjectiveFunction(
                 vectorSimplex.devolverCoeficientesDeFuncionEconomicaObjetivo(), 0);
@@ -33,13 +33,13 @@ public class SimplexBuilder {
                 Relationship.LEQ, 612));
         for (int i = 0; i < dispositivosDelCliente.size(); i++) {
             constraints.add(new LinearConstraint(
-                            vectorSimplex.coefsResctriccionDeUnDispositivo(i),
-                            Relationship.GEQ,
-                            Repositorios.dispositivos.restriccionMinimaDe(dispositivosDelCliente.get(i))));
+                    vectorSimplex.coefsResctriccionDeUnDispositivo(i),
+                    Relationship.GEQ,
+                    Repositorios.dispositivos.restriccionMinimaDe(dispositivosDelCliente.get(i))));
             constraints.add(new LinearConstraint(
-                            vectorSimplex.coefsResctriccionDeUnDispositivo(i),
-                            Relationship.LEQ,
-                            Repositorios.dispositivos.restriccionMaximaDe(dispositivosDelCliente.get(i))));
+                    vectorSimplex.coefsResctriccionDeUnDispositivo(i),
+                    Relationship.LEQ,
+                    Repositorios.dispositivos.restriccionMaximaDe(dispositivosDelCliente.get(i))));
         }
         return constraints;
     }
