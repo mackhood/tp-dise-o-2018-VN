@@ -17,7 +17,7 @@ public class Regla {
 		this.condicionesACumplir = condicionesACumplir;
 	}
 
-	private boolean cumpleTodasLasCondiciones() {
+	public boolean cumpleTodasLasCondiciones() {
 
 		return condicionesACumplir.stream().allMatch(cond -> cond.cumpleCondicion());
 	}
@@ -37,7 +37,7 @@ public class Regla {
 		condicionesACumplir.add(unaCondicion);
 	}
 
-	public void serNotificada() {
+	public void chequearCondicionesYEjecutar() {
 
 		if (this.cumpleTodasLasCondiciones()) {
 

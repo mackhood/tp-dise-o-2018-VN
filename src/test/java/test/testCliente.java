@@ -10,6 +10,8 @@ import dominio.usuario.TiposId;
 import net.bytebuddy.asm.Advice.Thrown;
 import dominio.entities.NoTieneDispositivoException;
 import dominio.entities.ProcessingDataFailedException;
+import dominio.repositories.RepositorioCategoria;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertArrayEquals;
 import static org.mockito.Mockito.*;
 
 public class testCliente {
@@ -158,8 +161,7 @@ public class testCliente {
 		unClienteConDEyDI.setCategoria(unaCategoriaMockSeteada);
 
 		assertEquals("CategoriaR1", unClienteConDEyDI.nombreCategoria());
-
-		when(asignadorMock.getObtenerCategoriasDelRepositorio()).thenReturn(listaCategoriaMock);
+		when(asignadorMock.getCategoriasDelRepositorio()).thenReturn(listaCategoriaMock);
 		when(categoriaMocktest1.getNombre()).thenReturn("CategoriaR2");
 		when(asignadorMock.definirCategoriaPara(unClienteConDEyDI)).thenCallRealMethod();
 		when(asignadorMock.categoriaCliente(unClienteConDEyDI, listaCategoriaMock)).thenCallRealMethod();
@@ -167,7 +169,14 @@ public class testCliente {
 		assertEquals("CategoriaR2", asignadorMock.definirCategoriaPara(unClienteConDEyDI).getNombre());
 
 	}
-
+	@Test 
+	public void asd() {
+		
+		RepositorioCategoria repo = RepositorioCategoria.getInstance();
+		assertEquals("",repo.obtenerCategorias().get(0));
+		
+	}
+	
 	@Test
 	public void testObtenerGastosAproximadosCliente() throws ProcessingDataFailedException {
 
@@ -176,7 +185,7 @@ public class testCliente {
 		// ConsumoCliente=151.0
 		// 35.32+0.644*151.0= 132.564
 
-		when(asignadorMock.getObtenerCategoriasDelRepositorio()).thenReturn(listaCategoriaMock);
+		when(asignadorMock.getCategoriasDelRepositorio()).thenReturn(listaCategoriaMock);
 		when(categoriaMocktest1.getNombre()).thenReturn("CategoriaR2");
 		when(asignadorMock.definirCategoriaPara(unClienteConDEyDI)).thenCallRealMethod();
 		when(asignadorMock.categoriaCliente(unClienteConDEyDI, listaCategoriaMock)).thenCallRealMethod();
