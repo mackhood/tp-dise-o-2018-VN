@@ -161,7 +161,6 @@ public class testCliente {
 		unClienteConDEyDI.setCategoria(unaCategoriaMockSeteada);
 
 		assertEquals("CategoriaR1", unClienteConDEyDI.nombreCategoria());
-
 		when(asignadorMock.getCategoriasDelRepositorio()).thenReturn(listaCategoriaMock);
 		when(categoriaMocktest1.getNombre()).thenReturn("CategoriaR2");
 		when(asignadorMock.definirCategoriaPara(unClienteConDEyDI)).thenCallRealMethod();
