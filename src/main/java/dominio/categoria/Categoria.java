@@ -22,7 +22,7 @@ public class Categoria {
 
 		// Si consumo maximo es null quiere decir que cualquier numero es menor a este
 		return cliente.consumoEnergeticoTotal() >= consumoMinimo
-				&& (consumoMaximo == null || cliente.consumoEnergeticoTotal() <= consumoMaximo);
+				&& (consumoMaximo == null || cliente.consumoEnergeticoTotal() < consumoMaximo);
 	}
 
 	public Double getCargoVariable() {
