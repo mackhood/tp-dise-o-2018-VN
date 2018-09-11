@@ -117,47 +117,6 @@ public class testDispositivo {
 		menorA20 = new CondicionPorMenor(reglaParaApagarAlAireAcondicionado, 20, "Temperatura");
 	}
 
-	@Test
-	public void testCumpleCondicionPorMayor() {
-		sensorTemperaturaMayor30.recibirMedicion(new Medicion(41, "Temperatura"));
-		assertEquals(true, mayorA30.cumpleCondicion());
-	}
-
-	@Test
-	public void testCumpleCondicionPorIgual() {
-		sensorMovimiento.recibirMedicion(new Medicion(1, "Movimiento"));
-		assertEquals(true, hayMovimiento.cumpleCondicion());
-	}
-
-	@Test
-	public void testCumpleCondicionPorMenor() {
-		sensorTemperaturaMenorA20.recibirMedicion(new Medicion(4, "Temperatura"));
-		assertEquals(true, menorA20.cumpleCondicion());
-	}
-
-	/*
-	 * Caso con multiples cambios de estado y estado final OK para ejecutar actuador
-	 */
-
-	@Test
-	public void testCumpleTodasLasCondiciones() {
-
-		sensorMovimiento.recibirMedicion(new Medicion(0, "Movimiento"));
-		sensorTemperaturaMayor30.recibirMedicion(new Medicion(40, "Temperatura"));
-		sensorTemperaturaMayor30.recibirMedicion(new Medicion(31, "Temperatura"));
-		sensorTemperaturaMayor30.recibirMedicion(new Medicion(22, "Temperatura"));
-		sensorMovimiento.recibirMedicion(new Medicion(1, "Movimiento"));
-		sensorTemperaturaMayor30.recibirMedicion(new Medicion(44, "Temperatura"));
-		assertEquals(true, unDIAireApagado.estaEncendido());
-	}
-
-	@Test
-	public void testNoCumpleTodasLasCondiciones() {
-		sensorTemperaturaMayor30.recibirMedicion(new Medicion(29, "Temperatura"));
-		sensorMovimiento.recibirMedicion(new Medicion(1, "Movimiento"));
-		assertEquals(false, unDIAireApagado.estaEncendido());
-	}
-
 	/*
 	 * En este test, quiero probar que al principio se cumplen ambas condiciones,
 	 * por lo que se ejecuta el actuador. Luego el sensor que verifica la
@@ -169,35 +128,6 @@ public class testDispositivo {
 		sensorTemperaturaMayor30.recibirMedicion(new Medicion(32, "Temperatura"));
 		sensorMovimiento.recibirMedicion(new Medicion(1, "Movimiento"));
 		sensorTemperaturaMayor30.recibirMedicion(new Medicion(29, "Temperatura"));
-		Assert.assertEquals(false, unDIAireApagado.estaEncendido());
-	}
-	
-	@Test
-	public void testAgregarCondiciones() {
-		
-		List<Condicion> listaCondiciones = new ArrayList<>();
-		List<DispositivoInteligente> listaDisp = new ArrayList<>();
-		Regla reglaTest = new Regla(new OrdenPonerModoAhorro(listaDisp), listaCondiciones);
-		reglaTest.agregarCondicion(mayorA30);
-		reglaTest.agregarCondicion(hayMovimiento);
-		assertEquals(2,reglaTest.getCondicionesACumplir().size());
-	}
-	
-	@Test
-	public void testReglaSerNotificadaCumplenTodas() {
-		
-		sensorTemperaturaMayor30.recibirMedicion(new Medicion(41,"Temperatura"));
-		sensorMovimiento.recibirMedicion(new Medicion(1,"Movimiento"));
-		reglaParaEncenderAlAireAcondicionado.serNotificada();
-		Assert.assertEquals(true,unDIAireApagado.estaEncendido());
-	}
-	
-	@Test
-	public void testReglaSerNotificadaNoCumplenTodas() {
-		
-		sensorTemperaturaMayor30.recibirMedicion(new Medicion(19,"Temperatura"));
-		sensorMovimiento.recibirMedicion(new Medicion(1,"Movimiento"));
-		reglaParaEncenderAlAireAcondicionado.serNotificada();
 		Assert.assertEquals(false, unDIAireApagado.estaEncendido());
 	}
 

@@ -30,13 +30,18 @@ public abstract class Condicion {
 
 	public void actualizar(Sensor unSensor) {
 
-		medicionActual = unSensor.getValorMedicion();
-		regla.serNotificada();
+		this.setMedicionActual(unSensor.getValorMedicion());
+		regla.chequearCondicionesYEjecutar();
 	}
 
 	public String getTipo() {
 
 		return tipo;
+	}
+	
+	public void setMedicionActual(double valor) {
+		
+		medicionActual = valor;
 	}
 
 	public double getMedicionActual() {
