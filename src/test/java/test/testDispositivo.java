@@ -33,29 +33,9 @@ public class testDispositivo {
 	private DispositivoInteligente unDIApagado;
 	private DispositivoInteligente unDIEncendido;
 	private DispositivoInteligente unDETransformado;
-
 	private ConsultaConsumoUltimasNHoras consultaConsumoUltimasNHoras;
-
-	private OrdenApagarDI ordenApagarDI;
-	private OrdenEncenderDI ordenEncenderDI;
-	private OrdenPonerModoAhorro ordenPonerModoAhorro;
-	private OrdenSubirIntensidad ordenSubirIntensidad;
-	private OrdenEncenderDI ordenEncenderDITestRegla;
-	private OrdenApagarDI ordenApagarDITestRegla;
-	private Regla reglaParaAumentarIntensidadAlAireAcondicionado;
-	private Sensor sensorTemperaturaMayor30;
-	private Sensor sensorTemperaturaMenorA20;
-	private Sensor sensorMovimiento;
 	private Cliente unCliente;
 	private Conversor moduloAdaptador;
-
-	private Regla reglaParaEncenderAlAireAcondicionado;
-	private Regla reglaParaApagarAlAireAcondicionado;
-	CondicionPorIgual hayMovimiento;
-	CondicionPorMenor menorA20;
-	CondicionPorMayor mayorA30;
-	DispositivoInteligente unDIAireApagado;
-	List<DispositivoInteligente> listaInteligentesTestRegla = new ArrayList<>();
 
 	@Before
 	public void setUp() {
@@ -92,29 +72,8 @@ public class testDispositivo {
 
 		// unDETransformado = unCliente.agregarModuloAdaptador(moduloAdaptador, unDE);
 
-		ordenApagarDI = new OrdenApagarDI(listDispEncendidos);
-		ordenEncenderDI = new OrdenEncenderDI(listDispApagados);
-		ordenPonerModoAhorro = new OrdenPonerModoAhorro(listDispModoAhorro);
-		ordenSubirIntensidad = new OrdenSubirIntensidad(listDispEncendidos);
-
-		// Para probar la regla para encender el aire acondicionado
-		unDIAireApagado = new DispositivoInteligente.DispositivoInteligenteBuilder("AireAcondicionado")
-				.consumoEstimadoPorHora((double) 50).build();
-		listaInteligentesTestRegla.add(unDIAireApagado);
-		ordenEncenderDITestRegla = new OrdenEncenderDI(listaInteligentesTestRegla);
-		List<Condicion> listaCondicionesACumplir = new ArrayList<>();
-		reglaParaApagarAlAireAcondicionado = new Regla(ordenApagarDITestRegla, listaCondicionesACumplir);
-		reglaParaEncenderAlAireAcondicionado = new Regla(ordenEncenderDITestRegla, listaCondicionesACumplir);
-		mayorA30 = new CondicionPorMayor(reglaParaEncenderAlAireAcondicionado, 30, "Temperatura");
-		hayMovimiento = new CondicionPorIgual(reglaParaEncenderAlAireAcondicionado, 1, "Movimiento");
-		listaCondicionesACumplir.add(mayorA30);
-		listaCondicionesACumplir.add(hayMovimiento);
-		sensorTemperaturaMayor30 = new Sensor(reglaParaEncenderAlAireAcondicionado);
-		sensorMovimiento = new Sensor(reglaParaEncenderAlAireAcondicionado);
 		unDIEncendido.setConsumoEstimadoPorHora(100);
 
-		sensorTemperaturaMenorA20 = new Sensor(reglaParaApagarAlAireAcondicionado);
-		menorA20 = new CondicionPorMenor(reglaParaApagarAlAireAcondicionado, 20, "Temperatura");
 	}
 
 	/*
@@ -122,15 +81,15 @@ public class testDispositivo {
 	 * por lo que se ejecuta el actuador. Luego el sensor que verifica la
 	 * temperatura recibe una medicion que no cumple la condicion, por lo que el
 	 * actuador realiza la accion inversa (en este caso, vuelve a apagar el aire)
+	 * 
+	 * 
+	 * @Test public void testCambioDeEstado() {
+	 * sensorTemperaturaMayor30.recibirMedicion(new Medicion(32, "Temperatura"));
+	 * sensorMovimiento.recibirMedicion(new Medicion(1, "Movimiento"));
+	 * sensorTemperaturaMayor30.recibirMedicion(new Medicion(29, "Temperatura"));
+	 * Assert.assertEquals(false, unDIAireApagado.estaEncendido()); }
 	 */
-	@Test
-	public void testCambioDeEstado() {
-		sensorTemperaturaMayor30.recibirMedicion(new Medicion(32, "Temperatura"));
-		sensorMovimiento.recibirMedicion(new Medicion(1, "Movimiento"));
-		sensorTemperaturaMayor30.recibirMedicion(new Medicion(29, "Temperatura"));
-		Assert.assertEquals(false, unDIAireApagado.estaEncendido());
-	}
-
+	
 	@Test
 	public void testConsumoDIEncendidoLuegoApagado() {
 		LocalDateTime horaEncendido = LocalDateTime.of(2018, 6, 8, 15, 30, 30, 100);
@@ -185,23 +144,4 @@ public class testDispositivo {
 	public void testDEConsultaConsumoDeUnDispositivoPorHoraEstandar() {
 		assertEquals(300.0, unDE.consumoEstimadoPorHora());
 	}
-
-	@Test
-	public void testDIApagadoSeEnciende() {
-		ordenEncenderDI.ejecutar();
-		assertEquals(true, unDIApagado.estaEncendido());
-	}
-
-	@Test
-	public void testDIApagadoSePoneEnModoAhorro() {
-		ordenPonerModoAhorro.ejecutar();
-		assertEquals(true, unDIApagado.estaEnModoAhorro());
-	}
-
-	@Test
-	public void testDIEncendidoSeApaga() {
-		ordenApagarDI.ejecutar();
-		assertEquals(true, unDIEncendido.estaApagado());
-	}
-
 }

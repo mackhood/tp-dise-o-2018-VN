@@ -37,21 +37,23 @@ public class testRegla {
 	public void setUp() {
 
 		List<Condicion> listaCondiciones = new ArrayList<>();
+		List<DispositivoInteligente> listaDI = new ArrayList<>();
+
+		mockDI = Mockito.spy(new DispositivoInteligente.DispositivoInteligenteBuilder("unDI")
+				.estadoDispositivo(new EstadoApagado()).build());
+
+		listaDI.add(mockDI);
+		mockActuador = Mockito.spy(new OrdenEncenderDI(listaDI));
 		regla = new Regla(mockActuador, listaCondiciones);
 		mockCondicion = Mockito.mock(CondicionPorMayor.class);
 		otroMockCondicion = Mockito.mock(CondicionPorMenor.class);
 		mockCondicionNoCumplida = Mockito.mock(CondicionPorIgual.class);
-		List<DispositivoInteligente> listaDI = new ArrayList<>();
-		listaDI.add(mockDI);
 
-		mockDI = Mockito.mock(DispositivoInteligente.class);
-		mockActuador = Mockito.spy(new OrdenEncenderDI(listaDI));
 		Mockito.when(mockCondicion.cumpleCondicion()).thenReturn(true);
 		Mockito.when(otroMockCondicion.cumpleCondicion()).thenReturn(true);
 		Mockito.when(mockCondicionNoCumplida.cumpleCondicion()).thenReturn(false);
 		regla.agregarCondicion(mockCondicion);
 		regla.agregarCondicion(otroMockCondicion);
-		Mockito.when(mockDI.estaApagado()).thenReturn(true);
 	}
 
 	@Test
@@ -61,23 +63,24 @@ public class testRegla {
 		assertEquals(3, regla.getCondicionesACumplir().size());
 	}
 
-	/*
-	 * @Test public void testReglaSerNotificadaCumplenTodas() {
-	 * 
-	 * regla.chequearCondicionesYEjecutar();
-	 * assertEquals(true,mockDI.estaEncendido()); }
-	 * 
-	 * @Test public void testReglaSerNotificadaNoCumplenTodas() {
-	 * 
-	 * regla.agregarCondicion(mockCondicionNoCumplida);
-	 * regla.chequearCondicionesYEjecutar(); assertEquals(false,
-	 * mockDI.estaEncendido()); }
-	 */
+	@Test
+	public void testReglaSerNotificadaCumplenTodas() {
+
+		regla.chequearCondicionesYEjecutar();
+		assertEquals(true, mockDI.estaEncendido());
+	}
+
+	@Test
+	public void testReglaSerNotificadaNoCumplenTodas() {
+
+		regla.agregarCondicion(mockCondicionNoCumplida);
+		regla.chequearCondicionesYEjecutar();
+		assertEquals(false, mockDI.estaEncendido());
+	}
+
 	@Test
 	public void testCumpleTodasLasCondiciones() {
 
-		regla.agregarCondicion(mockCondicionNoCumplida);
-		Mockito.when(mockCondicionNoCumplida.cumpleCondicion()).thenReturn(true);
 		assertEquals(true, regla.cumpleTodasLasCondiciones());
 	}
 
