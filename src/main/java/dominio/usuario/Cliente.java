@@ -206,8 +206,13 @@ public class Cliente {
 		this.ahorroAutomatico = true;
 
 	}
+	public void realizarRecomendacionParaLosDispositivos()
+	{
+		recomendacion = new Recomendacion(this.todosLosDispositivos());
+		recomendacion.asignarHorasMaximasRecomendadasACadaDispositivo(this);
+	}
 
-	public double horasTotalesConsumidasPorLosDispositivos() {
+	public double resultadoDeLaFuncionEconomica() {
 
 		return recomendacion.getResultadoDeLaFuncionEconomica();
 	}

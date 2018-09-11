@@ -1,6 +1,7 @@
 package dominio.simplexservice;
 
 import dominio.dispositivo.Dispositivo;
+import dominio.usuario.Cliente;
 import org.apache.commons.math3.optim.MaxIter;
 import org.apache.commons.math3.optim.PointValuePair;
 import org.apache.commons.math3.optim.linear.LinearConstraintSet;
@@ -34,5 +35,14 @@ public class Recomendacion {
 
     public double[] getHorasMaximaDeConsumoPorDispositivo() {
         return horasMaximaDeConsumoPorDispositivo;
+    }
+
+
+    public void asignarHorasMaximasRecomendadasACadaDispositivo(Cliente unCliente)
+    {
+        for(int i = 0; i < horasMaximaDeConsumoPorDispositivo.length; i++)
+        {
+            unCliente.todosLosDispositivos().get(i).setHorasMaximaPorConsumo(getHorasMaximaDeConsumoPorDispositivo()[i]);
+        }
     }
 }
