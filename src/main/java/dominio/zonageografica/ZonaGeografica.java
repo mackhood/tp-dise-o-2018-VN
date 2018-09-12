@@ -30,7 +30,7 @@ public class ZonaGeografica {
 	private Ubicacion ubicacion;
 
 	public ZonaGeografica(String descripcion, List<Transformador> transformadores,Ubicacion ubicacion,Double radio) {
-		this.transformadores = transformadores;
+		this.transformadores.addAll(transformadores);
 		this.descripcion = descripcion;
 		this.ubicacion = ubicacion;
 		this.radio = radio;
@@ -41,25 +41,20 @@ public class ZonaGeografica {
 	}
 
 	public Transformador devolverTransformadorCercano(Ubicacion ubicacionCliente) {
-		Optional<Transformador> transformadorCercanano = Optional.of( transformadores.stream().min(Comparator.comparingDouble(t -> t.calcularDistancia(ubicacionCliente))).get());
-		if (transformadorCercanano.isPresent())
+		if (transformadores.isEmpty())
 			throw new TransformadorNullException("La zona no tiene ningun Transformador");
-		return transformadorCercanano.get();
+
+		return transformadores.stream().min(Comparator.comparingDouble(t -> t.calcularDistancia(ubicacionCliente))).get();
 	}
 
-	public double consumoTotalZona() {
-		return transformadores.stream().mapToDouble(transformador -> transformador.suministroActual()).sum();
-	}
-
-	public List<Transformador> getTransformadores() {
-		return transformadores;
-	}
 	public boolean perteneceClienteAZona(Cliente cliente) {
-		return this.distanciaACliente(cliente.getPosicion()) < radio;
+		return this.distanciaAcliente(cliente) < radio;
 	}
-	public Double distanciaACliente(Ubicacion ubicacion){
-		return ubicacion.calcularDistancia(ubicacion);
+	public Double distanciaAcliente (Cliente cliente) {
+		return  cliente.getPosicion().calcularDistancia(ubicacion);
 	}
+
+
 
 	public Transformador conectarATransformadorCercano(Cliente cliente) {
 		Transformador transformadorCercano = this.devolverTransformadorCercano(cliente.getPosicion());

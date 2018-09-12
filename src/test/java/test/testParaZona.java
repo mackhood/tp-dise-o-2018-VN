@@ -1,5 +1,7 @@
 package test;
 
+import dominio.entities.TransformadorNullException;
+import dominio.entities.ZonaNullException;
 import dominio.transformador.Transformador;
 import dominio.usuario.Cliente;
 import dominio.zonageografica.Ubicacion;
@@ -23,6 +25,9 @@ public class testParaZona {
 	Transformador transmormadorMock2;
 	Transformador transmormadorMock3;
 	ZonaGeografica zonaGeografica1;
+	Ubicacion ubicacionCliente;
+	Cliente clienteMock;
+	Cliente clienteMock2;
 
 	@Before
 	public void setUp() {
@@ -30,6 +35,10 @@ public class testParaZona {
 		transmormadorMock1 = mock(Transformador.class);
 		transmormadorMock2 = mock(Transformador.class);
 		transmormadorMock3 = mock(Transformador.class);
+
+		clienteMock = mock( Cliente.class);
+		clienteMock2 = mock(Cliente.class);
+
 
 		List<Transformador> listaDeTrasformadoresDeLaZona = new ArrayList<>();
 		listaDeTrasformadoresDeLaZona.add(transmormadorMock1);
@@ -40,18 +49,42 @@ public class testParaZona {
 		when(transmormadorMock2.energiaConsumidaClientes()).thenReturn(200.0);
 		when(transmormadorMock3.energiaConsumidaClientes()).thenReturn(200.0);
 
-		zonaGeografica1 = new ZonaGeografica("Zona1", listaDeTrasformadoresDeLaZona,new Ubicacion(1,1),10.0);
+		ubicacionCliente = new Ubicacion(1,1);
+		when(clienteMock.getPosicion()).thenReturn(ubicacionCliente);
 
+		when(transmormadorMock1.calcularDistancia(clienteMock.getPosicion())).thenReturn(1.0);
+		when(transmormadorMock2.calcularDistancia(clienteMock.getPosicion())).thenReturn(2.0);
+		when(transmormadorMock3.calcularDistancia(clienteMock.getPosicion())).thenReturn(3.0);
+
+		zonaGeografica1 = new ZonaGeografica("Zona1", listaDeTrasformadoresDeLaZona,new Ubicacion(1,1),1.0);
+
+		when(clienteMock2.getPosicion()).thenReturn(new Ubicacion(10.0,10.0));
 	}
 
 	@Test
-	public void testConsumoZona() {
+	public void testConsumoTotalDelazona() {
 		assertEquals(500.0,zonaGeografica1.consumoTotal());
 	}
-/*
 	@Test
-	public void testTransformadorMasCercano() {
-		assertEquals(transformador2_Zona1, zonaGeografica1.devolverTransformadorCercano(clienteMock1.getPosicion()));
+	public void testTransformadorCercanoAcliente() {
+		assertEquals(transmormadorMock1,zonaGeografica1.conectarATransformadorCercano(clienteMock));
 	}
-*/
+	@Test
+	public void testElclienteNoPerteneceZona() {
+
+		//assertEquals(100,new Ubicacion(10.0,10.0).calcularDistancia(new Ubicacion(1,1)));
+
+		assertFalse(zonaGeografica1.perteneceClienteAZona(clienteMock2));
+	}
+	@Test
+	public void testCalcularDistanciaAcliente(){
+		assertEquals(12.727922061357855,zonaGeografica1.distanciaAcliente(clienteMock2));
+	}
+	@Test(expected = TransformadorNullException.class)
+	public void testLazonaNotieneTrasformador() {
+		ZonaGeografica zonaGeografica2 = new ZonaGeografica("Zona1", new ArrayList<>(),new Ubicacion(1,1),10.0);
+		zonaGeografica2.devolverTransformadorCercano(ubicacionCliente);
+	}
+
+
 }

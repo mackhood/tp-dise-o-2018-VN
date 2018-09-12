@@ -33,7 +33,7 @@ public class AsignadorDeZonaService {
 
         if (zonaParaCliente.isEmpty())
                 throw  new ZonaNullException("No existe una zona cercana para:"+cliente.nombre());
-        return zonaParaCliente.stream().min(Comparator.comparingDouble(zonaGeografica -> zonaGeografica.distanciaACliente(cliente.getPosicion()))).get();
+        return zonaParaCliente.stream().min(Comparator.comparingDouble(zonaGeografica -> zonaGeografica.distanciaAcliente(cliente))).get();
      }
     private Transformador buscarTransformadorParaCliente(Cliente cliente, ZonaGeografica zonaGeografica) {
         return  zonaGeografica.conectarATransformadorCercano(cliente);

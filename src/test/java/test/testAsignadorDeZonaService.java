@@ -50,8 +50,8 @@ public class testAsignadorDeZonaService {
         when(clienteMock.getPosicion()).thenReturn(new Ubicacion(0,0));
         when(zona1.perteneceClienteAZona(clienteMock)).thenReturn(true);
         when(zona2.perteneceClienteAZona(clienteMock)).thenReturn(true);
-        when(zona1.distanciaACliente(clienteMock.getPosicion())).thenReturn(3.0);
-        when(zona2.distanciaACliente(clienteMock.getPosicion())).thenReturn(1.0);
+        when(zona1.distanciaAcliente(clienteMock)).thenReturn(3.0);
+        when(zona2.distanciaAcliente(clienteMock)).thenReturn(1.0);
 
     }
     @Test
