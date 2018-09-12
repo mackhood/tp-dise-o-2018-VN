@@ -1,15 +1,9 @@
 package test;
 
-import dominio.actuador.*;
 import dominio.consultores.ConsultaConsumoUltimasNHoras;
-//import dominio.consultores.ConsultaEstaApagado;
-//import dominio.consultores.ConsultaEstaEncendido;
 import dominio.dispositivo.*;
 import dominio.entities.NoTieneDispositivoException;
-import dominio.regla.Regla;
-import dominio.sensor.*;
 import dominio.usuario.Cliente;
-import dominio.zonageografica.*;
 
 import dominio.usuario.Domicilio;
 import dominio.usuario.ID;
@@ -23,8 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertSame;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.spy;
 
 public class testDispositivo {
@@ -32,7 +24,6 @@ public class testDispositivo {
 	private DispositivoEstandar unDE;
 	private DispositivoInteligente unDIApagado;
 	private DispositivoInteligente unDIEncendido;
-	private DispositivoInteligente unDETransformado;
 	private ConsultaConsumoUltimasNHoras consultaConsumoUltimasNHoras;
 	private Cliente unCliente;
 	private Conversor moduloAdaptador;

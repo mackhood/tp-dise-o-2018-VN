@@ -7,7 +7,6 @@ import dominio.usuario.Cliente;
 import dominio.usuario.Domicilio;
 import dominio.usuario.ID;
 import dominio.usuario.TiposId;
-import net.bytebuddy.asm.Advice.Thrown;
 import dominio.entities.NoTieneDispositivoException;
 import dominio.entities.ProcessingDataFailedException;
 import dominio.repositories.RepositorioCategoria;
@@ -20,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertArrayEquals;
 import static org.mockito.Mockito.*;
 
 public class testCliente {
@@ -35,8 +33,6 @@ public class testCliente {
 
 	private DispositivoEstandar unDE;
 	private DispositivoInteligente unDIApagado;
-	// private final DispositivoInteligente unDIEncendido;
-	private DispositivoInteligente unDETransformado;
 
 	private SistemaInteligente unSI;
 
