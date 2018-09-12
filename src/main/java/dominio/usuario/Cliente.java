@@ -211,6 +211,9 @@ public class Cliente {
 		this.ahorroAutomatico = true;
 
 	}
+	public double consumoDispositivosInteligentes(){
+		return dispositivosInteligentes.stream().mapToDouble(dispositivoInteligente-> dispositivoInteligente.getConsumoTotal()).sum();
+	}
 
 	public boolean estaEnModoAhorroAutomatico()
 	{

@@ -29,7 +29,7 @@ public class testParaTransformador {
     private ZonaGeografica zonaGeografica1;
     private ZonaGeografica zonaGeografica2;
 
-    private Ubicacion ubicacionMock;
+    private Ubicacion ubicacionCliente;
     private Ubicacion ubicacionZona1;
     private Ubicacion ubicacionZona2;
 
@@ -63,38 +63,38 @@ public class testParaTransformador {
         when(clienteMock2.consumoEnergeticoTotal()).thenReturn(400.0);
         when(clienteMock3.consumoEnergeticoTotal()).thenReturn(200.0);
 
+        ubicacionCliente = new Ubicacion(1,1);
+        when(clienteMock3.getPosicion()).thenReturn(ubicacionCliente);
+
+
         when(transformador_OtraZona.energiaConsumidaClientes()).thenReturn(600.0);
 
         listaTransformadorZona1.add(transformador1_Zona1);
         listaTransformadorZona1.add(transformador2_Zona1);
 
+        ubicacionCliente = new Ubicacion(3,3);
+        ubicacionZona1 = new Ubicacion(2,2);
+        ubicacionZona2 = new Ubicacion(4,4);
+        when(clienteMock1.getPosicion()).thenReturn(ubicacionCliente);
+        when(clienteMock1.consumoDispositivosInteligentes()).thenReturn(100.0);
+        when(clienteMock2.consumoDispositivosInteligentes()).thenReturn(100.0);
+
         zonaGeografica1 = new ZonaGeografica("Zona1", listaTransformadorZona1,ubicacionZona1,10.0);
         zonaGeografica2 = new ZonaGeografica("Zona2", listaTransformadorOtraZona,ubicacionZona2,20.0);
-
-        ubicacionMock = mock(Ubicacion.class);
-
-        when(ubicacionMock.getPosicionX()).thenReturn(3.0);
-        when(ubicacionMock.getPosicionY()).thenReturn(4.0);
-
-        when(clienteMock1.getPosicion()).thenReturn(ubicacionMock);
-
-        ubicacionZona1 = mock(Ubicacion.class);
-
-        when(ubicacionZona1.getPosicionX()).thenReturn(3.0);
-        when(ubicacionZona1.getPosicionY()).thenReturn(4.0);
-
-        ubicacionZona2 = mock(Ubicacion.class);
-
-        when(ubicacionZona2.getPosicionX()).thenReturn(3.0);
-        when(ubicacionZona2.getPosicionY()).thenReturn(4.0);
 
     }
 
     @Test
-    public void testConsumoTransformadorMayorA700() {
+    public void testConsumoTransformador() {
         assertEquals(750.0,transformador1_Zona1.energiaConsumidaClientes());
     }
+    @Test
+    public void testCalcularDistanciaCliente() {
+        assertEquals(26.870057685088806,transformador1_Zona1.calcularDistancia(clienteMock3.getPosicion()));
 
-
-
+    }
+    @Test
+    public void testSuministroActualPorDispositivosInteligentesDeClientes() {
+         assertEquals(200.0,transformador1_Zona1.suministroActual());
+    }
 }

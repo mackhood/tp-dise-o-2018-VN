@@ -30,42 +30,23 @@ public class Transformador {
 		this.radioCubierto = radioCubierto;
 	}
 
-	public List<Dispositivo> dispositivosUsandoRed() {
-
-		List<Dispositivo> dispositivosRed = new ArrayList<>();
-		usuariosConectados
-				.forEach(usuariosConectado -> dispositivosRed.addAll(usuariosConectado.getDispositivosInteligentes()));
-		return dispositivosRed;
-
-	}
 
 	public double suministroActual() {
-
-		return this.dispositivosUsandoRed().stream().mapToDouble(disp -> disp.getConsumoEstimadoPorHora()).sum();
-
+		return this.consumoDeDispositivosInteligentesClientes();
 	}
-
-	// Metodo creado para TestearConsumo de clientes
-	public Double calcularConsumoClientes(List<Cliente> clientes) {
-
-		return clientes.stream().mapToDouble(usuario -> usuario.consumoEnergeticoTotal()).sum();
+	private double consumoDeDispositivosInteligentesClientes(){
+		return usuariosConectados.stream().mapToDouble(cliente -> cliente.consumoDispositivosInteligentes()).sum();
 	}
 
 	public double energiaConsumidaClientes() {
-
-		return this.calcularConsumoClientes(usuariosConectados);
-
+		return usuariosConectados.stream().mapToDouble(usuario -> usuario.consumoEnergeticoTotal()).sum();
 	}
 
 	public Double calcularDistancia(Ubicacion ubicacionCliente) {
-
 		return ubicacion.calcularDistancia(ubicacionCliente);
-
 	}
 
-
 	public void agregarCliente(Cliente cliente) {
-
 		usuariosConectados.add(cliente);
 	}
 }
