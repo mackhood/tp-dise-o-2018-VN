@@ -13,10 +13,11 @@ import java.util.List;
 
 public class RepositorioAdministradores extends Repositorio {
 
-	String nombreArchivo = "Administradores.json";
+
 	private static RepositorioAdministradores instance = new RepositorioAdministradores();
 
 	private RepositorioAdministradores() { // dejar en privado para que no puedan hacer otra instancia
+		nombreArchivo = "Administradores.json";
 	}
 
 	public static RepositorioAdministradores getInstance() {

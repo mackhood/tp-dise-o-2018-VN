@@ -15,10 +15,11 @@ public class RepositorioCategoria extends Repositorio {
 	// Aca va la logica para extraer del JSON de categorias las distintas categorias
 	// existentes
 
-	String nombreArchivo = "Categoria.json";
+
 	private static RepositorioCategoria instance = new RepositorioCategoria();
 
 	private RepositorioCategoria() { // dejar en privado para que no puedan hacer otra instancia
+		nombreArchivo = "Categoria.json";
 	}
 
 	public static RepositorioCategoria getInstance() {

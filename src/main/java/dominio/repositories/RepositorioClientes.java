@@ -21,6 +21,7 @@ public class RepositorioClientes extends Repositorio {
 	private static RepositorioClientes instance = new RepositorioClientes();
 
 	private RepositorioClientes() { // dejar en privado para que no puedan hacer otra instancia
+		nombreArchivo = "Clientes.json";
 	}
 
 	public void updateClientes(List<Cliente> clientes) {
