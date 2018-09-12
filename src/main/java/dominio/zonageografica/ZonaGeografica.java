@@ -1,5 +1,6 @@
 package dominio.zonageografica;
 
+import dominio.entities.TransformadorNullException;
 import dominio.transformador.Transformador;
 import dominio.usuario.Cliente;
 import dominio.zonageografica.Ubicacion;
@@ -8,7 +9,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-
+import java.util.Optional;
 
 
 @Entity
@@ -41,8 +42,11 @@ public class ZonaGeografica {
 
 	public Transformador devolverTransformadorCercano(Ubicacion ubicacionCliente) {
 
-		return transformadores.stream().min(Comparator.comparingDouble(t -> t.calcularDistancia(ubicacionCliente)))
-				.get();
+		Optional<Transformador> transformadorCercanano = Optional.of( transformadores.stream().min(Comparator.comparingDouble(t -> t.calcularDistancia(ubicacionCliente))).get());
+		if (transformadorCercanano.isPresent())
+			throw new TransformadorNullException("La zona no tiene ningun Transformador");
+
+		return transformadorCercanano.get();
 
 	}
 

@@ -11,6 +11,7 @@ import dominio.dispositivo.DispositivoInteligente;
 import dominio.entities.NoTieneDispositivoException;
 import dominio.simplexservice.Recomendacion;
 import dominio.transformador.Transformador;
+import dominio.zonageografica.AsignadorDeZonaService;
 import dominio.zonageografica.Ubicacion;
 
 import java.time.LocalDate;
@@ -119,6 +120,10 @@ public class Cliente {
 			throw new NoTieneDispositivoException("No se encuentra en posesion del dispositivo que intenta adaptar");
 	}
 
+	public  void transformadorCercano(AsignadorDeZonaService asignadorDeZonaService){
+		this.transformador = asignadorDeZonaService.buscarTransformadorCercanoPara(this);
+	}
+
 	public boolean tieneDispositivo(DispositivoEstandar disp) {
 
 		return dispositivosEstandar.contains(disp);
@@ -206,6 +211,7 @@ public class Cliente {
 		this.ahorroAutomatico = true;
 
 	}
+
 	public boolean estaEnModoAhorroAutomatico()
 	{
 		return ahorroAutomatico == true;
