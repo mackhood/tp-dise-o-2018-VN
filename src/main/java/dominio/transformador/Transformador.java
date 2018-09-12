@@ -9,7 +9,6 @@ import dominio.zonageografica.Ubicacion;
 
 import javax.persistence.*;
 
-
 @Entity
 public class Transformador {
 	@GeneratedValue
@@ -50,3 +49,4 @@ public class Transformador {
 		usuariosConectados.add(cliente);
 	}
 }
+

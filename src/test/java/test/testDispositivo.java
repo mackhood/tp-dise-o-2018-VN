@@ -88,11 +88,13 @@ public class testDispositivo {
 		unDIEncendido.setHoraEncendido(horaEncendido);
 		unDIEncendido.setHoraApagado(horaApagado);
 		unDIEncendido.sumarHorasDeUso(horaEncendido, horaApagado);
+		Assert.assertEquals(700.0, unDIEncendido.getConsumoTotal(), 10);
+
 		// unDIEncendido.apagar();
 		// Assert.assertEquals(0,horaEncendido.until(LocalDateTime.of(2018,8,6,20,45,30,100),ChronoUnit.HOURS));
 		// Assert.assertEquals(0,horaEncendido.until(unDIEncendido.getHoraApagado(),ChronoUnit.HOURS));
 		// Assert.assertEquals(0,unDIEncendido.getHoraApagado().until(horaEncendido,ChronoUnit.HOURS));
-		Assert.assertEquals(700.0, unDIEncendido.getConsumoTotal(), 10);
+
 		// Assert.assertEquals(0,LocalDateTime.now());
 	}
 

@@ -8,7 +8,7 @@ public class Medicion {
 	public Medicion(double val, String tipoMedicion) {
 		this.valor = val;
 		this.tipoMedicion = tipoMedicion;
-	};
+	}
 
 	public String getTipo() {
 

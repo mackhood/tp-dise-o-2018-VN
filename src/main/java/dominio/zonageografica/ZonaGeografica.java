@@ -43,7 +43,6 @@ public class ZonaGeografica {
 	public Transformador devolverTransformadorCercano(Ubicacion ubicacionCliente) {
 		if (transformadores.isEmpty())
 			throw new TransformadorNullException("La zona no tiene ningun Transformador");
-
 		return transformadores.stream().min(Comparator.comparingDouble(t -> t.calcularDistancia(ubicacionCliente))).get();
 	}
 
@@ -60,6 +59,5 @@ public class ZonaGeografica {
 		Transformador transformadorCercano = this.devolverTransformadorCercano(cliente.getPosicion());
 		transformadorCercano.agregarCliente(cliente);
 		return  transformadorCercano;
-
 	}
 }
