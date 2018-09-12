@@ -157,7 +157,7 @@ public class testCliente {
 		unClienteConDEyDI.transformadorCercano(asignadorDeZonaService);
 		assertEquals(transformadorMock,unClienteConDEyDI.getTransformador() );
 	}
-	
+
 	@Test
 	public void testVerificarActualizacionDeCategoriaCliente() throws ProcessingDataFailedException {
 
