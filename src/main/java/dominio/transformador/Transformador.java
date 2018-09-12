@@ -23,11 +23,11 @@ public class Transformador {
 
 	protected float radioCubierto;
 
-	public Transformador(List<Cliente> usuariosConectados, Ubicacion ubicacion, float radioCubierto) {
+	public Transformador(List<Cliente> usuariosConectados, Ubicacion ubicacion) {
 
 		this.ubicacion = ubicacion;
 		this.usuariosConectados = usuariosConectados;
-		this.radioCubierto = radioCubierto;
+
 	}
 
 

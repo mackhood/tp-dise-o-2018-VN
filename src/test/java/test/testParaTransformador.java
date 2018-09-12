@@ -56,8 +56,8 @@ public class testParaTransformador {
 
         listaClientesTransformador2.add(clienteMock3);
 
-        transformador1_Zona1 = new Transformador(listaClientesTransformador1, new Ubicacion(20.0, 20.0), 40);
-        transformador2_Zona1 = new Transformador(listaClientesTransformador2, new Ubicacion(10.0, 10.0), 5);
+        transformador1_Zona1 = new Transformador(listaClientesTransformador1, new Ubicacion(20.0, 20.0) );
+        transformador2_Zona1 = new Transformador(listaClientesTransformador2, new Ubicacion(10.0, 10.0));
 
         when(clienteMock1.consumoEnergeticoTotal()).thenReturn(350.0);
         when(clienteMock2.consumoEnergeticoTotal()).thenReturn(400.0);
