@@ -33,7 +33,6 @@ public class DispositivoEstandar extends Dispositivo {
 	}
 
 	public String getNombre() {
-
 		return nombre;
 	}
 

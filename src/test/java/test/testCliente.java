@@ -3,6 +3,7 @@ package test;
 import dominio.categoria.AsignadorDeCategoria;
 import dominio.categoria.Categoria;
 import dominio.dispositivo.*;
+import dominio.transformador.Transformador;
 import dominio.usuario.Cliente;
 import dominio.usuario.Domicilio;
 import dominio.usuario.ID;
@@ -11,6 +12,7 @@ import dominio.entities.NoTieneDispositivoException;
 import dominio.entities.ProcessingDataFailedException;
 import dominio.repositories.RepositorioCategoria;
 
+import dominio.zonageografica.AsignadorDeZonaService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -147,7 +149,15 @@ public class testCliente {
 	public void testConsumoEnergeticoTotalDeUnCliente() {
 		assertEquals(151.0, unClienteConDEyDI.consumoEnergeticoTotal());
 	}
-
+	@Test
+	public void testTransformadorCercanoParaCliente() {
+		AsignadorDeZonaService asignadorDeZonaService = mock(AsignadorDeZonaService.class);
+		Transformador transformadorMock = mock(Transformador.class);
+		when(asignadorDeZonaService.buscarTransformadorCercanoPara(unClienteConDEyDI)).thenReturn(transformadorMock);
+		unClienteConDEyDI.transformadorCercano(asignadorDeZonaService);
+		assertEquals(transformadorMock,unClienteConDEyDI.getTransformador() );
+	}
+	
 	@Test
 	public void testVerificarActualizacionDeCategoriaCliente() throws ProcessingDataFailedException {
 

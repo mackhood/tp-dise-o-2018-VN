@@ -24,7 +24,6 @@ public class DispositivoInteligente extends Dispositivo {
 
     }
 
-
     public DispositivoInteligente() {
 
     }
@@ -108,8 +107,7 @@ public class DispositivoInteligente extends Dispositivo {
         consumoEstimadoPorHora = Math.max(0.0,consumoEstimadoPorHora-cantidad);
         
         if (consumoEstimadoPorHora == 0) {
-        	
-        	this.estadoDispositivo = new EstadoApagado();
+            this.estadoDispositivo .apagar(this);
         }
     }
 

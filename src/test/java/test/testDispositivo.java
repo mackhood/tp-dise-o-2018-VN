@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertTrue;
 import static org.mockito.Mockito.spy;
 
 public class testDispositivo {
@@ -137,4 +139,22 @@ public class testDispositivo {
 	public void testDEConsultaConsumoDeUnDispositivoPorHoraEstandar() {
 		assertEquals(300.0, unDE.consumoEstimadoPorHora());
 	}
+	@Test
+	public void testDECambioDeEstadoDispositivoInteligente() {
+		unDIEncendido.apagar();
+		assertFalse(unDIEncendido.estaEncendido());
+	}
+	@Test
+	public void testDEModoAhorroDispositivoInteligente() {
+		unDIEncendido.ponerModoAhorro();
+		assertTrue(unDIEncendido.estaEnModoAhorro());
+	}
+
+	@Test
+	public void testReducirConsumoDispositivoInteligenteYapagarlo() {
+		unDIEncendido.reducirConsumoPor(100);
+		assertTrue(unDIEncendido.estaApagado());
+	}
+
+
 }
