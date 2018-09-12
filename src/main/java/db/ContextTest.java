@@ -1,10 +1,14 @@
 package db;
 
+import static org.junit.Assert.*;
+import org.uqbarproject.jpa.java8.extras.export.JpaSchemaExport;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
-import static org.junit.Assert.assertNotNull;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class ContextTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
