@@ -38,14 +38,13 @@ public class testAsignadorDeZonaService {
 
         transformadorMock = mock(Transformador.class);
 
-
         listaZonas = new ArrayList();
         listaZonas.add(zona1);
-        //listaZonas.add(zona2);
+        listaZonas.add(zona2);
+
         asignadorDeZonaService = new AsignadorDeZonaService(listaZonas);
 
         clienteMock = mock (Cliente.class);
-
 
         when(zona1.conectarATransformadorCercano(clienteMock)).thenReturn(transformadorMock);
         when(clienteMock.getPosicion()).thenReturn(new Ubicacion(0,0));
@@ -59,25 +58,17 @@ public class testAsignadorDeZonaService {
     public void testAsignarTransformadorParaCliente()  {
         assertEquals(transformadorMock,asignadorDeZonaService.buscarTransformadorCercanoPara(clienteMock));
     }
-
+    @Test
+    public void testZonaMasCercanaCliente(){
+        assertEquals(zona2,asignadorDeZonaService.zonaCercanaParaCliente(clienteMock));
+    }
     @Test(expected = ZonaNullException.class)
     public void testNoExisteZonaParaCliente()  {
         List<ZonaGeografica> otraListaZonas = new ArrayList<>();
-        otraListaZonas.add(zona2);
+        ZonaGeografica zona3 = mock(ZonaGeografica.class);
+        when(zona3.perteneceClienteAZona(clienteMock)).thenReturn(false);
+        otraListaZonas.add(zona3);
         AsignadorDeZonaService otroAsignadorDeZona = new AsignadorDeZonaService(otraListaZonas);
         otroAsignadorDeZona.zonaCercanaParaCliente (clienteMock);
     }
-   /* @Test
-    public void testNoExisteZonaCliente() {
-    }
-
-   @Test
-   public void testExisteZonaParaclientePeroNotransformador()  {
-       List<ZonaGeografica> otraListaZonas = new ArrayList<>();
-       otraListaZonas.add(zona2);
-       AsignadorDeZonaService otroAsignadorDeZona = new AsignadorDeZonaService(otraListaZonas);
-       otroAsignadorDeZona.buscarZonaCoberturaClienteYDevolverZona(clienteMock);
-       verify(clienteMock).setTransformador(null);
-   }
-   */
-}
+ }

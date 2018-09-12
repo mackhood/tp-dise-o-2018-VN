@@ -15,7 +15,6 @@ public class AsignadorDeZonaService {
 
     private List<ZonaGeografica> zonas = new ArrayList<>();
 
-
     public  AsignadorDeZonaService(List<ZonaGeografica> listaZonas){
         this.zonas = listaZonas;
 
