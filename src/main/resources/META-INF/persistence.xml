@@ -9,6 +9,10 @@
 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
+        <class>model.Alumno</class>
+        <class>model.Tarea</class>
+        <class>model.Asignacion</class>
+
         <class>java.dominio.usuario.Domicilio</class>
         <class>java.dominio.usuario.Cliente</class>
         <class>java.dominio.usuario.TiposId</class>
