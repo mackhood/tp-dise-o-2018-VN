@@ -105,7 +105,12 @@ public class DispositivoInteligente extends Dispositivo {
 
     public void reducirConsumoPor(double cantidad) {
 
-        this.consumoEstimadoPorHora -= cantidad;
+        consumoEstimadoPorHora = Math.max(0.0,consumoEstimadoPorHora-cantidad);
+        
+        if (consumoEstimadoPorHora == 0) {
+        	
+        	this.estadoDispositivo = new EstadoApagado();
+        }
     }
 
     public double getConsumoTotal() {
