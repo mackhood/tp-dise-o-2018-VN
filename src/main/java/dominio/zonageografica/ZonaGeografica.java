@@ -41,30 +41,24 @@ public class ZonaGeografica {
 	}
 
 	public Transformador devolverTransformadorCercano(Ubicacion ubicacionCliente) {
-
 		Optional<Transformador> transformadorCercanano = Optional.of( transformadores.stream().min(Comparator.comparingDouble(t -> t.calcularDistancia(ubicacionCliente))).get());
 		if (transformadorCercanano.isPresent())
 			throw new TransformadorNullException("La zona no tiene ningun Transformador");
-
 		return transformadorCercanano.get();
-
-	}
-
-	public boolean hayAlgunTransformador() {
-
-		return !this.transformadores.isEmpty();
 	}
 
 	public double consumoTotalZona() {
-
 		return transformadores.stream().mapToDouble(transformador -> transformador.suministroActual()).sum();
 	}
 
-
-
 	public List<Transformador> getTransformadores() {
 		return transformadores;
-
+	}
+	public boolean perteneceClienteAZona(Cliente cliente) {
+		return this.distanciaACliente(cliente.getPosicion()) < radio;
+	}
+	public Double distanciaACliente(Ubicacion ubicacion){
+		return ubicacion.calcularDistancia(ubicacion);
 	}
 
 	public Transformador conectarATransformadorCercano(Cliente cliente) {
@@ -73,12 +67,4 @@ public class ZonaGeografica {
 		return  transformadorCercano;
 
 	}
-
-	public boolean perteneceClienteAZona(Cliente cliente) {
-		return this.distanciaACliente(cliente.getPosicion()) < radio;
-	}
-	public Double distanciaACliente(Ubicacion ubicacion){
-		return ubicacion.calcularDistancia(ubicacion);
-	}
-
 }

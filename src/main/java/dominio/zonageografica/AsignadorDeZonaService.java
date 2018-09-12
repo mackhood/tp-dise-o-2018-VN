@@ -15,6 +15,7 @@ public class AsignadorDeZonaService {
 
     private List<ZonaGeografica> zonas = new ArrayList<>();
 
+
     public  AsignadorDeZonaService(List<ZonaGeografica> listaZonas){
         this.zonas = listaZonas;
 
@@ -29,6 +30,7 @@ public class AsignadorDeZonaService {
     public ZonaGeografica zonaCercanaParaCliente (Cliente cliente){
         List <ZonaGeografica> zonaParaCliente = zonas.stream().filter(zona-> zona.perteneceClienteAZona(cliente)).collect(Collectors.toList());
 
+
         if (zonaParaCliente.isEmpty())
                 throw  new ZonaNullException("No existe una zona cercana para:"+cliente.nombre());
         return zonaParaCliente.stream().min(Comparator.comparingDouble(zonaGeografica -> zonaGeografica.distanciaACliente(cliente.getPosicion()))).get();
@@ -36,5 +38,6 @@ public class AsignadorDeZonaService {
     private Transformador buscarTransformadorParaCliente(Cliente cliente, ZonaGeografica zonaGeografica) {
         return  zonaGeografica.conectarATransformadorCercano(cliente);
     }
+
 
 }
