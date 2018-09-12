@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class AsignadorDeZonaService {
 
@@ -21,16 +22,17 @@ public class AsignadorDeZonaService {
     }
     public Transformador buscarTransformadorCercanoPara(Cliente cliente) {
 
-        ZonaGeografica zonaGeograficaCercana = this.zonaCercanaParaCliente(cliente).get();
+        ZonaGeografica zonaGeograficaCercana = this.zonaCercanaParaCliente(cliente);
 
         return  this.buscarTransformadorParaCliente(cliente,zonaGeograficaCercana);
 
     }
-    public Optional<ZonaGeografica> zonaCercanaParaCliente (Cliente cliente){
-        Optional <ZonaGeografica> zonaParaCliente = Optional.of(zonas.stream().filter(zona-> zona.perteneceClienteAZona(cliente)).min(Comparator.comparingDouble(t -> t.distanciaACliente(cliente.getPosicion()))).get());
-        if (zonaParaCliente.isPresent())
+    public ZonaGeografica zonaCercanaParaCliente (Cliente cliente){
+        List <ZonaGeografica> zonaParaCliente = zonas.stream().filter(zona-> zona.perteneceClienteAZona(cliente)).collect(Collectors.toList());
+
+        if (zonaParaCliente.isEmpty())
                 throw  new ZonaNullException("No existe una zona cercana para:"+cliente.nombre());
-        return zonaParaCliente;
+        return zonaParaCliente.stream().min(Comparator.comparingDouble(zonaGeografica -> zonaGeografica.distanciaACliente(cliente.getPosicion()))).get();
      }
     private Transformador buscarTransformadorParaCliente(Cliente cliente, ZonaGeografica zonaGeografica) {
         return  zonaGeografica.conectarATransformadorCercano(cliente);

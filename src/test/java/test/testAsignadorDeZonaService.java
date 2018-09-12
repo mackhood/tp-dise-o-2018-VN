@@ -1,6 +1,7 @@
 package test;
 
 
+import dominio.entities.ZonaNullException;
 import dominio.transformador.Transformador;
 import dominio.usuario.Cliente;
 import dominio.zonageografica.AsignadorDeZonaService;
@@ -18,6 +19,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class testAsignadorDeZonaService {
@@ -49,28 +51,33 @@ public class testAsignadorDeZonaService {
         when(clienteMock.getPosicion()).thenReturn(new Ubicacion(0,0));
         when(zona1.perteneceClienteAZona(clienteMock)).thenReturn(true);
         when(zona2.perteneceClienteAZona(clienteMock)).thenReturn(true);
+        when(zona1.distanciaACliente(clienteMock.getPosicion())).thenReturn(3.0);
+        when(zona2.distanciaACliente(clienteMock.getPosicion())).thenReturn(1.0);
         when(zona2.conectarATransformadorCercano(clienteMock)).thenReturn(null);
-
-
-
     }
     @Test
-    public void testZonaYTranformdorParaCliente ()  {
-        asignadorDeZonaService.buscarZonaCoberturaClienteYDevolverZona(clienteMock);
-        verify(clienteMock).setTransformador(transformadorMock);
+    public void testAsignarTransformadorParaCliente()  {
+        assertEquals(transformadorMock,asignadorDeZonaService.buscarTransformadorCercanoPara(clienteMock));
     }
-    @Test
-    public void testExisteZonaParaclientePeroNotransformador()  {
+
+    @Test(expected = ZonaNullException.class)
+    public void testNoExisteZonaParaCliente()  {
         List<ZonaGeografica> otraListaZonas = new ArrayList<>();
         otraListaZonas.add(zona2);
         AsignadorDeZonaService otroAsignadorDeZona = new AsignadorDeZonaService(otraListaZonas);
-        otroAsignadorDeZona.buscarZonaCoberturaClienteYDevolverZona(clienteMock);
-        verify(clienteMock).setTransformador(null);
-
-
+        otroAsignadorDeZona.zonaCercanaParaCliente (clienteMock);
     }
    /* @Test
     public void testNoExisteZonaCliente() {
     }
-    }*/
+
+   @Test
+   public void testExisteZonaParaclientePeroNotransformador()  {
+       List<ZonaGeografica> otraListaZonas = new ArrayList<>();
+       otraListaZonas.add(zona2);
+       AsignadorDeZonaService otroAsignadorDeZona = new AsignadorDeZonaService(otraListaZonas);
+       otroAsignadorDeZona.buscarZonaCoberturaClienteYDevolverZona(clienteMock);
+       verify(clienteMock).setTransformador(null);
+   }
+   */
 }
