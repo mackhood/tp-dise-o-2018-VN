@@ -27,8 +27,6 @@ import static org.mockito.Mockito.*;
 
 public class testCliente {
 
-	private DispositivoEstandar mockDEEncendido;
-	private DispositivoEstandar mockDEApagado;
 	private Cliente unClienteConDEyDI;
 	private Cliente unClienteSinDEyConDI;
 	private Dispositivo mockDispositivo;
@@ -40,40 +38,34 @@ public class testCliente {
 
 	private SistemaInteligente mockSI;
 
-	Categoria categoriaMocktest1;
-	Categoria categoriaMocktest2;
-	List<Categoria> listaCategoriaMock;
+	Categoria mockCategoria;
 	AsignadorDeCategoria asignadorMock;
 
 	@Before
 	public void setUp() {
 
+		mockCategoria = Mockito.spy(new Categoria("CategoriaTest", 0, 3000, 50.0, 20.0));
 		mockSI = Mockito.spy(new SistemaInteligente());
-		mockDEEncendido = Mockito.mock(DispositivoEstandar.class);
-		mockDEApagado = Mockito.mock(DispositivoEstandar.class);
 		mockDispositivo = Mockito.mock(Dispositivo.class);
 		moduloAdaptador = new Conversor();
 
 		mockDE = Mockito.spy(new DispositivoEstandar.DispositivoEstandarBuilder("televisor")
-				.equipoConcreto("Color de tubo fluorescente de 29 a 34").consumoEstimadoPorHora(30.0)
-				.horasDeUso(2.0).build());
-		
-		mockDI = Mockito.spy(new DispositivoInteligente.DispositivoInteligenteBuilder("televisor").equipoConcreto("LED de 24")
-						.consumoEstimadoPorHora(500.0).estadoDispositivo(new EstadoApagado())
-						.horasDeUso(1.0).build());
-		
+				.equipoConcreto("Color de tubo fluorescente de 29 a 34").consumoEstimadoPorHora(30.0).horasDeUso(2.0)
+				.build());
+
+		mockDI = Mockito
+				.spy(new DispositivoInteligente.DispositivoInteligenteBuilder("televisor").equipoConcreto("LED de 24")
+						.consumoEstimadoPorHora(500.0).estadoDispositivo(new EstadoApagado()).horasDeUso(1.0).build());
+
 		mockDIEncendido = Mockito.spy(new DispositivoInteligente.DispositivoInteligenteBuilder("aireAcondicionado")
-				.equipoConcreto("De 2200 frigorias").consumoEstimadoPorHora(100.0).estadoDispositivo(new EstadoEncendido())
-				.horasDeUso(19.0).build());
+				.equipoConcreto("De 2200 frigorias").consumoEstimadoPorHora(100.0)
+				.estadoDispositivo(new EstadoEncendido()).horasDeUso(19.0).build());
 
 		List<DispositivoEstandar> listaDispositivosEstandar = new ArrayList<>();
 
 		List<DispositivoEstandar> listaDispositivosParaOtroCliente = new ArrayList<>();
 
 		List<DispositivoInteligente> listaDispInteligentes = new ArrayList<>();
-
-		when(mockDEEncendido.getConsumoTotal()).thenReturn(25.5);
-		when(mockDEApagado.getConsumoTotal()).thenReturn(25.5);
 
 		unClienteConDEyDI = spy(new Cliente("Fernando", "Sierra", "fer22", new ID(TiposId.DNI, "200"),
 				new Domicilio("bariloche", 3118, 1, 'a'), 250, listaDispositivosEstandar, listaDispInteligentes));
@@ -85,20 +77,6 @@ public class testCliente {
 		unClienteConDEyDI.agregarDispositivoInteligente(mockDIEncendido);
 		unClienteConDEyDI.agregarDispositivoInteligente(mockDI);
 		unClienteConDEyDI.agregarDispositivoEstandar(mockDE);
-
-		// Siguientes lineas Utilizadas para test de actualizar categoria y gastos
-		// aproximados.
-		// asignadorMock = mock(AsignadorDeCategoria.class, Mockito.CALLS_REAL_METHODS);
-		categoriaMocktest1 = mock(Categoria.class);
-		categoriaMocktest2 = mock(Categoria.class);
-
-		when(categoriaMocktest1.cumpleCondicion(unClienteConDEyDI)).thenReturn(true);
-		when(categoriaMocktest2.cumpleCondicion(unClienteConDEyDI)).thenReturn(false);
-
-		listaCategoriaMock = new ArrayList<>();
-
-		listaCategoriaMock.add(categoriaMocktest1);
-		listaCategoriaMock.add(categoriaMocktest2);
 
 		asignadorMock = mock(AsignadorDeCategoria.class);
 
@@ -160,16 +138,16 @@ public class testCliente {
 
 		assertEquals(3, unClienteConDEyDI.cantidadDeDispositivos());
 	}
-	
+
 	@Test
 	public void testConsumoDICliente() {
-		
-		assertEquals(2400.0,unClienteConDEyDI.consumoDispositivosInteligentes());
+
+		assertEquals(2400.0, unClienteConDEyDI.consumoDispositivosInteligentes());
 	}
-	
+
 	@Test
 	public void testSacarDE() {
-		
+
 		unClienteConDEyDI.sacarDispositivoEstandarLista(mockDE);
 		assertFalse(unClienteConDEyDI.tieneDE(mockDE));
 	}
@@ -181,7 +159,7 @@ public class testCliente {
 
 	@Test
 	public void testClienteUsarDispositivo() {
-		
+
 		unClienteConDEyDI.agregarDispositivoEstandar(mockDE);
 		unClienteConDEyDI.usarDispositivo(mockDE, 3.0);
 		assertEquals(5.0, mockDE.getHorasDeUso());
@@ -197,7 +175,19 @@ public class testCliente {
 		unClienteConDEyDI.activarAhorroAutomatico();
 		assertTrue(unClienteConDEyDI.estaEnModoAhorroAutomatico());
 	}
-	
+
+	@Test
+	public void testGastosCliente() {
+
+		// Consumo Total 2460
+		// Cargo Variable 20
+		// Cargo Fijo 50
+		// -------------------
+		// Gastos 2460*20 +50 -> 49200+50 -> 49250
+		unClienteConDEyDI.setCategoria(mockCategoria);
+		assertEquals(49250.0, unClienteConDEyDI.obtenerGastosAproximados());
+	}
+
 	@Test
 	public void testPuntosAcumuladorDespuesDeAgregarAdaptadorAUnDE() throws NoTieneDispositivoException {
 		unClienteConDEyDI.agregarModuloAdaptador(moduloAdaptador, mockDE);
@@ -232,23 +222,5 @@ public class testCliente {
 		when(asignadorDeZonaService.buscarTransformadorCercanoPara(unClienteConDEyDI)).thenReturn(transformadorMock);
 		unClienteConDEyDI.conectarseATransformador(asignadorDeZonaService);
 		assertEquals(transformadorMock, unClienteConDEyDI.getTransformador());
-	}
-
-	@Test
-	public void testVerificarActualizacionDeCategoriaCliente() throws ProcessingDataFailedException {
-
-		Categoria unaCategoriaMockSeteada = mock(Categoria.class);
-
-		when(unaCategoriaMockSeteada.getNombre()).thenReturn("CategoriaR1");
-		unClienteConDEyDI.setCategoria(unaCategoriaMockSeteada);
-
-		assertEquals("CategoriaR1", unClienteConDEyDI.getNombreCategoria());
-		when(asignadorMock.getCategoriasDelRepositorio()).thenReturn(listaCategoriaMock);
-		when(categoriaMocktest1.getNombre()).thenReturn("CategoriaR2");
-		when(asignadorMock.definirCategoriaPara(unClienteConDEyDI)).thenCallRealMethod();
-		when(asignadorMock.categoriaCliente(unClienteConDEyDI, listaCategoriaMock)).thenCallRealMethod();
-
-		assertEquals("CategoriaR2", asignadorMock.definirCategoriaPara(unClienteConDEyDI).getNombre());
-
 	}
 }
