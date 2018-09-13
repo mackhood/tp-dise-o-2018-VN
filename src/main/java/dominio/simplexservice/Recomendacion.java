@@ -19,7 +19,7 @@ public class Recomendacion {
 
     public Recomendacion(Cliente unCliente) {
         this.unCliente = unCliente;
-        SimplexBuilder simplexBuilder = new SimplexBuilder(unCliente.todosLosDispositivos());
+        SimplexBuilder simplexBuilder = new SimplexBuilder(unCliente.getTodosLosDispositivos());
         SimplexSolver simplexSolver = new SimplexSolver();
         LinearObjectiveFunction funcion = simplexBuilder.funcionEconomicaBuild();
 
@@ -51,7 +51,7 @@ public class Recomendacion {
 
     public void asignarHorasMaximasRecomendadasACadaDispositivo() {
         for (int i = 0; i < horasMaximaDeConsumoPorDispositivo.length; i++) {
-            unCliente.todosLosDispositivos().get(i).setHorasMaximaPorConsumo(getHorasMaximaDeConsumoPorDispositivo()[i]);
+            unCliente.getTodosLosDispositivos().get(i).setHorasMaximaPorConsumo(getHorasMaximaDeConsumoPorDispositivo()[i]);
         }
     }
 }

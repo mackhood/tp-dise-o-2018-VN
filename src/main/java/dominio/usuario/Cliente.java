@@ -73,7 +73,7 @@ public class Cliente {
 		this.telefono = unTelefono;
 		this.dispositivosEstandar = estandares;
 		this.dispositivosInteligentes = inteligentes;
-		//recomendacion = new Recomendacion(this.todosLosDispositivos());
+		// recomendacion = new Recomendacion(this.todosLosDispositivos());
 		this.fechaDeAlta = LocalDate.now();
 	}
 
@@ -90,7 +90,7 @@ public class Cliente {
 		// this.dispositivosInteligentes = dispInteligentes;
 		this.fechaDeAlta = LocalDate.now();
 		this.ubicacion = ubicacion;
-		//recomendacion = new Recomendacion(this.todosLosDispositivos());
+		// recomendacion = new Recomendacion(this.todosLosDispositivos());
 	}
 
 	public double puntosAcumulados() {
@@ -98,33 +98,23 @@ public class Cliente {
 				+ dispositivosEstandar.stream().mapToDouble(estandar -> estandar.getPuntos()).sum();
 	}
 
-	public List<Dispositivo> todosLosDispositivos() {
-
-		List<Dispositivo> todos = new ArrayList<>();
-		todos.addAll(dispositivosInteligentes);
-		todos.addAll(dispositivosEstandar);
-		//todos.stream().forEach(dispositivo -> System.out.println(dispositivo.getNombre()));
-		return todos;
-	}
-
 	public void agregarModuloAdaptador(Conversor conversor, DispositivoEstandar disp)
+
 			throws NoTieneDispositivoException {
 
-		if (this.tieneDispositivo(disp)) {
-
+		if (this.tieneDE(disp)) {
 			conversor.convertirInteligente(this, disp);
 		}
 
 		else
-
 			throw new NoTieneDispositivoException("No se encuentra en posesion del dispositivo que intenta adaptar");
 	}
 
-	public  void transformadorCercano(AsignadorDeZonaService asignadorDeZonaService){
-		this.transformador = asignadorDeZonaService.buscarTransformadorCercanoPara(this);
+	public void conectarseATransformador(AsignadorDeZonaService asignadorDeZonaService) {
+		transformador = asignadorDeZonaService.buscarTransformadorCercanoPara(this);
 	}
 
-	public boolean tieneDispositivo(DispositivoEstandar disp) {
+	public boolean tieneDE(DispositivoEstandar disp) {
 
 		return dispositivosEstandar.contains(disp);
 	}
@@ -134,19 +124,19 @@ public class Cliente {
 		return dispositivosInteligentes.stream().anyMatch(disp -> disp.estaEncendido());
 	}
 
-	public long cantidadDeDispositivosEncendidos() {
+	public long cantidadDeDIEncendidos() {
 
 		return dispositivosInteligentes.stream().filter(disp -> disp.estaEncendido()).count();
 	}
 
-	public long cantidadDeDispositivosApagados() {
+	public long cantidadDeDIApagados() {
 
 		return dispositivosInteligentes.stream().filter(disp -> disp.estaApagado()).count();
 	}
 
 	public int cantidadDeDispositivos() {
 
-		return todosLosDispositivos().size();
+		return getTodosLosDispositivos().size();
 	}
 
 	public void agregarDispositivoInteligente(DispositivoInteligente disp) {
@@ -159,12 +149,13 @@ public class Cliente {
 		dispositivosEstandar.add(disp);
 	}
 
-	public void usarDispositivo(DispositivoEstandar dispositivo, int cantHorasEstimativa)
+	public void usarDispositivo(DispositivoEstandar dispositivo, double cantHorasEstimada)
+
 			throws NoTieneDispositivoException {
 
-		if (this.tieneDispositivo(dispositivo)) {
+		if (this.tieneDE(dispositivo)) {
 
-			dispositivo.serUsado(cantHorasEstimativa);
+			dispositivo.serUsado(cantHorasEstimada);
 		}
 
 		else
@@ -173,7 +164,32 @@ public class Cliente {
 
 	public double consumoEnergeticoTotal() {
 
-		return todosLosDispositivos().stream().mapToDouble(disp -> disp.getConsumoTotal()).sum();
+		return getTodosLosDispositivos().stream().mapToDouble(disp -> disp.getConsumoTotal()).sum();
+	}
+
+	public void activarAhorroAutomatico() {
+
+		this.ahorroAutomatico = true;
+	}
+
+	public boolean estaEnModoAhorroAutomatico() {
+		return ahorroAutomatico == true;
+	}
+
+	public double consumoDispositivosInteligentes() {
+		return dispositivosInteligentes.stream()
+				.mapToDouble(dispositivoInteligente -> dispositivoInteligente.getConsumoTotal()).sum();
+	}
+
+	/*
+	 * public boolean esHogarEficiente() { return this.consumoEnergeticoTotal() <
+	 * recomendacion.getResultadoDeLaFuncionEconomica(); }
+	 */
+
+	public DispositivoEstandar sacarDispositivoEstandarLista(DispositivoEstandar estandar) {
+
+		dispositivosEstandar.remove(estandar);
+		return estandar;
 	}
 
 	public double obtenerGastosAproximados() {
@@ -181,88 +197,49 @@ public class Cliente {
 		return categoria.calcularCostosPara(this);
 	}
 
-	public void setCategoria(Categoria unaCategoria) {
-
-		categoria = unaCategoria;
-	}
-
-	public Categoria getCategoria() {
-
-		return this.categoria;
-	}
-
-	public String nombreCategoria() {
-
-		return this.categoria.getNombre();
-	}
-
-	public String nombre() {
-
-		return this.nombre;
-	}
-
-	public List<DispositivoInteligente> getDispositivosInteligentes() {
-
-		return dispositivosInteligentes;
-	}
-
-	public void activarAhorroAutomatico() {
-
-		this.ahorroAutomatico = true;
-
-	}
-	public double consumoDispositivosInteligentes(){
-		return dispositivosInteligentes.stream().mapToDouble(dispositivoInteligente-> dispositivoInteligente.getConsumoTotal()).sum();
-	}
-
-	public boolean estaEnModoAhorroAutomatico()
-	{
-		return ahorroAutomatico == true;
-	}
 	/*
-	public void asignarHorasMaximasRecomendadasALosDispositivos()
-	{
-		recomendacion = new Recomendacion(this);
-		recomendacion.asignarHorasMaximasRecomendadasACadaDispositivo(this);
+	 * public void asignarHorasMaximasRecomendadasALosDispositivos() { recomendacion
+	 * = new Recomendacion(this);
+	 * recomendacion.asignarHorasMaximasRecomendadasACadaDispositivo(this); }
+	 * 
+	 * public double resultadoDeLaFuncionEconomica() {
+	 * 
+	 * return recomendacion.getResultadoDeLaFuncionEconomica(); }
+	 * 
+	 * public void realizarRecomendacionParaLosDispositivosInteligentes() {
+	 * 
+	 * this.getDispositivosInteligentes().stream().forEach(dispositivo -> {
+	 * if(dispositivo.consumioMasDeLaRecomendacion()) {dispositivo.apagar();} }) };
+	 * 
+	 * public double[] horasMaximasDeConsumoPorDispositivo() {
+	 * 
+	 * return recomendacion.getHorasMaximaDeConsumoPorDispositivo(); }
+	 */
+
+	// GETTERS/SETTERS
+
+	public String getNombreCategoria() {
+
+		return categoria.getNombre();
 	}
-	*/
 
-	/*
-	public double resultadoDeLaFuncionEconomica() {
+	public String getNombre() {
 
-		return recomendacion.getResultadoDeLaFuncionEconomica();
-	}
-	*/
-
-	//Solo se pueden apagar los dispositivos inteligentes
-	/*public void realizarRecomendacionParaLosDispositivosInteligentes()
-	{
-		this.getDispositivosInteligentes().stream().forEach(dispositivo ->
-		{
-			if(dispositivo.consumioMasDeLaRecomendacion())
-			{
-				dispositivo.apagar();
-			}
-		});
-	}*/
-	/*
-	public double[] horasMaximasDeConsumoPorDispositivo() {
-		return recomendacion.getHorasMaximaDeConsumoPorDispositivo();
-	}
-	*/
-
-	public boolean esHogarEficiente() {
-		return this.consumoEnergeticoTotal() < recomendacion.getResultadoDeLaFuncionEconomica();
+		return nombre;
 	}
 
 	public Ubicacion getPosicion() {
 		return ubicacion;
 	}
 
-	public DispositivoEstandar sacarDispositivoEstandarLista(DispositivoEstandar estandar) {
+	public List<Dispositivo> getTodosLosDispositivos() {
 
-		dispositivosEstandar.remove(estandar);
-		return estandar;
+		List<Dispositivo> todos = new ArrayList<>();
+		todos.addAll(dispositivosInteligentes);
+		todos.addAll(dispositivosEstandar);
+		// todos.stream().forEach(dispositivo ->
+		// System.out.println(dispositivo.getNombre()));
+		return todos;
 	}
 
 	public void setTransformador(Transformador transformador) {
@@ -272,4 +249,20 @@ public class Cliente {
 	public Transformador getTransformador() {
 		return transformador;
 	}
+
+	public void setCategoria(Categoria unaCategoria) {
+
+		categoria = unaCategoria;
+	}
+
+	public Categoria getCategoria() {
+
+		return categoria;
+	}
+
+	public List<DispositivoInteligente> getDispositivosInteligentes() {
+
+		return dispositivosInteligentes;
+	}
+
 }

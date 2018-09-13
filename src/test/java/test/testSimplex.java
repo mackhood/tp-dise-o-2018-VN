@@ -76,7 +76,7 @@ public class testSimplex {
 
     @Ignore
     public void testConsumoRecomendadoMaximoParaCadaDispositivoDelCliente() {
-        unCliente.todosLosDispositivos().stream().forEach(dispositivo -> System.out.println(dispositivo.getHorasMaximaRecomendadaPorConsumo()));
+        unCliente.getTodosLosDispositivos().stream().forEach(dispositivo -> System.out.println(dispositivo.getHorasMaximaRecomendadaPorConsumo()));
     }
 
     @Test
@@ -86,32 +86,32 @@ public class testSimplex {
 
     @Test
     public void testConsumoRecomendadoMaximoDispositivo1DelCliente() {
-        Assert.assertEquals(360, unCliente.todosLosDispositivos().get(0).getHorasMaximaRecomendadaPorConsumo(), 15);
+        Assert.assertEquals(360, unCliente.getTodosLosDispositivos().get(0).getHorasMaximaRecomendadaPorConsumo(), 15);
     }
 
     @Test
     public void testConsumoRecomendadoMaximoDispositivo2DelCliente() {
-        Assert.assertEquals(360, unCliente.todosLosDispositivos().get(1).getHorasMaximaRecomendadaPorConsumo(), 15);
+        Assert.assertEquals(360, unCliente.getTodosLosDispositivos().get(1).getHorasMaximaRecomendadaPorConsumo(), 15);
     }
 
     @Test
     public void testConsumoRecomendadoMaximoDispositivo3DelCliente() {
-        Assert.assertEquals(30, unCliente.todosLosDispositivos().get(2).getHorasMaximaRecomendadaPorConsumo(), 15);
+        Assert.assertEquals(30, unCliente.getTodosLosDispositivos().get(2).getHorasMaximaRecomendadaPorConsumo(), 15);
     }
 
     @Test
     public void testPrimerDispositivo() {
-        Assert.assertEquals("aireAcondicionado", unCliente.todosLosDispositivos().get(0).getNombre());
+        Assert.assertEquals("aireAcondicionado", unCliente.getTodosLosDispositivos().get(0).getNombre());
     }
 
     @Test
     public void testSegundoDispositivo() {
-        Assert.assertEquals("lampara", unCliente.todosLosDispositivos().get(1).getNombre());
+        Assert.assertEquals("lampara", unCliente.getTodosLosDispositivos().get(1).getNombre());
     }
 
     @Test
     public void testTercerDispositivo() {
-        Assert.assertEquals("lavarropas", unCliente.todosLosDispositivos().get(2).getNombre());
+        Assert.assertEquals("lavarropas", unCliente.getTodosLosDispositivos().get(2).getNombre());
     }
 
     @Test

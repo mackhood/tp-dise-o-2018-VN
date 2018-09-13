@@ -37,15 +37,15 @@ public class DispositivoEstandar extends Dispositivo {
 	}
 
 	public double getConsumoTotal() {
-		return this.consumoEstimadoPorHora * this.horasDeUso;
+		return consumoEstimadoPorHora * horasDeUso;
 	}
 
 	public int getPuntos() {
 		return 0;
 	}
 
-	public void serUsado(int cantHorasEstimativa) {
-		horasDeUso = horasDeUso + cantHorasEstimativa;
+	public void serUsado(double cantHorasEstimada) {
+		horasDeUso = horasDeUso + cantHorasEstimada;
 	}
 
 	public static class DispositivoEstandarBuilder {
@@ -90,7 +90,7 @@ public class DispositivoEstandar extends Dispositivo {
 		}
 
 		public DispositivoEstandarBuilder horasDeUso(Double horasDeUso) {
-			this.restriccionMaxima = horasDeUso;
+			this.horasDeUso = horasDeUso;
 			return this;
 		}
 

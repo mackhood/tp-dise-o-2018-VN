@@ -28,7 +28,7 @@ public class AsignadorDeZonaService {
 		List<ZonaGeografica> zonaParaCliente = zonas.stream().filter(zona -> zona.perteneceClienteAZona(cliente))
 				.collect(Collectors.toList());
 		if (zonaParaCliente.isEmpty())
-			throw new ZonaNullException("No existe una zona cercana para: " + cliente.nombre());
+			throw new ZonaNullException("No existe una zona cercana para: " + cliente.getNombre());
 		return zonaParaCliente.stream()
 				.min(Comparator.comparingDouble(zonaGeografica -> zonaGeografica.distanciaAcliente(cliente))).get();
 	}

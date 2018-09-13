@@ -190,7 +190,7 @@ public class DispositivoInteligente extends Dispositivo {
         }
 
         public DispositivoInteligenteBuilder horasDeUso(Double horasDeUso) {
-            this.restriccionMaxima = horasDeUso;
+            this.horasDeUso = horasDeUso;
             return this;
         }
 
