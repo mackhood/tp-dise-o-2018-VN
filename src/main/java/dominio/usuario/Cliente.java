@@ -43,7 +43,7 @@ public class Cliente {
 	private Domicilio domicilio;
 
 	private LocalDate fechaDeAlta;
-	@OneToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Categoria categoria;
 	@Column(length = 150)
 	private String username;
