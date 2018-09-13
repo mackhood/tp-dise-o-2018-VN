@@ -1,15 +1,17 @@
 package dominio.dispositivo;
 
-import javax.persistence.Basic;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 @Entity
 public class DispositivoInteligente extends Dispositivo {
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="idDispositivoInteligente")
+    private Long id;
     @Embedded
     public EstadoDispositivo estadoDispositivo;
 

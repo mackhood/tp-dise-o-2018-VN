@@ -3,12 +3,15 @@ package dominio.usuario;
 import javax.persistence.*;
 
 
-@Entity
-@Table(name = "id")
+@Embeddable
+//@Table(name = "id")
 public class ID {
-	@Id
-	@GeneratedValue( strategy= GenerationType.AUTO)
-	protected Long id;
+
+	//@Id
+	//@GeneratedValue( strategy= GenerationType.AUTO)
+	//@Column(name="idID")
+	//protected Long idID;
+
 
 	@Enumerated(EnumType.STRING)
 	TiposId tipoID;
@@ -16,6 +19,7 @@ public class ID {
 
 	String numeroID;
 
+	public ID(){}
 	public ID(TiposId tipoID, String numeroID) {
 		this.tipoID = tipoID;
 		this.numeroID = numeroID;
