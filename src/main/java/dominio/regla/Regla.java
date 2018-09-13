@@ -15,7 +15,7 @@ public class Regla {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Actuador actuador;
 
-	@ElementCollection
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<Condicion> condicionesACumplir = new ArrayList<>();
 
 	public Regla(Actuador actuador, List<Condicion> condicionesACumplir) {

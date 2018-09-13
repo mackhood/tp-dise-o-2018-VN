@@ -26,7 +26,7 @@ public abstract class Actuador {
 	 */
 
 	DispositivoInteligente dispInteligente = null;
-
+	@Transient
 	protected List<DispositivoInteligente> dispositivos;
 
 	public Actuador(List<DispositivoInteligente> dispositivosAfectados) {

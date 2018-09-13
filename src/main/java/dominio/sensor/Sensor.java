@@ -2,13 +2,23 @@ package dominio.sensor;
 
 import dominio.regla.Regla;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+@Entity
+
 public class Sensor {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long id;
+
+	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	private Regla regla;
+	@Transient
 	private Medicion ultimaMedicion;
 
 	public Sensor(Regla unaRegla) {
