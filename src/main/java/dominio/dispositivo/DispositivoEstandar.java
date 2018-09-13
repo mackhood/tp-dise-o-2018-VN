@@ -4,7 +4,6 @@ package dominio.dispositivo;
 import javax.persistence.*;
 
 @Entity
-@PrimaryKeyJoinColumn(name="dispositivoId")
 public class DispositivoEstandar extends Dispositivo {
 
 

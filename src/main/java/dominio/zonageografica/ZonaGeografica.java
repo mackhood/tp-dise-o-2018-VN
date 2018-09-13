@@ -16,16 +16,16 @@ public class ZonaGeografica {
 
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue( strategy= GenerationType.AUTO)
 	protected Long id;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	protected List<Transformador> transformadores = new ArrayList<>();
 	@Column(length = 150)
 	private String descripcion;
 	private Double radio;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Ubicacion ubicacion;
 
 	public ZonaGeografica(String descripcion, List<Transformador> transformadores, Ubicacion ubicacion, Double radio) {

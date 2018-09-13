@@ -56,7 +56,7 @@ public class Cliente {
 	@ManyToMany(fetch = FetchType.LAZY)
 	private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER)
 	private Ubicacion ubicacion;
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Transformador transformador;

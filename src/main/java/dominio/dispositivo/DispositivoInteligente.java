@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 @Entity
-@PrimaryKeyJoinColumn(name="dispositivoId")
 public class DispositivoInteligente extends Dispositivo {
 
     @Embedded
