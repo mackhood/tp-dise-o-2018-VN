@@ -2,10 +2,12 @@ package dominio.cargarCliente;
 
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
+import dominio.repositories.Repositorios;
 import dominio.usuario.Cliente;
 import dominio.usuario.Domicilio;
 import dominio.usuario.ID;
 import dominio.usuario.TiposId;
+import dominio.zonageografica.Ubicacion;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
@@ -14,7 +16,7 @@ import java.util.List;
 
 public class CargarCliente implements WithGlobalEntityManager,TransactionalOps {
 
-    public void run()
+    public void persistirCliente()
     {
         withTransaction(()->{
             Domicilio domicilio = new Domicilio("av cordoba",1234,7,'A');
@@ -27,10 +29,22 @@ public class CargarCliente implements WithGlobalEntityManager,TransactionalOps {
 
             List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
             dispositivosInteligentes.add(aireAcondicionado3500);
+
+
             Cliente unCliente = new Cliente("ariel","galvan","galvanariel97",id,domicilio,47581269,dispositivosEstandares,dispositivosInteligentes);
+
+            Ubicacion ubicacion = new Ubicacion(5,2);
+            unCliente.setUbicacion(ubicacion);
 
             entityManager().persist(unCliente);
             entityManager().getTransaction().commit();
+        });
+    }
+    public void persistirDispositivos()
+    {
+        withTransaction(()->{
+            Repositorios.dispositivos.getDispositivos().stream().forEach(dispositivo -> entityManager().persist(dispositivo));
+
         });
     }
 }

@@ -17,6 +17,7 @@ public class ZonaGeografica {
 
 	@Id
 	@GeneratedValue( strategy= GenerationType.AUTO)
+	@Column(name="idZonaGeografica")
 	protected Long id;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

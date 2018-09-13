@@ -14,6 +14,8 @@ public class Transformador {
 
 	@Id
 	@GeneratedValue( strategy= GenerationType.AUTO)
+	@Column(name="idTransformador")
+
 	protected Long id;
 	@OneToMany(fetch = FetchType.EAGER)
 	private List<Cliente> usuariosConectados = new ArrayList<>();

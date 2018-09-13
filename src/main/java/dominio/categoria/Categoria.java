@@ -10,6 +10,7 @@ import javax.persistence.*;
 public class Categoria {
 	@Id
 	@GeneratedValue( strategy= GenerationType.AUTO)
+	@Column(name="idCategoria")
 	protected Long id;
 	private String nombre;
 	private Integer consumoMinimo;

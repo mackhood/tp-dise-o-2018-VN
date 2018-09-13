@@ -45,7 +45,7 @@ public class Cliente {
 	private Domicilio domicilio;
 
 	private LocalDate fechaDeAlta;
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Categoria categoria;
 	@Column(length = 150)
 	private String username;
@@ -60,6 +60,7 @@ public class Cliente {
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private Ubicacion ubicacion;
+
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private Transformador transformador;
 
@@ -252,4 +253,19 @@ public class Cliente {
 		return dispositivosInteligentes;
 	}
 
+	public Ubicacion getUbicacion() {
+		return ubicacion;
+	}
+
+	public void setUbicacion(Ubicacion ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+
+	public Domicilio getDomicilio() {
+		return domicilio;
+	}
+
+	public void setDomicilio(Domicilio domicilio) {
+		this.domicilio = domicilio;
+	}
 }
