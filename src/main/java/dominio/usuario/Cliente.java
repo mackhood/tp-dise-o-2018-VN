@@ -38,8 +38,7 @@ public class Cliente {
 	private ID identificacion;
 
 	private long telefono;
-
-	@ManyToOne(fetch = FetchType.EAGER)
+	@Embedded
 	private Domicilio domicilio;
 
 	private LocalDate fechaDeAlta;

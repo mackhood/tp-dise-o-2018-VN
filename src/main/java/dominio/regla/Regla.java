@@ -3,13 +3,19 @@ package dominio.regla;
 import dominio.actuador.Actuador;
 import dominio.sensor.Condicion;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Regla {
+@Entity
+@Table(name = "regla")
 
+public class Regla {
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Actuador actuador;
+
+	@ElementCollection
 	private List<Condicion> condicionesACumplir = new ArrayList<>();
 
 	public Regla(Actuador actuador, List<Condicion> condicionesACumplir) {
