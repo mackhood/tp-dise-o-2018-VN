@@ -2,16 +2,14 @@ package dominio.zonageografica;
 
 import dominio.usuario.Cliente;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Ubicacion {
-	@GeneratedValue
+
 	@Id
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	protected Long id;
 	@Column(name = "POSICIONX", nullable = false, length = 20)
 	private double posicionX;
 	@Column(name = "POSICION7", nullable = false, length = 20)

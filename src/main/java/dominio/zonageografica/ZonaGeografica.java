@@ -14,9 +14,10 @@ import java.util.Optional;
 @Entity
 public class ZonaGeografica {
 
-	@GeneratedValue
+
 	@Id
-	private Long id;
+	@GeneratedValue
+	protected Long id;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	protected List<Transformador> transformadores = new ArrayList<>();

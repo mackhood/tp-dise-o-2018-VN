@@ -9,14 +9,13 @@
 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <class>model.Alumno</class>
-        <class>model.Tarea</class>
-        <class>model.Asignacion</class>
 
-        <class>java.dominio.usuario.Domicilio</class>
-        <class>java.dominio.usuario.Cliente</class>
-        <class>java.dominio.usuario.TiposId</class>
+
+
+        <class>dominio.zonageografica.Ubicacion</class>
         <class>dominio.categoria.Categoria</class>
+        <class>dominio.usuario.ID</class>
+        <class>dominio.usuario.Domicilio</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>

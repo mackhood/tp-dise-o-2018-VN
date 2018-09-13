@@ -11,16 +11,15 @@ import javax.persistence.*;
 
 @Entity
 public class Transformador {
-	@GeneratedValue
+
 	@Id
-	private Long id;
+	@GeneratedValue( strategy= GenerationType.AUTO)
+	protected Long id;
 	@OneToMany(fetch = FetchType.EAGER)
 	private List<Cliente> usuariosConectados = new ArrayList<>();
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Ubicacion ubicacion;
-
-	protected float radioCubierto;
 
 	public Transformador(List<Cliente> usuariosConectados, Ubicacion ubicacion) {
 

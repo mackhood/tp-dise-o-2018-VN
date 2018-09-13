@@ -1,13 +1,15 @@
 package dominio.usuario;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 
 
 @Entity
+@Table(name = "id")
 public class ID {
+	@Id
+	@GeneratedValue( strategy= GenerationType.AUTO)
+	protected Long id;
+
 	@Enumerated(EnumType.STRING)
 	TiposId tipoID;
 	@Column(length=150)
