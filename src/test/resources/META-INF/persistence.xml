@@ -16,9 +16,11 @@
         <class>java.dominio.usuario.Domicilio</class>
         <class>java.dominio.usuario.Cliente</class>
         <class>java.dominio.usuario.TiposId</class>
+        <class>dominio.categoria.Categoria</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
+
 
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/notitas?serverTimezone=UTC" />

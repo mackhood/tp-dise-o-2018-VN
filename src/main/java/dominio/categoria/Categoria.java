@@ -2,7 +2,15 @@ package dominio.categoria;
 
 import dominio.usuario.Cliente;
 
+import javax.persistence.*;
+
+
+@Entity
+@Table(name="categoria")
 public class Categoria {
+	@Id
+	@GeneratedValue( strategy= GenerationType.AUTO)
+	protected Long id;
 	private String nombre;
 	private Integer consumoMinimo;
 	private Integer consumoMaximo;
