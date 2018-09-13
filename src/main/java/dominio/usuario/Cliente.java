@@ -21,28 +21,29 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "CLIENTE")
-
+@Table(name = "cliente")
 public class Cliente {
-	Recomendacion recomendacion;
 
-	@GeneratedValue
 	@Id
-	private Long id;
+	@GeneratedValue( strategy= GenerationType.AUTO)
+	protected Long id;
 
 	@Column(name = "NOMBRE", nullable = false, length = 100)
 	private String nombre;
+
 	@Column(length = 50)
 	private String apellido;
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private ID identificacion;
+
 	private long telefono;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Domicilio domicilio;
 
 	private LocalDate fechaDeAlta;
+	@OneToOne(fetch = FetchType.EAGER)
 	private Categoria categoria;
 	@Column(length = 150)
 	private String username;

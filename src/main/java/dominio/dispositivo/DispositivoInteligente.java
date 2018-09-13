@@ -1,12 +1,22 @@
 package dominio.dispositivo;
 
+import javax.persistence.Basic;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+@Entity
+@PrimaryKeyJoinColumn(name="dispositivoId")
 public class DispositivoInteligente extends Dispositivo {
 
+    @Embedded
     public EstadoDispositivo estadoDispositivo;
+
+    @Basic
     public LocalDateTime horaEncendido;
+    @Basic
     public LocalDateTime horaApagado;
 
     public DispositivoInteligente(DispositivoInteligenteBuilder builder) {

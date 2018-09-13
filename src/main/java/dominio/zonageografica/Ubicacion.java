@@ -10,9 +10,9 @@ public class Ubicacion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected Long id;
-	@Column(name = "POSICIONX", nullable = false, length = 20)
+	@Column(name = "PosicionX", nullable = false, length = 20)
 	private double posicionX;
-	@Column(name = "POSICION7", nullable = false, length = 20)
+	@Column(name = "PosicionY", nullable = false, length = 20)
 	private double posicionY;
 
 	public Ubicacion(double posicionX, double posicionY) {
