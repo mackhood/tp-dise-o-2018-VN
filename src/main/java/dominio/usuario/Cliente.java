@@ -41,11 +41,12 @@ public class Cliente {
 
 	private long telefono;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@Embedded
 	private Domicilio domicilio;
 
 	private LocalDate fechaDeAlta;
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+
 	private Categoria categoria;
 	@Column(length = 150)
 	private String username;

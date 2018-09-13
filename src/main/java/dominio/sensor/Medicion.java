@@ -1,5 +1,8 @@
 package dominio.sensor;
 
+import java.beans.Transient;
+
+
 public class Medicion {
 
 	double valor;

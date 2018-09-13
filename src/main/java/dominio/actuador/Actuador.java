@@ -4,7 +4,20 @@ import java.util.List;
 
 import dominio.dispositivo.DispositivoInteligente;
 
+import javax.persistence.*;
+
+
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="DISCRIMINATOR", discriminatorType=DiscriminatorType.STRING)
+
 public abstract class Actuador {
+
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long id;
+
 
 	/*
 	 * Cada uno de los distintos Actuadores va a tener su propia logica a /
@@ -13,7 +26,7 @@ public abstract class Actuador {
 	 */
 
 	DispositivoInteligente dispInteligente = null;
-
+	@Transient
 	protected List<DispositivoInteligente> dispositivos;
 
 	public Actuador(List<DispositivoInteligente> dispositivosAfectados) {

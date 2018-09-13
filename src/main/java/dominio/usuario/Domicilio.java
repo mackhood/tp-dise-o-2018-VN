@@ -6,15 +6,12 @@ import dominio.zonageografica.ZonaGeografica;
 import javax.persistence.*;
 
 
-@Entity
+@Embeddable
 public class Domicilio {
 
-	@Id
-	@GeneratedValue( strategy= GenerationType.AUTO)
-	@Column(name="idDomicilio")
+
 	protected Long id;
 
-	@Column(length=150)
 	public String calle;
 	public int altura;
 	public int piso;

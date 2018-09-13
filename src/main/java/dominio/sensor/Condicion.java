@@ -2,11 +2,25 @@ package dominio.sensor;
 
 import dominio.regla.Regla;
 
+import javax.persistence.*;
+
+
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="DISCRIMINATOR", discriminatorType=DiscriminatorType.STRING)
+
+
 public abstract class Condicion {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long id;
+
 
 	protected double valorLimite;
 	private String tipo;
 	protected double medicionActual;
+
+	@ManyToOne
 	private Regla regla;
 
 	public Condicion(Regla regla, double valorLimite, String tipo) {
