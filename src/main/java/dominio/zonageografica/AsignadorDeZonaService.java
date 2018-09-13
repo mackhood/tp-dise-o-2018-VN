@@ -13,26 +13,28 @@ import java.util.stream.Collectors;
 
 public class AsignadorDeZonaService {
 
-    private List<ZonaGeografica> zonas = new ArrayList<>();
+	private List<ZonaGeografica> zonas = new ArrayList<>();
 
-    public  AsignadorDeZonaService(List<ZonaGeografica> listaZonas){
-        this.zonas.addAll(listaZonas);
+	public AsignadorDeZonaService(List<ZonaGeografica> listaZonas) {
+		this.zonas.addAll(listaZonas);
+	}
 
-    }
-    public Transformador buscarTransformadorCercanoPara(Cliente cliente) {
-        ZonaGeografica zonaGeograficaCercana = this.zonaCercanaParaCliente(cliente);
-        return  this.buscarTransformadorParaCliente(cliente,zonaGeograficaCercana);
+	public Transformador buscarTransformadorCercanoPara(Cliente cliente) {
+		ZonaGeografica zonaGeograficaCercana = this.zonaCercanaParaCliente(cliente);
+		return this.buscarTransformadorParaCliente(cliente, zonaGeograficaCercana);
+	}
 
-    }
-    public ZonaGeografica zonaCercanaParaCliente (Cliente cliente){
-        List <ZonaGeografica> zonaParaCliente = zonas.stream().filter(zona-> zona.perteneceClienteAZona(cliente)).collect(Collectors.toList());
-        if (zonaParaCliente.isEmpty())
-                throw  new ZonaNullException("No existe una zona cercana para:"+cliente.nombre());
-        return zonaParaCliente.stream().min(Comparator.comparingDouble(zonaGeografica -> zonaGeografica.distanciaAcliente(cliente))).get();
-     }
-    private Transformador buscarTransformadorParaCliente(Cliente cliente, ZonaGeografica zonaGeografica) {
-        return  zonaGeografica.conectarATransformadorCercano(cliente);
-    }
+	public ZonaGeografica zonaCercanaParaCliente(Cliente cliente) {
+		List<ZonaGeografica> zonaParaCliente = zonas.stream().filter(zona -> zona.perteneceClienteAZona(cliente))
+				.collect(Collectors.toList());
+		if (zonaParaCliente.isEmpty())
+			throw new ZonaNullException("No existe una zona cercana para: " + cliente.nombre());
+		return zonaParaCliente.stream()
+				.min(Comparator.comparingDouble(zonaGeografica -> zonaGeografica.distanciaAcliente(cliente))).get();
+	}
 
+	private Transformador buscarTransformadorParaCliente(Cliente cliente, ZonaGeografica zonaGeografica) {
+		return zonaGeografica.conectarATransformadorCercano(cliente);
+	}
 
 }

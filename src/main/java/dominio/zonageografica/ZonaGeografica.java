@@ -11,7 +11,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-
 @Entity
 public class ZonaGeografica {
 
@@ -19,17 +18,16 @@ public class ZonaGeografica {
 	@Id
 	private Long id;
 
-
-	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	protected List<Transformador> transformadores = new ArrayList<>();
-	@Column(length=150)
+	@Column(length = 150)
 	private String descripcion;
 	private Double radio;
 
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Ubicacion ubicacion;
 
-	public ZonaGeografica(String descripcion, List<Transformador> transformadores,Ubicacion ubicacion,Double radio) {
+	public ZonaGeografica(String descripcion, List<Transformador> transformadores, Ubicacion ubicacion, Double radio) {
 		this.transformadores.addAll(transformadores);
 		this.descripcion = descripcion;
 		this.ubicacion = ubicacion;
@@ -43,21 +41,21 @@ public class ZonaGeografica {
 	public Transformador devolverTransformadorCercano(Ubicacion ubicacionCliente) {
 		if (transformadores.isEmpty())
 			throw new TransformadorNullException("La zona no tiene ningun Transformador");
-		return transformadores.stream().min(Comparator.comparingDouble(t -> t.calcularDistancia(ubicacionCliente))).get();
+		return transformadores.stream().min(Comparator.comparingDouble(t -> t.calcularDistancia(ubicacionCliente)))
+				.get();
 	}
 
 	public boolean perteneceClienteAZona(Cliente cliente) {
 		return this.distanciaAcliente(cliente) < radio;
 	}
-	public Double distanciaAcliente (Cliente cliente) {
-		return  cliente.getPosicion().calcularDistancia(ubicacion);
+
+	public Double distanciaAcliente(Cliente cliente) {
+		return cliente.getPosicion().calcularDistancia(ubicacion);
 	}
-
-
 
 	public Transformador conectarATransformadorCercano(Cliente cliente) {
 		Transformador transformadorCercano = this.devolverTransformadorCercano(cliente.getPosicion());
 		transformadorCercano.agregarCliente(cliente);
-		return  transformadorCercano;
+		return transformadorCercano;
 	}
 }

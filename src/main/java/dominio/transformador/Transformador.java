@@ -17,7 +17,7 @@ public class Transformador {
 	@OneToMany(fetch = FetchType.EAGER)
 	private List<Cliente> usuariosConectados = new ArrayList<>();
 
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Ubicacion ubicacion;
 
 	protected float radioCubierto;
@@ -29,11 +29,11 @@ public class Transformador {
 
 	}
 
-
 	public double suministroActual() {
 		return this.consumoDeDispositivosInteligentesClientes();
 	}
-	private double consumoDeDispositivosInteligentesClientes(){
+
+	private double consumoDeDispositivosInteligentesClientes() {
 		return usuariosConectados.stream().mapToDouble(cliente -> cliente.consumoDispositivosInteligentes()).sum();
 	}
 
@@ -48,5 +48,9 @@ public class Transformador {
 	public void agregarCliente(Cliente cliente) {
 		usuariosConectados.add(cliente);
 	}
+	
+	public List<Cliente> getUsuariosConectados() {
+		
+		return usuariosConectados;
+	}
 }
-
