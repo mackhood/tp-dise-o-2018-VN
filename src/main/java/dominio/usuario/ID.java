@@ -23,5 +23,5 @@ public class ID {
 		this.tipoID = tipoID;
 		this.numeroID = numeroID;
 	}
-	public ID(){}
+
 }

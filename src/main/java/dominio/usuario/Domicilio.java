@@ -24,5 +24,6 @@ public class Domicilio {
 		this.piso = piso;
 		this.departamento = departamento;
 	}
+	public Domicilio () {}
 
 }
