@@ -1,8 +1,15 @@
 
 package dominio.dispositivo;
 
+import javax.persistence.*;
+
+@Entity
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS )
 public abstract class Dispositivo {
 
+    @Id
+    @GeneratedValue( strategy= GenerationType.AUTO)
+    protected Long id;
     protected String nombre;
     protected double consumoEstimadoPorHora;
     protected String equipoConcreto;

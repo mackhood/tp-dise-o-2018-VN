@@ -16,13 +16,15 @@
         <class>dominio.categoria.Categoria</class>
         <class>dominio.usuario.ID</class>
         <class>dominio.usuario.Domicilio</class>
+        <class>dominio.dispositivo.Dispositivo</class>
+        <class>dominio.dispositivo.DispositivoEstandar</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
 
 
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/notitas?serverTimezone=UTC" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/tp3?serverTimezone=UTC" />
             <property name="hibernate.connection.username" value="root" />
             <property name="hibernate.connection.password" value="1234" />
 
@@ -36,7 +38,7 @@
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
             <property name="use_sql_comments" value="true" />
-            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
 
         </properties>
 

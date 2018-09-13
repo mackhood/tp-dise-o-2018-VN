@@ -1,17 +1,16 @@
 package dominio.dispositivo;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@PrimaryKeyJoinColumn(name="dispositivoId")
 public class DispositivoEstandar extends Dispositivo {
 
-	@GeneratedValue
-	@Id
-	private Long id;
 
+	@Id
+	@GeneratedValue( strategy= GenerationType.AUTO)
+	protected Long id;
 
 	private DispositivoEstandar(DispositivoEstandarBuilder builder) {
 		this.nombre = builder.nombre;
