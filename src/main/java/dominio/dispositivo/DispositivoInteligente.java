@@ -20,6 +20,7 @@ public class DispositivoInteligente extends Dispositivo {
     @Basic
     public LocalDateTime horaApagado;
 
+    public DispositivoInteligente(){}
     public DispositivoInteligente(DispositivoInteligenteBuilder builder) {
         this.nombre = builder.nombre;
         this.consumoEstimadoPorHora = builder.consumoEstimadoPorHora;
@@ -32,10 +33,6 @@ public class DispositivoInteligente extends Dispositivo {
         this.estadoDispositivo = builder.estadoDispositivo;
         this.horaEncendido = builder.horaEncendido;
         this.horaApagado = builder.horaApagado;
-
-    }
-
-    public DispositivoInteligente() {
 
     }
 

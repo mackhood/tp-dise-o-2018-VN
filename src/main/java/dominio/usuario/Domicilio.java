@@ -21,6 +21,7 @@ public class Domicilio {
 	public char departamento;
 
 
+	public Domicilio(){}
 	public Domicilio(String calle, int altura, int piso, char departamento) {
 		this.calle = calle;
 		this.altura = altura;

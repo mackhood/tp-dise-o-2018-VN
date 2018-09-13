@@ -43,8 +43,11 @@ public class ContextTest extends AbstractPersistenceTest implements WithGlobalEn
     public void testRecuperarAlumno()
     {
 
-        Cliente unCliente = entityManager().find(Cliente.class,1);
-        Assert.assertEquals('A',unCliente.getNombre());
+        Cliente unCliente = entityManager().find(Cliente.class,(new Long(1)) );
+        System.out.println(unCliente.getDispositivosInteligentes().get(0).getNombre());
+        System.out.println(unCliente.getTodosLosDispositivos().get(1).getNombre());
+
+        Assert.assertEquals("aireAcondicionado",unCliente.getDispositivosInteligentes().get(0).getNombre());
     }
 
 }

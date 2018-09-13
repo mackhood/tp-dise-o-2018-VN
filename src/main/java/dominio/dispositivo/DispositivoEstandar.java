@@ -12,6 +12,7 @@ public class DispositivoEstandar extends Dispositivo {
 	@Column(name="idDispositivoEstandar")
 	protected Long id;
 
+	public DispositivoEstandar(){}
 	private DispositivoEstandar(DispositivoEstandarBuilder builder) {
 		this.nombre = builder.nombre;
 		this.consumoEstimadoPorHora = builder.consumoEstimadoPorHora;

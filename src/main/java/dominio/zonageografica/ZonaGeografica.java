@@ -29,6 +29,7 @@ public class ZonaGeografica {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Ubicacion ubicacion;
 
+	public ZonaGeografica(){}
 	public ZonaGeografica(String descripcion, List<Transformador> transformadores, Ubicacion ubicacion, Double radio) {
 		this.transformadores.addAll(transformadores);
 		this.descripcion = descripcion;

@@ -53,9 +53,17 @@ public class Cliente {
 	private String password;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	//@JoinColumn(name = "idCliente")
+	//@JoinTable(joinColumns={@JoinColumn(name="Cliente_idCliente")}, inverseJoinColumns={@JoinColumn(name="dispositivosEstandar_idDispositivo")})
+	@JoinColumn(name="idCliente")
+
 	private List<DispositivoEstandar> dispositivosEstandar = new ArrayList<>();
 
 	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
+	//@JoinColumn(name = "idCliente")
+	//@JoinTable(joinColumns={@JoinColumn(name="Cliente_idCliente")}, inverseJoinColumns={@JoinColumn(name="dispositivosInteligentes_idDispositivo")})
+	@JoinColumn(name="idCliente")
+
 	private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
@@ -66,6 +74,7 @@ public class Cliente {
 
 	private boolean ahorroAutomatico = false;
 
+	public Cliente(){}
 	public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
 			List<DispositivoEstandar> estandares, List<DispositivoInteligente> inteligentes) {
 
@@ -267,5 +276,9 @@ public class Cliente {
 
 	public void setDomicilio(Domicilio domicilio) {
 		this.domicilio = domicilio;
+	}
+
+	public Long getId() {
+		return id;
 	}
 }

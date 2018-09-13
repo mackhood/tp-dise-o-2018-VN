@@ -16,6 +16,7 @@ public class Ubicacion {
 	@Column(name = "PosicionY", nullable = false, length = 20)
 	private double posicionY;
 
+	public Ubicacion(){}
 	public Ubicacion(double posicionX, double posicionY) {
 
 		this.posicionX = posicionX;
