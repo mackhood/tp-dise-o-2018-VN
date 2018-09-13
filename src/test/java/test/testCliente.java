@@ -21,82 +21,62 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class testCliente {
 
-	private DispositivoEstandar unDispositivoEncendido;
-	private DispositivoEstandar unDispositivoApagado;
 	private Cliente unClienteConDEyDI;
 	private Cliente unClienteSinDEyConDI;
-	private Dispositivo otroDispositivo;
-	private DispositivoInteligente unDIEncendido = new DispositivoInteligente();
+	private Dispositivo mockDispositivo;
+	private DispositivoInteligente mockDIEncendido;
 	private Conversor moduloAdaptador;
 
-	private DispositivoEstandar unDE;
-	private DispositivoInteligente unDIApagado;
+	private DispositivoEstandar mockDE;
+	private DispositivoInteligente mockDI;
 
-	private SistemaInteligente unSI;
+	private SistemaInteligente mockSI;
 
-	Categoria categoriaMocktest1;
-	Categoria categoriaMocktest2;
-	List<Categoria> listaCategoriaMock;
+	Categoria mockCategoria;
 	AsignadorDeCategoria asignadorMock;
 
 	@Before
 	public void setUp() {
 
-		unSI = new SistemaInteligente();
-		unDispositivoEncendido = mock(DispositivoEstandar.class);
-		unDispositivoApagado = mock(DispositivoEstandar.class);
-		otroDispositivo = mock(Dispositivo.class);
+		mockCategoria = Mockito.spy(new Categoria("CategoriaTest", 0, 3000, 50.0, 20.0));
+		mockSI = Mockito.spy(new SistemaInteligente());
+		mockDispositivo = Mockito.mock(Dispositivo.class);
 		moduloAdaptador = new Conversor();
 
-		unDE = new DispositivoEstandar.DispositivoEstandarBuilder("televisor").equipoConcreto("Color de tubo fluorescente de 29 a 34").consumoEstimadoPorHora((double) 30).build();
-		unDIApagado = new DispositivoInteligente.DispositivoInteligenteBuilder("televisor").equipoConcreto("LED de 24")
-				.consumoEstimadoPorHora((double) 500).build();
-		unDIEncendido = new DispositivoInteligente.DispositivoInteligenteBuilder("aireAcondicionado").equipoConcreto("De 2200 frigorias")
-				.consumoEstimadoPorHora((double) 100).build();
+		mockDE = Mockito.spy(new DispositivoEstandar.DispositivoEstandarBuilder("televisor")
+				.equipoConcreto("Color de tubo fluorescente de 29 a 34").consumoEstimadoPorHora(30.0).horasDeUso(2.0)
+				.build());
 
-		unDIEncendido.setHorasDeUso(1);
-		unDIEncendido.encender();
+		mockDI = Mockito
+				.spy(new DispositivoInteligente.DispositivoInteligenteBuilder("televisor").equipoConcreto("LED de 24")
+						.consumoEstimadoPorHora(500.0).estadoDispositivo(new EstadoApagado()).horasDeUso(1.0).build());
+
+		mockDIEncendido = Mockito.spy(new DispositivoInteligente.DispositivoInteligenteBuilder("aireAcondicionado")
+				.equipoConcreto("De 2200 frigorias").consumoEstimadoPorHora(100.0)
+				.estadoDispositivo(new EstadoEncendido()).horasDeUso(19.0).build());
 
 		List<DispositivoEstandar> listaDispositivosEstandar = new ArrayList<>();
 
-		listaDispositivosEstandar.add(unDE);
 		List<DispositivoEstandar> listaDispositivosParaOtroCliente = new ArrayList<>();
 
 		List<DispositivoInteligente> listaDispInteligentes = new ArrayList<>();
-
-		when(unDispositivoEncendido.getConsumoTotal()).thenReturn(25.5);
-		when(unDispositivoApagado.getConsumoTotal()).thenReturn(25.5);
-
-		listaDispositivosEstandar.add(unDispositivoApagado);
-		listaDispositivosEstandar.add(unDispositivoApagado);
 
 		unClienteConDEyDI = spy(new Cliente("Fernando", "Sierra", "fer22", new ID(TiposId.DNI, "200"),
 				new Domicilio("bariloche", 3118, 1, 'a'), 250, listaDispositivosEstandar, listaDispInteligentes));
 		unClienteSinDEyConDI = spy(new Cliente("Nicolas", "Sierra", "fer25", new ID(TiposId.DNI, "200"),
 				new Domicilio("bariloche", 3118, 1, 'a'), 250, listaDispositivosParaOtroCliente,
 				listaDispInteligentes));
-		when(otroDispositivo.getConsumoTotal()).thenReturn(200.0);
+		when(mockDispositivo.getConsumoTotal()).thenReturn(200.0);
 
-		unClienteConDEyDI.agregarDispositivoInteligente(unDIEncendido);
-		unClienteConDEyDI.agregarDispositivoInteligente(unDIApagado);
-
-		// Siguientes lineas Utilizadas para test de actualizar categoria y gastos
-		// aproximados.
-		// asignadorMock = mock(AsignadorDeCategoria.class, Mockito.CALLS_REAL_METHODS);
-		categoriaMocktest1 = mock(Categoria.class);
-		categoriaMocktest2 = mock(Categoria.class);
-
-		when(categoriaMocktest1.cumpleCondicion(unClienteConDEyDI)).thenReturn(true);
-		when(categoriaMocktest2.cumpleCondicion(unClienteConDEyDI)).thenReturn(false);
-
-		listaCategoriaMock = new ArrayList<>();
-
-		listaCategoriaMock.add(categoriaMocktest1);
-		listaCategoriaMock.add(categoriaMocktest2);
+		unClienteConDEyDI.agregarDispositivoInteligente(mockDIEncendido);
+		unClienteConDEyDI.agregarDispositivoInteligente(mockDI);
+		unClienteConDEyDI.agregarDispositivoEstandar(mockDE);
 
 		asignadorMock = mock(AsignadorDeCategoria.class);
 
@@ -107,110 +87,140 @@ public class testCliente {
 		assertEquals(30.0, unClienteConDEyDI.puntosAcumulados());
 	}
 
-
 	@Test(expected = NoTieneDispositivoException.class)
 	public void testNoPuedeAgregarModulo() throws NoTieneDispositivoException {
-		unClienteSinDEyConDI.agregarModuloAdaptador(moduloAdaptador, unDE);
+		unClienteSinDEyConDI.agregarModuloAdaptador(moduloAdaptador, mockDE);
+	}
+
+	@Test
+	public void testTieneDispositivo() {
+
+		assertTrue(unClienteConDEyDI.tieneDE(mockDE));
+	}
+
+	@Test
+	public void testTieneAlgunDispositivoEncendido() {
+
+		assertTrue(unClienteConDEyDI.algunDispositivoEncendido());
+	}
+
+	@Test
+	public void testCuantosDIEncendidos() {
+
+		mockDI.encender();
+		assertEquals(2, unClienteConDEyDI.cantidadDeDIEncendidos());
+	}
+
+	@Test
+	public void testCuantosDIApagados() {
+
+		assertEquals(1, unClienteConDEyDI.cantidadDeDIApagados());
+	}
+
+	@Test
+	public void testAgregarDI() {
+
+		DispositivoInteligente unDITest = Mockito.mock(DispositivoInteligente.class);
+		unClienteConDEyDI.agregarDispositivoInteligente(unDITest);
+		assertTrue(unClienteConDEyDI.getDispositivosInteligentes().contains(unDITest));
+	}
+
+	@Test
+	public void testAgregarDE() {
+
+		DispositivoEstandar unDETest = Mockito.mock(DispositivoEstandar.class);
+		unClienteConDEyDI.agregarDispositivoEstandar(unDETest);
+		assertTrue(unClienteConDEyDI.tieneDE(unDETest));
+	}
+
+	@Test
+	public void testCuantosDispositivosTiene() {
+
+		assertEquals(3, unClienteConDEyDI.cantidadDeDispositivos());
+	}
+
+	@Test
+	public void testConsumoDICliente() {
+
+		assertEquals(2400.0, unClienteConDEyDI.consumoDispositivosInteligentes());
+	}
+
+	@Test
+	public void testSacarDE() {
+
+		unClienteConDEyDI.sacarDispositivoEstandarLista(mockDE);
+		assertFalse(unClienteConDEyDI.tieneDE(mockDE));
 	}
 
 	@Test(expected = NoTieneDispositivoException.class)
 	public void testNoPuedeUsarDipositivoQueNoTiene() throws NoTieneDispositivoException {
-		unClienteSinDEyConDI.usarDispositivo(unDE, 5);
+		unClienteSinDEyConDI.usarDispositivo(mockDE, 5);
+	}
+
+	@Test
+	public void testClienteUsarDispositivo() {
+
+		unClienteConDEyDI.agregarDispositivoEstandar(mockDE);
+		unClienteConDEyDI.usarDispositivo(mockDE, 3.0);
+		assertEquals(5.0, mockDE.getHorasDeUso());
+	}
+
+	@Test
+	public void testConsumoEnergeticoTotalDeUnCliente() {
+		assertEquals(2460.0, unClienteConDEyDI.consumoEnergeticoTotal());
+	}
+
+	@Test
+	public void testAhorroAutomatico() {
+		unClienteConDEyDI.activarAhorroAutomatico();
+		assertTrue(unClienteConDEyDI.estaEnModoAhorroAutomatico());
+	}
+
+	@Test
+	public void testGastosCliente() {
+
+		// Consumo Total 2460
+		// Cargo Variable 20
+		// Cargo Fijo 50
+		// -------------------
+		// Gastos 2460*20 +50 -> 49200+50 -> 49250
+		unClienteConDEyDI.setCategoria(mockCategoria);
+		assertEquals(49250.0, unClienteConDEyDI.obtenerGastosAproximados());
 	}
 
 	@Test
 	public void testPuntosAcumuladorDespuesDeAgregarAdaptadorAUnDE() throws NoTieneDispositivoException {
-		unClienteConDEyDI.agregarModuloAdaptador(moduloAdaptador, unDE);
+		unClienteConDEyDI.agregarModuloAdaptador(moduloAdaptador, mockDE);
 		assertEquals(40.0, unClienteConDEyDI.puntosAcumulados());
 	}
 
 	@Test
 	public void testAlgunDIestaEncendidoClienteCon2DI() {
 
-		assertEquals(true, unSI.algunDIencendido(unClienteConDEyDI));
+		assertEquals(true, mockSI.algunDIencendido(unClienteConDEyDI));
 	}
 
 	@Test
 	public void testCantidadDIencendidosClienteCon2DI() {
-		assertEquals(1, unSI.cantidadDIencendidos(unClienteConDEyDI));
+		assertEquals(1, mockSI.cantidadDIencendidos(unClienteConDEyDI));
 	}
 
 	@Test
 	public void testCantidadDIapagadosClienteCon2DI() {
-		assertEquals(1, unSI.cantidadDIapagados(unClienteConDEyDI));
+		assertEquals(1, mockSI.cantidadDIapagados(unClienteConDEyDI));
 	}
 
 	@Test
 	public void testCantidadDispositivosClienteCon2DIy1DE() {
-		assertEquals(5, unSI.cantidadDispositivos(unClienteConDEyDI));
+		assertEquals(3, mockSI.cantidadDispositivos(unClienteConDEyDI));
 	}
 
 	@Test
-	public void testConsumoEnergeticoTotalDeUnCliente() {
-		assertEquals(151.0, unClienteConDEyDI.consumoEnergeticoTotal());
-	}
-	@Test
-	public void testTransformadorCercanoParaCliente() {
+	public void testConectarClienteATransformador() {
 		AsignadorDeZonaService asignadorDeZonaService = mock(AsignadorDeZonaService.class);
 		Transformador transformadorMock = mock(Transformador.class);
 		when(asignadorDeZonaService.buscarTransformadorCercanoPara(unClienteConDEyDI)).thenReturn(transformadorMock);
-		unClienteConDEyDI.transformadorCercano(asignadorDeZonaService);
-		assertEquals(transformadorMock,unClienteConDEyDI.getTransformador() );
+		unClienteConDEyDI.conectarseATransformador(asignadorDeZonaService);
+		assertEquals(transformadorMock, unClienteConDEyDI.getTransformador());
 	}
-
-	@Test
-	public void testVerificarActualizacionDeCategoriaCliente() throws ProcessingDataFailedException {
-
-		Categoria unaCategoriaMockSeteada = mock(Categoria.class);
-
-		when(unaCategoriaMockSeteada.getNombre()).thenReturn("CategoriaR1");
-		unClienteConDEyDI.setCategoria(unaCategoriaMockSeteada);
-
-		assertEquals("CategoriaR1", unClienteConDEyDI.nombreCategoria());
-		when(asignadorMock.getCategoriasDelRepositorio()).thenReturn(listaCategoriaMock);
-		when(categoriaMocktest1.getNombre()).thenReturn("CategoriaR2");
-		when(asignadorMock.definirCategoriaPara(unClienteConDEyDI)).thenCallRealMethod();
-		when(asignadorMock.categoriaCliente(unClienteConDEyDI, listaCategoriaMock)).thenCallRealMethod();
-
-		assertEquals("CategoriaR2", asignadorMock.definirCategoriaPara(unClienteConDEyDI).getNombre());
-
-	}
-	@Test 
-	public void asd() {
-		
-		RepositorioCategoria repo = RepositorioCategoria.getInstance();
-		assertEquals("",repo.obtenerCategorias().get(0));
-		
-	}
-	
-	@Test
-	public void testObtenerGastosAproximadosCliente() throws ProcessingDataFailedException {
-
-		// Cargofijo=35.32
-		// CargoVariable=0.644
-		// ConsumoCliente=151.0
-		// 35.32+0.644*151.0= 132.564
-
-		when(asignadorMock.getCategoriasDelRepositorio()).thenReturn(listaCategoriaMock);
-		when(categoriaMocktest1.getNombre()).thenReturn("CategoriaR2");
-		when(asignadorMock.definirCategoriaPara(unClienteConDEyDI)).thenCallRealMethod();
-		when(asignadorMock.categoriaCliente(unClienteConDEyDI, listaCategoriaMock)).thenCallRealMethod();
-
-		when(categoriaMocktest1.getCargoVariable()).thenReturn(0.644);
-
-		asignadorMock.definirCategoriaPara(unClienteConDEyDI);
-
-		double gasto = 35.32 + categoriaMocktest1.getCargoVariable() * unClienteConDEyDI.consumoEnergeticoTotal();
-
-		when(categoriaMocktest1.calcularCostosPara(unClienteConDEyDI)).thenReturn(gasto);
-
-		unClienteConDEyDI.setCategoria(asignadorMock.definirCategoriaPara(unClienteConDEyDI));
-		unClienteConDEyDI.obtenerGastosAproximados();
-
-		verify(categoriaMocktest1).calcularCostosPara(unClienteConDEyDI);
-
-		assertEquals(132.564, unClienteConDEyDI.obtenerGastosAproximados());
-
-	}
-
 }

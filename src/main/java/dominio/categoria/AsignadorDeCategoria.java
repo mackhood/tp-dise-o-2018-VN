@@ -43,8 +43,6 @@ public class AsignadorDeCategoria {
 
 	public void actualizarPara(Cliente cliente) {
 
-		Categoria cat = null;
-		cat = this.definirCategoriaPara(cliente);
-		cliente.setCategoria(cat);
+		cliente.setCategoria(this.definirCategoriaPara(cliente));
 	}
 }
