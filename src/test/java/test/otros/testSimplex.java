@@ -1,4 +1,4 @@
-package test;
+package test.otros;
 
 import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;

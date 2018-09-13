@@ -1,4 +1,4 @@
-package test;
+package test.otros;
 
 import dominio.repositories.RepositorioAdministradores;
 import org.junit.BeforeClass;

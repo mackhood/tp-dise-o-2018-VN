@@ -13,10 +13,12 @@ import dominio.simplexservice.Recomendacion;
 import dominio.transformador.Transformador;
 import dominio.zonageografica.AsignadorDeZonaService;
 import dominio.zonageografica.Ubicacion;
+import org.hsqldb.lib.Collection;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.*;
 
@@ -280,5 +282,9 @@ public class Cliente {
 
 	public Long getId() {
 		return id;
+	}
+	public Dispositivo getDispositivoDeNombre(String nombreDisp)
+	{
+		return this.getTodosLosDispositivos().stream().filter(dispositivo -> nombreDisp.equals(dispositivo.getNombre())).collect(Collectors.toList()).get(0);
 	}
 }
