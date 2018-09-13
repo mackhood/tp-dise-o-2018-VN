@@ -1,4 +1,4 @@
-package test;
+package test.otros;
 
 import dominio.usuario.Administrador;
 import org.junit.Assert;

@@ -1,4 +1,4 @@
-package test;
+package test.otros;
 
 import dominio.categoria.AsignadorDeCategoria;
 import dominio.categoria.Categoria;

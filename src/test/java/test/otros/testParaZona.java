@@ -1,4 +1,4 @@
-package test;
+package test.otros;
 
 import dominio.entities.TransformadorNullException;
 import dominio.entities.ZonaNullException;

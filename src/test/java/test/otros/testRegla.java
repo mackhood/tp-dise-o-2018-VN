@@ -1,4 +1,4 @@
-package test;
+package test.otros;
 
 import static junit.framework.TestCase.assertEquals;
 

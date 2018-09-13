@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 public class Runner {
     /*
     public static void main(String[] args) {
-        CargarCliente cargarCliente = new CargarCliente();
+        ClienteManager cargarCliente = new ClienteManager();
         cargarCliente.run();
         EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
         //List<Alumno> alumnos = entityManager.createQuery("" +"SELECT* FROM Alumno").getResultList();

@@ -1,5 +1,6 @@
 package dominio.cargarCliente;
 
+import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.repositories.Repositorios;
@@ -14,7 +15,7 @@ import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CargarCliente implements WithGlobalEntityManager,TransactionalOps {
+public class ClienteManager implements WithGlobalEntityManager,TransactionalOps {
 
     public void persistirCliente()
     {
@@ -40,11 +41,31 @@ public class CargarCliente implements WithGlobalEntityManager,TransactionalOps {
             entityManager().getTransaction().commit();
         });
     }
+    /*
     public void persistirDispositivos()
     {
         withTransaction(()->{
             Repositorios.dispositivos.getDispositivos().stream().forEach(dispositivo -> entityManager().persist(dispositivo));
 
+        });
+    }*/
+    public Dispositivo traerDispositivoDeUnCliente(Long id, String nombreDispositivo)
+    {
+        Cliente unCliente;
+        Dispositivo disp;
+        unCliente = entityManager().find(Cliente.class,id);
+        return unCliente.getDispositivoDeNombre(nombreDispositivo);
+
+    }
+
+    public void modificarNombreDeUnDispositivoDelCliente(Long id, String nombreDispositivo, String nombreNuevoDisp)
+    {
+        withTransaction(()->{
+            ClienteManager clienteManager = new ClienteManager();
+            Dispositivo disp = clienteManager.traerDispositivoDeUnCliente(new Long(1), nombreDispositivo);
+            disp.setNombre(nombreDispositivo);
+            entityManager().refresh(disp);
+            entityManager().getTransaction().commit();
         });
     }
 }
