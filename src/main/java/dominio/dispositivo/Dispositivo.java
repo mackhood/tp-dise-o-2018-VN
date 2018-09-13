@@ -9,7 +9,9 @@ public abstract class Dispositivo {
 
     @Id
     @GeneratedValue( strategy= GenerationType.AUTO)
+    @Column(name="idDispositivo")
     protected Long id;
+
     protected String nombre;
     protected double consumoEstimadoPorHora;
     protected String equipoConcreto;

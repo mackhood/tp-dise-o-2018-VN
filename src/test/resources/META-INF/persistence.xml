@@ -14,8 +14,8 @@
 
         <class>dominio.zonageografica.Ubicacion</class>
         <class>dominio.categoria.Categoria</class>
-        <class>dominio.usuario.ID</class>
         <class>dominio.usuario.Domicilio</class>
+        <class>dominio.usuario.ID</class>
         <class>dominio.dispositivo.Dispositivo</class>
         <class>dominio.dispositivo.DispositivoEstandar</class>
         <class>dominio.dispositivo.DispositivoInteligente</class>

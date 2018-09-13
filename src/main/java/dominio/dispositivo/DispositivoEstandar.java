@@ -9,6 +9,7 @@ public class DispositivoEstandar extends Dispositivo {
 
 	@Id
 	@GeneratedValue( strategy= GenerationType.AUTO)
+	@Column(name="idDispositivoEstandar")
 	protected Long id;
 
 	private DispositivoEstandar(DispositivoEstandarBuilder builder) {

@@ -26,38 +26,42 @@ public class Cliente {
 
 	@Id
 	@GeneratedValue( strategy= GenerationType.AUTO)
+	@Column(name="idCliente")
 	protected Long id;
 
-	@Column(name = "NOMBRE", nullable = false, length = 100)
+	@Column(name = "nombre", nullable = false, length = 100)
 	private String nombre;
 
 	@Column(length = 50)
 	private String apellido;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	//@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Embedded
 	private ID identificacion;
 
 	private long telefono;
+
 	@Embedded
 	private Domicilio domicilio;
 
 	private LocalDate fechaDeAlta;
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+
 	private Categoria categoria;
 	@Column(length = 150)
 	private String username;
 	@Column(length = 150)
 	private String password;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private List<DispositivoEstandar> dispositivosEstandar = new ArrayList<>();
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
 	private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private Ubicacion ubicacion;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private Transformador transformador;
 
 	private boolean ahorroAutomatico = false;
@@ -75,22 +79,6 @@ public class Cliente {
 		this.dispositivosInteligentes = inteligentes;
 		// recomendacion = new Recomendacion(this.todosLosDispositivos());
 		this.fechaDeAlta = LocalDate.now();
-	}
-
-	public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
-			Ubicacion ubicacion) {
-
-		this.nombre = unNombre;
-		this.apellido = unApellido;
-		this.identificacion = id;
-		this.username = username;
-		this.domicilio = unDomicilio;
-		this.telefono = unTelefono;
-		// this.dispositivosEstandar = dispEstandar;
-		// this.dispositivosInteligentes = dispInteligentes;
-		this.fechaDeAlta = LocalDate.now();
-		this.ubicacion = ubicacion;
-		// recomendacion = new Recomendacion(this.todosLosDispositivos());
 	}
 
 	public double puntosAcumulados() {
