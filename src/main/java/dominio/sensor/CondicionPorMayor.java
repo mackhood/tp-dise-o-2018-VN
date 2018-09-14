@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 
 
 @Entity
-@DiscriminatorValue(value="CondicionPorMayor")
+@DiscriminatorValue(value="PorMayor")
 public class CondicionPorMayor extends Condicion {
 
 	public CondicionPorMayor(Regla regla, double valorLimite, String tipo) {

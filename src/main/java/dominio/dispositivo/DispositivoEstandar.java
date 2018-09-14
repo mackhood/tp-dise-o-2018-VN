@@ -7,7 +7,7 @@ public class DispositivoEstandar extends Dispositivo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "Id_dispositivoEstandar")
+	@Column(name = "idDispositivoEstandar")
 	protected Long id;
 
 	public DispositivoEstandar() {

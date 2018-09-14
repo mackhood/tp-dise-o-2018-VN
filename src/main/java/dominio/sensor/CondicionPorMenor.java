@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 
 
 @Entity
-@DiscriminatorValue(value="CondicionPorMenor")
+@DiscriminatorValue(value="PorMenor")
 
 public class CondicionPorMenor extends Condicion {
 

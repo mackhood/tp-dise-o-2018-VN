@@ -9,7 +9,7 @@ public class DispositivoInteligente extends Dispositivo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "Id_dispositivoInteligente")
+	@Column(name = "idDispositivoInteligente")
 	private Long id;
 	@Embedded
 	public EstadoDispositivo estadoDispositivo;

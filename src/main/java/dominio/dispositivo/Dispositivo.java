@@ -9,7 +9,7 @@ public abstract class Dispositivo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "Id_dispositivo")
+	@Column(name = "idDispositivo")
 	protected Long id;
 
 	protected String nombre;
