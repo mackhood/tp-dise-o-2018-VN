@@ -7,30 +7,36 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Intervalo {
 	
-	LocalDateTime diaYHoraEncendido;
-	LocalDateTime diaYHoraApagado;
+	LocalDateTime inicio;
+	LocalDateTime fin;
 	
-	public Intervalo(LocalDateTime diaYHoraEnc, LocalDateTime diaYHoraApagado) { this.diaYHoraEncendido = diaYHoraEnc; this.diaYHoraApagado = diaYHoraApagado; };
+	public Intervalo(LocalDateTime inicio, LocalDateTime fin) { this.inicio = inicio; this.fin = fin; };
 
 	public boolean estaEntre(LocalDateTime fecha, LocalDateTime otraFecha) {
 		
-		return diaYHoraEncendido.isAfter(fecha) && diaYHoraApagado.isBefore(otraFecha);
+		return inicio.isAfter(fecha) && fin.isBefore(otraFecha);
+	}
+	
+	public Intervalo ultimoMes() {
+		
+		LocalDateTime finIntervalo = LocalDateTime.now().minusMonths(1);
+		return new Intervalo(LocalDateTime.now(),finIntervalo);
 	}
 
-	public LocalDateTime getDiaYHoraEncendido() {
-		return diaYHoraEncendido;
+	public LocalDateTime getInicio() {
+		return inicio;
 	}
 
-	public void setDiaYHoraEncendido(LocalDateTime diaYHoraEncendido) {
-		this.diaYHoraEncendido = diaYHoraEncendido;
+	public void setInicio(LocalDateTime inicioIntervalo) {
+		this.inicio = inicioIntervalo;
 	}
 
-	public LocalDateTime getDiaYHoraApagado() {
-		return diaYHoraApagado;
+	public LocalDateTime getFin() {
+		return fin;
 	}
 
-	public void setDiaYHoraApagado(LocalDateTime diaYHoraApagado) {
-		this.diaYHoraApagado = diaYHoraApagado;
+	public void setFin(LocalDateTime finIntervalo) {
+		this.fin = finIntervalo;
 	}
 	
 	

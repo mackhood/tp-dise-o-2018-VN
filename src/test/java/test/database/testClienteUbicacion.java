@@ -11,17 +11,17 @@ import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 import static junit.framework.TestCase.assertEquals;
 
 public class testClienteUbicacion  extends AbstractPersistenceTest implements WithGlobalEntityManager {
-    private Ubicacion nuevaUbicaçion = new Ubicacion(2,2);
+    private Ubicacion nuevaUbicacion = new Ubicacion(2,2);
     @Test
-    public void testRecuperarClienteConId1YNuevaUbicacion() {
+    public void testNuevaUbicacion() {
         Cliente unCliente = entityManager().find(Cliente.class, (new Long(1)));
-        assertEquals(nuevaUbicaçion.getPosicionX(), unCliente.getUbicacion().getPosicionX());
-        assertEquals(nuevaUbicaçion.getPosicionY(), unCliente.getUbicacion().getPosicionY());
+        assertEquals(nuevaUbicacion.getPosicionX(), unCliente.getUbicacion().getPosicionX());
+        assertEquals(nuevaUbicacion.getPosicionY(), unCliente.getUbicacion().getPosicionY());
     }
 
     @Test
-    public void testRecuperarClienteConId1YModificarNombreDispositivoInteligente1() {
+    public void testRecuperarClienteYModificarUbicacion() {
         ClienteManager clienteManager = new ClienteManager();
-        clienteManager.modificarUbicacion(new Long(1), nuevaUbicaçion);
+        clienteManager.modificarUbicacion(new Long(1), nuevaUbicacion);
     }
 }

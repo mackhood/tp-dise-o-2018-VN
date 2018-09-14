@@ -11,7 +11,7 @@ import javax.persistence.EntityManager;
 public class testTransformadores {
 
     @Ignore
-    public void testCargarCliente() {
+    public void testCargarTransformador() {
         CargarTransformadores cargarTransformadores = new CargarTransformadores();
         cargarTransformadores.persistirTransformadores();
         EntityManager entityManager = PerThreadEntityManagers.getEntityManager();

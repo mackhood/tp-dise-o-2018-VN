@@ -99,7 +99,7 @@ public class DispositivoInteligente extends Dispositivo {
 	
 	public double intervaloEnHoras(Intervalo intervalo) {
 		
-		return intervalo.getDiaYHoraEncendido().until(intervalo.getDiaYHoraApagado(), ChronoUnit.HOURS);
+		return intervalo.getInicio().until(intervalo.getFin(), ChronoUnit.HOURS);
 	}
 	
 	public double consumoParaIntervalo(Intervalo intervalo) {
