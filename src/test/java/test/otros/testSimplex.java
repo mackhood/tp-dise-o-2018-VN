@@ -1,6 +1,6 @@
 package test.otros;
 
-import Clases.repositories.RepositoriosTP2;
+
 import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;

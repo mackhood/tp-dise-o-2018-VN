@@ -11,7 +11,6 @@ public class Domicilio {
 
 	@Id
 	@GeneratedValue( strategy= GenerationType.AUTO)
-	@Column(name="idDomicilio")
 	protected Long id;
 
 	@Column(length=150)
