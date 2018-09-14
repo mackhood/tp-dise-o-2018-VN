@@ -67,4 +67,12 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 			// entityManager().getTransaction().commit();
 		});
 	}
+
+	public void modificarUbicacion(Long id, Ubicacion nuevaUbicaçion) {
+		Cliente unCliente;
+		unCliente = entityManager().find(Cliente.class, id);
+		withTransaction(() -> {
+				unCliente.setUbicacion(nuevaUbicaçion);
+		});
+	}
 }
