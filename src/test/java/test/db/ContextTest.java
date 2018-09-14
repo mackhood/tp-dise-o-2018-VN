@@ -48,7 +48,6 @@ public class ContextTest extends AbstractPersistenceTest implements WithGlobalEn
     public void testRecuperarAlumnoConId1YModificarNombreDispositivoInteligente1() {
         ClienteManager clienteManager = new ClienteManager();
         clienteManager.modificarNombreDeUnDispositivoDelCliente(new Long(1),"aireAcondicionado","aireAcondicionadoModif");
-        clienteManager.rollbackTransaction();
     }
 
 }
