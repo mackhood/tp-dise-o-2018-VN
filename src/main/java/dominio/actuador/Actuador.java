@@ -24,7 +24,7 @@ public abstract class Actuador {
 	 * implementar en ejecutar / El actuador sabe a que dispositivo tiene que
 	 * afectar
 	 */
-
+	@OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
 	DispositivoInteligente dispInteligente = null;
 	@Transient
 	protected List<DispositivoInteligente> dispositivos;
