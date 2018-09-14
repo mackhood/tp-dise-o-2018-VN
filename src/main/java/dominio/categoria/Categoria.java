@@ -15,7 +15,7 @@ public class Categoria {
 	private Integer consumoMaximo;
 	private Double cargoFijo;
 	private Double cargoVariable;
-
+	public Categoria(){}
 	public Categoria(String nombre, Integer consumoMinimo, Integer consumoMaximo, Double cargoFijo,
 			Double cargoVariable) {
 		this.nombre = nombre;

@@ -17,15 +17,15 @@ public class Transformador {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected Long id;
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.LAZY)
 	private List<Cliente> usuariosConectados = new ArrayList<>();
 	@OneToOne(fetch = FetchType.EAGER)
 	private Ubicacion ubicacion;
-
+	public Transformador(){}
 	public Transformador(List<Cliente> usuariosConectados, Ubicacion ubicacion) {
 
 		this.ubicacion = ubicacion;
-		this.usuariosConectados = usuariosConectados;
+		this.usuariosConectados .addAll( usuariosConectados);
 
 	}
 
