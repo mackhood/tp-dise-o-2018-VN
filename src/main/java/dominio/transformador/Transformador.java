@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dominio.dispositivo.Dispositivo;
+import dominio.dispositivo.Intervalo;
 import dominio.usuario.Cliente;
 import dominio.zonageografica.Ubicacion;
 
