@@ -1,4 +1,4 @@
-package test;
+package test.otros;
 
 import dominio.transformador.Transformador;
 import dominio.usuario.Cliente;

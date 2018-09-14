@@ -1,4 +1,4 @@
-package test;
+package test.otros;
 
 import Clases.repositories.RepositoriosTP2;
 import dominio.dispositivo.Dispositivo;
