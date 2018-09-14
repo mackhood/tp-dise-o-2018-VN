@@ -18,6 +18,7 @@ public class DispositivoInteligente extends Dispositivo {
 	public EstadoDispositivo estadoDispositivo;
 	public LocalDateTime horaEncendido;
 	public LocalDateTime horaApagado;
+	@Embedded
 	public List<Intervalo> intervalosDeUso = new ArrayList<>();
 
 	public DispositivoInteligente(DispositivoInteligenteBuilder builder) {

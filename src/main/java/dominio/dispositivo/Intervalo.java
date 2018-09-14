@@ -2,6 +2,9 @@ package dominio.dispositivo;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Intervalo {
 	
 	LocalDateTime diaYHoraEncendido;
