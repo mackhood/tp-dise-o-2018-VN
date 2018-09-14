@@ -47,7 +47,12 @@ public class Transformador {
 	public void agregarCliente(Cliente cliente) {
 		usuariosConectados.add(cliente);
 	}
-
+	
+	public double consumoDeIntervalo(Intervalo intervalo) {
+		
+		return usuariosConectados.stream().mapToDouble(cliente -> cliente.consumoDeIntervalo(intervalo)).sum();
+	}
+	
 	public List<Cliente> getUsuariosConectados() {
 
 		return usuariosConectados;

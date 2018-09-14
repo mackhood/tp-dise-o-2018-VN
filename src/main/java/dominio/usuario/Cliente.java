@@ -8,6 +8,7 @@ import dominio.dispositivo.Conversor;
 import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
+import dominio.dispositivo.Intervalo;
 import dominio.entities.NoTieneDispositivoException;
 import dominio.simplexservice.Recomendacion;
 import dominio.transformador.Transformador;
@@ -193,7 +194,12 @@ public class Cliente {
 
 		return categoria.calcularCostosPara(this);
 	}
-
+	
+	public double consumoDeIntervalo(Intervalo intervalo) {
+		
+		return dispositivosInteligentes.stream().mapToDouble(disp -> disp.consumoParaIntervalo(intervalo)).sum();
+	}
+	
 	/*
 	 * public void asignarHorasMaximasRecomendadasALosDispositivos() { recomendacion
 	 * = new Recomendacion(this);

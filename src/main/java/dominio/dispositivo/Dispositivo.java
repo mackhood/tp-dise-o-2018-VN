@@ -1,6 +1,8 @@
 
 package dominio.dispositivo;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.*;
 
 @Entity
