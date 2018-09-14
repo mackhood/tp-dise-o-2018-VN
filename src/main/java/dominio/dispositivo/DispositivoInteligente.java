@@ -132,7 +132,9 @@ public class DispositivoInteligente extends Dispositivo {
 
 		estadoDispositivo = estadoNuevo;
 	}
-
+	
+	
+	// Para aumentar consumo en un 1000% aumentarConsumoPor(consumoEstimadoPorHora*10); -- PARA TEST ENTREGA 3
 	public void aumentarConsumoPor(double cantidad) {
 
 		this.consumoEstimadoPorHora += cantidad;
