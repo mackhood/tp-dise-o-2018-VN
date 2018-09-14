@@ -17,7 +17,7 @@ public abstract class Condicion {
 	@Basic
 	private String tipo;
 	protected double medicionActual;
-	@ManyToMany(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	private Regla regla;
 
 	public Condicion(Regla regla, double valorLimite, String tipo) {

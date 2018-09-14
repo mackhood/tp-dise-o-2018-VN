@@ -9,7 +9,10 @@
 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-
+        <class>dominio.sensor.Sensor</class>
+        <class>dominio.sensor.Medicion</class>
+        <class>dominio.sensor.Condicion</class>
+        <class>dominio.regla.Regla</class>
 
 
         <class>dominio.zonageografica.Ubicacion</class>
@@ -37,7 +40,7 @@
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/tp3?serverTimezone=UTC" />
             <property name="hibernate.connection.username" value="root" />
-            <property name="hibernate.connection.password" value="derek-mysql" />
+            <property name="hibernate.connection.password" value="1234" />
 
             <!--property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver" />
             <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:app-database" />

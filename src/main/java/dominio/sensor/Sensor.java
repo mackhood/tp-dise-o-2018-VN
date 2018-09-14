@@ -15,7 +15,7 @@ public class Sensor {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@OneToOne (fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private Regla regla;
 	@Embedded
 	private Medicion ultimaMedicion;
