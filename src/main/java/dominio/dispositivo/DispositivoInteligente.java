@@ -3,6 +3,9 @@ package dominio.dispositivo;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class DispositivoInteligente extends Dispositivo {
@@ -15,6 +18,7 @@ public class DispositivoInteligente extends Dispositivo {
 	public EstadoDispositivo estadoDispositivo;
 	public LocalDateTime horaEncendido;
 	public LocalDateTime horaApagado;
+	public List<Intervalo> intervalosDeUso = new ArrayList<>();
 
 	public DispositivoInteligente(DispositivoInteligenteBuilder builder) {
 		this.nombre = builder.nombre;
@@ -75,11 +79,36 @@ public class DispositivoInteligente extends Dispositivo {
 
 	public void apagar() {
 		estadoDispositivo.apagar(this);
+		setHoraApagado(LocalDateTime.now());
+		intervalosDeUso.add(new Intervalo(horaEncendido, horaApagado));
+		this.reiniciar();
+	}
+
+	public List<Intervalo> encendidoEntre(LocalDateTime fecha, LocalDateTime otraFecha) {
+
+		return intervalosDeUso.stream().filter(i -> i.estaEntre(fecha, otraFecha))
+				.collect(Collectors.toList());
+	}
+
+	private void reiniciar() {
+
+		this.setHoraApagado(null);
+		this.setHoraEncendido(null);
+	}
+	
+	public double intervaloEnHoras(Intervalo intervalo) {
+		
+		return intervalo.getDiaYHoraEncendido().until(intervalo.getDiaYHoraApagado(), ChronoUnit.HOURS);
+	}
+	
+	public double consumoParaIntervalo(Intervalo intervalo) {
+		
+		return consumoEstimadoPorHora*intervaloEnHoras(intervalo);
 	}
 
 	public void encender() {
-
 		estadoDispositivo.encender(this);
+		setHoraEncendido(LocalDateTime.now());
 	}
 
 	public void ponerModoAhorro() {

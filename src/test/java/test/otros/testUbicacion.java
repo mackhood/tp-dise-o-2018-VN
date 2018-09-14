@@ -29,7 +29,7 @@ public class testUbicacion {
 	@Test
 	public void testCalcularDistancia() {
 
-		assertEquals(9.84, ubicacionTest.calcularDistancia(mockCliente.getPosicion()), 0.01);
+		assertEquals(9.84, ubicacionTest.calcularDistancia(mockCliente.getUbicacion()), 0.01);
 	}
 
 }

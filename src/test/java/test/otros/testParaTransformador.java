@@ -63,7 +63,7 @@ public class testParaTransformador {
 		when(clienteMock3.consumoEnergeticoTotal()).thenReturn(200.0);
 
 		ubicacionCliente = new Ubicacion(1, 1);
-		when(clienteMock3.getPosicion()).thenReturn(ubicacionCliente);
+		when(clienteMock3.getUbicacion()).thenReturn(ubicacionCliente);
 
 		when(transformador_OtraZona.energiaConsumidaClientes()).thenReturn(600.0);
 
@@ -73,7 +73,7 @@ public class testParaTransformador {
 		ubicacionCliente = new Ubicacion(3, 3);
 		ubicacionZona1 = new Ubicacion(2, 2);
 		ubicacionZona2 = new Ubicacion(4, 4);
-		when(clienteMock1.getPosicion()).thenReturn(ubicacionCliente);
+		when(clienteMock1.getUbicacion()).thenReturn(ubicacionCliente);
 		when(clienteMock1.consumoDispositivosInteligentes()).thenReturn(100.0);
 		when(clienteMock2.consumoDispositivosInteligentes()).thenReturn(100.0);
 
@@ -89,7 +89,7 @@ public class testParaTransformador {
 
 	@Test
 	public void testCalcularDistanciaCliente() {
-		assertEquals(26.870057685088806, transformador1_Zona1.calcularDistancia(clienteMock3.getPosicion()));
+		assertEquals(26.870057685088806, transformador1_Zona1.calcularDistancia(clienteMock3.getUbicacion()));
 
 	}
 

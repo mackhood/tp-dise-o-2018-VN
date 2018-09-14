@@ -53,11 +53,11 @@ public class ZonaGeografica {
 	}
 
 	public Double distanciaAcliente(Cliente cliente) {
-		return cliente.getPosicion().calcularDistancia(ubicacion);
+		return cliente.getUbicacion().calcularDistancia(ubicacion);
 	}
 
 	public Transformador conectarATransformadorCercano(Cliente cliente) {
-		Transformador transformadorCercano = this.devolverTransformadorCercano(cliente.getPosicion());
+		Transformador transformadorCercano = this.devolverTransformadorCercano(cliente.getUbicacion());
 		transformadorCercano.agregarCliente(cliente);
 		return transformadorCercano;
 	}

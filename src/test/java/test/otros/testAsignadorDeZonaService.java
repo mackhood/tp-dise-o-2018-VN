@@ -41,7 +41,7 @@ public class testAsignadorDeZonaService {
 		clienteMock = mock(Cliente.class);
 
 		when(zona2.conectarATransformadorCercano(clienteMock)).thenReturn(transformadorMock);
-		when(clienteMock.getPosicion()).thenReturn(new Ubicacion(0, 0));
+		when(clienteMock.getUbicacion()).thenReturn(new Ubicacion(0, 0));
 		when(zona1.perteneceClienteAZona(clienteMock)).thenReturn(true);
 		when(zona2.perteneceClienteAZona(clienteMock)).thenReturn(true);
 		when(zona1.distanciaAcliente(clienteMock)).thenReturn(3.0);

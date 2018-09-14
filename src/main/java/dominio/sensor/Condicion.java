@@ -44,6 +44,11 @@ public abstract class Condicion {
 		this.setMedicionActual(unSensor.getValorMedicion());
 		regla.chequearCondicionesYEjecutar();
 	}
+	
+	public void modificarCondicion(double nuevoValorLimite) {
+		
+		valorLimite = nuevoValorLimite;
+	}
 
 	public String getTipo() {
 

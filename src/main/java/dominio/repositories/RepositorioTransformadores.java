@@ -45,5 +45,10 @@ public class RepositorioTransformadores extends Repositorio {
             throw new ProcessingDataFailedException(e.getLocalizedMessage());
         }
     }
+    
+    public int cantidadTransformadores() {
+    	
+    	return this.obtenerTransformadores().size();
+    }
 
 }

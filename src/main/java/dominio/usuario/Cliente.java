@@ -225,7 +225,7 @@ public class Cliente {
 		return nombre;
 	}
 
-	public Ubicacion getPosicion() {
+	public Ubicacion getUbicacion() {
 		return ubicacion;
 	}
 
@@ -260,10 +260,6 @@ public class Cliente {
 	public List<DispositivoInteligente> getDispositivosInteligentes() {
 
 		return dispositivosInteligentes;
-	}
-
-	public Ubicacion getUbicacion() {
-		return ubicacion;
 	}
 
 	public void setUbicacion(Ubicacion ubicacion) {

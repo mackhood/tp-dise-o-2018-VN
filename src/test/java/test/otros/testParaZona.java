@@ -48,15 +48,15 @@ public class testParaZona {
 		when(transmormadorMock3.energiaConsumidaClientes()).thenReturn(200.0);
 
 		ubicacionCliente = new Ubicacion(1, 1);
-		when(clienteMock.getPosicion()).thenReturn(ubicacionCliente);
+		when(clienteMock.getUbicacion()).thenReturn(ubicacionCliente);
 
-		when(transmormadorMock1.calcularDistancia(clienteMock.getPosicion())).thenReturn(1.0);
-		when(transmormadorMock2.calcularDistancia(clienteMock.getPosicion())).thenReturn(2.0);
-		when(transmormadorMock3.calcularDistancia(clienteMock.getPosicion())).thenReturn(3.0);
+		when(transmormadorMock1.calcularDistancia(clienteMock.getUbicacion())).thenReturn(1.0);
+		when(transmormadorMock2.calcularDistancia(clienteMock.getUbicacion())).thenReturn(2.0);
+		when(transmormadorMock3.calcularDistancia(clienteMock.getUbicacion())).thenReturn(3.0);
 
 		zonaGeografica1 = new ZonaGeografica("Zona1", listaDeTrasformadoresDeLaZona, new Ubicacion(1, 1), 10.0);
 
-		when(clienteMock2.getPosicion()).thenReturn(new Ubicacion(10.0, 10.0));
+		when(clienteMock2.getUbicacion()).thenReturn(new Ubicacion(10.0, 10.0));
 	}
 
 	@Test
