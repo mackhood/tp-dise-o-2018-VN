@@ -61,11 +61,11 @@ public class ClienteManager implements WithGlobalEntityManager,TransactionalOps 
     public void modificarNombreDeUnDispositivoDelCliente(Long id, String nombreDispositivo, String nombreNuevoDisp)
     {
         withTransaction(()->{
-            ClienteManager clienteManager = new ClienteManager();
-            Dispositivo disp = clienteManager.traerDispositivoDeUnCliente(new Long(1), nombreDispositivo);
-            disp.setNombre(nombreDispositivo);
-            entityManager().refresh(disp);
-            entityManager().getTransaction().commit();
+            Dispositivo disp = this.traerDispositivoDeUnCliente(new Long(1), nombreDispositivo);
+            disp.setNombre(nombreNuevoDisp);
+            //entityManager().persist(disp);
+            //System.out.println(disp.getNombre());
+            //entityManager().getTransaction().commit();
         });
     }
 }
