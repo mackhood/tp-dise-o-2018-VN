@@ -1,5 +1,8 @@
 package dominio.dispositivo;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 public class EstadoNulo implements EstadoDispositivo {
 
 	public void apagar(DispositivoInteligente disp) {

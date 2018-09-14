@@ -1,36 +1,33 @@
 package dominio.actuador;
 
 import java.util.List;
+import java.util.Set;
 
 import dominio.dispositivo.DispositivoInteligente;
 
 import javax.persistence.*;
 
-
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="DISCRIMINATOR", discriminatorType=DiscriminatorType.STRING)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "Tipo", discriminatorType = DiscriminatorType.STRING)
 
 public abstract class Actuador {
 
-
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-
 
 	/*
 	 * Cada uno de los distintos Actuadores va a tener su propia logica a /
 	 * implementar en ejecutar / El actuador sabe a que dispositivo tiene que
 	 * afectar
 	 */
-	@OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
-	DispositivoInteligente dispInteligente = null;
-	@Transient
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	protected List<DispositivoInteligente> dispositivos;
 
-	public Actuador(List<DispositivoInteligente> dispositivosAfectados) {
-		dispositivos = dispositivosAfectados;
+	public Actuador(List<DispositivoInteligente> listaDI) {
+		dispositivos = listaDI;
 	};
 
 	public abstract void ejecutar();

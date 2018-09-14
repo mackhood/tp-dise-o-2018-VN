@@ -2,6 +2,9 @@ package dominio.dispositivo;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 public class EstadoEncendido implements EstadoDispositivo {
     private static EstadoEncendido instance = new EstadoEncendido();
 

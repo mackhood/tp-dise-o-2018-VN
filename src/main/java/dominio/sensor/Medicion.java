@@ -2,9 +2,11 @@ package dominio.sensor;
 
 import java.beans.Transient;
 
+import javax.persistence.Embeddable;
 
+@Embeddable
 public class Medicion {
-
+	
 	double valor;
 	String tipoMedicion;
 

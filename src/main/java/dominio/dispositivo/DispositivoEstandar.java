@@ -1,18 +1,18 @@
 package dominio.dispositivo;
 
-
 import javax.persistence.*;
 
 @Entity
 public class DispositivoEstandar extends Dispositivo {
 
-
 	@Id
-	@GeneratedValue( strategy= GenerationType.AUTO)
-	@Column(name="idDispositivoEstandar")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "Id_dispositivoEstandar")
 	protected Long id;
 
-	public DispositivoEstandar(){}
+	public DispositivoEstandar() {
+	}
+
 	private DispositivoEstandar(DispositivoEstandarBuilder builder) {
 		this.nombre = builder.nombre;
 		this.consumoEstimadoPorHora = builder.consumoEstimadoPorHora;

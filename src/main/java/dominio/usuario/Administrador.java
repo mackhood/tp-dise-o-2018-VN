@@ -6,13 +6,7 @@ import java.time.temporal.ChronoUnit;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-
-
-
 public class Administrador {
-
-
-
 
 	private String nombre;
 	private String apellido;

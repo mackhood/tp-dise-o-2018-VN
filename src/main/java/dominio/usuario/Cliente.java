@@ -14,6 +14,7 @@ import dominio.transformador.Transformador;
 import dominio.zonageografica.AsignadorDeZonaService;
 import dominio.zonageografica.Ubicacion;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "cliente")
+@Table(name = "Cliente")
 public class Cliente {
 
 	@Id
@@ -30,21 +31,19 @@ public class Cliente {
 	@Column(name="idCliente")
 	protected Long id;
 
-	@Column(name = "nombre", nullable = false, length = 100)
+	@Column(name = "Nombre", nullable = false, length = 100)
 	private String nombre;
 
 	@Column(length = 50)
 	private String apellido;
 
-	//@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@Embedded
 	private ID identificacion;
-
+	
 	private long telefono;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@Embedded
 	private Domicilio domicilio;
-
 	private LocalDate fechaDeAlta;
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Categoria categoria;

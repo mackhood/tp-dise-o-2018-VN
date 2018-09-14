@@ -14,27 +14,24 @@ import javax.persistence.EntityManager;
 
 public class ContextTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
+	@Test
+	public void contextUp() {
+		assertNotNull(entityManager());
+	}
 
-    @Test
-    public void contextUp() {
-        assertNotNull(entityManager());
-    }
+	@Test
+	public void contextUpWithTransaction() throws Exception {
+		withTransaction(() -> {
+		});
+	}
 
-    @Test
-    public void contextUpWithTransaction() throws Exception {
-        withTransaction(() -> {
-        });
-    }
-
-    @Test
-    public void testCargarAlumno() {
-        ClienteManager clienteManager = new ClienteManager();
-        clienteManager.persistirCliente();
-        //clienteManager.persistirDispositivos();
-        //entityManager().clear();
-        EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-    }
-
-
+	@Test
+	public void testCargarCliente() {
+		ClienteManager clienteManager = new ClienteManager();
+		clienteManager.persistirCliente();
+		// clienteManager.persistirDispositivos();
+		// entityManager().clear();
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+	}
 
 }

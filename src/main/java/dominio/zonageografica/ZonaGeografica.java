@@ -14,15 +14,15 @@ import java.util.Optional;
 @Entity
 public class ZonaGeografica {
 
-
 	@Id
 	@GeneratedValue( strategy= GenerationType.AUTO)
 	protected Long id;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	protected List<Transformador> transformadores = new ArrayList<>();
-	@Column(length = 150)
+	@Column(length = 100)
 	private String descripcion;
+	@Basic
 	private Double radio;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

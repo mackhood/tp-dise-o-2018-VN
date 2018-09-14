@@ -4,12 +4,11 @@ import dominio.usuario.Cliente;
 
 import javax.persistence.*;
 
-
 @Entity
-@Table(name="categoria")
+@Table(name = "Categoria")
 public class Categoria {
 	@Id
-	@GeneratedValue( strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected Long id;
 	private String nombre;
 	private Integer consumoMinimo;
@@ -36,12 +35,12 @@ public class Categoria {
 	public Double getCargoVariable() {
 		return this.cargoVariable;
 	}
-	
+
 	public Double getCargoFijo() {
-		
+
 		return this.cargoFijo;
 	}
-	
+
 	public Double calcularCostosPara(Cliente cliente) {
 		return cargoFijo + cargoVariable * cliente.consumoEnergeticoTotal();
 	}

@@ -5,22 +5,29 @@ import dominio.sensor.Condicion;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "regla")
+@Table(name = "Regla")
 
 public class Regla {
+	
+	@Id
+	@GeneratedValue(strategy= GenerationType.AUTO)
+	private long id;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Actuador actuador;
 
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<Condicion> condicionesACumplir = new ArrayList<>();
 
-	public Regla(Actuador actuador, List<Condicion> condicionesACumplir) {
+	public Regla(Actuador actuador, List<Condicion> listaCondiciones) {
 		this.actuador = actuador;
-		this.condicionesACumplir = condicionesACumplir;
+		this.condicionesACumplir = listaCondiciones;
 	}
 
 	public boolean cumpleTodasLasCondiciones() {

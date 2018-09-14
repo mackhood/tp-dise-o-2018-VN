@@ -4,7 +4,6 @@ import javax.persistence.*;
 
 
 @Embeddable
-//@Table(name = "id")
 public class ID {
 
 	//@Id

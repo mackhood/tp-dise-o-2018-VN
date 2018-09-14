@@ -9,16 +9,16 @@ import dominio.zonageografica.Ubicacion;
 
 import javax.persistence.*;
 
+@Table(name = "Transformadores")
 @Entity
 public class Transformador {
 
 	@Id
-	@GeneratedValue( strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected Long id;
 	@OneToMany(fetch = FetchType.EAGER)
 	private List<Cliente> usuariosConectados = new ArrayList<>();
-
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER)
 	private Ubicacion ubicacion;
 
 	public Transformador(List<Cliente> usuariosConectados, Ubicacion ubicacion) {
@@ -47,9 +47,9 @@ public class Transformador {
 	public void agregarCliente(Cliente cliente) {
 		usuariosConectados.add(cliente);
 	}
-	
+
 	public List<Cliente> getUsuariosConectados() {
-		
+
 		return usuariosConectados;
 	}
 }

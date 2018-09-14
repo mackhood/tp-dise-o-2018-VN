@@ -6,14 +6,15 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @DiscriminatorValue(value="OrdenEncenderDI")
 
 public class OrdenEncenderDI extends Actuador {
 
-	public OrdenEncenderDI(List<DispositivoInteligente> dispositivosAfectados) {
-		super(dispositivosAfectados);
+	public OrdenEncenderDI(List<DispositivoInteligente> listaDI) {
+		super(listaDI);
 	}
 
 	@Override

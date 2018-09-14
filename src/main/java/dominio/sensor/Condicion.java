@@ -4,23 +4,20 @@ import dominio.regla.Regla;
 
 import javax.persistence.*;
 
-
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="DISCRIMINATOR", discriminatorType=DiscriminatorType.STRING)
-
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "Tipo_Condicion", discriminatorType = DiscriminatorType.STRING)
 
 public abstract class Condicion {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-
-
+	@Basic
 	protected double valorLimite;
+	@Basic
 	private String tipo;
 	protected double medicionActual;
-
-	@ManyToOne
+	@ManyToMany(fetch = FetchType.LAZY)
 	private Regla regla;
 
 	public Condicion(Regla regla, double valorLimite, String tipo) {
@@ -52,9 +49,9 @@ public abstract class Condicion {
 
 		return tipo;
 	}
-	
+
 	public void setMedicionActual(double valor) {
-		
+
 		medicionActual = valor;
 	}
 

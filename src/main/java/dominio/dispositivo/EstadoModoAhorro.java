@@ -1,5 +1,8 @@
 package dominio.dispositivo;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 public class EstadoModoAhorro implements EstadoDispositivo {
 
 	private static EstadoModoAhorro instance = new EstadoModoAhorro();
