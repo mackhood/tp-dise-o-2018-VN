@@ -15,7 +15,6 @@ public class DispositivoInteligente extends Dispositivo {
 	@Column(name = "idDispositivoInteligente")
 	private Long id;
 
-	TipoDispositivo tipoDispositivo;
 	@Embedded
 	public EstadoDispositivo estadoDispositivo;
 	public LocalDateTime horaEncendido;

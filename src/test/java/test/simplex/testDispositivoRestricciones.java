@@ -15,12 +15,6 @@ public class testDispositivoRestricciones {
     public void testAireAcondicionadoRestriccionMinima()
     {
         disp = RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("aireAcondicionado","De 3500 frigorias");
-        /*System.out.println(disp.getNombre());
-        System.out.println(disp.getEquipoConcreto());
-        System.out.println(disp.getConsumoEstimadoPorHora());
-        System.out.println(disp.getConsumoTotal());
-*/
-
 
         Assert.assertEquals(90,disp.getRestriccionMinima(),0);
     }

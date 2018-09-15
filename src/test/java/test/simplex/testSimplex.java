@@ -15,7 +15,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public class testSimplex {
 
@@ -30,12 +32,10 @@ public class testSimplex {
     @Before
     public void setUp() {
         aireAcondicionado3500 = RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("aireAcondicionado", "De 3500 frigorias");
-        System.out.println(aireAcondicionado3500.getRestriccionMinima());
-        System.out.println(aireAcondicionado3500.getRestriccionMaxima());
 
         lampara11W = RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("lampara", "De 11W");
 
-        aireAcondicionado3500.setHorasDeUso(350);
+        aireAcondicionado3500.setHorasDeUso(900);
         aireAcondicionado3500.encender();
 
         lampara11W.encender();
@@ -53,22 +53,23 @@ public class testSimplex {
         dispositivos.add(lampara11W);
         dispositivos.add(lavarropas5kgAgua);
 
-
-        //unCliente.activarAhorroAutomatico();
-        //recomendacionParaHogarEficiente = new RecomendacionParaHogarEficiente(unCliente);
-        //recomendacionParaHogarEficiente.realizarRecomendacionParaLosDispositivosInteligentes();
     }
 
     @Test
-    public void testAireAcondicionado3500Encendido() {
-        Assert.assertEquals(true, aireAcondicionado3500.estaEncendido());
+    public void testAireAcondicionado3500DespuesDeRealizarLaRecomendacionPorCadaDispositivoEstaApagadoPorqueSuperaLasHorasMaximasRecomendadas() {
+        RecomendacionParaHogarEficiente recomendacionParaHogarEficiente = new RecomendacionParaHogarEficiente(unCliente);
+        recomendacionParaHogarEficiente.realizarRecomendacionParaLosDispositivosInteligentes();
+        Assert.assertEquals(true, aireAcondicionado3500.estaApagado());
 
     }
-
     @Test
-    public void testLamparaDe11wEstaEncendido() {
+    public void testLamparaDe11WDespuesDeRealizarLaRecomendacionPorCadaDispositivoSigueEncendidoPorqueNoSuperaLasHorasMaximasRecomendadas() {
+        RecomendacionParaHogarEficiente recomendacionParaHogarEficiente = new RecomendacionParaHogarEficiente(unCliente);
+        recomendacionParaHogarEficiente.realizarRecomendacionParaLosDispositivosInteligentes();
         Assert.assertEquals(true, lampara11W.estaEncendido());
+
     }
+
 
     @Test
     public void testResultadoFuncionEconomicaDelCliente() {
@@ -76,22 +77,14 @@ public class testSimplex {
         Assert.assertEquals(750, recomendacionParaHogarEficiente.getResultadoDeLaFuncionEconomica(), 10);
     }
 
-    /*Arreglar esto
     @Test
-    public void testConsumoRecomendadoMaximoDispositivo1DelCliente() {
-        Assert.assertEquals(360, unCliente.getTodosLosDispositivos().get(0).getHorasMaximaRecomendadaPorConsumo(), 15);
+    public void testHorasMaximasRecomendadasPorCadaDispositivoDelClienteCoincide() {
+        RecomendacionParaHogarEficiente recomendacionParaHogarEficiente = new RecomendacionParaHogarEficiente(unCliente);
+        double horasMaximasDeConsumoPorDispositivo[] = {360.0, 360.0, 30.0};
+
+        Assert.assertEquals(true, Arrays.equals(horasMaximasDeConsumoPorDispositivo, recomendacionParaHogarEficiente.getHorasMaximaDeConsumoPorDispositivo()));
     }
-
-    @Test
-    public void testConsumoRecomendadoMaximoDispositivo2DelCliente() {
-        Assert.assertEquals(360, unCliente.getTodosLosDispositivos().get(1).getHorasMaximaRecomendadaPorConsumo(), 15);
-    }
-
-    @Test
-    public void testConsumoRecomendadoMaximoDispositivo3DelCliente() {
-        Assert.assertEquals(30, unCliente.getTodosLosDispositivos().get(2).getHorasMaximaRecomendadaPorConsumo(), 15);
-    }*/
-
+/* Deberian ir en otro clase de tests, aca solo se prueba el simplex
     @Test
     public void testPrimerDispositivo() {
         Assert.assertEquals("aireAcondicionado", unCliente.getTodosLosDispositivos().get(0).getNombre());
@@ -116,4 +109,15 @@ public class testSimplex {
     public void testCoefLampara11W() {
         Assert.assertEquals(0.011, RepositorioDispositivo.getInstance().coefConsumoKwhDispositivo(lampara11W), 0);
     }
+    @Test
+    public void testLamparaDe11wEstaEncendido() {
+        Assert.assertEquals(true, lampara11W.estaEncendido());
+    }
+
+    @Test
+    public void testDispositivoTraidoDelRepoConExito() {
+        Assert.assertEquals(90, aireAcondicionado3500.getRestriccionMinima(), 0);
+    }
+*/
+
 }

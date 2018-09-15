@@ -16,7 +16,7 @@ public abstract class Dispositivo {
     protected double consumoEstimadoPorHora;
     protected String equipoConcreto;
     protected double horasDeUso = 0;
-    protected TipoDispositivo tipoDispositivo;
+    public TipoDispositivo tipoDispositivo;
 
     public double getRestriccionMinima(){return tipoDispositivo.getRestriccionMinima();}
     public double getRestriccionMaxima(){return tipoDispositivo.getRestriccionMaxima();}
@@ -64,8 +64,4 @@ public abstract class Dispositivo {
         return equipoConcreto;
     }
 
-    /*
-    public boolean consumioMasDeLaRecomendacion() {
-        return this.getConsumoTotal() > this.getHorasMaximaRecomendadaPorConsumo();
-    }*/
 }

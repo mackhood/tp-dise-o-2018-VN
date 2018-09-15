@@ -19,9 +19,6 @@ public class RepositorioDispositivo {
 
     private RepositorioDispositivo() {
         DispositivoInteligente aireAcondicionado3500 = new DispositivoInteligente.DispositivoInteligenteBuilder("aireAcondicionado").equipoConcreto("De 3500 frigorias").tipoDispositivo(TipoDispositivo.AIREACONDICIONADO).consumoEstimadoPorHora(1.613).build();
-        System.out.println(aireAcondicionado3500.getRestriccionMinima());
-        System.out.println(aireAcondicionado3500.getRestriccionMaxima());
-
         DispositivoInteligente aireAcondicionado2200 = new DispositivoInteligente.DispositivoInteligenteBuilder("aireAcondicionado").equipoConcreto("De 2200 frigorias").tipoDispositivo(TipoDispositivo.AIREACONDICIONADO).consumoEstimadoPorHora(1.013).build();
 
         DispositivoEstandar televisorTuboFluor21 = new DispositivoEstandar.DispositivoEstandarBuilder("televisor").equipoConcreto("Color de tubo fluorescente de 21").tipoDispositivo(TipoDispositivo.TELEVISOR).consumoEstimadoPorHora(0.075).build();
@@ -115,14 +112,6 @@ public class RepositorioDispositivo {
 
     public double coefConsumoKwhDispositivo(Dispositivo dispositivoDelCliente) {
         return this.dispBuscadoDelRepositorio(dispositivoDelCliente).getConsumoEstimadoPorHora();
-    }
-
-    public double restriccionMinimaDe(Dispositivo dispositivoDelCliente) {
-        return this.dispBuscadoDelRepositorio(dispositivoDelCliente).getRestriccionMinima();
-    }
-
-    public double restriccionMaximaDe(Dispositivo dispositivoDelCliente) {
-        return this.dispBuscadoDelRepositorio(dispositivoDelCliente).getRestriccionMaxima();
     }
 
 }
