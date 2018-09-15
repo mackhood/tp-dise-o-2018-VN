@@ -5,7 +5,7 @@ import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.repositories.RepositorioDispositivo;
-import dominio.simplexservice.Recomendacion;
+import dominio.simplexservice.RecomendacionParaHogarEficiente;
 import dominio.usuario.Cliente;
 import dominio.usuario.Domicilio;
 import dominio.usuario.ID;
@@ -26,11 +26,13 @@ public class testSimplex {
     List<Dispositivo> dispositivos = new ArrayList<>();
     List<DispositivoInteligente> inteligentes = new ArrayList<>();
     List<DispositivoEstandar> estandares = new ArrayList<>();
-    Recomendacion recomendacion;
 
     @Before
     public void setUp() {
         aireAcondicionado3500 = RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("aireAcondicionado", "De 3500 frigorias");
+        System.out.println(aireAcondicionado3500.getRestriccionMinima());
+        System.out.println(aireAcondicionado3500.getRestriccionMaxima());
+
         lampara11W = RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("lampara", "De 11W");
 
         aireAcondicionado3500.setHorasDeUso(350);
@@ -53,8 +55,8 @@ public class testSimplex {
 
 
         //unCliente.activarAhorroAutomatico();
-        //recomendacion = new Recomendacion(unCliente);
-        //recomendacion.realizarRecomendacionParaLosDispositivosInteligentes();
+        //recomendacionParaHogarEficiente = new RecomendacionParaHogarEficiente(unCliente);
+        //recomendacionParaHogarEficiente.realizarRecomendacionParaLosDispositivosInteligentes();
     }
 
     @Test
@@ -70,7 +72,8 @@ public class testSimplex {
 
     @Test
     public void testResultadoFuncionEconomicaDelCliente() {
-        Assert.assertEquals(750, recomendacion.getResultadoDeLaFuncionEconomica(), 10);
+        RecomendacionParaHogarEficiente recomendacionParaHogarEficiente = new RecomendacionParaHogarEficiente(unCliente);
+        Assert.assertEquals(750, recomendacionParaHogarEficiente.getResultadoDeLaFuncionEconomica(), 10);
     }
 
     /*Arreglar esto

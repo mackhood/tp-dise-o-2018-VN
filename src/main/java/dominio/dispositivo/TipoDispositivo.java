@@ -14,7 +14,7 @@ public enum TipoDispositivo {
     double restriccionMinima;
     double restriccionMaxima;
 
-    private TipoDispositivo(double restriccionMinima, double restriccionMaxima)
+    TipoDispositivo(double restriccionMinima, double restriccionMaxima)
     {
         this.restriccionMinima = restriccionMinima;
         this.restriccionMaxima = restriccionMaxima;

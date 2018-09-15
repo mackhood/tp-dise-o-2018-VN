@@ -7,7 +7,7 @@ public class LinearConstrainFactory {
     public LinearConstrainFactory() {
     }
 
-    LinearConstraint createLinearConstrain(double[] coefficients, Relationship relationship, int value) {
+    LinearConstraint createLinearConstrain(double[] coefficients, Relationship relationship, double value) {
         return new LinearConstraint(coefficients,
                 relationship, value);
     }
