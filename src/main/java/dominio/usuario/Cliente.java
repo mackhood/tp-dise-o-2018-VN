@@ -25,263 +25,234 @@ import javax.persistence.*;
 @Table(name = "Cliente")
 public class Cliente {
 
-	@Id
-	@GeneratedValue( strategy= GenerationType.IDENTITY)
-	@Column(name="idCliente")
-	protected Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idCliente")
+    protected Long id;
 
-	@Column(name = "Nombre", nullable = false, length = 100)
-	private String nombre;
+    @Column(name = "Nombre", nullable = false, length = 100)
+    private String nombre;
 
-	@Column(length = 50)
-	private String apellido;
+    @Column(length = 50)
+    private String apellido;
 
-	@Embedded
-	private ID identificacion;
-	
-	private long telefono;
+    @Embedded
+    private ID identificacion;
 
-	@Embedded
-	private Domicilio domicilio;
-	private LocalDate fechaDeAlta;
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Categoria categoria;
-	@Column(length = 150)
-	private String username;
-	@Column(length = 150)
-	private String password;
+    private long telefono;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-	//@JoinColumn(name = "idCliente")
-	//@JoinTable(joinColumns={@JoinColumn(name="Cliente_idCliente")}, inverseJoinColumns={@JoinColumn(name="dispositivosEstandar_idDispositivo")})
-	@JoinColumn(name="idCliente")
-	private List<DispositivoEstandar> dispositivosEstandar = new ArrayList<>();
+    @Embedded
+    private Domicilio domicilio;
+    private LocalDate fechaDeAlta;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Categoria categoria;
+    @Column(length = 150)
+    private String username;
+    @Column(length = 150)
+    private String password;
 
-	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
-	//@JoinColumn(name = "idCliente")
-	//@JoinTable(joinColumns={@JoinColumn(name="Cliente_idCliente")}, inverseJoinColumns={@JoinColumn(name="dispositivosInteligentes_idDispositivo")})
-	@JoinColumn(name="idCliente")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    //@JoinColumn(name = "idCliente")
+    //@JoinTable(joinColumns={@JoinColumn(name="Cliente_idCliente")}, inverseJoinColumns={@JoinColumn(name="dispositivosEstandar_idDispositivo")})
+    @JoinColumn(name = "idCliente")
+    private List<DispositivoEstandar> dispositivosEstandar = new ArrayList<>();
 
-	private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    //@JoinColumn(name = "idCliente")
+    //@JoinTable(joinColumns={@JoinColumn(name="Cliente_idCliente")}, inverseJoinColumns={@JoinColumn(name="dispositivosInteligentes_idDispositivo")})
+    @JoinColumn(name = "idCliente")
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	private Ubicacion ubicacion;
+    private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-	private Transformador transformador;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    private Ubicacion ubicacion;
 
-	private boolean ahorroAutomatico = false;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private Transformador transformador;
 
-	public Cliente(){}
-	public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
-				   List<DispositivoEstandar> estandares, List<DispositivoInteligente> inteligentes) {
+    private boolean ahorroAutomatico = false;
 
-		this.nombre = unNombre;
-		this.apellido = unApellido;
-		this.identificacion = id;
-		this.username = username;
-		this.domicilio = unDomicilio;
-		this.telefono = unTelefono;
-		this.dispositivosEstandar = estandares;
-		this.dispositivosInteligentes = inteligentes;
-		// recomendacion = new RecomendacionParaHogarEficiente(this.todosLosDispositivos());
-		this.fechaDeAlta = LocalDate.now();
-	}
+    public Cliente() {
+    }
 
-	public double puntosAcumulados() {
-		return dispositivosInteligentes.stream().mapToDouble(inte -> inte.getPuntos()).sum()
-				+ dispositivosEstandar.stream().mapToDouble(estandar -> estandar.getPuntos()).sum();
-	}
+    public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
+                   List<DispositivoEstandar> estandares, List<DispositivoInteligente> inteligentes) {
 
-	public void agregarModuloAdaptador(Conversor conversor, DispositivoEstandar disp)
+        this.nombre = unNombre;
+        this.apellido = unApellido;
+        this.identificacion = id;
+        this.username = username;
+        this.domicilio = unDomicilio;
+        this.telefono = unTelefono;
+        this.dispositivosEstandar = estandares;
+        this.dispositivosInteligentes = inteligentes;
+        this.fechaDeAlta = LocalDate.now();
+    }
 
-			throws NoTieneDispositivoException {
+    public double puntosAcumulados() {
+        return dispositivosInteligentes.stream().mapToDouble(inte -> inte.getPuntos()).sum()
+                + dispositivosEstandar.stream().mapToDouble(estandar -> estandar.getPuntos()).sum();
+    }
 
-		if (this.tieneDE(disp)) {
-			conversor.convertirInteligente(this, disp);
-		}
+    public void agregarModuloAdaptador(Conversor conversor, DispositivoEstandar disp)
 
-		else
-			throw new NoTieneDispositivoException("No se encuentra en posesion del dispositivo que intenta adaptar");
-	}
+            throws NoTieneDispositivoException {
 
-	public void conectarseATransformador(AsignadorDeZonaService asignadorDeZonaService) {
-		transformador = asignadorDeZonaService.buscarTransformadorCercanoPara(this);
-	}
+        if (this.tieneDE(disp)) {
+            conversor.convertirInteligente(this, disp);
+        } else
+            throw new NoTieneDispositivoException("No se encuentra en posesion del dispositivo que intenta adaptar");
+    }
 
-	public boolean tieneDE(DispositivoEstandar disp) {
+    public void conectarseATransformador(AsignadorDeZonaService asignadorDeZonaService) {
+        transformador = asignadorDeZonaService.buscarTransformadorCercanoPara(this);
+    }
 
-		return dispositivosEstandar.contains(disp);
-	}
+    public boolean tieneDE(DispositivoEstandar disp) {
 
-	public boolean algunDispositivoEncendido() {
+        return dispositivosEstandar.contains(disp);
+    }
 
-		return dispositivosInteligentes.stream().anyMatch(disp -> disp.estaEncendido());
-	}
+    public boolean algunDispositivoEncendido() {
 
-	public long cantidadDeDIEncendidos() {
+        return dispositivosInteligentes.stream().anyMatch(disp -> disp.estaEncendido());
+    }
 
-		return dispositivosInteligentes.stream().filter(disp -> disp.estaEncendido()).count();
-	}
+    public long cantidadDeDIEncendidos() {
 
-	public long cantidadDeDIApagados() {
+        return dispositivosInteligentes.stream().filter(disp -> disp.estaEncendido()).count();
+    }
 
-		return dispositivosInteligentes.stream().filter(disp -> disp.estaApagado()).count();
-	}
+    public long cantidadDeDIApagados() {
 
-	public int cantidadDeDispositivos() {
+        return dispositivosInteligentes.stream().filter(disp -> disp.estaApagado()).count();
+    }
 
-		return getTodosLosDispositivos().size();
-	}
+    public int cantidadDeDispositivos() {
 
-	public void agregarDispositivoInteligente(DispositivoInteligente disp) {
+        return getTodosLosDispositivos().size();
+    }
 
-		dispositivosInteligentes.add(disp);
-	}
+    public void agregarDispositivoInteligente(DispositivoInteligente disp) {
 
-	public void agregarDispositivoEstandar(DispositivoEstandar disp) {
+        dispositivosInteligentes.add(disp);
+    }
 
-		dispositivosEstandar.add(disp);
-	}
+    public void agregarDispositivoEstandar(DispositivoEstandar disp) {
 
-	public void usarDispositivo(DispositivoEstandar dispositivo, double cantHorasEstimada)
+        dispositivosEstandar.add(disp);
+    }
 
-			throws NoTieneDispositivoException {
+    public void usarDispositivo(DispositivoEstandar dispositivo, double cantHorasEstimada)
 
-		if (this.tieneDE(dispositivo)) {
+            throws NoTieneDispositivoException {
 
-			dispositivo.serUsado(cantHorasEstimada);
-		}
+        if (this.tieneDE(dispositivo)) {
 
-		else
-			throw new NoTieneDispositivoException("No posee el dispositivo indicado");
-	}
+            dispositivo.serUsado(cantHorasEstimada);
+        } else
+            throw new NoTieneDispositivoException("No posee el dispositivo indicado");
+    }
 
-	public double consumoEnergeticoTotal() {
+    public double consumoEnergeticoTotal() {
 
-		return getTodosLosDispositivos().stream().mapToDouble(disp -> disp.getConsumoTotal()).sum();
-	}
+        return getTodosLosDispositivos().stream().mapToDouble(disp -> disp.getConsumoTotal()).sum();
+    }
 
-	public void activarAhorroAutomatico() {
+    public void activarAhorroAutomatico() {
 
-		this.ahorroAutomatico = true;
-	}
+        this.ahorroAutomatico = true;
+    }
 
-	public boolean estaEnModoAhorroAutomatico() {
-		return ahorroAutomatico == true;
-	}
+    public boolean estaEnModoAhorroAutomatico() {
+        return ahorroAutomatico == true;
+    }
 
-	public double consumoDispositivosInteligentes() {
-		return dispositivosInteligentes.stream()
-				.mapToDouble(dispositivoInteligente -> dispositivoInteligente.getConsumoTotal()).sum();
-	}
+    public double consumoDispositivosInteligentes() {
+        return dispositivosInteligentes.stream()
+                .mapToDouble(dispositivoInteligente -> dispositivoInteligente.getConsumoTotal()).sum();
+    }
 
-	/*
-	 * public boolean esHogarEficiente() { return this.consumoEnergeticoTotal() <
-	 * recomendacion.getResultadoDeLaFuncionEconomica(); }
-	 */
+    public DispositivoEstandar sacarDispositivoEstandarLista(DispositivoEstandar estandar) {
 
-	public DispositivoEstandar sacarDispositivoEstandarLista(DispositivoEstandar estandar) {
+        dispositivosEstandar.remove(estandar);
+        return estandar;
+    }
 
-		dispositivosEstandar.remove(estandar);
-		return estandar;
-	}
+    public double obtenerGastosAproximados() {
 
-	public double obtenerGastosAproximados() {
+        return categoria.calcularCostosPara(this);
+    }
 
-		return categoria.calcularCostosPara(this);
-	}
-	
-	public double consumoDeIntervalo(Intervalo intervalo) {
-		
-		return dispositivosInteligentes.stream().mapToDouble(disp -> disp.consumoParaIntervalo(intervalo)).sum();
-	}
-	
-	/*
-	 * public void asignarHorasMaximasRecomendadasALosDispositivos() { recomendacion
-	 * = new RecomendacionParaHogarEficiente(this);
-	 * recomendacion.asignarHorasMaximasRecomendadasACadaDispositivo(this); }
-	 *
-	 * public double resultadoDeLaFuncionEconomica() {
-	 *
-	 * return recomendacion.getResultadoDeLaFuncionEconomica(); }
-	 *
-	 * public void realizarRecomendacionParaLosDispositivosInteligentes() {
-	 *
-	 * this.getDispositivosInteligentes().stream().forEach(dispositivo -> {
-	 * if(dispositivo.consumioMasDeLaRecomendacion()) {dispositivo.apagar();} }) };
-	 *
-	 * public double[] horasMaximasDeConsumoPorDispositivo() {
-	 *
-	 * return recomendacion.getHorasMaximaDeConsumoPorDispositivo(); }
-	 */
+    public double consumoDeIntervalo(Intervalo intervalo) {
 
-	// GETTERS/SETTERS
+        return dispositivosInteligentes.stream().mapToDouble(disp -> disp.consumoParaIntervalo(intervalo)).sum();
+    }
 
-	public String getNombreCategoria() {
+    // GETTERS/SETTERS
 
-		return categoria.getNombre();
-	}
+    public String getNombreCategoria() {
 
-	public String getNombre() {
+        return categoria.getNombre();
+    }
 
-		return nombre;
-	}
+    public String getNombre() {
 
-	public Ubicacion getUbicacion() {
-		return ubicacion;
-	}
+        return nombre;
+    }
 
-	public List<Dispositivo> getTodosLosDispositivos() {
+    public Ubicacion getUbicacion() {
+        return ubicacion;
+    }
 
-		List<Dispositivo> todos = new ArrayList<>();
-		todos.addAll(dispositivosInteligentes);
-		todos.addAll(dispositivosEstandar);
-		// todos.stream().forEach(dispositivo ->
-		// System.out.println(dispositivo.getNombre()));
-		return todos;
-	}
+    public List<Dispositivo> getTodosLosDispositivos() {
 
-	public void setTransformador(Transformador transformador) {
-		this.transformador = transformador;
-	}
+        List<Dispositivo> todos = new ArrayList<>();
+        todos.addAll(dispositivosInteligentes);
+        todos.addAll(dispositivosEstandar);
+        return todos;
+    }
 
-	public Transformador getTransformador() {
-		return transformador;
-	}
+    public void setTransformador(Transformador transformador) {
+        this.transformador = transformador;
+    }
 
-	public void setCategoria(Categoria unaCategoria) {
+    public Transformador getTransformador() {
+        return transformador;
+    }
 
-		categoria = unaCategoria;
-	}
+    public void setCategoria(Categoria unaCategoria) {
 
-	public Categoria getCategoria() {
+        categoria = unaCategoria;
+    }
 
-		return categoria;
-	}
+    public Categoria getCategoria() {
 
-	public List<DispositivoInteligente> getDispositivosInteligentes() {
+        return categoria;
+    }
 
-		return dispositivosInteligentes;
-	}
+    public List<DispositivoInteligente> getDispositivosInteligentes() {
 
-	public void setUbicacion(Ubicacion ubicacion) {
-		this.ubicacion = ubicacion;
-	}
+        return dispositivosInteligentes;
+    }
 
-	public Domicilio getDomicilio() {
-		return domicilio;
-	}
+    public void setUbicacion(Ubicacion ubicacion) {
+        this.ubicacion = ubicacion;
+    }
 
-	public void setDomicilio(Domicilio domicilio) {
-		this.domicilio = domicilio;
-	}
+    public Domicilio getDomicilio() {
+        return domicilio;
+    }
 
-	public Long getId() {
-		return id;
-	}
-	public Dispositivo getDispositivoDeNombre(String nombreDisp)
-	{
-		return this.getTodosLosDispositivos().stream().filter(dispositivo -> nombreDisp.equals(dispositivo.getNombre())).collect(Collectors.toList()).get(0);
-	}
+    public void setDomicilio(Domicilio domicilio) {
+        this.domicilio = domicilio;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Dispositivo getDispositivoDeNombre(String nombreDisp) {
+        return this.getTodosLosDispositivos().stream().filter(dispositivo -> nombreDisp.equals(dispositivo.getNombre())).collect(Collectors.toList()).get(0);
+    }
 }

@@ -17,21 +17,16 @@ public class RecomendacionParaHogarEficiente {
         return new SimplexBuilder(unCliente).getHorasMaximasDeConsumoPorDispositivo();
     }
 
-    /*
-    public void realizarRecomendacionParaLosDispositivosInteligentes() {
-        this.asignarHorasMaximasRecomendadasACadaDispositivo();
-        unCliente.getDispositivosInteligentes().stream().forEach(dispositivo ->
-        {
-            if (dispositivo.consumioMasDeLaRecomendacion()) {
-                dispositivo.apagar();
-            }
-        });
-    }
 
-    public void asignarHorasMaximasRecomendadasACadaDispositivo() {
-        for (int i = 0; i < horasMaximaDeConsumoPorDispositivo.length; i++) {
-            unCliente.getTodosLosDispositivos().get(i).setHorasMaximaPorConsumo(getHorasMaximaDeConsumoPorDispositivo()[i]);
+    //Hacer metodo que apague a los dispositivos inteligentes si supera la horasMaximaDeConsumoPorDispositivo solo a los dispositivos inteligentes
+    public void realizarRecomendacionParaLosDispositivosInteligentes() {
+
+        for(int i = 0; i < unCliente.getDispositivosInteligentes().size(); i++)
+        {
+            if(unCliente.getDispositivosInteligentes().get(i).getHorasDeUso() > this.getHorasMaximaDeConsumoPorDispositivo()[i])
+            {
+                unCliente.getDispositivosInteligentes().get(i).apagar();
+            }
         }
     }
-    */
 }
