@@ -39,6 +39,7 @@ public class Recomendacion {
         return horasMaximaDeConsumoPorDispositivo;
     }
 
+    /*
     public void realizarRecomendacionParaLosDispositivosInteligentes() {
         this.asignarHorasMaximasRecomendadasACadaDispositivo();
         unCliente.getDispositivosInteligentes().stream().forEach(dispositivo ->
@@ -54,4 +55,5 @@ public class Recomendacion {
             unCliente.getTodosLosDispositivos().get(i).setHorasMaximaPorConsumo(getHorasMaximaDeConsumoPorDispositivo()[i]);
         }
     }
+    */
 }

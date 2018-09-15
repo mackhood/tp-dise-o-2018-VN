@@ -12,14 +12,14 @@ public class RepositorioDispMinMax {
 	double[] coefsRestriccion;
 
 	public RepositorioDispMinMax() {
-		DispositivoInteligente aireAcondicionado = new DispositivoInteligente.DispositivoInteligenteBuilder("aireAcondicionado").restriccionMinima((double) 90).restriccionMinima((double) 360).build();
-		DispositivoInteligente lampara = new DispositivoInteligente.DispositivoInteligenteBuilder("lampara").restriccionMinima((double) 90).restriccionMinima((double) 360).build();
-		DispositivoInteligente televisor = new DispositivoInteligente.DispositivoInteligenteBuilder("televisor").restriccionMinima((double) 90).restriccionMinima((double) 360).build();
-		DispositivoInteligente computadora = new DispositivoInteligente.DispositivoInteligenteBuilder("computadora").restriccionMinima((double) 60).restriccionMinima((double) 360).build();
-		DispositivoInteligente lavarropas = new DispositivoInteligente.DispositivoInteligenteBuilder("lavarropas").restriccionMinima((double) 6).restriccionMinima((double) 30).build();
-		DispositivoInteligente microondas = new DispositivoInteligente.DispositivoInteligenteBuilder("microondas").restriccionMinima((double) 3).restriccionMinima((double) 15).build();
-		DispositivoInteligente plancha = new DispositivoInteligente.DispositivoInteligenteBuilder("plancha").restriccionMinima((double) 3).restriccionMinima((double) 30).build();
-		DispositivoInteligente ventilador = new DispositivoInteligente.DispositivoInteligenteBuilder("ventilador").restriccionMinima((double) 120).restriccionMinima((double) 360).build();
+		DispositivoInteligente aireAcondicionado = new DispositivoInteligente.DispositivoInteligenteBuilder("aireAcondicionado").build();
+		DispositivoInteligente lampara = new DispositivoInteligente.DispositivoInteligenteBuilder("lampara").build();
+		DispositivoInteligente televisor = new DispositivoInteligente.DispositivoInteligenteBuilder("televisor").build();
+		DispositivoInteligente computadora = new DispositivoInteligente.DispositivoInteligenteBuilder("computadora").build();
+		DispositivoInteligente lavarropas = new DispositivoInteligente.DispositivoInteligenteBuilder("lavarropas").build();
+		DispositivoInteligente microondas = new DispositivoInteligente.DispositivoInteligenteBuilder("microondas").build();
+		DispositivoInteligente plancha = new DispositivoInteligente.DispositivoInteligenteBuilder("plancha").build();
+		DispositivoInteligente ventilador = new DispositivoInteligente.DispositivoInteligenteBuilder("ventilador").build();
 
 
 		dispositivos.add(aireAcondicionado);

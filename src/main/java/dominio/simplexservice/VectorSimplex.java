@@ -1,7 +1,7 @@
 package dominio.simplexservice;
 
 import dominio.dispositivo.Dispositivo;
-import dominio.repositories.Repositorios;
+import dominio.repositories.RepositorioDispositivo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +45,7 @@ public class VectorSimplex {
         //de tal manera que el vector de coeficientes corresponda con el mismo orden que tenga la lista de dispositivos del cliente
         //osea que el coeficiente del dispositivosDelCliente[0] corresponde con arrayCoef[0] y asi con cada uno de ellos.
 
-        List<Double> listaCoeficientes = dispositivosDelCliente.stream().map(disp -> Repositorios.dispositivos.coefConsumoKwhDispositivo(disp))
+        List<Double> listaCoeficientes = dispositivosDelCliente.stream().map(disp -> RepositorioDispositivo.getInstance().coefConsumoKwhDispositivo(disp))
                 .collect(Collectors.toList());
         double[] arrayCoef = new double[listaCoeficientes.size()];
         for (int i = 0; i < listaCoeficientes.size(); i++)

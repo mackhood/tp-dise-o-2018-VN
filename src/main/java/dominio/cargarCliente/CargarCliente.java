@@ -19,11 +19,11 @@ public class CargarCliente implements WithGlobalEntityManager,TransactionalOps {
         withTransaction(()->{
             Domicilio domicilio = new Domicilio("av cordoba",1234,7,'A');
             ID id = new ID(TiposId.DNI,"10125789");
-            DispositivoEstandar dispEstandar = new DispositivoEstandar.DispositivoEstandarBuilder("reloj").consumoEstimadoPorHora(5.0).equipoConcreto("reloj").esBajoConsumo(false).horasDeUso(4.0).build();
+            DispositivoEstandar dispEstandar = new DispositivoEstandar.DispositivoEstandarBuilder("reloj").consumoEstimadoPorHora(5.0).equipoConcreto("reloj").horasDeUso(4.0).build();
             List<DispositivoEstandar> dispositivosEstandares = new ArrayList<>();
             dispositivosEstandares.add(dispEstandar);
 
-            DispositivoInteligente aireAcondicionado3500 = new DispositivoInteligente.DispositivoInteligenteBuilder("aireAcondicionado").equipoConcreto("De 3500 frigorias").esBajoConsumo(false).horasDeUso(5.0).consumoEstimadoPorHora((double) 1.613).build();
+            DispositivoInteligente aireAcondicionado3500 = new DispositivoInteligente.DispositivoInteligenteBuilder("aireAcondicionado").equipoConcreto("De 3500 frigorias").horasDeUso(5.0).consumoEstimadoPorHora((double) 1.613).build();
 
             List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
             dispositivosInteligentes.add(aireAcondicionado3500);

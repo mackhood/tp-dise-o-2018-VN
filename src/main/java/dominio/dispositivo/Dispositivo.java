@@ -1,97 +1,71 @@
 
 package dominio.dispositivo;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Dispositivo {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "idDispositivo")
-	protected Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "idDispositivo")
+    protected Long id;
 
-	protected String nombre;
-	protected double consumoEstimadoPorHora;
-	protected String equipoConcreto;
-	protected boolean esBajoConsumo;
-	protected double horasDeUso = 0;
-	protected double restriccionMinima;
-	protected double restriccionMaxima;
-	protected double horasMaximaRecomendadaPorConsumo;
+    protected String nombre;
+    protected double consumoEstimadoPorHora;
+    protected String equipoConcreto;
+    protected double horasDeUso = 0;
+    protected TipoDispositivo tipoDispositivo;
 
-	public double getHorasMaximaRecomendadaPorConsumo() {
-		return horasMaximaRecomendadaPorConsumo;
-	}
+    public double getRestriccionMinima(){return tipoDispositivo.getRestriccionMinima();}
+    public double getRestriccionMaxima(){return tipoDispositivo.getRestriccionMaxima();}
 
-	public void setHorasMaximaPorConsumo(double horasMaximaPorConsumo) {
-		this.horasMaximaRecomendadaPorConsumo = horasMaximaPorConsumo;
-	}
+    public double consumoEstimadoPorHora() {
+        return consumoEstimadoPorHora;
+    }
 
-	public double consumoEstimadoPorHora() {
-		return consumoEstimadoPorHora;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public String getNombre() {
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-		return nombre;
-	}
+    public double getConsumoEstimadoPorHora() {
+        return consumoEstimadoPorHora;
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public void setConsumoEstimadoPorHora(double consumoEstimadoPorHora) {
+        this.consumoEstimadoPorHora = consumoEstimadoPorHora;
+    }
 
-	public double getConsumoEstimadoPorHora() {
-		return consumoEstimadoPorHora;
-	}
+    public double getHorasDeUso() {
+        return horasDeUso;
+    }
 
-	public void setConsumoEstimadoPorHora(double consumoEstimadoPorHora) {
-		this.consumoEstimadoPorHora = consumoEstimadoPorHora;
-	}
+    public void setHorasDeUso(double horasDeUso) {
+        this.horasDeUso = horasDeUso;
+    }
 
-	public double getHorasDeUso() {
-		return horasDeUso;
-	}
+    public double getConsumoTotal() {
 
-	public void setHorasDeUso(double horasDeUso) {
-		this.horasDeUso = horasDeUso;
-	}
+        return consumoEstimadoPorHora * horasDeUso;
+    }
 
-	public double getConsumoTotal() {
+    public void aumentarConsumoPor(int aumento) {
+        consumoEstimadoPorHora = consumoEstimadoPorHora + aumento;
+    }
 
-		return consumoEstimadoPorHora * horasDeUso;
-	}
+    public abstract int getPuntos();
 
-	public void aumentarConsumoPor(int aumento) {
-		consumoEstimadoPorHora = consumoEstimadoPorHora + aumento;
-	}
+    public String getEquipoConcreto() {
+        return equipoConcreto;
+    }
 
-	public abstract int getPuntos();
-
-	public String getEquipoConcreto() {
-		return equipoConcreto;
-	}
-
-	public double getRestriccionMinima() {
-		return restriccionMinima;
-	}
-
-	public void setRestriccionMinima(double restriccionMinima) {
-		this.restriccionMinima = restriccionMinima;
-	}
-
-	public double getRestriccionMaxima() {
-		return restriccionMaxima;
-	}
-
-	public void setRestriccionMaxima(double restriccionMaxima) {
-		this.restriccionMaxima = restriccionMaxima;
-	}
-
-	public boolean consumioMasDeLaRecomendacion() {
-		return this.getConsumoTotal() > this.getHorasMaximaRecomendadaPorConsumo();
-	}
+    /*
+    public boolean consumioMasDeLaRecomendacion() {
+        return this.getConsumoTotal() > this.getHorasMaximaRecomendadaPorConsumo();
+    }*/
 }
