@@ -10,12 +10,10 @@ import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.dispositivo.Intervalo;
 import dominio.entities.NoTieneDispositivoException;
-import dominio.simplexservice.Recomendacion;
 import dominio.transformador.Transformador;
 import dominio.zonageografica.AsignadorDeZonaService;
 import dominio.zonageografica.Ubicacion;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +84,7 @@ public class Cliente {
 		this.telefono = unTelefono;
 		this.dispositivosEstandar = estandares;
 		this.dispositivosInteligentes = inteligentes;
-		// recomendacion = new Recomendacion(this.todosLosDispositivos());
+		// recomendacion = new RecomendacionParaHogarEficiente(this.todosLosDispositivos());
 		this.fechaDeAlta = LocalDate.now();
 	}
 
@@ -201,7 +199,7 @@ public class Cliente {
 	
 	/*
 	 * public void asignarHorasMaximasRecomendadasALosDispositivos() { recomendacion
-	 * = new Recomendacion(this);
+	 * = new RecomendacionParaHogarEficiente(this);
 	 * recomendacion.asignarHorasMaximasRecomendadasACadaDispositivo(this); }
 	 *
 	 * public double resultadoDeLaFuncionEconomica() {

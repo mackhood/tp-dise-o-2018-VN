@@ -19,6 +19,9 @@ public class RepositorioDispositivo {
 
     private RepositorioDispositivo() {
         DispositivoInteligente aireAcondicionado3500 = new DispositivoInteligente.DispositivoInteligenteBuilder("aireAcondicionado").equipoConcreto("De 3500 frigorias").tipoDispositivo(TipoDispositivo.AIREACONDICIONADO).consumoEstimadoPorHora(1.613).build();
+        System.out.println(aireAcondicionado3500.getRestriccionMinima());
+        System.out.println(aireAcondicionado3500.getRestriccionMaxima());
+
         DispositivoInteligente aireAcondicionado2200 = new DispositivoInteligente.DispositivoInteligenteBuilder("aireAcondicionado").equipoConcreto("De 2200 frigorias").tipoDispositivo(TipoDispositivo.AIREACONDICIONADO).consumoEstimadoPorHora(1.013).build();
 
         DispositivoEstandar televisorTuboFluor21 = new DispositivoEstandar.DispositivoEstandarBuilder("televisor").equipoConcreto("Color de tubo fluorescente de 21").tipoDispositivo(TipoDispositivo.TELEVISOR).consumoEstimadoPorHora(0.075).build();
@@ -89,6 +92,15 @@ public class RepositorioDispositivo {
         todos.addAll(estandars);
         return todos;
     }
+
+    public List<DispositivoInteligente> getInteligentes() {
+        return inteligentes;
+    }
+
+    public List<DispositivoEstandar> getEstandars() {
+        return estandars;
+    }
+
     public DispositivoInteligente traerDispositivoInteligenteDeNombreConcreto(String nombre, String equipoConcreto) {
         return inteligentes.stream().filter(dispositivo -> nombre.equals(dispositivo.getNombre()) && equipoConcreto.equals(dispositivo.getEquipoConcreto())).collect(Collectors.toList()).get(0);
     }
