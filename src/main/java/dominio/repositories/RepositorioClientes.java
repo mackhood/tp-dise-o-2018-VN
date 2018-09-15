@@ -5,6 +5,7 @@ import dominio.usuario.Cliente;
 import dominio.entities.ProcessingDataFailedException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -12,7 +13,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class RepositorioClientes extends Repositorio {
+public class RepositorioClientes extends Repositorio implements WithGlobalEntityManager {
 
 	public static RepositorioClientes getInstance() {
 		return instance;
@@ -23,6 +24,11 @@ public class RepositorioClientes extends Repositorio {
 	private RepositorioClientes() { // dejar en privado para que no puedan hacer otra instancia
 		nombreArchivo = "Clientes.json";
 	}
+
+	public List getAll() {
+		return entityManager().createNamedQuery("select Cliente from Clientes", List.class);
+	}
+
 
 	public void updateClientes(List<Cliente> clientes) {
 		AsignadorDeCategoria asignadorDeCategoria = AsignadorDeCategoria.getInstance();

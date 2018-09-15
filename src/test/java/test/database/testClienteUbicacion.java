@@ -12,6 +12,8 @@ import static junit.framework.TestCase.assertEquals;
 
 public class testClienteUbicacion  extends AbstractPersistenceTest implements WithGlobalEntityManager {
     private Ubicacion nuevaUbicacion = new Ubicacion(2,2);
+
+
     @Test
     public void testNuevaUbicacion() {
         Cliente unCliente = entityManager().find(Cliente.class, (new Long(1)));

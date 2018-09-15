@@ -28,7 +28,7 @@ import javax.persistence.*;
 public class Cliente {
 
 	@Id
-	@GeneratedValue( strategy= GenerationType.AUTO)
+	@GeneratedValue( strategy= GenerationType.IDENTITY)
 	@Column(name="idCliente")
 	protected Long id;
 
@@ -57,7 +57,6 @@ public class Cliente {
 	//@JoinColumn(name = "idCliente")
 	//@JoinTable(joinColumns={@JoinColumn(name="Cliente_idCliente")}, inverseJoinColumns={@JoinColumn(name="dispositivosEstandar_idDispositivo")})
 	@JoinColumn(name="idCliente")
-
 	private List<DispositivoEstandar> dispositivosEstandar = new ArrayList<>();
 
 	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
