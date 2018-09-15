@@ -9,6 +9,7 @@ import java.util.List;
 
 public class ReporteConsumo implements WithGlobalEntityManager {
 
+    /*clase creada en correcion del TPPersistencia
     public ReporteConsumo obtenerReporte (List<Long> clientesId, String desde, String hasta) {
 
         Long idCliente = null;
@@ -19,5 +20,5 @@ public class ReporteConsumo implements WithGlobalEntityManager {
         LocalDateTime to = LocalDateTime.parse((hasta), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
 
         cliente.getPromedioConsumo(from, to);
-    }
+    }*/
 }

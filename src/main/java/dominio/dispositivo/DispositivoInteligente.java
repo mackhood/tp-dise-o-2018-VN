@@ -14,6 +14,8 @@ public class DispositivoInteligente extends Dispositivo {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "idDispositivoInteligente")
 	private Long id;
+
+	TipoDispositivo tipoDispositivo;
 	@Embedded
 	public EstadoDispositivo estadoDispositivo;
 	public LocalDateTime horaEncendido;
@@ -25,14 +27,11 @@ public class DispositivoInteligente extends Dispositivo {
 		this.nombre = builder.nombre;
 		this.consumoEstimadoPorHora = builder.consumoEstimadoPorHora;
 		this.equipoConcreto = builder.equipoConcreto;
-		this.esBajoConsumo = builder.esBajoConsumo;
 		this.horasDeUso = builder.horasDeUso;
-		this.restriccionMinima = builder.restriccionMinima;
-		this.restriccionMaxima = builder.restriccionMaxima;
-		this.horasMaximaRecomendadaPorConsumo = builder.horasMaximaRecomendadaPorConsumo;
 		this.estadoDispositivo = builder.estadoDispositivo;
 		this.horaEncendido = builder.horaEncendido;
 		this.horaApagado = builder.horaApagado;
+		this.tipoDispositivo = builder.tipoDispositivo;
 
 	}
 
@@ -172,17 +171,18 @@ public class DispositivoInteligente extends Dispositivo {
 		private final String nombre;
 		private double consumoEstimadoPorHora;
 		private String equipoConcreto;
-		private boolean esBajoConsumo;
 		private double horasDeUso = 0;
-		private double restriccionMinima;
-		private double restriccionMaxima;
-		private double horasMaximaRecomendadaPorConsumo;
+		private TipoDispositivo tipoDispositivo;
 
+		public DispositivoInteligenteBuilder tipoDispositivo(TipoDispositivo tipoDispositivo)
+		{
+			this.tipoDispositivo = tipoDispositivo;
+			return this;
+		}
 		public DispositivoInteligenteBuilder(String nombre) {
 			this.nombre = nombre;
 
 		}
-
 		public DispositivoInteligenteBuilder horaEncendido(LocalDateTime horaEncendido) {
 
 			this.horaEncendido = horaEncendido;
@@ -213,28 +213,8 @@ public class DispositivoInteligente extends Dispositivo {
 			return this;
 		}
 
-		public DispositivoInteligenteBuilder esBajoConsumo(Boolean esBajoConsumo) {
-			this.esBajoConsumo = esBajoConsumo;
-			return this;
-		}
-
-		public DispositivoInteligenteBuilder restriccionMinima(Double restriccionMinima) {
-			this.restriccionMinima = restriccionMinima;
-			return this;
-		}
-
-		public DispositivoInteligenteBuilder restriccionMaxima(Double restriccionMaxima) {
-			this.restriccionMaxima = restriccionMaxima;
-			return this;
-		}
-
 		public DispositivoInteligenteBuilder horasDeUso(Double horasDeUso) {
 			this.horasDeUso = horasDeUso;
-			return this;
-		}
-
-		public DispositivoInteligenteBuilder horasMaximaRecomendadaPorConsumo(Double horasMaximaRecomendadaPorConsumo) {
-			this.horasMaximaRecomendadaPorConsumo = horasMaximaRecomendadaPorConsumo;
 			return this;
 		}
 

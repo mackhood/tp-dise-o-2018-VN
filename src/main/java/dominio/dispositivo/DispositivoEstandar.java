@@ -5,104 +5,86 @@ import javax.persistence.*;
 @Entity
 public class DispositivoEstandar extends Dispositivo {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "idDispositivoEstandar")
-	protected Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "idDispositivoEstandar")
+    protected Long id;
 
-	public DispositivoEstandar() {
-	}
+    public DispositivoEstandar() {
+    }
 
-	private DispositivoEstandar(DispositivoEstandarBuilder builder) {
-		this.nombre = builder.nombre;
-		this.consumoEstimadoPorHora = builder.consumoEstimadoPorHora;
-		this.equipoConcreto = builder.equipoConcreto;
-		this.esBajoConsumo = builder.esBajoConsumo;
-		this.horasDeUso = builder.horasDeUso;
-		this.restriccionMinima = builder.restriccionMinima;
-		this.restriccionMaxima = builder.restriccionMaxima;
-		this.horasMaximaRecomendadaPorConsumo = builder.horasMaximaRecomendadaPorConsumo;
-	}
+    private DispositivoEstandar(DispositivoEstandarBuilder builder) {
+        this.nombre = builder.nombre;
+        this.consumoEstimadoPorHora = builder.consumoEstimadoPorHora;
+        this.equipoConcreto = builder.equipoConcreto;
+        this.horasDeUso = builder.horasDeUso;
+        this.tipoDispositivo = builder.tipoDispositivo;
 
-	public double getHorasDeUso() {
-		return horasDeUso;
-	}
+    }
 
-	public double getConsumoEstimadoPorHora() {
-		return consumoEstimadoPorHora;
-	}
+    public double getHorasDeUso() {
+        return horasDeUso;
+    }
 
-	public String getNombre() {
-		return nombre;
-	}
+    public double getConsumoEstimadoPorHora() {
+        return consumoEstimadoPorHora;
+    }
 
-	public double getConsumoTotal() {
-		return consumoEstimadoPorHora * horasDeUso;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public int getPuntos() {
-		return 0;
-	}
+    public double getConsumoTotal() {
+        return consumoEstimadoPorHora * horasDeUso;
+    }
 
-	public void serUsado(double cantHorasEstimada) {
-		horasDeUso = horasDeUso + cantHorasEstimada;
-	}
+    public int getPuntos() {
+        return 0;
+    }
 
-	public static class DispositivoEstandarBuilder {
+    public void serUsado(double cantHorasEstimada) {
+        horasDeUso = horasDeUso + cantHorasEstimada;
+    }
 
-		private final String nombre;
-		private double consumoEstimadoPorHora;
-		private String equipoConcreto;
-		private boolean esBajoConsumo;
-		private double horasDeUso = 0;
-		private double restriccionMinima;
-		private double restriccionMaxima;
-		private double horasMaximaRecomendadaPorConsumo;
+    public static class DispositivoEstandarBuilder {
 
-		public DispositivoEstandarBuilder(String firstName) {
-			this.nombre = firstName;
+        private final String nombre;
+        private double consumoEstimadoPorHora;
+        private String equipoConcreto;
+        private double horasDeUso = 0;
+        private TipoDispositivo tipoDispositivo;
 
-		}
+        public DispositivoEstandarBuilder(String firstName) {
+            this.nombre = firstName;
 
-		public DispositivoEstandarBuilder consumoEstimadoPorHora(Double consumoEstimadoPorHora) {
-			this.consumoEstimadoPorHora = consumoEstimadoPorHora;
-			return this;
-		}
+        }
 
-		public DispositivoEstandarBuilder equipoConcreto(String equipoConcreto) {
-			this.equipoConcreto = equipoConcreto;
-			return this;
-		}
+        public DispositivoEstandarBuilder consumoEstimadoPorHora(Double consumoEstimadoPorHora) {
+            this.consumoEstimadoPorHora = consumoEstimadoPorHora;
+            return this;
+        }
 
-		public DispositivoEstandarBuilder esBajoConsumo(Boolean esBajoConsumo) {
-			this.esBajoConsumo = esBajoConsumo;
-			return this;
-		}
+        public DispositivoEstandarBuilder equipoConcreto(String equipoConcreto) {
+            this.equipoConcreto = equipoConcreto;
+            return this;
+        }
 
-		public DispositivoEstandarBuilder restriccionMinima(Double restriccionMinima) {
-			this.restriccionMinima = restriccionMinima;
-			return this;
-		}
 
-		public DispositivoEstandarBuilder restriccionMaxima(Double restriccionMaxima) {
-			this.restriccionMaxima = restriccionMaxima;
-			return this;
-		}
+        public DispositivoEstandarBuilder horasDeUso(Double horasDeUso) {
+            this.horasDeUso = horasDeUso;
+            return this;
+        }
 
-		public DispositivoEstandarBuilder horasDeUso(Double horasDeUso) {
-			this.horasDeUso = horasDeUso;
-			return this;
-		}
 
-		public DispositivoEstandarBuilder horasMaximaRecomendadaPorConsumo(Double horasMaximaPorConsumo) {
-			this.horasMaximaRecomendadaPorConsumo = horasMaximaPorConsumo;
-			return this;
-		}
+        public DispositivoEstandarBuilder tipoDispositivo(TipoDispositivo tipoDispositivo) {
+            this.tipoDispositivo = tipoDispositivo;
+            return this;
+        }
 
-		public DispositivoEstandar build() {
-			return new DispositivoEstandar(this);
-		}
+        public DispositivoEstandar build() {
+            return new DispositivoEstandar(this);
+        }
 
-	}
+    }
 
 }

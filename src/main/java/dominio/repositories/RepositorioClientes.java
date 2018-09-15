@@ -25,9 +25,10 @@ public class RepositorioClientes extends Repositorio implements WithGlobalEntity
 		nombreArchivo = "Clientes.json";
 	}
 
+	/*
 	public List getAll() {
 		return entityManager().createNamedQuery("select Cliente from Clientes", List.class);
-	}
+	}*/
 
 
 	public void updateClientes(List<Cliente> clientes) {

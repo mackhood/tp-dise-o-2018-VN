@@ -1,7 +1,7 @@
 package dominio.simplexservice;
 
 import dominio.dispositivo.Dispositivo;
-import dominio.repositories.Repositorios;
+import dominio.repositories.RepositorioDispositivo;
 import org.apache.commons.math3.optim.linear.*;
 
 import java.util.ArrayList;
@@ -35,11 +35,11 @@ public class SimplexBuilder {
             constraints.add(new LinearConstraint(
                     vectorSimplex.coefsResctriccionDeUnDispositivo(i),
                     Relationship.GEQ,
-                    Repositorios.dispositivos.restriccionMinimaDe(dispositivosDelCliente.get(i))));
+                    RepositorioDispositivo.getInstance().restriccionMinimaDe(dispositivosDelCliente.get(i))));
             constraints.add(new LinearConstraint(
                     vectorSimplex.coefsResctriccionDeUnDispositivo(i),
                     Relationship.LEQ,
-                    Repositorios.dispositivos.restriccionMaximaDe(dispositivosDelCliente.get(i))));
+                    RepositorioDispositivo.getInstance().restriccionMaximaDe(dispositivosDelCliente.get(i))));
         }
         return constraints;
     }

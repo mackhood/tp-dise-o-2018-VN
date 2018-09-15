@@ -13,7 +13,7 @@ public class testClienteDispositivo extends AbstractPersistenceTest implements W
 
 	@Before
 	public void setup() {
-		entityManager().
+
 	}
 
 	@Test
@@ -33,6 +33,6 @@ public class testClienteDispositivo extends AbstractPersistenceTest implements W
 
 	@After
 	public void end() {
-		entityManager().
+
 	}
 }

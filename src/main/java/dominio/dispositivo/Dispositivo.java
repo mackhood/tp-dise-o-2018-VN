@@ -15,26 +15,17 @@ public abstract class Dispositivo {
     protected String nombre;
     protected double consumoEstimadoPorHora;
     protected String equipoConcreto;
-    protected boolean esBajoConsumo;
     protected double horasDeUso = 0;
-    protected double restriccionMinima;
-    protected double restriccionMaxima;
-    protected double horasMaximaRecomendadaPorConsumo;
+    protected TipoDispositivo tipoDispositivo;
 
-    public double getHorasMaximaRecomendadaPorConsumo() {
-        return horasMaximaRecomendadaPorConsumo;
-    }
-
-    public void setHorasMaximaPorConsumo(double horasMaximaPorConsumo) {
-        this.horasMaximaRecomendadaPorConsumo = horasMaximaPorConsumo;
-    }
+    public double getRestriccionMinima(){return tipoDispositivo.getRestriccionMinima();}
+    public double getRestriccionMaxima(){return tipoDispositivo.getRestriccionMaxima();}
 
     public double consumoEstimadoPorHora() {
         return consumoEstimadoPorHora;
     }
 
     public String getNombre() {
-
         return nombre;
     }
 
@@ -73,23 +64,8 @@ public abstract class Dispositivo {
         return equipoConcreto;
     }
 
-    public double getRestriccionMinima() {
-        return restriccionMinima;
-    }
-
-    public void setRestriccionMinima(double restriccionMinima) {
-        this.restriccionMinima = restriccionMinima;
-    }
-
-    public double getRestriccionMaxima() {
-        return restriccionMaxima;
-    }
-
-    public void setRestriccionMaxima(double restriccionMaxima) {
-        this.restriccionMaxima = restriccionMaxima;
-    }
-
+    /*
     public boolean consumioMasDeLaRecomendacion() {
         return this.getConsumoTotal() > this.getHorasMaximaRecomendadaPorConsumo();
-    }
+    }*/
 }
