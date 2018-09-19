@@ -9,21 +9,21 @@ import java.util.stream.Collectors;
 
 public class VectorSimplex {
 
-    List<Dispositivo> dispositivosDelCliente = new ArrayList<>();
-    double[] coefsRestriccion;
+    private List<Dispositivo> dispositivosDelCliente = new ArrayList<>();
+    private double[] coefsRestriccion;
 
     public VectorSimplex(List<Dispositivo> dispositivosDelCliente) {
         this.dispositivosDelCliente = dispositivosDelCliente;
         coefsRestriccion = new double[dispositivosDelCliente.size()];
     }
 
-    public void agregarCerosAlArray() {
+    private void agregarCerosAlArray() {
         for (int i = 0; i < coefsRestriccion.length; i++) {
             coefsRestriccion[i] = 0;
         }
     }
 
-    public void modificarElemArray(int index) {
+    private void modificarElemArray(int index) {
         coefsRestriccion[index] = 1;
     }
 
