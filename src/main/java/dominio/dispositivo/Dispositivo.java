@@ -8,7 +8,7 @@ import javax.persistence.*;
 public abstract class Dispositivo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "idDispositivo")
     protected Long id;
 

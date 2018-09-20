@@ -1,14 +1,9 @@
 package test.database;
 
-import dominio.cargarCliente.ClienteManager;
-import dominio.usuario.DispositivosPersistirManager;
-import org.junit.Ignore;
+import dominio.manager.DispositivosPersistirManager;
 import org.junit.Test;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
-
-import javax.persistence.EntityManager;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -26,18 +21,6 @@ public class ContextTest extends AbstractPersistenceTest implements WithGlobalEn
 		});
 	}
 
-	@Test
-	public void testCargarCliente() {
-		ClienteManager clienteManager = new ClienteManager();
-		clienteManager.persistirCliente();
-		// clienteManager.persistirDispositivos();
-		// entityManager().clear();
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-	}
 
-	@Test
-	public void cargarTablaDispositivos() {
-		DispositivosPersistirManager.getInstance().persistirDispositivosDelRepositorio();
-	}
 
 }

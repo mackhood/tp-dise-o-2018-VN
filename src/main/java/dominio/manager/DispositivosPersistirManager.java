@@ -1,4 +1,4 @@
-package dominio.usuario;
+package dominio.manager;
 
 import dominio.repositories.RepositorioDispositivo;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;

@@ -26,7 +26,7 @@ import javax.persistence.*;
 public class Cliente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "idCliente")
     protected Long id;
 
@@ -51,23 +51,19 @@ public class Cliente {
     @Column(length = 150)
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    //@JoinColumn(name = "idCliente")
-    //@JoinTable(joinColumns={@JoinColumn(name="Cliente_idCliente")}, inverseJoinColumns={@JoinColumn(name="dispositivosEstandar_idDispositivo")})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "idCliente")
     private List<DispositivoEstandar> dispositivosEstandar = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    //@JoinColumn(name = "idCliente")
-    //@JoinTable(joinColumns={@JoinColumn(name="Cliente_idCliente")}, inverseJoinColumns={@JoinColumn(name="dispositivosInteligentes_idDispositivo")})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "idCliente")
 
     private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Ubicacion ubicacion;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Transformador transformador;
 
     private boolean ahorroAutomatico = false;
@@ -254,5 +250,13 @@ public class Cliente {
 
     public Dispositivo getDispositivoDeNombre(String nombreDisp) {
         return this.getTodosLosDispositivos().stream().filter(dispositivo -> nombreDisp.equals(dispositivo.getNombre())).collect(Collectors.toList()).get(0);
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 }

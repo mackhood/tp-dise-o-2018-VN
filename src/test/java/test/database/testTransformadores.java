@@ -1,9 +1,7 @@
 package test.database;
 
-import dominio.cargarCliente.CargarTransformadores;
-import dominio.cargarCliente.ClienteManager;
+import dominio.manager.CargarTransformadores;
 import org.junit.Ignore;
-import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import javax.persistence.EntityManager;
