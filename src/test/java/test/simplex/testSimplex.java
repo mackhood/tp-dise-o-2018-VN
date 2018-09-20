@@ -17,7 +17,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 public class testSimplex {
 
@@ -84,40 +83,5 @@ public class testSimplex {
 
         Assert.assertEquals(true, Arrays.equals(horasMaximasDeConsumoPorDispositivo, recomendacionParaHogarEficiente.getHorasMaximaDeConsumoPorDispositivo()));
     }
-/* Deberian ir en otro clase de tests, aca solo se prueba el simplex
-    @Test
-    public void testPrimerDispositivo() {
-        Assert.assertEquals("aireAcondicionado", unCliente.getTodosLosDispositivos().get(0).getNombre());
-    }
-
-    @Test
-    public void testSegundoDispositivo() {
-        Assert.assertEquals("lampara", unCliente.getTodosLosDispositivos().get(1).getNombre());
-    }
-
-    @Test
-    public void testTercerDispositivo() {
-        Assert.assertEquals("lavarropas", unCliente.getTodosLosDispositivos().get(2).getNombre());
-    }
-
-    @Test
-    public void testCoefAireAcondicionado3500() {
-        Assert.assertEquals(1.613, RepositorioDispositivo.getInstance().coefConsumoKwhDispositivo(aireAcondicionado3500), 0);
-    }
-
-    @Test
-    public void testCoefLampara11W() {
-        Assert.assertEquals(0.011, RepositorioDispositivo.getInstance().coefConsumoKwhDispositivo(lampara11W), 0);
-    }
-    @Test
-    public void testLamparaDe11wEstaEncendido() {
-        Assert.assertEquals(true, lampara11W.estaEncendido());
-    }
-
-    @Test
-    public void testDispositivoTraidoDelRepoConExito() {
-        Assert.assertEquals(90, aireAcondicionado3500.getRestriccionMinima(), 0);
-    }
-*/
 
 }
