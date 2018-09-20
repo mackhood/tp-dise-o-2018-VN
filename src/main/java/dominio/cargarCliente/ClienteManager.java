@@ -3,6 +3,7 @@ package dominio.cargarCliente;
 import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
+import dominio.repositories.RepositorioDispositivo;
 import dominio.usuario.Cliente;
 import dominio.usuario.Domicilio;
 import dominio.usuario.ID;
@@ -25,9 +26,7 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 			List<DispositivoEstandar> dispositivosEstandares = new ArrayList<>();
 			dispositivosEstandares.add(dispEstandar);
 
-			DispositivoInteligente aireAcondicionado3500 = new DispositivoInteligente.DispositivoInteligenteBuilder(
-					"aireAcondicionado").equipoConcreto("De 3500 frigorias").horasDeUso(5.0)
-							.consumoEstimadoPorHora((double) 1.613).build();
+			DispositivoInteligente aireAcondicionado3500 = RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("aireAcondicionado","De 3500 frigorias");
 
 			List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
 			dispositivosInteligentes.add(aireAcondicionado3500);
