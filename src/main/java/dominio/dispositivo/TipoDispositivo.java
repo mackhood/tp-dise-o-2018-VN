@@ -1,5 +1,9 @@
 package dominio.dispositivo;
 
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 public enum TipoDispositivo {
     AIREACONDICIONADO(90,360),
     LAMPARA(90,360),
@@ -10,6 +14,7 @@ public enum TipoDispositivo {
     PLANCHA(3,30),
     VENTILADOR(120,360),
     OTRO(0,0);
+
 
     double restriccionMinima;
     double restriccionMaxima;

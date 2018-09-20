@@ -1,4 +1,4 @@
-package dominio.cargarCliente;
+package dominio.manager;
 
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;

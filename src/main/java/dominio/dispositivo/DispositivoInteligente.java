@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 @Entity
 public class DispositivoInteligente extends Dispositivo {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	//@Id
+	//@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "idDispositivoInteligente")
 	private Long id;
 

@@ -5,8 +5,8 @@ import javax.persistence.*;
 @Entity
 public class DispositivoEstandar extends Dispositivo {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "idDispositivoEstandar")
     protected Long id;
 

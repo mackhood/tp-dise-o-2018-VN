@@ -8,7 +8,7 @@ import javax.persistence.*;
 public abstract class Dispositivo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "idDispositivo")
     protected Long id;
 
@@ -16,7 +16,8 @@ public abstract class Dispositivo {
     protected double consumoEstimadoPorHora;
     protected String equipoConcreto;
     protected double horasDeUso = 0;
-    public TipoDispositivo tipoDispositivo;
+    @Enumerated
+    protected TipoDispositivo tipoDispositivo;
 
     public double getRestriccionMinima(){return tipoDispositivo.getRestriccionMinima();}
     public double getRestriccionMaxima(){return tipoDispositivo.getRestriccionMaxima();}
