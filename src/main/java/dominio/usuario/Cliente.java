@@ -1,28 +1,20 @@
 package dominio.usuario;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-
 import dominio.categoria.Categoria;
-import dominio.dispositivo.Conversor;
-import dominio.dispositivo.Dispositivo;
-import dominio.dispositivo.DispositivoEstandar;
-import dominio.dispositivo.DispositivoInteligente;
-import dominio.dispositivo.Intervalo;
+import dominio.dispositivo.*;
 import dominio.entities.NoTieneDispositivoException;
 import dominio.transformador.Transformador;
 import dominio.zonageografica.AsignadorDeZonaService;
 import dominio.zonageografica.Ubicacion;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.persistence.*;
-
 @Entity
-@Table(name = "Cliente")
+@Table(name = "cliente")
 public class Cliente {
 
     @Id

@@ -1,6 +1,5 @@
 package dominio.dispositivo;
 
-import javax.swing.plaf.DimensionUIResource;
 
 public class DispositivoEstandarInteligente extends DispositivoInteligente {
 

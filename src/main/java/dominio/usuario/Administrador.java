@@ -1,8 +1,8 @@
 package dominio.usuario;
 
 import dominio.dispositivo.Dispositivo;
+import dominio.dispositivo.DispositivoEstandar;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -15,11 +15,13 @@ public class Administrador {
 	private long numId;
 	private String username;
 	private String password;
+	private DispositivoABM dispositivoABM;
 
 	public Administrador(String nombre, String unApellido, LocalDate fecha) {
 		this.nombre = nombre;
 		this.apellido = unApellido;
 		this.fechaAlta = fecha;
+		this.dispositivoABM = new DispositivoABM();
 	}
 
 	public void setDomicilio(Domicilio domicilio) {
@@ -40,10 +42,9 @@ public class Administrador {
 	}
 
 
-
-	public void agregarDispositivoDB(Dispositivo dispositivo){
-
-
+	public void agregarDispositivoDB(Dispositivo dispositivo) {
+		dispositivoABM.agregarDispositivoBD(dispositivo);
+		/*
 
 
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ejemplo");
@@ -57,29 +58,23 @@ public class Administrador {
 			em.persist(dispositivo);
 			t.commit();
 			System.out.println("se inserto dispositivo ");
-		}
-
-
-		catch(Exception e){
+		} catch (Exception e) {
 
 			t.rollback();
-			System.out.println("Fallo" +e.getMessage());
+			System.out.println("Fallo" + e.getMessage());
 
-		}
-
-		finally {
+		} finally {
 			em.close();
 		}
-
-
+		*/
 
 
 	}
 
 
-
-	void editarDispositivoDB(Integer idviejo, Dispositivo nuevo){
-
+	public void editarDispositivoDB(Long idDispositivoViejo, DispositivoEstandar dispositivoNuevo) {
+		dispositivoABM.modificarDispositivoBD(idDispositivoViejo, dispositivoNuevo);
+		/*
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ejemplo2");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction t = em.getTransaction();
@@ -88,40 +83,32 @@ public class Administrador {
 		try {
 
 
-			Dispositivo d= em.find(Dispositivo.class,idviejo);
+			Dispositivo d = em.find(Dispositivo.class, idviejo);
 
-			d=nuevo;
+			d = nuevo;
 
 
 			t.begin();
 			em.merge(d);
 			t.commit();
 			System.out.println("se modifico dispositivo ");
-		}
-
-
-		catch(Exception e){
+		} catch (Exception e) {
 
 			t.rollback();
-			System.out.println("Fallo" +e.getMessage());
+			System.out.println("Fallo" + e.getMessage());
 
-		}
-
-		finally {
+		} finally {
 			em.close();
-		}
-
-
-
+		}*/
 
 
 	}
 
 
+	public void eliminarDispositivoDB(Long idDispositivoEliminar) {
+		dispositivoABM.eliminarDispositivoInteligenteBD(idDispositivoEliminar);
 
-
-	void eliminarDispositivoDB(Integer id){
-
+		/*
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ejemplo2");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction t = em.getTransaction();
@@ -151,7 +138,7 @@ public class Administrador {
 
 		finally {
 			em.close();
-		}
+		}*/
 
 
 

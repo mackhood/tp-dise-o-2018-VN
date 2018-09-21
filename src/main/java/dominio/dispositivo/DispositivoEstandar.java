@@ -3,6 +3,7 @@ package dominio.dispositivo;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "dispositivoEstandar")
 public class DispositivoEstandar extends Dispositivo {
 
     //@Id
