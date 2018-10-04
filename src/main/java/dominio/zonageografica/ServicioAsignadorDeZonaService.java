@@ -11,20 +11,22 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class AsignadorDeZonaService {
+public class ServicioAsignadorDeZonaService {
 
 	private List<ZonaGeografica> zonas = new ArrayList<>();
 
-	public AsignadorDeZonaService(List<ZonaGeografica> listaZonas) {
+	public ServicioAsignadorDeZonaService(List<ZonaGeografica> listaZonas) {
 		this.zonas.addAll(listaZonas);
 	}
 
-	public Transformador buscarTransformadorCercanoPara(Cliente cliente) {
+	public void buscarTransformadorCercanoPara(Cliente cliente) {
 		ZonaGeografica zonaGeograficaCercana = this.zonaCercanaParaCliente(cliente);
-		return this.buscarTransformadorParaCliente(cliente, zonaGeograficaCercana);
+		Transformador transformadorParaCliente = this.buscarTransformadorParaCliente(cliente, zonaGeograficaCercana);
+		cliente.setTransformador(transformadorParaCliente);
+		transformadorParaCliente.agregarCliente(cliente);
 	}
 
-	public ZonaGeografica zonaCercanaParaCliente(Cliente cliente) {
+	private ZonaGeografica zonaCercanaParaCliente(Cliente cliente) {
 		List<ZonaGeografica> zonaParaCliente = zonas.stream().filter(zona -> zona.perteneceClienteAZona(cliente))
 				.collect(Collectors.toList());
 		if (zonaParaCliente.isEmpty())

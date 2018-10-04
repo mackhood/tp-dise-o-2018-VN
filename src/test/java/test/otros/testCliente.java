@@ -12,8 +12,9 @@ import dominio.entities.NoTieneDispositivoException;
 import dominio.entities.ProcessingDataFailedException;
 import dominio.repositories.RepositorioCategoria;
 
-import dominio.zonageografica.AsignadorDeZonaService;
+
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -189,14 +190,5 @@ public class testCliente {
 	public void testPuntosAcumuladorDespuesDeAgregarAdaptadorAUnDE() throws NoTieneDispositivoException {
 		unClienteConDEyDI.agregarModuloAdaptador(moduloAdaptador, mockDE);
 		assertEquals(40.0, unClienteConDEyDI.puntosAcumulados());
-	}
-
-	@Test
-	public void testConectarClienteATransformador() {
-		AsignadorDeZonaService asignadorDeZonaService = mock(AsignadorDeZonaService.class);
-		Transformador transformadorMock = mock(Transformador.class);
-		when(asignadorDeZonaService.buscarTransformadorCercanoPara(unClienteConDEyDI)).thenReturn(transformadorMock);
-		unClienteConDEyDI.conectarseATransformador(asignadorDeZonaService);
-		assertEquals(transformadorMock, unClienteConDEyDI.getTransformador());
 	}
 }

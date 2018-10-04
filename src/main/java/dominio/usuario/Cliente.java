@@ -4,7 +4,6 @@ import dominio.categoria.Categoria;
 import dominio.dispositivo.*;
 import dominio.entities.NoTieneDispositivoException;
 import dominio.transformador.Transformador;
-import dominio.zonageografica.AsignadorDeZonaService;
 import dominio.zonageografica.Ubicacion;
 
 import javax.persistence.*;
@@ -90,10 +89,6 @@ public class Cliente {
             conversor.convertirInteligente(this, disp);
         } else
             throw new NoTieneDispositivoException("No se encuentra en posesion del dispositivo que intenta adaptar");
-    }
-
-    public void conectarseATransformador(AsignadorDeZonaService asignadorDeZonaService) {
-        transformador = asignadorDeZonaService.buscarTransformadorCercanoPara(this);
     }
 
     public boolean tieneDE(DispositivoEstandar disp) {
