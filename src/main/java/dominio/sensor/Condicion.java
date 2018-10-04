@@ -9,59 +9,59 @@ import javax.persistence.*;
 @DiscriminatorColumn(name = "Tipo_Condicion", discriminatorType = DiscriminatorType.STRING)
 
 public abstract class Condicion {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
-	@Basic
-	protected double valorLimite;
-	@Basic
-	private String tipo;
-	protected double medicionActual;
-	@OneToOne(fetch = FetchType.LAZY)
-	private Regla regla;
+    @Basic
+    protected double valorLimite;
+    protected double medicionActual;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    @Basic
+    private String tipo;
+    @OneToOne(fetch = FetchType.LAZY)
+    private Regla regla;
 
-	public Condicion(Regla regla, double valorLimite, String tipo) {
+    public Condicion(Regla regla, double valorLimite, String tipo) {
 
-		this.regla = regla;
-		this.valorLimite = valorLimite;
-		this.tipo = tipo;
-	}
+        this.regla = regla;
+        this.valorLimite = valorLimite;
+        this.tipo = tipo;
+    }
 
-	/*
-	 * Esto sigue la siguiente logica: al instanciar una condicion, se define lo que
-	 * llame valor limite y si el valor medido esta por abajo o por arriba de este
-	 * dependiendo si la cond es por mayor o por menor, se considera cumplida la
-	 * misma. Lo pense de esta manera porque Franco nos dijo que podiamos tomar
-	 * todas las mediciones como double y por esto mismo para sensar movimiento
-	 * utilizo "booleanos" de la forma <0/1>. Todas las mediciones quedan como
-	 * double en cuanto a su valor y se diferencian por su tipo
-	 */
+    /*
+     * Esto sigue la siguiente logica: al instanciar una condicion, se define lo que
+     * llame valor limite y si el valor medido esta por abajo o por arriba de este
+     * dependiendo si la cond es por mayor o por menor, se considera cumplida la
+     * misma. Lo pense de esta manera porque Franco nos dijo que podiamos tomar
+     * todas las mediciones como double y por esto mismo para sensar movimiento
+     * utilizo "booleanos" de la forma <0/1>. Todas las mediciones quedan como
+     * double en cuanto a su valor y se diferencian por su tipo
+     */
 
-	public abstract boolean cumpleCondicion();
+    public abstract boolean cumpleCondicion();
 
-	public void actualizar(Sensor unSensor) {
+    public void actualizar(Sensor unSensor) {
 
-		this.setMedicionActual(unSensor.getValorMedicion());
-		regla.chequearCondicionesYEjecutar();
-	}
-	
-	public void modificarCondicion(double nuevoValorLimite) {
-		
-		valorLimite = nuevoValorLimite;
-	}
+        this.setMedicionActual(unSensor.getValorMedicion());
+        regla.chequearCondicionesYEjecutar();
+    }
 
-	public String getTipo() {
+    public void modificarCondicion(double nuevoValorLimite) {
 
-		return tipo;
-	}
+        valorLimite = nuevoValorLimite;
+    }
 
-	public void setMedicionActual(double valor) {
+    public String getTipo() {
 
-		medicionActual = valor;
-	}
+        return tipo;
+    }
 
-	public double getMedicionActual() {
+    public double getMedicionActual() {
 
-		return medicionActual;
-	}
+        return medicionActual;
+    }
+
+    public void setMedicionActual(double valor) {
+
+        medicionActual = valor;
+    }
 }

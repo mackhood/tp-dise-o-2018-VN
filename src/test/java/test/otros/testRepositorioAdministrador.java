@@ -10,24 +10,24 @@ import static org.mockito.Mockito.when;
 
 public class testRepositorioAdministrador {
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		return;
-	}
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception {
+        return;
+    }
 
-	@Ignore
-	public void testDadoUnJsonDeTestSeObtieneCorrectamenteLaCantidadDeRegistros() throws Exception {
-		RepositorioAdministradores repositorio = Mockito.mock(RepositorioAdministradores.class);
-		when(repositorio.getJsonFile()).thenReturn(this.getJsonTestFile());
-		when(repositorio.obtenerAdministradores()).thenCallRealMethod();
+    @Ignore
+    public void testDadoUnJsonDeTestSeObtieneCorrectamenteLaCantidadDeRegistros() throws Exception {
+        RepositorioAdministradores repositorio = Mockito.mock(RepositorioAdministradores.class);
+        when(repositorio.getJsonFile()).thenReturn(this.getJsonTestFile());
+        when(repositorio.obtenerAdministradores()).thenCallRealMethod();
 
-		int sizeExpected = repositorio.obtenerAdministradores().size();
+        int sizeExpected = repositorio.obtenerAdministradores().size();
 
-		assertEquals("Se obtienen todas las categorias en el json y se valida su cantidad", 1, sizeExpected);
-	}
+        assertEquals("Se obtienen todas las categorias en el json y se valida su cantidad", 1, sizeExpected);
+    }
 
-	public String getJsonTestFile() {
-		return getClass().getClassLoader().getResource("testAdministradores.json").getFile();
-	}
+    public String getJsonTestFile() {
+        return getClass().getClassLoader().getResource("testAdministradores.json").getFile();
+    }
 
 }

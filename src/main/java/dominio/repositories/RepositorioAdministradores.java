@@ -1,9 +1,9 @@
 package dominio.repositories;
 
-import dominio.usuario.Administrador;
-import dominio.entities.ProcessingDataFailedException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import dominio.entities.ProcessingDataFailedException;
+import dominio.usuario.Administrador;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -14,41 +14,41 @@ import java.util.List;
 public class RepositorioAdministradores extends Repositorio {
 
 
-	private static RepositorioAdministradores instance = new RepositorioAdministradores();
+    private static RepositorioAdministradores instance = new RepositorioAdministradores();
 
-	private RepositorioAdministradores() { // dejar en privado para que no puedan hacer otra instancia
-		nombreArchivo = "Administradores.json";
-	}
+    private RepositorioAdministradores() { // dejar en privado para que no puedan hacer otra instancia
+        nombreArchivo = "Administradores.json";
+    }
 
-	public static RepositorioAdministradores getInstance() {
-		return instance;
-	}
+    public static RepositorioAdministradores getInstance() {
+        return instance;
+    }
 
-	public List<Administrador> obtenerAdministradores() throws ProcessingDataFailedException {
+    public List<Administrador> obtenerAdministradores() throws ProcessingDataFailedException {
 
-		try {
-			FileReader file = new FileReader(getJsonFile());
-			BufferedReader bufferedReader = new BufferedReader(file);
-			Gson gson = new Gson();
+        try {
+            FileReader file = new FileReader(getJsonFile());
+            BufferedReader bufferedReader = new BufferedReader(file);
+            Gson gson = new Gson();
 
-			Object jsonObject = gson.fromJson(bufferedReader, Object.class);
-			String json = jsonObject.toString();
+            Object jsonObject = gson.fromJson(bufferedReader, Object.class);
+            String json = jsonObject.toString();
 
-			Type tipoListaAdmins = new TypeToken<List<Administrador>>() {
-			}.getType();
-			List<Administrador> admins = gson.fromJson(json, tipoListaAdmins);
+            Type tipoListaAdmins = new TypeToken<List<Administrador>>() {
+            }.getType();
+            List<Administrador> admins = gson.fromJson(json, tipoListaAdmins);
 
-			return admins;
+            return admins;
 
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new ProcessingDataFailedException(e.getLocalizedMessage());
-		}
-	}
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new ProcessingDataFailedException(e.getLocalizedMessage());
+        }
+    }
 
-	/*
-	 * public String getJsonFile() { //Separe este metodo para poder mockearlo al
-	 * momento de testear return
-	 * getClass().getClassLoader().getResource("Administradores.json").getFile(); }
-	 */
+    /*
+     * public String getJsonFile() { //Separe este metodo para poder mockearlo al
+     * momento de testear return
+     * getClass().getClassLoader().getResource("Administradores.json").getFile(); }
+     */
 }

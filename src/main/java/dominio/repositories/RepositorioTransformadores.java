@@ -21,7 +21,7 @@ public class RepositorioTransformadores extends Repositorio {
     }
 
     public static RepositorioTransformadores getInstance() {
-                return instance;
+        return instance;
     }
 
     public List<Transformador> obtenerTransformadores() throws ProcessingDataFailedException {
@@ -45,10 +45,10 @@ public class RepositorioTransformadores extends Repositorio {
             throw new ProcessingDataFailedException(e.getLocalizedMessage());
         }
     }
-    
+
     public int cantidadTransformadores() {
-    	
-    	return this.obtenerTransformadores().size();
+
+        return this.obtenerTransformadores().size();
     }
 
 }

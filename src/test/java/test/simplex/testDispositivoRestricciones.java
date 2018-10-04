@@ -12,28 +12,27 @@ public class testDispositivoRestricciones {
 
 
     @Test
-    public void testAireAcondicionadoRestriccionMinima()
-    {
-        disp = RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("aireAcondicionado","De 3500 frigorias");
+    public void testAireAcondicionadoRestriccionMinima() {
+        disp = RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("aireAcondicionado", "De 3500 frigorias");
 
-        Assert.assertEquals(90,disp.getRestriccionMinima(),0);
+        Assert.assertEquals(90, disp.getRestriccionMinima(), 0);
     }
+
     @Test
-    public void testAireAcondicionadoRestriccionMaxima()
-    {
+    public void testAireAcondicionadoRestriccionMaxima() {
         disp = new DispositivoEstandar.DispositivoEstandarBuilder("aire").tipoDispositivo(TipoDispositivo.AIREACONDICIONADO).build();
-        Assert.assertEquals(360,disp.getRestriccionMaxima(),0);
+        Assert.assertEquals(360, disp.getRestriccionMaxima(), 0);
     }
+
     @Test
-    public void testLavarropasRestriccionMinima()
-    {
+    public void testLavarropasRestriccionMinima() {
         disp = new DispositivoEstandar.DispositivoEstandarBuilder("aire").tipoDispositivo(TipoDispositivo.LAVARROPAS).build();
-        Assert.assertEquals(6,disp.getRestriccionMinima(),0);
+        Assert.assertEquals(6, disp.getRestriccionMinima(), 0);
     }
+
     @Test
-    public void testLavarropasRestriccionMaxima()
-    {
+    public void testLavarropasRestriccionMaxima() {
         disp = new DispositivoEstandar.DispositivoEstandarBuilder("aire").tipoDispositivo(TipoDispositivo.LAVARROPAS).build();
-        Assert.assertEquals(30,disp.getRestriccionMaxima(),0);
+        Assert.assertEquals(30, disp.getRestriccionMaxima(), 0);
     }
 }

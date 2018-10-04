@@ -184,8 +184,16 @@ public class Cliente {
         return nombre;
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public Ubicacion getUbicacion() {
         return ubicacion;
+    }
+
+    public void setUbicacion(Ubicacion ubicacion) {
+        this.ubicacion = ubicacion;
     }
 
     public List<Dispositivo> getTodosLosDispositivos() {
@@ -196,17 +204,12 @@ public class Cliente {
         return todos;
     }
 
-    public void setTransformador(Transformador transformador) {
-        this.transformador = transformador;
-    }
-
     public Transformador getTransformador() {
         return transformador;
     }
 
-    public void setCategoria(Categoria unaCategoria) {
-
-        categoria = unaCategoria;
+    public void setTransformador(Transformador transformador) {
+        this.transformador = transformador;
     }
 
     public Categoria getCategoria() {
@@ -214,13 +217,14 @@ public class Cliente {
         return categoria;
     }
 
+    public void setCategoria(Categoria unaCategoria) {
+
+        categoria = unaCategoria;
+    }
+
     public List<DispositivoInteligente> getDispositivosInteligentes() {
 
         return dispositivosInteligentes;
-    }
-
-    public void setUbicacion(Ubicacion ubicacion) {
-        this.ubicacion = ubicacion;
     }
 
     public Domicilio getDomicilio() {
@@ -237,10 +241,6 @@ public class Cliente {
 
     public Dispositivo getDispositivoDeNombre(String nombreDisp) {
         return this.getTodosLosDispositivos().stream().filter(dispositivo -> nombreDisp.equals(dispositivo.getNombre())).collect(Collectors.toList()).get(0);
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public void setApellido(String apellido) {

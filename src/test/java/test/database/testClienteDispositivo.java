@@ -20,44 +20,44 @@ import java.util.List;
 
 public class testClienteDispositivo extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
-	@Before
-	public void setup() {
-		entityManager().getTransaction().begin();
-	}
-	@Test
-	public void testPersistirUsuarioNuevoRecuperarloModificarSuGeolocalizacionYGrabarloEvaluarCASOPRUEBA1()
-	{
+    @Before
+    public void setup() {
+        entityManager().getTransaction().begin();
+    }
 
-		Domicilio domicilio = new Domicilio("av cordoba", 1234, 7, 'A');
-		ID id = new ID(TiposId.DNI, "10125789");
-		List<DispositivoEstandar> dispositivosEstandares = new ArrayList<>();
-		List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
+    @Test
+    public void testPersistirUsuarioNuevoRecuperarloModificarSuGeolocalizacionYGrabarloEvaluarCASOPRUEBA1() {
 
-		Cliente unCliente = new Cliente("nombre", "apellido", "nombreApellido", id, domicilio, 47581269,
-				dispositivosEstandares, dispositivosInteligentes);
+        Domicilio domicilio = new Domicilio("av cordoba", 1234, 7, 'A');
+        ID id = new ID(TiposId.DNI, "10125789");
+        List<DispositivoEstandar> dispositivosEstandares = new ArrayList<>();
+        List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
 
-		Ubicacion ubicacion = new Ubicacion(5, 2);
-		unCliente.setUbicacion(ubicacion);
+        Cliente unCliente = new Cliente("nombre", "apellido", "nombreApellido", id, domicilio, 47581269,
+                dispositivosEstandares, dispositivosInteligentes);
 
-		entityManager().persist(unCliente);
-		Cliente mismoCliente = entityManager().createQuery("from Cliente c where nombre = 'nombre'",Cliente.class).getSingleResult();
-		//En vez de modificar su nombre modificar la geolocalizacion
-		mismoCliente.setNombre("nombreNuevo");
-		//Lo mismo con el assert
-		Assert.assertEquals("nombreNuevo",entityManager().createQuery("from Cliente c where nombre = 'nombreNuevo'",Cliente.class).getSingleResult().getNombre());
-	}
-	@Test
-	public void testTraerDispositivoDeLaBDModificarElNombreYGrabarloCASOPRUEBA2()
-	{
-		Dispositivo dispositivo = entityManager().find(DispositivoInteligente.class,new Long(13));
-		dispositivo.setNombre("nombreModificado");
-		//FALTA MOSTRAR POR CONSOLA TODOS LOS INTERVALOS DONDE ESTUVO ENCENDIDO EL DISPOSITIVO
-		Assert.assertEquals("nombreModificado",entityManager().find(DispositivoInteligente.class,new Long(13)).getNombre());
-	}
-	@After
-	public void rollback()
-	{
-		entityManager().getTransaction().rollback();
-	}
+        Ubicacion ubicacion = new Ubicacion(5, 2);
+        unCliente.setUbicacion(ubicacion);
+
+        entityManager().persist(unCliente);
+        Cliente mismoCliente = entityManager().createQuery("from Cliente c where nombre = 'nombre'", Cliente.class).getSingleResult();
+        //En vez de modificar su nombre modificar la geolocalizacion
+        mismoCliente.setNombre("nombreNuevo");
+        //Lo mismo con el assert
+        Assert.assertEquals("nombreNuevo", entityManager().createQuery("from Cliente c where nombre = 'nombreNuevo'", Cliente.class).getSingleResult().getNombre());
+    }
+
+    @Test
+    public void testTraerDispositivoDeLaBDModificarElNombreYGrabarloCASOPRUEBA2() {
+        Dispositivo dispositivo = entityManager().find(DispositivoInteligente.class, new Long(13));
+        dispositivo.setNombre("nombreModificado");
+        //FALTA MOSTRAR POR CONSOLA TODOS LOS INTERVALOS DONDE ESTUVO ENCENDIDO EL DISPOSITIVO
+        Assert.assertEquals("nombreModificado", entityManager().find(DispositivoInteligente.class, new Long(13)).getNombre());
+    }
+
+    @After
+    public void rollback() {
+        entityManager().getTransaction().rollback();
+    }
 
 }

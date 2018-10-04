@@ -14,9 +14,8 @@ import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CargarTransformadores implements WithGlobalEntityManager,TransactionalOps {
-    public void persistirTransformadores()
-    {
+public class CargarTransformadores implements WithGlobalEntityManager, TransactionalOps {
+    public void persistirTransformadores() {
         withTransaction(() -> {
             Domicilio domicilio = new Domicilio("av cordoba", 1234, 7, 'A');
             ID id = new ID(TiposId.DNI, "10125789");
@@ -42,12 +41,12 @@ public class CargarTransformadores implements WithGlobalEntityManager,Transactio
             entityManager().getTransaction().commit();
             List<Cliente> listaClientesConectados = new ArrayList<>();
             listaClientesConectados.add(unCliente);
-            Ubicacion ubicacionTransformador = new Ubicacion(3,3);
-            Transformador transformador = new Transformador(listaClientesConectados,ubicacionTransformador);
+            Ubicacion ubicacionTransformador = new Ubicacion(3, 3);
+            Transformador transformador = new Transformador(listaClientesConectados, ubicacionTransformador);
             entityManager().persist(transformador);
             entityManager().getTransaction().commit();
 
 
-    });
+        });
     }
 }

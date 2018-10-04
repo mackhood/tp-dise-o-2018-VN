@@ -1,11 +1,6 @@
 package dominio.reportes;
 
-import dominio.usuario.Cliente;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 public class ReporteConsumo implements WithGlobalEntityManager {
 

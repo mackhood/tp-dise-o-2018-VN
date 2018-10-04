@@ -101,9 +101,11 @@ public class RepositorioDispositivo {
     public DispositivoInteligente traerDispositivoInteligenteDeNombreConcreto(String nombre, String equipoConcreto) {
         return inteligentes.stream().filter(dispositivo -> nombre.equals(dispositivo.getNombre()) && equipoConcreto.equals(dispositivo.getEquipoConcreto())).collect(Collectors.toList()).get(0);
     }
+
     public DispositivoEstandar traerDispositivoEstandarDeNombreConcreto(String nombre, String equipoConcreto) {
         return estandars.stream().filter(dispositivo -> nombre.equals(dispositivo.getNombre()) && equipoConcreto.equals(dispositivo.getEquipoConcreto())).collect(Collectors.toList()).get(0);
     }
+
     public Dispositivo dispBuscadoDelRepositorio(Dispositivo dispositivo) {
         return this.getTodosLosDispositivos().stream()
                 .filter(disp -> dispositivo.getEquipoConcreto() == disp.getEquipoConcreto() && dispositivo.getNombre() == disp.getNombre())

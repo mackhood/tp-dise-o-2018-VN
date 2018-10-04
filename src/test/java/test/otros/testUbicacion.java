@@ -1,21 +1,15 @@
 package test.otros;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
-
 import dominio.usuario.Cliente;
-import dominio.usuario.Domicilio;
-import dominio.usuario.ID;
-import dominio.usuario.TiposId;
 import dominio.zonageografica.Ubicacion;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class testUbicacion {
 
-	Ubicacion ubicacionTest;
-	Cliente mockCliente;
+    Ubicacion ubicacionTest;
+    Cliente mockCliente;
 
 	/*
 	@Before
@@ -26,10 +20,10 @@ public class testUbicacion {
 				new Domicilio("Av Test", 132, 13, 'B'), 20426007, new Ubicacion(12, 1.5)));
 	}*/
 
-	@Test
-	public void testCalcularDistancia() {
+    @Test
+    public void testCalcularDistancia() {
 
-		assertEquals(9.84, ubicacionTest.calcularDistancia(mockCliente.getUbicacion()), 0.01);
-	}
+        assertEquals(9.84, ubicacionTest.calcularDistancia(mockCliente.getUbicacion()), 0.01);
+    }
 
 }

@@ -3,7 +3,6 @@ package dominio.sensor;
 import dominio.regla.Regla;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,45 +10,45 @@ import java.util.stream.Collectors;
 
 public class Sensor {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-	@OneToOne (fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	private Regla regla;
-	@Embedded
-	private Medicion ultimaMedicion;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    private Regla regla;
+    @Embedded
+    private Medicion ultimaMedicion;
 
-	public Sensor(Regla unaRegla) {
-		this.regla = unaRegla;
-	}
+    public Sensor(Regla unaRegla) {
+        this.regla = unaRegla;
+    }
 
-	public void recibirMedicion(Medicion medicion) {
-		ultimaMedicion = medicion;
-		this.notificar();
-	}
+    public void recibirMedicion(Medicion medicion) {
+        ultimaMedicion = medicion;
+        this.notificar();
+    }
 
-	public List<Condicion> mismoTipo() {
+    public List<Condicion> mismoTipo() {
 
-		return this.getCondiciones().stream().filter(cond -> cond.getTipo().equals(ultimaMedicion.getTipo()))
-				.collect(Collectors.toList());
-	}
+        return this.getCondiciones().stream().filter(cond -> cond.getTipo().equals(ultimaMedicion.getTipo()))
+                .collect(Collectors.toList());
+    }
 
-	private void notificar() {
+    private void notificar() {
 
-		this.mismoTipo().forEach(cond -> cond.actualizar(this));
-	}
+        this.mismoTipo().forEach(cond -> cond.actualizar(this));
+    }
 
-	public List<Condicion> getCondiciones() {
-		return regla.getCondicionesACumplir();
-	}
+    public List<Condicion> getCondiciones() {
+        return regla.getCondicionesACumplir();
+    }
 
-	public Medicion getUltimaMedicion() {
-		return ultimaMedicion;
-	}
+    public Medicion getUltimaMedicion() {
+        return ultimaMedicion;
+    }
 
-	public double getValorMedicion() {
+    public double getValorMedicion() {
 
-		return ultimaMedicion.getValor();
-	}
+        return ultimaMedicion.getValor();
+    }
 }

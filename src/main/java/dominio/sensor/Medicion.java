@@ -1,27 +1,25 @@
 package dominio.sensor;
 
-import java.beans.Transient;
-
 import javax.persistence.Embeddable;
 
 @Embeddable
 public class Medicion {
-	
-	double valor;
-	String tipoMedicion;
 
-	public Medicion(double val, String tipoMedicion) {
-		this.valor = val;
-		this.tipoMedicion = tipoMedicion;
-	}
+    double valor;
+    String tipoMedicion;
 
-	public String getTipo() {
+    public Medicion(double val, String tipoMedicion) {
+        this.valor = val;
+        this.tipoMedicion = tipoMedicion;
+    }
 
-		return tipoMedicion;
-	}
+    public String getTipo() {
 
-	public double getValor() {
+        return tipoMedicion;
+    }
 
-		return valor;
-	}
+    public double getValor() {
+
+        return valor;
+    }
 }

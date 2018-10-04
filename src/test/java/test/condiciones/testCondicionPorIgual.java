@@ -1,37 +1,36 @@
 package test.condiciones;
 
-import static org.junit.Assert.assertEquals;
-
+import dominio.regla.Regla;
+import dominio.sensor.CondicionPorIgual;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import dominio.regla.Regla;
-import dominio.sensor.CondicionPorIgual;
+import static org.junit.Assert.assertEquals;
 
 public class testCondicionPorIgual {
-	
-	CondicionPorIgual igualA30;
-	Regla mockRegla;
 
-	@Before
-	public void setUp() {
+    CondicionPorIgual igualA30;
+    Regla mockRegla;
 
-		mockRegla = Mockito.mock(Regla.class);
-		igualA30 = new CondicionPorIgual(mockRegla, 30, "Humedad");
-	}
+    @Before
+    public void setUp() {
 
-	@Test
-	public void testCumpleCondicionPorIgual() {
+        mockRegla = Mockito.mock(Regla.class);
+        igualA30 = new CondicionPorIgual(mockRegla, 30, "Humedad");
+    }
 
-		igualA30.setMedicionActual(30);
-		assertEquals(true, igualA30.cumpleCondicion());
-	}
+    @Test
+    public void testCumpleCondicionPorIgual() {
 
-	@Test
-	public void testNoCumpleCondicionPorIgual() {
+        igualA30.setMedicionActual(30);
+        assertEquals(true, igualA30.cumpleCondicion());
+    }
 
-		igualA30.setMedicionActual(9);
-		assertEquals(false, igualA30.cumpleCondicion());
-	}
+    @Test
+    public void testNoCumpleCondicionPorIgual() {
+
+        igualA30.setMedicionActual(9);
+        assertEquals(false, igualA30.cumpleCondicion());
+    }
 }

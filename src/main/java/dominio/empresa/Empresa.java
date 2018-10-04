@@ -1,16 +1,16 @@
 package dominio.empresa;
 
-import java.util.List;
-import java.util.ArrayList;
+import dominio.usuario.Cliente;
 
-import dominio.usuario.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Empresa {
 
-	private List<Cliente> contratantes = new ArrayList<>();
+    private List<Cliente> contratantes = new ArrayList<>();
 
-	public List<Cliente> getClientes() {
+    public List<Cliente> getClientes() {
 
-		return contratantes;
-	}
+        return contratantes;
+    }
 }

@@ -6,15 +6,12 @@ import dominio.usuario.Cliente;
 import dominio.zonageografica.ServicioAsignadorDeZonaService;
 import dominio.zonageografica.Ubicacion;
 import dominio.zonageografica.ZonaGeografica;
-
 import org.junit.Before;
-
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class testServicioAsignadorDeZonaService {

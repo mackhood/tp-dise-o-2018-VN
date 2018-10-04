@@ -6,16 +6,16 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue(value="PorIgual")
+@DiscriminatorValue(value = "PorIgual")
 public class CondicionPorIgual extends Condicion {
 
-	public CondicionPorIgual(Regla regla, double valorLimite, String tipo) {
-		super(regla, valorLimite, tipo);
-	}
+    public CondicionPorIgual(Regla regla, double valorLimite, String tipo) {
+        super(regla, valorLimite, tipo);
+    }
 
-	@Override
-	public boolean cumpleCondicion() {
+    @Override
+    public boolean cumpleCondicion() {
 
-		return medicionActual == valorLimite;
-	}
+        return medicionActual == valorLimite;
+    }
 }

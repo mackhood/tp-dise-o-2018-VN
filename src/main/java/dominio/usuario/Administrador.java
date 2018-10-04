@@ -8,42 +8,42 @@ import java.time.temporal.ChronoUnit;
 
 public class Administrador {
 
-	private String nombre;
-	private String apellido;
-	private Domicilio domicilio;
-	private LocalDate fechaAlta;
-	private long numId;
-	private String username;
-	private String password;
-	private DispositivoABM dispositivoABM;
+    private String nombre;
+    private String apellido;
+    private Domicilio domicilio;
+    private LocalDate fechaAlta;
+    private long numId;
+    private String username;
+    private String password;
+    private DispositivoABM dispositivoABM;
 
-	public Administrador(String nombre, String unApellido, LocalDate fecha) {
-		this.nombre = nombre;
-		this.apellido = unApellido;
-		this.fechaAlta = fecha;
-		this.dispositivoABM = new DispositivoABM();
-	}
+    public Administrador(String nombre, String unApellido, LocalDate fecha) {
+        this.nombre = nombre;
+        this.apellido = unApellido;
+        this.fechaAlta = fecha;
+        this.dispositivoABM = new DispositivoABM();
+    }
 
-	public void setDomicilio(Domicilio domicilio) {
-		this.domicilio = domicilio;
-	}
+    public void setDomicilio(Domicilio domicilio) {
+        this.domicilio = domicilio;
+    }
 
-	public LocalDate fechaActual() {
-		return LocalDate.now();
-	}
+    public LocalDate fechaActual() {
+        return LocalDate.now();
+    }
 
-	public LocalDate fechaAlta() {
-		return fechaAlta;
-	}
+    public LocalDate fechaAlta() {
+        return fechaAlta;
+    }
 
-	public long cantMesesComoAdmin() {
-		LocalDate ahora = LocalDate.now();
-		return fechaAlta.until(ahora, ChronoUnit.MONTHS);
-	}
+    public long cantMesesComoAdmin() {
+        LocalDate ahora = LocalDate.now();
+        return fechaAlta.until(ahora, ChronoUnit.MONTHS);
+    }
 
 
-	public void agregarDispositivoDB(Dispositivo dispositivo) {
-		dispositivoABM.agregarDispositivoBD(dispositivo);
+    public void agregarDispositivoDB(Dispositivo dispositivo) {
+        dispositivoABM.agregarDispositivoBD(dispositivo);
 		/*
 
 
@@ -69,11 +69,11 @@ public class Administrador {
 		*/
 
 
-	}
+    }
 
 
-	public void editarDispositivoDB(Long idDispositivoViejo, DispositivoEstandar dispositivoNuevo) {
-		dispositivoABM.modificarDispositivoBD(idDispositivoViejo, dispositivoNuevo);
+    public void editarDispositivoDB(Long idDispositivoViejo, DispositivoEstandar dispositivoNuevo) {
+        dispositivoABM.modificarDispositivoBD(idDispositivoViejo, dispositivoNuevo);
 		/*
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ejemplo2");
 		EntityManager em = emf.createEntityManager();
@@ -102,11 +102,11 @@ public class Administrador {
 		}*/
 
 
-	}
+    }
 
 
-	public void eliminarDispositivoDB(Long idDispositivoEliminar) {
-		dispositivoABM.eliminarDispositivoInteligenteBD(idDispositivoEliminar);
+    public void eliminarDispositivoDB(Long idDispositivoEliminar) {
+        dispositivoABM.eliminarDispositivoInteligenteBD(idDispositivoEliminar);
 
 		/*
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ejemplo2");
@@ -141,6 +141,5 @@ public class Administrador {
 		}*/
 
 
-
-
-	}}
+    }
+}

@@ -1,48 +1,47 @@
 package dominio.categoria;
 
-import dominio.usuario.Cliente;
-import dominio.entities.ProcessingDataFailedException;
 import dominio.repositories.RepositorioCategoria;
+import dominio.usuario.Cliente;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class AsignadorDeCategoria {
 
-	private static AsignadorDeCategoria instance = new AsignadorDeCategoria();
+    private static AsignadorDeCategoria instance = new AsignadorDeCategoria();
 
-	public AsignadorDeCategoria() {
+    public AsignadorDeCategoria() {
 
-	}
+    }
 
-	// Cambios para poder usar mock y spy sin necesidad de llamar al verdadero repo
-	// O usar un archivo json de prueba.
-	
-	public RepositorioCategoria getRepositorio() {
-		return RepositorioCategoria.getInstance();
-	}
+    // Cambios para poder usar mock y spy sin necesidad de llamar al verdadero repo
+    // O usar un archivo json de prueba.
 
-	public List<Categoria> getCategoriasDelRepositorio() {
-		return this.getRepositorio().obtenerCategorias();
-	}
+    public static AsignadorDeCategoria getInstance() {
+        return instance;
+    }
 
-	public static AsignadorDeCategoria getInstance() {
-		return instance;
-	}
+    public RepositorioCategoria getRepositorio() {
+        return RepositorioCategoria.getInstance();
+    }
 
-	public Categoria definirCategoriaPara(Cliente cliente) {
+    public List<Categoria> getCategoriasDelRepositorio() {
+        return this.getRepositorio().obtenerCategorias();
+    }
 
-		List<Categoria> categoriasPosibles = this.getCategoriasDelRepositorio();
-		return categoriaCliente(cliente, categoriasPosibles);
-	}
+    public Categoria definirCategoriaPara(Cliente cliente) {
 
-	public Categoria categoriaCliente(Cliente cliente, List<Categoria> categoriasPosibles) {
-		return categoriasPosibles.stream().filter(cat -> cat.cumpleCondicion(cliente)).collect(Collectors.toList())
-				.get(0);
-	}
+        List<Categoria> categoriasPosibles = this.getCategoriasDelRepositorio();
+        return categoriaCliente(cliente, categoriasPosibles);
+    }
 
-	public void actualizarPara(Cliente cliente) {
+    public Categoria categoriaCliente(Cliente cliente, List<Categoria> categoriasPosibles) {
+        return categoriasPosibles.stream().filter(cat -> cat.cumpleCondicion(cliente)).collect(Collectors.toList())
+                .get(0);
+    }
 
-		cliente.setCategoria(this.definirCategoriaPara(cliente));
-	}
+    public void actualizarPara(Cliente cliente) {
+
+        cliente.setCategoria(this.definirCategoriaPara(cliente));
+    }
 }

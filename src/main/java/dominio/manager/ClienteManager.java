@@ -15,33 +15,38 @@ import java.util.List;
 
 public class ClienteManager implements WithGlobalEntityManager, TransactionalOps {
 
-	private static ClienteManager instance = new ClienteManager();
-	private ClienteManager(){}
-	public static ClienteManager getInstance(){return instance;}
+    private static ClienteManager instance = new ClienteManager();
 
-	public void persistirClienteDePrueba() {
-		withTransaction(() -> {
-			Domicilio domicilio = new Domicilio("av cordoba", 1234, 7, 'A');
-			ID id = new ID(TiposId.DNI, "10125789");
-			DispositivoEstandar dispEstandar = entityManager().find(DispositivoEstandar.class,new Long(1));
-			List<DispositivoEstandar> dispositivosEstandares = new ArrayList<>();
-			dispositivosEstandares.add(dispEstandar);
+    private ClienteManager() {
+    }
 
-			DispositivoInteligente aireAcondicionado3500 = entityManager().find(DispositivoInteligente.class,new Long(9));
-			DispositivoInteligente ventilador = entityManager().find(DispositivoInteligente.class,new Long(17));
-			List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
+    public static ClienteManager getInstance() {
+        return instance;
+    }
 
-			dispositivosInteligentes.add(aireAcondicionado3500);
-			dispositivosInteligentes.add(ventilador);
+    public void persistirClienteDePrueba() {
+        withTransaction(() -> {
+            Domicilio domicilio = new Domicilio("av cordoba", 1234, 7, 'A');
+            ID id = new ID(TiposId.DNI, "10125789");
+            DispositivoEstandar dispEstandar = entityManager().find(DispositivoEstandar.class, new Long(1));
+            List<DispositivoEstandar> dispositivosEstandares = new ArrayList<>();
+            dispositivosEstandares.add(dispEstandar);
 
-			Cliente unCliente = new Cliente("ariel", "galvan", "galvanariel97", id, domicilio, 47581269,
-					dispositivosEstandares, dispositivosInteligentes);
+            DispositivoInteligente aireAcondicionado3500 = entityManager().find(DispositivoInteligente.class, new Long(9));
+            DispositivoInteligente ventilador = entityManager().find(DispositivoInteligente.class, new Long(17));
+            List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
 
-			Ubicacion ubicacion = new Ubicacion(5, 2);
-			unCliente.setUbicacion(ubicacion);
+            dispositivosInteligentes.add(aireAcondicionado3500);
+            dispositivosInteligentes.add(ventilador);
 
-			entityManager().persist(unCliente);
-			entityManager().getTransaction().commit();
-		});
-	}
+            Cliente unCliente = new Cliente("ariel", "galvan", "galvanariel97", id, domicilio, 47581269,
+                    dispositivosEstandares, dispositivosInteligentes);
+
+            Ubicacion ubicacion = new Ubicacion(5, 2);
+            unCliente.setUbicacion(ubicacion);
+
+            entityManager().persist(unCliente);
+            entityManager().getTransaction().commit();
+        });
+    }
 }

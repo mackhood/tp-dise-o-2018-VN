@@ -1,12 +1,12 @@
 [
-	{
-		"nombre": "nombreTest",
-		"apellido": "apellidoTest",
-		"fechaAlta": {
-			"year": 2016,
-			"month": 5,
-			"day": 18
-		},
-		"numId": 0
-	}
+  {
+    "nombre": "nombreTest",
+    "apellido": "apellidoTest",
+    "fechaAlta": {
+      "year": 2016,
+      "month": 5,
+      "day": 18
+    },
+    "numId": 0
+  }
 ]

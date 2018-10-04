@@ -5,59 +5,54 @@ import dominio.sensor.Condicion;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "Regla")
 
 public class Regla {
-	
-	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
-	private long id;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Actuador actuador;
 
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	private List<Condicion> condicionesACumplir = new ArrayList<>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-	public Regla(Actuador actuador, List<Condicion> listaCondiciones) {
-		this.actuador = actuador;
-		this.condicionesACumplir = listaCondiciones;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Actuador actuador;
 
-	public boolean cumpleTodasLasCondiciones() {
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Condicion> condicionesACumplir = new ArrayList<>();
 
-		return condicionesACumplir.stream().allMatch(cond -> cond.cumpleCondicion());
-	}
+    public Regla(Actuador actuador, List<Condicion> listaCondiciones) {
+        this.actuador = actuador;
+        this.condicionesACumplir = listaCondiciones;
+    }
 
-	private void ejecutarActuador() {
+    public boolean cumpleTodasLasCondiciones() {
 
-		actuador.ejecutar();
-	}
+        return condicionesACumplir.stream().allMatch(cond -> cond.cumpleCondicion());
+    }
 
-	public List<Condicion> getCondicionesACumplir() {
+    private void ejecutarActuador() {
 
-		return condicionesACumplir;
-	}
+        actuador.ejecutar();
+    }
 
-	public void agregarCondicion(Condicion unaCondicion) {
+    public List<Condicion> getCondicionesACumplir() {
 
-		condicionesACumplir.add(unaCondicion);
-	}
+        return condicionesACumplir;
+    }
 
-	public void chequearCondicionesYEjecutar() {
+    public void agregarCondicion(Condicion unaCondicion) {
 
-		if (this.cumpleTodasLasCondiciones()) {
+        condicionesACumplir.add(unaCondicion);
+    }
 
-			this.ejecutarActuador();
-		}
+    public void chequearCondicionesYEjecutar() {
 
-		else
-			actuador.ejecutarInversa();
-	}
+        if (this.cumpleTodasLasCondiciones()) {
+
+            this.ejecutarActuador();
+        } else
+            actuador.ejecutarInversa();
+    }
 }

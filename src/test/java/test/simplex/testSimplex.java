@@ -61,6 +61,7 @@ public class testSimplex {
         Assert.assertEquals(true, aireAcondicionado3500.estaApagado());
 
     }
+
     @Test
     public void testLamparaDe11WDespuesDeRealizarLaRecomendacionPorCadaDispositivoSigueEncendidoPorqueNoSuperaLasHorasMaximasRecomendadas() {
         RecomendacionParaHogarEficiente recomendacionParaHogarEficiente = new RecomendacionParaHogarEficiente(unCliente);

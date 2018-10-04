@@ -14,31 +14,33 @@ public class testDispositivoABM implements WithGlobalEntityManager {
     Administrador admin;
 
     @Before
-    public void setUp(){
-        admin = new Administrador("admin","adminADMIN", LocalDate.now());
+    public void setUp() {
+        admin = new Administrador("admin", "adminADMIN", LocalDate.now());
     }
 
     @Test
-    public void testEliminarDispositivoDeLaBD()
-    {
+    public void testEliminarDispositivoDeLaBD() {
         admin.eliminarDispositivoDB(new Long(24));
-        Assert.assertEquals(null,entityManager().find(Dispositivo.class,new Long(24)));
+        Assert.assertEquals(null, entityManager().find(Dispositivo.class, new Long(24)));
     }
+
     @Test
-    public void testAgregarDispositivoALaBD(){
+    public void testAgregarDispositivoALaBD() {
         DispositivoInteligente nuevoDisp = new DispositivoInteligente.DispositivoInteligenteBuilder("nuevoDisp").build();
         admin.agregarDispositivoDB(nuevoDisp);
         DispositivoInteligente disp = entityManager().createQuery("from DispositivoInteligente di where nombre = 'nuevoDisp'", DispositivoInteligente.class).getSingleResult();
-        Assert.assertEquals("nuevoDisp",disp.getNombre());
+        Assert.assertEquals("nuevoDisp", disp.getNombre());
     }
+
     //NO FUNCIONA MODIFICAR
     @Ignore
-    public void testModificarDispositivoDeLaBD(){
-        DispositivoEstandar dispNuevo = RepositorioDispositivo.getInstance().traerDispositivoEstandarDeNombreConcreto("microondas","Convencional");
-        admin.editarDispositivoDB(new Long(5),dispNuevo);
+    public void testModificarDispositivoDeLaBD() {
+        DispositivoEstandar dispNuevo = RepositorioDispositivo.getInstance().traerDispositivoEstandarDeNombreConcreto("microondas", "Convencional");
+        admin.editarDispositivoDB(new Long(5), dispNuevo);
     }
+
     @After
-    public void rollback(){
+    public void rollback() {
         entityManager().getTransaction().rollback();
     }
 }

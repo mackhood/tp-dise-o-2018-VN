@@ -1,4 +1,3 @@
-
 package dominio.dispositivo;
 
 import javax.persistence.*;
@@ -19,8 +18,13 @@ public abstract class Dispositivo {
     @Enumerated
     protected TipoDispositivo tipoDispositivo;
 
-    public double getRestriccionMinima(){return tipoDispositivo.getRestriccionMinima();}
-    public double getRestriccionMaxima(){return tipoDispositivo.getRestriccionMaxima();}
+    public double getRestriccionMinima() {
+        return tipoDispositivo.getRestriccionMinima();
+    }
+
+    public double getRestriccionMaxima() {
+        return tipoDispositivo.getRestriccionMaxima();
+    }
 
     public double consumoEstimadoPorHora() {
         return consumoEstimadoPorHora;
