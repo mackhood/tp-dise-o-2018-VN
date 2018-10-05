@@ -57,7 +57,6 @@ public class ZonaGeografica {
 
     public Transformador conectarATransformadorCercano(Cliente cliente) {
         Transformador transformadorCercano = this.devolverTransformadorCercano(cliente.getUbicacion());
-        transformadorCercano.agregarCliente(cliente);
         return transformadorCercano;
     }
 }

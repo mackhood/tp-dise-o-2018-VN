@@ -34,7 +34,7 @@ public class RepositorioTransformadores extends Repositorio {
             Object jsonObject = gson.fromJson(bufferedReader, Object.class);
             String json = jsonObject.toString();
 
-            Type tipoListaTransformadores = new TypeToken<List<Administrador>>() {
+            Type tipoListaTransformadores = new TypeToken<List<Transformador>>() {
             }.getType();
             List<Transformador> transformadores = gson.fromJson(json, tipoListaTransformadores);
 
