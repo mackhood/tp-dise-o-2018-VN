@@ -15,7 +15,7 @@ public class Transformador {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Cliente> usuariosConectados = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.EAGER)
