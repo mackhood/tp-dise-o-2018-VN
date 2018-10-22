@@ -17,6 +17,7 @@ public class Transformador {
     protected Long id;
     @OneToMany(fetch = FetchType.LAZY)
     private List<Cliente> usuariosConectados = new ArrayList<>();
+
     @OneToOne(fetch = FetchType.EAGER)
     private Ubicacion ubicacion;
 
@@ -59,4 +60,9 @@ public class Transformador {
 
         return usuariosConectados;
     }
+
+    public Ubicacion getUbicacion() {
+        return ubicacion;
+    }
+
 }

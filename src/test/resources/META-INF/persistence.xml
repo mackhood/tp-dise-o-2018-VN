@@ -15,18 +15,23 @@
         <class>dominio.regla.Regla</class>
 
 
-        <class>dominio.zonageografica.Ubicacion</class>
-        <class>dominio.categoria.Categoria</class>
-        <class>dominio.usuario.Domicilio</class>
+
         <class>dominio.usuario.ID</class>
-        <class>dominio.dispositivo.Dispositivo</class>
-        <class>dominio.dispositivo.DispositivoEstandar</class>
-        <class>dominio.dispositivo.DispositivoInteligente</class>
+        <class>dominio.categoria.Categoria</class>
+
         <class>dominio.usuario.Cliente</class>
+
         <class>dominio.transformador.Transformador</class>
+        <class>dominio.zonageografica.Ubicacion</class>
+
+        <class>dominio.usuario.Domicilio</class>
+
+        <class>dominio.dispositivo.DispositivoInteligente</class>
+        <class>dominio.actuador.Actuador</class>
+        <class>dominio.dispositivo.DispositivoEstandar</class>
+        <class>dominio.dispositivo.Dispositivo</class>
         <class>dominio.zonageografica.ZonaGeografica</class>
 
-        <class>dominio.actuador.Actuador</class>
 
 
         <properties>
@@ -48,7 +53,7 @@
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="use_sql_comments" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
 
         </properties>
 

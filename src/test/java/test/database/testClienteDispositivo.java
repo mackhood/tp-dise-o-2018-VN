@@ -9,9 +9,9 @@ import dominio.usuario.ID;
 import dominio.usuario.TiposId;
 import dominio.zonageografica.Ubicacion;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import static junit.framework.TestCase.assertEquals;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
@@ -43,8 +43,11 @@ public class testClienteDispositivo extends AbstractPersistenceTest implements W
         Cliente mismoCliente = entityManager().createQuery("from Cliente c where nombre = 'nombre'", Cliente.class).getSingleResult();
         //En vez de modificar su nombre modificar la geolocalizacion
         mismoCliente.setNombre("nombreNuevo");
+        Ubicacion nuevaUbicacion = new Ubicacion(2, 2);
+        mismoCliente.setUbicacion(nuevaUbicacion);
+        entityManager().persist(unCliente);
         //Lo mismo con el assert
-        Assert.assertEquals("nombreNuevo", entityManager().createQuery("from Cliente c where nombre = 'nombreNuevo'", Cliente.class).getSingleResult().getNombre());
+        assertEquals(nuevaUbicacion.getPosicionX(),entityManager().createQuery("from Cliente c where nombre = 'nombreNuevo'", Cliente.class).getSingleResult().getUbicacion() .getPosicionX());
     }
 
     @Test
@@ -52,7 +55,7 @@ public class testClienteDispositivo extends AbstractPersistenceTest implements W
         Dispositivo dispositivo = entityManager().find(DispositivoInteligente.class, new Long(13));
         dispositivo.setNombre("nombreModificado");
         //FALTA MOSTRAR POR CONSOLA TODOS LOS INTERVALOS DONDE ESTUVO ENCENDIDO EL DISPOSITIVO
-        Assert.assertEquals("nombreModificado", entityManager().find(DispositivoInteligente.class, new Long(13)).getNombre());
+        assertEquals("nombreModificado", entityManager().find(DispositivoInteligente.class, new Long(13)).getNombre());
     }
 
     @After

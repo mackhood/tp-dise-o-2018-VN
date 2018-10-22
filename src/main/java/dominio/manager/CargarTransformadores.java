@@ -8,9 +8,11 @@ import dominio.usuario.Domicilio;
 import dominio.usuario.ID;
 import dominio.usuario.TiposId;
 import dominio.zonageografica.Ubicacion;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,17 +38,12 @@ public class CargarTransformadores implements WithGlobalEntityManager, Transacti
 
             Ubicacion ubicacion = new Ubicacion(5, 2);
             unCliente.setUbicacion(ubicacion);
-
-            entityManager().persist(unCliente);
-            entityManager().getTransaction().commit();
             List<Cliente> listaClientesConectados = new ArrayList<>();
             listaClientesConectados.add(unCliente);
             Ubicacion ubicacionTransformador = new Ubicacion(3, 3);
-            Transformador transformador = new Transformador(listaClientesConectados, ubicacionTransformador);
+            Transformador transformador = new Transformador(new ArrayList<>(), ubicacionTransformador);
             entityManager().persist(transformador);
             entityManager().getTransaction().commit();
-
-
         });
     }
 }
