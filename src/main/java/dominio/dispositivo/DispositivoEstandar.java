@@ -8,11 +8,6 @@ import javax.persistence.Table;
 @Table(name = "dispositivoEstandar")
 public class DispositivoEstandar extends Dispositivo {
 
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "idDispositivoEstandar")
-    protected Long id;
-
     public DispositivoEstandar() {
     }
 

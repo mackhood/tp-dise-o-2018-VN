@@ -20,10 +20,6 @@ public class DispositivoInteligente extends Dispositivo {
     public LocalDateTime horaApagado;
     @Embedded
     public List<Intervalo> intervalosDeUso = new ArrayList<>();
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "idDispositivoInteligente")
-    private Long id;
 
     public DispositivoInteligente(DispositivoInteligenteBuilder builder) {
         this.nombre = builder.nombre;
