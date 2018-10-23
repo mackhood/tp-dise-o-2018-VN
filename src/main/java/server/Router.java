@@ -15,7 +15,7 @@ public class Router {
 				.withHelper("isTrue", BooleanHelper.isTrue)
 				.build();
 		
-		Spark.staticFiles.location("/public");
+		Spark.staticFiles.location("/");
 		
 		//ProyectosController proyectosController = new ProyectosController();
 		

@@ -1,8 +1,13 @@
 {{#partial "contenido"}}
 
 <form method="POST" action="/login">
-	<div> Usuario <input type="text" name="usuario"/>  </div> 
-	<div> Password <input type="text" name="password"/>  </div> 
+	<div class="form-group">
+        <label for="usuario">Usuario</label>
+        <input type="text" name="usuario"/>  </div>
+	<div class="form-group">
+        <label for="password">Password</label>
+        <input type="text" name="password"/>  </div>
+    <input class="btn btn-primary btn-login" type="submit" value="Login">
 </form>
 
 {{/partial}}
