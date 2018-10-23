@@ -8,6 +8,7 @@ import dominio.usuario.Administrador;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -49,6 +50,12 @@ public class RepositorioTransformadores extends Repositorio {
     public int cantidadTransformadores() {
 
         return this.obtenerTransformadores().size();
+    }
+
+    public void nuevoTransformador(Transformador nuevoTransformador) throws IOException {
+        Gson gson = new Gson();
+        gson.toJson(nuevoTransformador,new FileWriter(getJsonFile()));
+        String jsonInString = gson.toJson(nuevoTransformador);
     }
 
 }

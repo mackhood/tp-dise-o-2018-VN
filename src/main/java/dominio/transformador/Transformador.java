@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Table(name = "Transformadores")
+
 @Entity
 public class Transformador {
 
@@ -23,6 +23,7 @@ public class Transformador {
 
     public Transformador() {
     }
+
 
     public Transformador(List<Cliente> usuariosConectados, Ubicacion ubicacion) {
 
@@ -63,6 +64,10 @@ public class Transformador {
 
     public Ubicacion getUbicacion() {
         return ubicacion;
+    }
+
+    public void setUbicacion(Ubicacion ubicacion) {
+        this.ubicacion = ubicacion;
     }
 
 }
