@@ -20,12 +20,10 @@ public class LoginController {
 		Map<String, String> model = new HashMap<>();
 		if(!VerificarUsuario.verificar(req.queryParams("usuario"),req.queryParams("password")))
 		{
-			model.put("errorVerificacion","El usuario o la contrasenia son incorrectos");
-			return new ModelAndView(model,"/login");
+			res.redirect("/login");
 		}
-		//req.session().attribute("uid", 1);
-		//res.redirect("/home");
-		return null;
+		req.session().attribute("currentUser", req.queryParams("usuario"));
+		return new ModelAndView(null,"/home/usuario.hbs");
 	}
 	
 }
