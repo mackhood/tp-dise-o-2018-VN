@@ -33,14 +33,13 @@ public class Cliente {
     private long telefono;
 
     @Embedded
+    private Usuario usuario;
+
+    @Embedded
     private Domicilio domicilio;
     private LocalDate fechaDeAlta;
     @ManyToOne(fetch = FetchType.LAZY)
     private Categoria categoria;
-    @Column(length = 150)
-    private String username;
-    @Column(length = 150)
-    private String password;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "idCliente")
@@ -62,13 +61,13 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(String unNombre, String unApellido, String username, ID id, Domicilio unDomicilio, long unTelefono,
+    public Cliente(String unNombre, String unApellido, String username, String contrasenia, ID id, Domicilio unDomicilio, long unTelefono,
                    List<DispositivoEstandar> estandares, List<DispositivoInteligente> inteligentes) {
 
+        usuario = new Usuario(username,contrasenia);
         this.nombre = unNombre;
         this.apellido = unApellido;
         this.identificacion = id;
-        this.username = username;
         this.domicilio = unDomicilio;
         this.telefono = unTelefono;
         this.dispositivosEstandar = estandares;
@@ -246,4 +245,13 @@ public class Cliente {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+    public String getContrasenia()
+    {
+        return usuario.getContrasenia();
+    }
+
 }

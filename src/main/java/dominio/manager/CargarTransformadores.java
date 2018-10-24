@@ -33,7 +33,7 @@ public class CargarTransformadores implements WithGlobalEntityManager, Transacti
             List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
             dispositivosInteligentes.add(aireAcondicionado3500);
 
-            Cliente unCliente = new Cliente("ariel", "galvan", "galvanariel97", id, domicilio, 47581269,
+            Cliente unCliente = new Cliente("ariel", "galvan", "galvanariel97","password", id, domicilio, 47581269,
                     dispositivosEstandares, dispositivosInteligentes);
 
             Ubicacion ubicacion = new Ubicacion(5, 2);

@@ -59,7 +59,7 @@ public class testDispositivo {
 
         listaDispositivosEstandard.add(unDE);
 
-        unCliente = spy(new Cliente("Nicolas", "Sierra", "fer25", new ID(TiposId.DNI, "200"),
+        unCliente = spy(new Cliente("Nicolas", "Sierra", "fer25","password", new ID(TiposId.DNI, "200"),
                 new Domicilio("Bariloche", 3118, 1, 'a'), 250, listaDispositivosEstandard,
                 listaDispositivosInteligentes));
 

@@ -10,6 +10,7 @@ import dominio.zonageografica.Ubicacion;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+import javax.management.Query;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
             dispositivosInteligentes.add(aireAcondicionado3500);
             dispositivosInteligentes.add(ventilador);
 
-            Cliente unCliente = new Cliente("ariel", "galvan", "galvanariel97", id, domicilio, 47581269,
+            Cliente unCliente = new Cliente("ariel", "galvan", "galvanariel97","password", id, domicilio, 47581269,
                     dispositivosEstandares, dispositivosInteligentes);
 
             Ubicacion ubicacion = new Ubicacion(5, 2);
@@ -48,5 +49,12 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
             entityManager().persist(unCliente);
             entityManager().getTransaction().commit();
         });
+    }
+
+    public Cliente buscarClientePorUsuario(String username){
+
+        Cliente cliente = entityManager().createQuery("from Cliente c  where contrasenia='password'" ,Cliente.class).getSingleResult();
+        return cliente;
+
     }
 }

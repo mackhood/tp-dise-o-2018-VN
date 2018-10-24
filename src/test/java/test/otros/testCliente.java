@@ -57,9 +57,9 @@ public class testCliente {
 
         List<DispositivoInteligente> listaDispInteligentes = new ArrayList<>();
 
-        unClienteConDEyDI = spy(new Cliente("Fernando", "Sierra", "fer22", new ID(TiposId.DNI, "200"),
+        unClienteConDEyDI = spy(new Cliente("Fernando", "Sierra", "fer22","password", new ID(TiposId.DNI, "200"),
                 new Domicilio("bariloche", 3118, 1, 'a'), 250, listaDispositivosEstandar, listaDispInteligentes));
-        unClienteSinDEyConDI = spy(new Cliente("Nicolas", "Sierra", "fer25", new ID(TiposId.DNI, "200"),
+        unClienteSinDEyConDI = spy(new Cliente("Nicolas", "Sierra", "fer25","password", new ID(TiposId.DNI, "200"),
                 new Domicilio("bariloche", 3118, 1, 'a'), 250, listaDispositivosParaOtroCliente,
                 listaDispInteligentes));
         when(mockDispositivo.getConsumoTotal()).thenReturn(200.0);

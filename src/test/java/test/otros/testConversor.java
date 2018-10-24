@@ -31,7 +31,7 @@ public class testConversor {
 
         conversor = new Conversor();
         dispositivoEstandar = mock(DispositivoEstandar.class);
-        unMockCliente = spy(new Cliente("Nicolas", "Sierra", "fer25", new ID(TiposId.DNI, "200"),
+        unMockCliente = spy(new Cliente("Nicolas", "Sierra", "fer25","password", new ID(TiposId.DNI, "200"),
                 new Domicilio("Bariloche", 3118, 1, 'a'), 250, listaDispositivosEstandar,
                 listaDispositivosInteligentes));
         unMockCliente.agregarDispositivoEstandar(dispositivoEstandar);

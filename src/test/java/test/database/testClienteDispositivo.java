@@ -3,12 +3,11 @@ package test.database;
 import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
-import dominio.usuario.Cliente;
-import dominio.usuario.Domicilio;
-import dominio.usuario.ID;
-import dominio.usuario.TiposId;
+import dominio.manager.ClienteManager;
+import dominio.usuario.*;
 import dominio.zonageografica.Ubicacion;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
@@ -33,7 +32,7 @@ public class testClienteDispositivo extends AbstractPersistenceTest implements W
         List<DispositivoEstandar> dispositivosEstandares = new ArrayList<>();
         List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
 
-        Cliente unCliente = new Cliente("nombre", "apellido", "nombreApellido", id, domicilio, 47581269,
+        Cliente unCliente = new Cliente("nombre", "apellido", "nombreApellido","password", id, domicilio, 47581269,
                 dispositivosEstandares, dispositivosInteligentes);
 
         Ubicacion ubicacion = new Ubicacion(5, 2);
@@ -56,6 +55,12 @@ public class testClienteDispositivo extends AbstractPersistenceTest implements W
         dispositivo.setNombre("nombreModificado");
         //FALTA MOSTRAR POR CONSOLA TODOS LOS INTERVALOS DONDE ESTUVO ENCENDIDO EL DISPOSITIVO
         assertEquals("nombreModificado", entityManager().find(DispositivoInteligente.class, new Long(13)).getNombre());
+    }
+    @Test
+    public void testTraerClientePorUsuario()
+    {
+        //VerificarUsuario verificarUsuario = new VerificarUsuario();
+        assertEquals(true,VerificarUsuario.verificar("galvanariel97","password"));
     }
 
     @After
