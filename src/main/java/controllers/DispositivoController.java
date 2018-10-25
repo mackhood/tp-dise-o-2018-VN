@@ -1,14 +1,11 @@
 package controllers;
 
-import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.manager.ClienteManager;
-import dominio.manager.DispositivosPersistirManager;
-import dominio.usuario.RepositorioCliente;
-import server.RequestUtil;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import utils.RequestUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +28,8 @@ public class DispositivoController {
         req.queryParams("dispositivo");
         return null;
     }
+
+
 
     /*
     public static ModelAndView crear(Request req, Response res)

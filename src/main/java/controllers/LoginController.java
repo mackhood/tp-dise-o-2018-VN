@@ -6,6 +6,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
+import utils.RequestUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +21,7 @@ public class LoginController {
 	public static ModelAndView login(Request req, Response res) {
 
 		Map<String, String> model = new HashMap<>();
-		if(VerificarUsuario.verificar(req.queryParams("usuario"),req.queryParams("password"))  )
+		if(VerificarUsuario.verificar(RequestUtil.getQueryUsername(req),RequestUtil.getQueryPassword(req)  ))
 
 		{
 
