@@ -32,8 +32,14 @@ public class Cliente {
 
     private long telefono;
 
-    @Embedded
-    private Usuario usuario;
+    //@Embedded
+    //private Usuario usuario;
+
+    @Column(length = 50)
+    private String usuario;
+
+    @Column(length = 50)
+    private String contrasenia;
 
     @Embedded
     private Domicilio domicilio;
@@ -64,7 +70,7 @@ public class Cliente {
     public Cliente(String unNombre, String unApellido, String username, String contrasenia, ID id, Domicilio unDomicilio, long unTelefono,
                    List<DispositivoEstandar> estandares, List<DispositivoInteligente> inteligentes) {
 
-        usuario = new Usuario(username,contrasenia);
+
         this.nombre = unNombre;
         this.apellido = unApellido;
         this.identificacion = id;
@@ -73,6 +79,9 @@ public class Cliente {
         this.dispositivosEstandar = estandares;
         this.dispositivosInteligentes = inteligentes;
         this.fechaDeAlta = LocalDate.now();
+        this.usuario = username;
+        this.contrasenia = contrasenia;
+        //usuario = new Usuario(username,contrasenia);
     }
 
     public double puntosAcumulados() {
@@ -246,12 +255,15 @@ public class Cliente {
         this.apellido = apellido;
     }
 
-    public Usuario getUsuario() {
+    /*public Usuario getUsuario() {
+        return usuario;
+    }*/
+
+    public String getUsuario() {
         return usuario;
     }
-    public String getContrasenia()
-    {
-        return usuario.getContrasenia();
-    }
 
+    public String getContrasenia() {
+        return contrasenia;
+    }
 }

@@ -7,6 +7,7 @@ public class Usuario {
 
     @Column(length = 150)
     private String usuario;
+
     @Column(length = 150)
     private String contrasenia;
 

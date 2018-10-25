@@ -4,6 +4,7 @@ import dominio.usuario.VerificarUsuario;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.Spark;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,10 +21,20 @@ public class LoginController {
 		Map<String, String> model = new HashMap<>();
 		if(!VerificarUsuario.verificar(req.queryParams("usuario"),req.queryParams("password")))
 		{
+			//Spark.halt(401,"Usuario o contrasenia incorrecto");
+			//Spark.notFound("<html><body><h1>Custom 404 handling</h1></body></html>");
 			res.redirect("/login");
+			return new ModelAndView(null,"/home/login");
 		}
 		req.session().attribute("currentUser", req.queryParams("usuario"));
-		return new ModelAndView(null,"/home/usuario.hbs");
+		//req.cookie("currentUser");
+		return new ModelAndView(null,"/home/home.hbs");
+	}
+
+	public static ModelAndView logout(Request req, Response res){
+		req.session().removeAttribute("currentUser");
+		res.redirect("/login");
+		return null;
 	}
 	
 }

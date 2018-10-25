@@ -60,7 +60,7 @@ public class testClienteDispositivo extends AbstractPersistenceTest implements W
     public void testTraerClientePorUsuario()
     {
         //VerificarUsuario verificarUsuario = new VerificarUsuario();
-        assertEquals(true,VerificarUsuario.verificar("galvanariel97","password"));
+        assertEquals(true,VerificarUsuario.verificar("galvanariel","password"));
     }
 
     @After

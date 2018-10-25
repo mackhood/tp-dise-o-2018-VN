@@ -16,7 +16,6 @@ public class VerificarUsuario {
             return false;
         }
 
-        System.out.println(cliente.getNombre());
         return cliente.getContrasenia().equals(contrasenia);
 
 

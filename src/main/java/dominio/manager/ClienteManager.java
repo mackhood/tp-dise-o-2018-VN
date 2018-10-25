@@ -40,7 +40,7 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
             dispositivosInteligentes.add(aireAcondicionado3500);
             dispositivosInteligentes.add(ventilador);
 
-            Cliente unCliente = new Cliente("ariel", "galvan", "galvanariel97","password", id, domicilio, 47581269,
+            Cliente unCliente = new Cliente("ariel", "galvan", "galvanariel","password", id, domicilio, 47581269,
                     dispositivosEstandares, dispositivosInteligentes);
 
             Ubicacion ubicacion = new Ubicacion(5, 2);
@@ -53,7 +53,10 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 
     public Cliente buscarClientePorUsuario(String username){
 
-        Cliente cliente = entityManager().createQuery("from Cliente c  where contrasenia='password'" ,Cliente.class).getSingleResult();
+        //System.out.println(username.getClass());
+        //System.out.println("from Cliente c where usuario ='"+username+"'");
+        Cliente cliente = entityManager().createQuery("from Cliente where usuario='"+username+"'" ,Cliente.class).getSingleResult();
+
         return cliente;
 
     }
