@@ -1,4 +1,4 @@
-package test.otros;
+package test.dispositivos;
 
 import dominio.consultores.ConsultaConsumoUltimasNHoras;
 import dominio.dispositivo.Conversor;
