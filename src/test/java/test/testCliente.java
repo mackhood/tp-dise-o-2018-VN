@@ -36,8 +36,6 @@ public class testCliente {
 	private DispositivoEstandar mockDE;
 	private DispositivoInteligente mockDI;
 
-	private SistemaInteligente mockSI;
-
 	Categoria mockCategoria;
 	AsignadorDeCategoria asignadorMock;
 
@@ -45,7 +43,6 @@ public class testCliente {
 	public void setUp() {
 
 		mockCategoria = Mockito.spy(new Categoria("CategoriaTest", 0, 3000, 50.0, 20.0));
-		mockSI = Mockito.spy(new SistemaInteligente());
 		mockDispositivo = Mockito.mock(Dispositivo.class);
 		moduloAdaptador = new Conversor();
 
@@ -192,27 +189,6 @@ public class testCliente {
 	public void testPuntosAcumuladorDespuesDeAgregarAdaptadorAUnDE() throws NoTieneDispositivoException {
 		unClienteConDEyDI.agregarModuloAdaptador(moduloAdaptador, mockDE);
 		assertEquals(40.0, unClienteConDEyDI.puntosAcumulados());
-	}
-
-	@Test
-	public void testAlgunDIestaEncendidoClienteCon2DI() {
-
-		assertEquals(true, mockSI.algunDIencendido(unClienteConDEyDI));
-	}
-
-	@Test
-	public void testCantidadDIencendidosClienteCon2DI() {
-		assertEquals(1, mockSI.cantidadDIencendidos(unClienteConDEyDI));
-	}
-
-	@Test
-	public void testCantidadDIapagadosClienteCon2DI() {
-		assertEquals(1, mockSI.cantidadDIapagados(unClienteConDEyDI));
-	}
-
-	@Test
-	public void testCantidadDispositivosClienteCon2DIy1DE() {
-		assertEquals(3, mockSI.cantidadDispositivos(unClienteConDEyDI));
 	}
 
 	@Test
