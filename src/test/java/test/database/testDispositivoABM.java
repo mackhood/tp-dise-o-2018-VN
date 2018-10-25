@@ -15,7 +15,7 @@ public class testDispositivoABM implements WithGlobalEntityManager {
 
     @Before
     public void setUp() {
-        admin = new Administrador("admin", "adminADMIN", LocalDate.now());
+        admin = new Administrador("admin", "adminADMIN", LocalDate.now(),"jorge","jorgito");
     }
 
     @Test

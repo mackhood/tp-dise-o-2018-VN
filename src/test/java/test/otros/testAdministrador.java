@@ -14,8 +14,8 @@ public class testAdministrador {
 
     @Before
     public void setUp() {
-        unNuevoAdmin = new Administrador(" AAAAA ", " BBBBBB ", LocalDate.of(2016, 5, 18));
-        otroNuevoAdmin = new Administrador(" XXXX ", " ZZZZ ", LocalDate.of(2014, 9, 20));
+        unNuevoAdmin = new Administrador(" AAAAA ", " BBBBBB ", LocalDate.of(2016, 5, 18),"pepito","123");
+        otroNuevoAdmin = new Administrador(" XXXX ", " ZZZZ ", LocalDate.of(2014, 9, 20),"pepote","123");
     }
 
     // Tiene sentido hacer test de esta clase que no tiene comportamiento?

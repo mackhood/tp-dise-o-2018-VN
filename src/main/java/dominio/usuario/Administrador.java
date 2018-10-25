@@ -17,11 +17,13 @@ public class Administrador {
     private String password;
     private DispositivoABM dispositivoABM;
 
-    public Administrador(String nombre, String unApellido, LocalDate fecha) {
+    public Administrador(String nombre, String unApellido, LocalDate fecha,String username , String password) {
         this.nombre = nombre;
         this.apellido = unApellido;
         this.fechaAlta = fecha;
         this.dispositivoABM = new DispositivoABM();
+        this.username = username;
+        this.password=password;
     }
 
     public void setDomicilio(Domicilio domicilio) {
@@ -39,6 +41,9 @@ public class Administrador {
     public long cantMesesComoAdmin() {
         LocalDate ahora = LocalDate.now();
         return fechaAlta.until(ahora, ChronoUnit.MONTHS);
+    }
+    public String getContrasenia() {
+        return password;
     }
 
 
@@ -101,7 +106,6 @@ public class Administrador {
 			em.close();
 		}*/
 
-
     }
 
 
@@ -142,4 +146,8 @@ public class Administrador {
 
 
     }
-}
+
+
+
+    }
+
