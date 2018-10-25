@@ -161,6 +161,8 @@ public class DispositivoInteligente extends Dispositivo {
         return 15;
     }
 
+
+
     public static class DispositivoInteligenteBuilder {
 
         private final String nombre;

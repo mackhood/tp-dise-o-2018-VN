@@ -1,6 +1,7 @@
 package controllers;
 
 import dominio.dispositivo.DispositivoInteligente;
+import dominio.manager.*;
 import dominio.manager.ClienteManager;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
@@ -15,7 +16,7 @@ import java.util.Map;
 
 public class DispositivoController extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
-    public static ModelAndView listar(Request req, Response res)
+    public ModelAndView listar(Request req, Response res)
     {
         Map<String, List<DispositivoInteligente>> model = new HashMap<>();
 

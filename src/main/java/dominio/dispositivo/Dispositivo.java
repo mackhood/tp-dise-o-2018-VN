@@ -69,4 +69,7 @@ public abstract class Dispositivo {
         return equipoConcreto;
     }
 
+    public void setEquipoConcreto(String equipoConcreto) {
+        this.equipoConcreto = equipoConcreto;
+    }
 }

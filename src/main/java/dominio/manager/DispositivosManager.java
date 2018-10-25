@@ -1,17 +1,18 @@
 package dominio.manager;
 
+import dominio.dispositivo.DispositivoInteligente;
 import dominio.repositories.RepositorioDispositivo;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
-public class DispositivosPersistirManager implements WithGlobalEntityManager, TransactionalOps {
+public class DispositivosManager implements WithGlobalEntityManager, TransactionalOps {
 
-    private static DispositivosPersistirManager instance = new DispositivosPersistirManager();
+    private static DispositivosManager instance = new DispositivosManager();
 
-    private DispositivosPersistirManager() {
+    private DispositivosManager() {
     }
 
-    public static DispositivosPersistirManager getInstance() {
+    public static DispositivosManager getInstance() {
         return instance;
     }
 
@@ -22,6 +23,11 @@ public class DispositivosPersistirManager implements WithGlobalEntityManager, Tr
 
             entityManager().getTransaction().commit();
         });
+    }
+
+    public DispositivoInteligente traerCiertoDispositivo(Long id)
+    {
+        return entityManager().find(DispositivoInteligente.class, id);
     }
 
 }

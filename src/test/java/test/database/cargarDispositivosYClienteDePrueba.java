@@ -1,13 +1,13 @@
 package test.database;
 
 import dominio.manager.ClienteManager;
-import dominio.manager.DispositivosPersistirManager;
+import dominio.manager.DispositivosManager;
 import org.junit.Test;
 
 public class cargarDispositivosYClienteDePrueba {
     @Test
     public void cargarTablaDispositivos() {
-        DispositivosPersistirManager.getInstance().persistirDispositivosDelRepositorio();
+        DispositivosManager.getInstance().persistirDispositivosDelRepositorio();
     }
 
     @Test

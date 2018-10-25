@@ -16,16 +16,18 @@ public class Router {
 				.build();
 		
 		Spark.staticFiles.location("/");
-		
-		//ProyectosController proyectosController = new ProyectosController();
+
+		DispositivoController dispositivoController = new DispositivoController();
+
 		
 		Spark.get("/", HomeController::home, engine);
 		Spark.get("/login", LoginController::show, engine);
 		Spark.post("/login", LoginController::login, engine);
 		Spark.post("/logout", LoginController::logout, engine);
-		Spark.get("/usuario/dispositivo", DispositivoController::listar, engine);
-		Spark.get("/usuario/dispositivo/:id", DispositivoController::modificar, engine);
-		//Spark.put("/agregarDispositivo", DispositivoController::crear, engine);
+		Spark.get("/usuario/dispositivo", dispositivoController::listar, engine);
+		Spark.get("/usuario/dispositivo/:id", dispositivoController::verModificar, engine);
+        Spark.post("/usuario/dispositivo/:id", dispositivoController::modificar, engine);
+        //Spark.put("/agregarDispositivo", DispositivoController::crear, engine);
 		//Spark.get("/dispositivo", DispositivoController::show, engine);
 		//Spark.get("/proyectos", proyectosController::listar, engine);
 		//Spark.get("/proyectos/new", proyectosController::nuevo, engine);

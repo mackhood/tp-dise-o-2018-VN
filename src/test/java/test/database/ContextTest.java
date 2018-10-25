@@ -1,6 +1,6 @@
 package test.database;
 
-import dominio.manager.DispositivosPersistirManager;
+import dominio.manager.DispositivosManager;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
@@ -9,7 +9,7 @@ import static org.junit.Assert.assertNotNull;
 
 public class ContextTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
-    private DispositivosPersistirManager dispositivosPersistirManager;
+    private DispositivosManager dispositivosManager;
 
     @Test
     public void contextUp() {
