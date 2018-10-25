@@ -27,18 +27,16 @@ public class LoginController {
 
 
 			req.session().attribute("currentUser", req.queryParams("usuario"));
-			//req.cookie("currentUser");
 			return new ModelAndView(null,"/home/usuario.hbs");
 
 		}
 			else {
 
-			if(!VerificarAdmin.verificar(req.queryParams("admin"),req.queryParams("password")) )
+			if(VerificarAdmin.verificar(req.queryParams("usuario"),req.queryParams("password")) )
 			{
 
 
 				req.session().attribute("currentUser", req.queryParams("admin"));
-				//req.cookie("currentUser");
 				return new ModelAndView(null,"/home/admin.hbs");
 			}
 
@@ -46,7 +44,7 @@ public class LoginController {
 
 				//Spark.halt(401,"Usuario o contrasenia incorrecto");
 				//Spark.notFound("<html><body><h1>Custom 404 handling</h1></body></html>");
-				res.redirect("/login");
+				//res.redirect("/login");
 				return new ModelAndView(null,"/home/login");
 
 			}
