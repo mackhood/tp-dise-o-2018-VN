@@ -3,6 +3,7 @@ package controllers;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.manager.*;
 import dominio.manager.ClienteManager;
+import dominio.repositories.RepositorioDispositivo;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 import spark.ModelAndView;
@@ -58,16 +59,40 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
         //return null;
     }
 
-    public Void bajar(Request req, Response res)
+    public ModelAndView verBajar(Request req, Response res)
     {
-        String id = req.queryParams("id");
+        Map<String, DispositivoInteligente> model = new HashMap<>();
+        String id = req.params("id");
+
+        DispositivoInteligente disp = DispositivosManager.getInstance().traerCiertoDispositivo(Long.parseLong(id));
+        model.put("dispositivo", disp);
+        req.session().attribute("idDispositivo",id);
+        return new ModelAndView(model,"usuario/bajar.hbs");
+    }
+    public ModelAndView bajar(Request req, Response res)
+    {
+        String id = req.session().attribute("idDispositivo");
+        req.session().removeAttribute("idDispositivo");
         DispositivoInteligente disp = DispositivosManager.getInstance().traerCiertoDispositivo(Long.parseLong(id));
 
+        //Long idCliente = ClienteManager.getInstance().buscarClientePorUsuario(req.session().attribute("currentUser")).getId();
         withTransaction(()->{
+
+            //entityManager().createQuery("delete from Cliente_dispositivointeligente c where cliente_idCliente='"+idCliente+"' and dispositivosInteligentes_idDispositivo='"+id+"'");
             entityManager().remove(disp);
+            entityManager().getTransaction().commit();
         });
-        res.redirect("/");
-        return null;
+        res.redirect("/usuario");
+        return new ModelAndView(null,"usuario/bajar.hbs");
+    }
+
+    public ModelAndView verAlta(Request req, Response res)
+    {
+        Map<String, List<DispositivoInteligente>> model = new HashMap<>();
+        List<DispositivoInteligente> dispositivoInteligentes = RepositorioDispositivo.getInstance().getInteligentes();
+
+        model.put("dispositivosElejir", dispositivoInteligentes);
+        return new ModelAndView(model,"usuario/alta.hbs");
     }
 
 
