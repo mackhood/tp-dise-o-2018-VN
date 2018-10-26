@@ -4,6 +4,7 @@ import dominio.dispositivo.DispositivoInteligente;
 import dominio.manager.*;
 import dominio.manager.ClienteManager;
 import dominio.repositories.RepositorioDispositivo;
+import dominio.usuario.Cliente;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 import spark.ModelAndView;
@@ -11,6 +12,7 @@ import spark.Request;
 import spark.Response;
 import utils.RequestUtil;
 
+import javax.jws.WebParam;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +29,47 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
 
         return new ModelAndView(model,"/usuario/dispositivo.hbs");
     }
+    public ModelAndView listarDispositivosAlta(Request req, Response res)
+    {
+        Map<String, List<DispositivoInteligente>> model = new HashMap<>();
+
+        List<DispositivoInteligente> dispositivos = RepositorioDispositivo.getInstance().getInteligentes();
+
+        model.put("dispositivosElejir",dispositivos);
+
+        return new ModelAndView(model,"/usuario/alta.hbs");
+    }
+    public ModelAndView verAlta(Request req, Response res)
+    {
+        Map<String, DispositivoInteligente> model = new HashMap<>();
+        String idDispositivo = req.params("id");
+
+        DispositivoInteligente dispositivoInteligente = DispositivosManager.getInstance().traerCiertoDispositivo(Long.parseLong(idDispositivo));
+        //Cliente cliente = ClienteManager.getInstance().buscarClientePorUsuario(RequestUtil.getSessionCurrentUser(req));
+        model.put("dispositivoInteligente",dispositivoInteligente);
+        req.session().attribute("idDispositivo",idDispositivo);
+        /*withTransaction(()->{
+            cliente.agregarDispositivoInteligente(dispositivoInteligente);
+            entityManager().persist(cliente);
+            entityManager().getTransaction().commit();
+        });*/
+
+        return new ModelAndView(model,"usuario/altaConfirm.hbs");
+    }
+    public ModelAndView alta(Request req, Response res)
+    {
+        DispositivoInteligente dispositivoInteligente = DispositivosManager.getInstance().traerCiertoDispositivo(req.session().attribute("idDispositivo"));
+        Cliente cliente = ClienteManager.getInstance().buscarClientePorUsuario(RequestUtil.getSessionCurrentUser(req));
+        withTransaction(()->{
+            cliente.agregarDispositivoInteligente(dispositivoInteligente);
+            entityManager().persist(cliente);
+            entityManager().getTransaction().commit();
+        });
+
+        res.redirect("/usuario");
+        return new ModelAndView(null, "usuario/altaConfirm");
+    }
+
     public ModelAndView verModificar(Request req, Response res){
         Map<String, DispositivoInteligente> model = new HashMap<>();
         String id = req.params("id");
@@ -85,16 +128,6 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
         res.redirect("/usuario");
         return new ModelAndView(null,"usuario/bajar.hbs");
     }
-
-    public ModelAndView verAlta(Request req, Response res)
-    {
-        Map<String, List<DispositivoInteligente>> model = new HashMap<>();
-        List<DispositivoInteligente> dispositivoInteligentes = RepositorioDispositivo.getInstance().getInteligentes();
-
-        model.put("dispositivosElejir", dispositivoInteligentes);
-        return new ModelAndView(model,"usuario/alta.hbs");
-    }
-
 
 
     /*
