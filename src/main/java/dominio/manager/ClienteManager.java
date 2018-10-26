@@ -65,4 +65,14 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
         return entityManager().createQuery("from Cliente c join Dispositivo d on (c.idCliente = d.idCliente)",DispositivoInteligente.class).getResultList();
 
     }
+
+    public List<Cliente> getClientes(){
+
+        List<Cliente> clientes = entityManager().createQuery("from Cliente c",Cliente.class).getResultList();
+        return clientes;
+
+    }
+
+
+
 }
