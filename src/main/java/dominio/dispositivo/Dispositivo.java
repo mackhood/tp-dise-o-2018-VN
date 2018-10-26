@@ -72,4 +72,8 @@ public abstract class Dispositivo {
     public void setEquipoConcreto(String equipoConcreto) {
         this.equipoConcreto = equipoConcreto;
     }
+
+    public Long getId() {
+        return id;
+    }
 }
