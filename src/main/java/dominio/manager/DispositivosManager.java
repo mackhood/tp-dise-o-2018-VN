@@ -5,6 +5,8 @@ import dominio.repositories.RepositorioDispositivo;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+import java.util.List;
+
 public class DispositivosManager implements WithGlobalEntityManager, TransactionalOps {
 
     private static DispositivosManager instance = new DispositivosManager();
@@ -28,6 +30,12 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
     public DispositivoInteligente traerCiertoDispositivo(Long id)
     {
         return entityManager().find(DispositivoInteligente.class, id);
+    }
+    public List<DispositivoInteligente> getDispositivosInteligentes(){
+
+        List<DispositivoInteligente> inteligentes = entityManager().createQuery("from DispositivoInteligente d",DispositivoInteligente.class).getResultList();
+        return inteligentes;
+
     }
 
 }

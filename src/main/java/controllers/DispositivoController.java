@@ -33,11 +33,11 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
     {
         Map<String, List<DispositivoInteligente>> model = new HashMap<>();
 
-        List<DispositivoInteligente> dispositivos = RepositorioDispositivo.getInstance().getInteligentes();
+        List<DispositivoInteligente> dispositivos = DispositivosManager.getInstance().getDispositivosInteligentes();
 
-        model.put("dispositivosElejir",dispositivos);
+        model.put("dispositivos",dispositivos);
 
-        return new ModelAndView(model,"/usuario/alta.hbs");
+        return new ModelAndView(model,"/usuario/verDispositivosAlta.hbs");
     }
     public ModelAndView verAlta(Request req, Response res)
     {
@@ -45,20 +45,15 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
         String idDispositivo = req.params("id");
 
         DispositivoInteligente dispositivoInteligente = DispositivosManager.getInstance().traerCiertoDispositivo(Long.parseLong(idDispositivo));
-        //Cliente cliente = ClienteManager.getInstance().buscarClientePorUsuario(RequestUtil.getSessionCurrentUser(req));
         model.put("dispositivoInteligente",dispositivoInteligente);
         req.session().attribute("idDispositivo",idDispositivo);
-        /*withTransaction(()->{
-            cliente.agregarDispositivoInteligente(dispositivoInteligente);
-            entityManager().persist(cliente);
-            entityManager().getTransaction().commit();
-        });*/
 
         return new ModelAndView(model,"usuario/altaConfirm.hbs");
     }
     public ModelAndView alta(Request req, Response res)
     {
-        DispositivoInteligente dispositivoInteligente = DispositivosManager.getInstance().traerCiertoDispositivo(req.session().attribute("idDispositivo"));
+        DispositivoInteligente dispositivoInteligente = DispositivosManager.getInstance().traerCiertoDispositivo(Long.parseLong(req.session().attribute("idDispositivo")));
+        req.session().removeAttribute("idDispositivo");
         Cliente cliente = ClienteManager.getInstance().buscarClientePorUsuario(RequestUtil.getSessionCurrentUser(req));
         withTransaction(()->{
             cliente.agregarDispositivoInteligente(dispositivoInteligente);
@@ -67,7 +62,7 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
         });
 
         res.redirect("/usuario");
-        return new ModelAndView(null, "usuario/altaConfirm");
+        return new ModelAndView(null,"/usuario/altaConfirm.hbs");
     }
 
     public ModelAndView verModificar(Request req, Response res){
@@ -90,7 +85,6 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
         req.session().removeAttribute("idDispositivo");
         DispositivoInteligente disp = DispositivosManager.getInstance().traerCiertoDispositivo(Long.parseLong(id));
 
-        //model.put("dispositivo",disp);
 
         withTransaction(()->{
             disp.setNombre(nombre);

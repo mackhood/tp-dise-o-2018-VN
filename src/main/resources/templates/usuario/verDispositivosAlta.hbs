@@ -6,14 +6,17 @@
             <th>Nombre</th>
             <th>Equipo Concreto</th>
             <th>Consumo estimado por hora</th>
+            <th>Id</th>
+
         </tr>
 
-        {{#each dispositivosElejir}}
+        {{#each dispositivos}}
             <tr>
                 <td>{{nombre}}</td>
                 <td>{{equipoConcreto}}</td>
                 <td>{{consumoEstimadoPorHora}}</td>
-                <td><a href="usuario/altaDispositivos/{{id}}">Alta</a><td>
+                <td>{{id}}</td>
+                <td><a href="/usuario/altaConfirm/{{id}}">Alta</a><td>
 
             </tr>
         {{/each}}
