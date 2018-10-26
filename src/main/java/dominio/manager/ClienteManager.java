@@ -55,7 +55,7 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 
         //System.out.println(username.getClass());
         //System.out.println("from Cliente c where usuario ='"+username+"'");
-        Cliente cliente = entityManager().createQuery("from Cliente where usuario='"+username+"'" ,Cliente.class).getSingleResult();
+        Cliente cliente = entityManager().createQuery("from Cliente c where usuario='"+username+"'" ,Cliente.class).getSingleResult();
 
         return cliente;
 

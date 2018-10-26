@@ -1,0 +1,17 @@
+
+{{#partial "contenido"}}
+
+    {{#with dispositivo}}
+        <form method="POST" action="/usuario/altaDispositivos">
+            <div class="form-group">
+                <label for="nombre">Esta seguro en dar de alta este dispositivo?</label>
+            </div>>
+            <input class="btn btn-primary btn-alta" type="submit" value="Alta">
+
+
+        </form>
+
+    {{/with}}
+{{/partial}}
+
+{{>home/usuario.hbs}}

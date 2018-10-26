@@ -6,8 +6,7 @@ import spark.debug.DebugScreen;
 
 public class Server {
 	public static void main(String[] args) {
-		Inicializacion.getInstance().init();
-		Spark.port(9005);
+		Spark.port(9000);
 		DebugScreen.enableDebugScreen();
 		Router.configure();
 	}

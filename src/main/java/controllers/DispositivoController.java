@@ -3,6 +3,8 @@ package controllers;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.manager.*;
 import dominio.manager.ClienteManager;
+import dominio.repositories.RepositorioDispositivo;
+import dominio.usuario.Cliente;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 import spark.ModelAndView;
@@ -10,6 +12,7 @@ import spark.Request;
 import spark.Response;
 import utils.RequestUtil;
 
+import javax.jws.WebParam;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +29,47 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
 
         return new ModelAndView(model,"/usuario/dispositivo.hbs");
     }
+    public ModelAndView listarDispositivosAlta(Request req, Response res)
+    {
+        Map<String, List<DispositivoInteligente>> model = new HashMap<>();
+
+        List<DispositivoInteligente> dispositivos = RepositorioDispositivo.getInstance().getInteligentes();
+
+        model.put("dispositivosElejir",dispositivos);
+
+        return new ModelAndView(model,"/usuario/alta.hbs");
+    }
+    public ModelAndView verAlta(Request req, Response res)
+    {
+        Map<String, DispositivoInteligente> model = new HashMap<>();
+        String idDispositivo = req.params("id");
+
+        DispositivoInteligente dispositivoInteligente = DispositivosManager.getInstance().traerCiertoDispositivo(Long.parseLong(idDispositivo));
+        //Cliente cliente = ClienteManager.getInstance().buscarClientePorUsuario(RequestUtil.getSessionCurrentUser(req));
+        model.put("dispositivoInteligente",dispositivoInteligente);
+        req.session().attribute("idDispositivo",idDispositivo);
+        /*withTransaction(()->{
+            cliente.agregarDispositivoInteligente(dispositivoInteligente);
+            entityManager().persist(cliente);
+            entityManager().getTransaction().commit();
+        });*/
+
+        return new ModelAndView(model,"usuario/altaConfirm.hbs");
+    }
+    public ModelAndView alta(Request req, Response res)
+    {
+        DispositivoInteligente dispositivoInteligente = DispositivosManager.getInstance().traerCiertoDispositivo(req.session().attribute("idDispositivo"));
+        Cliente cliente = ClienteManager.getInstance().buscarClientePorUsuario(RequestUtil.getSessionCurrentUser(req));
+        withTransaction(()->{
+            cliente.agregarDispositivoInteligente(dispositivoInteligente);
+            entityManager().persist(cliente);
+            entityManager().getTransaction().commit();
+        });
+
+        res.redirect("/usuario");
+        return new ModelAndView(null, "usuario/altaConfirm");
+    }
+
     public ModelAndView verModificar(Request req, Response res){
         Map<String, DispositivoInteligente> model = new HashMap<>();
         String id = req.params("id");
@@ -35,15 +79,15 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
         req.session().attribute("idDispositivo",id);
         return new ModelAndView(model, "usuario/modificar.hbs");
     }
-    /*
+
     public ModelAndView modificar(Request req, Response res)
     {
-        //Map<String, DispositivoInteligente> model = new HashMap<>();
-        String nombre = req.queryParams("modifNombre");
-        String id = req.queryParams("idDispositivo");
+
+        String nombre = req.queryParams("nombre");
+        String equipoConcreto = req.queryParams("equipoConcreto");
+        String consumoEstimadoPorHora = req.queryParams("consumoEstimadoPorHora");
+        String id = req.session().attribute("idDispositivo");
         req.session().removeAttribute("idDispositivo");
-        String equipoConcreto = req.queryParams("modifEquipoConcreto");
-        String consumoEstimadoPorHora = req.queryParams("modifConsumoEstimadoPorHora");
         DispositivoInteligente disp = DispositivosManager.getInstance().traerCiertoDispositivo(Long.parseLong(id));
 
         //model.put("dispositivo",disp);
@@ -56,28 +100,35 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
             entityManager().getTransaction().commit();
         });
 
-        //res.redirect("usuario/dispositivo");
-        //return new ModelAndView(null,"usuario/modificar");
-        return null;
-    }*/
-
-    public Void bajar(Request req, Response res)
-    {
-        String id = req.queryParams("id");
-        DispositivoInteligente disp = DispositivosManager.getInstance().traerCiertoDispositivo(Long.parseLong(id));
-
-        withTransaction(()->{
-            entityManager().remove(disp);
-        });
-        res.redirect("/");
-        return null;
+        res.redirect("/usuario");
+        return new ModelAndView(null, "usuario/modificar.hbs");
     }
 
-
-
-    /*
-    public static ModelAndView crear(Request req, Response res)
+    public ModelAndView verBajar(Request req, Response res)
     {
+        Map<String, DispositivoInteligente> model = new HashMap<>();
+        String id = req.params("id");
 
-    }*/
+        DispositivoInteligente disp = DispositivosManager.getInstance().traerCiertoDispositivo(Long.parseLong(id));
+        model.put("dispositivo", disp);
+        req.session().attribute("idDispositivo",id);
+        return new ModelAndView(model,"usuario/bajar.hbs");
+    }
+    public ModelAndView bajar(Request req, Response res)
+    {
+        String id = req.session().attribute("idDispositivo");
+        req.session().removeAttribute("idDispositivo");
+        DispositivoInteligente disp = DispositivosManager.getInstance().traerCiertoDispositivo(Long.parseLong(id));
+
+        //Long idCliente = ClienteManager.getInstance().buscarClientePorUsuario(req.session().attribute("currentUser")).getId();
+        withTransaction(()->{
+
+            //entityManager().createQuery("delete from Cliente_dispositivointeligente c where cliente_idCliente='"+idCliente+"' and dispositivosInteligentes_idDispositivo='"+id+"'");
+            entityManager().remove(disp);
+            entityManager().getTransaction().commit();
+        });
+        res.redirect("/usuario");
+        return new ModelAndView(null,"usuario/bajar.hbs");
+    }
+
 }
