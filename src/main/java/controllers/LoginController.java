@@ -19,24 +19,17 @@ public class LoginController {
 	}
 	
 	public static ModelAndView login(Request req, Response res) {
-
 		Map<String, String> model = new HashMap<>();
 		if(VerificarUsuario.verificar(RequestUtil.getQueryUsername(req),RequestUtil.getQueryPassword(req)  ))
-
 		{
-
-
 			req.session().attribute("currentUser", req.queryParams("usuario"));
 			return new ModelAndView(null,"/home/usuario.hbs");
-
 		}
-			else {
+		else {
 
-			if(VerificarAdmin.verificar(req.queryParams("usuario"),req.queryParams("password")) )
+			if(VerificarAdmin.verificar(RequestUtil.getQueryUsername(req),RequestUtil.getQueryPassword(req)))
 			{
-
-
-				req.session().attribute("currentUser", req.queryParams("admin"));
+				req.session().attribute("currentUser", req.queryParams("usuario"));
 				return new ModelAndView(null,"/home/admin.hbs");
 			}
 

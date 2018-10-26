@@ -3,27 +3,38 @@ package dominio.usuario;
 import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
+
+@Entity
 public class Administrador {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "idAdministrador")
+    protected Long id;
 
     private String nombre;
     private String apellido;
+    @Embedded
     private Domicilio domicilio;
     private LocalDate fechaAlta;
     private long numId;
-    private String username;
-    private String password;
-    private DispositivoABM dispositivoABM;
+    private String usuario;
+    private String contraseña;
+    //private DispositivoABM dispositivoABM;
 
+    public Administrador() {
+    }
     public Administrador(String nombre, String unApellido, LocalDate fecha,String username , String password) {
         this.nombre = nombre;
         this.apellido = unApellido;
         this.fechaAlta = fecha;
-        this.dispositivoABM = new DispositivoABM();
-        this.username = username;
-        this.password=password;
+        //this.dispositivoABM = new DispositivoABM();
+        this.usuario = username;
+        this.contraseña=password;
     }
 
     public void setDomicilio(Domicilio domicilio) {
@@ -43,20 +54,16 @@ public class Administrador {
         return fechaAlta.until(ahora, ChronoUnit.MONTHS);
     }
     public String getContrasenia() {
-        return password;
+        return contraseña;
     }
 
 
     public void agregarDispositivoDB(Dispositivo dispositivo) {
-        dispositivoABM.agregarDispositivoBD(dispositivo);
+      //  dispositivoABM.agregarDispositivoBD(dispositivo);
 		/*
-
-
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ejemplo");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction t = em.getTransaction();
-
-
 		try {
 
 			t.begin();
@@ -73,20 +80,16 @@ public class Administrador {
 		}
 		*/
 
-
     }
 
-
     public void editarDispositivoDB(Long idDispositivoViejo, DispositivoEstandar dispositivoNuevo) {
-        dispositivoABM.modificarDispositivoBD(idDispositivoViejo, dispositivoNuevo);
+        //dispositivoABM.modificarDispositivoBD(idDispositivoViejo, dispositivoNuevo);
 		/*
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ejemplo2");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction t = em.getTransaction();
 
-
 		try {
-
 
 			Dispositivo d = em.find(Dispositivo.class, idviejo);
 
@@ -110,7 +113,7 @@ public class Administrador {
 
 
     public void eliminarDispositivoDB(Long idDispositivoEliminar) {
-        dispositivoABM.eliminarDispositivoInteligenteBD(idDispositivoEliminar);
+        //dispositivoABM.eliminarDispositivoInteligenteBD(idDispositivoEliminar);
 
 		/*
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ejemplo2");

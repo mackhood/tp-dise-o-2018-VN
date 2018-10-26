@@ -9,6 +9,7 @@
 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
+        <class>dominio.usuario.Administrador</class>
         <class>dominio.sensor.Sensor</class>
         <class>dominio.sensor.Medicion</class>
         <class>dominio.sensor.Condicion</class>

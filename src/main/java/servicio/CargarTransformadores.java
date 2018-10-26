@@ -1,7 +1,8 @@
-package dominio.manager;
+package servicio;
 
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
+import dominio.repositories.RepositorioTransformadores;
 import dominio.transformador.Transformador;
 import dominio.usuario.Cliente;
 import dominio.usuario.Domicilio;
@@ -17,7 +18,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CargarTransformadores implements WithGlobalEntityManager, TransactionalOps {
-    public void persistirTransformadores() {
+
+    private static CargarTransformadores instance = new CargarTransformadores();
+
+    public static CargarTransformadores getInstance() {
+        return instance;
+    }
+    public void persistirTransformadores(){
+        withTransaction(() -> {
+            List<Transformador> transformadorList =RepositorioTransformadores.getInstance().obtenerTransformadores();
+            transformadorList.stream().forEach(transformador -> entityManager().persist(transformador.getUbicacion()));
+            transformadorList.stream().forEach(transformador -> entityManager().persist(transformador));
+            entityManager().getTransaction().commit();
+        });
+    }
+
+    public void persistirNuevoTransformador() {
         withTransaction(() -> {
             Domicilio domicilio = new Domicilio("av cordoba", 1234, 7, 'A');
             ID id = new ID(TiposId.DNI, "10125789");
