@@ -26,7 +26,7 @@ public class Router {
 		Spark.post("/logout", LoginController::logout, engine);
 		Spark.get("/usuario/dispositivo", dispositivoController::listar, engine);
 		Spark.get("/usuario/dispositivo/:id", dispositivoController::verModificar, engine);
-        Spark.post("/usuario/dispositivo/:id", dispositivoController::modificar, engine);
+        //Spark.post("/usuario/dispositivo/:id", dispositivoController::modificar, engine);
         //Spark.put("/agregarDispositivo", DispositivoController::crear, engine);
 		//Spark.get("/dispositivo", DispositivoController::show, engine);
 		//Spark.get("/proyectos", proyectosController::listar, engine);

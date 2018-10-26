@@ -2,7 +2,7 @@
 {{#partial "contenido"}}
 
     {{#with dispositivo}}
-        <form method="GET" action="/usuario/dispositivo">
+        <form method="POST" action="/usuario/dispositivo">
             <div class="form-group">
                 <label for="nombre">Nombre</label>
                 <input type="text" name="nombre"/>  </div>
@@ -12,7 +12,7 @@
             <div class="form-group">
                 <label for="consumoEstimadoPorHora">Consumo estimado por hora</label>
                 <input type="text" name="consumoEstimadoPorHora"/>  </div>
-            <input class="btn btn-primary btn-modificar" type="submit" value="Modificar">
+            <input class="btn btn-primary btn-modificar" type="submit" value="Modificar" href="/usuario"}>
 
 
         </form>
@@ -20,4 +20,4 @@
     {{/with}}
 {{/partial}}
 
-{{>layout.hbs}}
+{{>home/usuario.hbs}}
