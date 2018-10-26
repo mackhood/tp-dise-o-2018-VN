@@ -32,14 +32,17 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
 
         DispositivoInteligente disp = DispositivosManager.getInstance().traerCiertoDispositivo(Long.parseLong(id));
         model.put("dispositivo", disp);
+        req.session().attribute("idDispositivo",id);
         return new ModelAndView(model, "usuario/modificar.hbs");
     }
     public ModelAndView modificar(Request req, Response res)
     {
-        String id = req.queryParams("id");
-        String nombre = req.queryParams("modifNombre");
-        String equipoConcreto = req.queryParams("modifEquipoConcreto");
-        String consumoEstimadoPorHora = req.queryParams("modifConsumoEstimadoPorHora");
+
+        String nombre = req.queryParams("nombre");
+        String equipoConcreto = req.queryParams("equipoConcreto");
+        String consumoEstimadoPorHora = req.queryParams("consumoEstimadoPorHora");
+        String id = req.session().attribute("idDispositivo");
+        req.session().removeAttribute("idDispositivo");
         DispositivoInteligente disp = DispositivosManager.getInstance().traerCiertoDispositivo(Long.parseLong(id));
 
         withTransaction(()->{
@@ -47,9 +50,10 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
             disp.setConsumoEstimadoPorHora(Double.parseDouble(consumoEstimadoPorHora));
             disp.setEquipoConcreto(equipoConcreto);
             entityManager().persist(disp);
+            entityManager().getTransaction().commit();
         });
 
-        //res.redirect("/");
+        res.redirect("/usuario");
         return new ModelAndView(null, "usuario/modificar.hbs");
         //return null;
     }
