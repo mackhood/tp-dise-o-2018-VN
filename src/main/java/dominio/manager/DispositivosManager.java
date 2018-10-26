@@ -31,6 +31,7 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
     {
         return entityManager().find(DispositivoInteligente.class, id);
     }
+
     public List<DispositivoInteligente> getDispositivosInteligentes(){
 
         List<DispositivoInteligente> inteligentes = entityManager().createQuery("from DispositivoInteligente d",DispositivoInteligente.class).getResultList();

@@ -4,6 +4,7 @@ import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.manager.ClienteManager;
+import dominio.repositories.RepositorioDispositivo;
 import dominio.usuario.*;
 import dominio.zonageografica.Ubicacion;
 import org.junit.After;
@@ -61,6 +62,16 @@ public class testClienteDispositivo extends AbstractPersistenceTest implements W
     {
         //VerificarUsuario verificarUsuario = new VerificarUsuario();
         assertEquals(true,VerificarUsuario.verificar("galvanariel","password"));
+    }
+
+    @Test
+    public void testAgregarDispInteligenteAUnUsuarioCantidadDispositivosInteligentes()
+    {
+        DispositivoInteligente dispositivoInteligente = RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("aireAcondicionado","De 2200 frigorias");
+        Cliente cliente = ClienteManager.getInstance().buscarClientePorUsuario("galvanariel");
+        cliente.agregarDispositivoInteligente(dispositivoInteligente);
+        entityManager().persist(dispositivoInteligente);
+        Assert.assertEquals(3,cliente.getDispositivosInteligentes().size());
     }
 
     @After

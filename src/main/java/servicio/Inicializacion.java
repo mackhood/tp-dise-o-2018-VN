@@ -1,6 +1,7 @@
 package servicio;
 
 import dominio.manager.ClienteManager;
+import dominio.manager.DispositivosManager;
 
 public class Inicializacion {
 
@@ -16,10 +17,11 @@ public class Inicializacion {
     public static Inicializacion getInstance() {
         return instance;
     }
-    public void init(){
+    public static void init(){
         CargarAdministradores.getInstance().persistirAdministradores();
         //CargarTransformadores.getInstance().persistirTransformadores();
         CargarTransformadores.getInstance().persistirNuevoTransformador();
+        DispositivosManager.getInstance().persistirDispositivosDelRepositorio();
         ClienteManager.getInstance().persistirClienteDePrueba();
     }
 
