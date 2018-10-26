@@ -9,7 +9,6 @@ public class RequestUtil {
         return request.session().attribute("currentUser");
     }
 
-
     public static String getQueryUsername(Request request) {
         return request.queryParams("usuario");
     }

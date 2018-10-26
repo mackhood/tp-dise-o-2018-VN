@@ -1,21 +1,14 @@
 package test.database;
 
-import com.google.gson.Gson;
-import dominio.manager.CargarTransformadores;
 import dominio.repositories.RepositorioTransformadores;
 import dominio.transformador.Transformador;
 import dominio.zonageografica.Ubicacion;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
-import javax.persistence.EntityManager;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
@@ -32,11 +25,12 @@ public class testTransformadores extends AbstractPersistenceTest implements With
     public void testPersistirTransformadores() throws IOException {
 
         withTransaction(() -> {
-            List<Transformador> transformadorList =RepositorioTransformadores.getInstance().obtenerTransformadores();;
+            List<Transformador> transformadorList =RepositorioTransformadores.getInstance().obtenerTransformadores();
             transformadorList.stream().forEach(transformador -> entityManager().persist(transformador.getUbicacion()));
             transformadorList.stream().forEach(transformador -> entityManager().persist(transformador));
             entityManager().getTransaction().commit();
         });
+
         List<Transformador> obtenerListaTransformadores  = entityManager().createQuery("FROM Transformador", Transformador.class).getResultList();
 
         Transformador nuevoTransformador =new Transformador( );
