@@ -66,6 +66,7 @@ public class testSimplex {
     public void testLamparaDe11WDespuesDeRealizarLaRecomendacionPorCadaDispositivoSigueEncendidoPorqueNoSuperaLasHorasMaximasRecomendadas() {
         RecomendacionParaHogarEficiente recomendacionParaHogarEficiente = new RecomendacionParaHogarEficiente(unCliente);
         recomendacionParaHogarEficiente.realizarRecomendacionParaLosDispositivosInteligentes();
+        System.out.println("A");
         Assert.assertEquals(true, lampara11W.estaEncendido());
 
     }

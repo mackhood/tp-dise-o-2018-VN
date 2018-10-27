@@ -73,6 +73,8 @@ public class DispositivoInteligente extends Dispositivo {
 	public void apagar() {
 		estadoDispositivo.apagar(this);
 		setHoraApagado(LocalDateTime.now());
+		System.out.println(horaEncendido.getHour());
+		System.out.println(horaApagado.getHour());
 		intervalosDeUso.add(new Intervalo(horaEncendido, horaApagado));
 		this.reiniciar();
 	}
@@ -90,11 +92,14 @@ public class DispositivoInteligente extends Dispositivo {
 
 	public double consumoParaIntervalo(Intervalo i) {
 
+		//System.out.println("intervalo en horas " + i.intervaloEnHoras());
+		//System.out.println("consumo por hora" + consumoEstimadoPorHora);
 		return i.intervaloEnHoras() * consumoEstimadoPorHora;
 	}
 
 	public double consumoParaIntervalos(List<Intervalo> intervalos) {
 
+		//System.out.println("intervalos tamanio:" + intervalos.size());
 		return intervalos.stream().mapToDouble(i -> consumoParaIntervalo(i)).sum();
 	}
 

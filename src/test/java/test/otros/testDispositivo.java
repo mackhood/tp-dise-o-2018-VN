@@ -84,12 +84,18 @@ public class testDispositivo {
 
         // unDETransformado = unCliente.agregarModuloAdaptador(moduloAdaptador, unDE);
         
-        unDIEncendido = new DispositivoInteligente.DispositivoInteligenteBuilder("da").estadoDispositivo(new EstadoEncendido())
+        unDIEncendido = new DispositivoInteligente.DispositivoInteligenteBuilder("da")
                 .consumoEstimadoPorHora((double) 500).intervalosDeUso(intervalosDeUso).build();
         unDIApagado = new DispositivoInteligente.DispositivoInteligenteBuilder("AireAcondicionado").estadoDispositivo(new EstadoApagado())
                 .consumoEstimadoPorHora((double) 100).intervalosDeUso(intervalosDeUso).build();
     }
 
+    @Test
+    public void testCambioDeEstadoDispositivoInteligente() {
+        unDIEncendido.encender();
+        unDIEncendido.apagar();
+        assertFalse(unDIEncendido.estaEncendido());
+    }
     /*
      * En este test, quiero probar que al principio se cumplen ambas condiciones,
      * por lo que se ejecuta el actuador. Luego el sensor que verifica la
@@ -162,11 +168,6 @@ public class testDispositivo {
         assertEquals(300.0, unDE.consumoEstimadoPorHora());
     }
 
-    @Test
-    public void testCambioDeEstadoDispositivoInteligente() {
-        unDIEncendido.apagar();
-        assertFalse(unDIEncendido.estaEncendido());
-    }
 
     @Test
     public void testDEModoAhorroDispositivoInteligente() {

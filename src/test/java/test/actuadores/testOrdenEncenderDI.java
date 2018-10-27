@@ -3,6 +3,8 @@ package test.actuadores;
 import dominio.actuador.OrdenEncenderDI;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.dispositivo.EstadoApagado;
+import dominio.repositories.RepositorioDispositivo;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -20,8 +22,9 @@ public class testOrdenEncenderDI {
     @Before
     public void setUp() {
 
-        unDI = Mockito.spy(new DispositivoInteligente.DispositivoInteligenteBuilder("MockDI")
-                .estadoDispositivo(new EstadoApagado()).build());
+        unDI = Mockito.spy(RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("aireAcondicionado","De 2200 frigorias"));
+        unDI.encender();
+        unDI.apagar();
 
         ordenEncenderDI = new OrdenEncenderDI(unDI);
     }
@@ -34,7 +37,7 @@ public class testOrdenEncenderDI {
 
     @Test
     public void testDIApagadoSigueApagado() {
-        ordenEncenderDI.ejecutarInversa();
-        assertTrue(unDI.estaApagado());
+        ordenEncenderDI.ejecutar();
+        Assert.assertEquals(false,unDI.estaApagado());
     }
 }

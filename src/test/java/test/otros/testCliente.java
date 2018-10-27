@@ -46,6 +46,12 @@ public class testCliente {
         mockDispositivo = Mockito.mock(Dispositivo.class);
         moduloAdaptador = new Conversor();
 
+        i1 = spy(new Intervalo(LocalDateTime.of(2018,10,2,19,00),LocalDateTime.of(2018,10,2,20,00)));
+        i2 = spy(new Intervalo(LocalDateTime.of(2018,10,2,4,30),LocalDateTime.of(2018,10,2,23,30)));
+
+        intervalosDeUsoDI1.add(i1);
+        intervalosDeUsoDI2.add(i2);
+
         mockDE = Mockito.spy(new DispositivoEstandar.DispositivoEstandarBuilder("televisor")
                 .equipoConcreto("Color de tubo fluorescente de 29 a 34").consumoEstimadoPorHora(30.0).horasDeUso(2.0)
                 .build());
@@ -58,12 +64,7 @@ public class testCliente {
                 .equipoConcreto("De 2200 frigorias").consumoEstimadoPorHora(100.0)
                 .estadoDispositivo(new EstadoEncendido()).intervalosDeUso(intervalosDeUsoDI2).build());
         
-        i1 = spy(new Intervalo(LocalDateTime.of(2018,10,2,19,00),LocalDateTime.of(2018,10,2,20,00)));
-        i2 = spy(new Intervalo(LocalDateTime.of(2018,10,2,4,30),LocalDateTime.of(2018,10,2,23,30)));
-        
-        intervalosDeUsoDI1.add(i1);
-        intervalosDeUsoDI2.add(i2);
-        
+
         List<DispositivoEstandar> listaDispositivosEstandar = new ArrayList<>();
 
         List<DispositivoEstandar> listaDispositivosParaOtroCliente = new ArrayList<>();
@@ -75,8 +76,6 @@ public class testCliente {
         unClienteSinDEyConDI = spy(new Cliente("Nicolas", "Sierra", "fer25","password", new ID(TiposId.DNI, "200"),
                 new Domicilio("bariloche", 3118, 1, 'a'), 250, listaDispositivosParaOtroCliente,
                 listaDispInteligentes));
-        when(mockDispositivo.getConsumoTotal()).thenReturn(200.0);
-
         unClienteConDEyDI.agregarDispositivoInteligente(mockDIEncendido);
         unClienteConDEyDI.agregarDispositivoInteligente(mockDI);
         unClienteConDEyDI.agregarDispositivoEstandar(mockDE);
@@ -84,7 +83,6 @@ public class testCliente {
         asignadorMock = mock(AsignadorDeCategoria.class);
 
     }
-
     @Test
     public void testPuntosAcumuladosDespuesDeAgregar2DICliente() {
         assertEquals(30.0, unClienteConDEyDI.puntosAcumulados());
@@ -145,7 +143,7 @@ public class testCliente {
     @Test
     public void testConsumoDICliente() {
 
-        assertEquals(2400.0, unClienteConDEyDI.consumoDispositivosInteligentes());
+        assertEquals(2400.0, unClienteConDEyDI.consumoDispositivosInteligentes(),0);
     }
 
     @Test
