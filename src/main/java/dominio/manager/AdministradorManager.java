@@ -40,10 +40,8 @@ import java.util.List;
             });
         }
 
-        public Administrador buscarAdministradorPorUsuario(String username){
+        public Administrador getAdministradorDeLaBDPorUsuario(String username){
 
-            //System.out.println(username.getClass());
-            //System.out.println("from Cliente c where usuario ='"+username+"'");
             Administrador administrador = entityManager().createQuery("from Administrador where usuario='"+username+"'" ,Administrador.class).getSingleResult();
 
             return administrador;

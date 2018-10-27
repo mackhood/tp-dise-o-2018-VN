@@ -1,8 +1,6 @@
 package controllers;
 
-import dominio.dispositivo.DispositivoInteligente;
 import dominio.manager.ClienteManager;
-import dominio.manager.DispositivosManager;
 import dominio.usuario.Cliente;
 import spark.ModelAndView;
 import spark.Request;
@@ -29,7 +27,7 @@ public class AdminController {
     {
         Map<String, List<Cliente>> model = new HashMap<>();
 
-        List<Cliente> hogares = ClienteManager.getInstance().getClientes();
+        List<Cliente> hogares = ClienteManager.getInstance().getClientesDeLaBD();
         //List<Integer> consumos = hogares.getConsumo();
         model.put("hogares",hogares);
       //  model.put("consumos",consumos);

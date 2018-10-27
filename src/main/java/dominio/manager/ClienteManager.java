@@ -51,22 +51,15 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
         });
     }
 
-    public Cliente buscarClientePorUsuario(String username){
+    public Cliente getClienteDeLaBDPorUsuario(String username){
 
-        //System.out.println(username.getClass());
-        //System.out.println("from Cliente c where usuario ='"+username+"'");
         Cliente cliente = entityManager().createQuery("from Cliente c where usuario='"+username+"'" ,Cliente.class).getSingleResult();
 
         return cliente;
 
     }
-    public List<DispositivoInteligente> getDispositivosInteligentesDelClienteDeLaBD(String username)
-    {
-        return entityManager().createQuery("from Cliente c join Dispositivo d on (c.idCliente = d.idCliente)",DispositivoInteligente.class).getResultList();
 
-    }
-
-    public List<Cliente> getClientes(){
+    public List<Cliente> getClientesDeLaBD(){
 
         List<Cliente> clientes = entityManager().createQuery("from Cliente c",Cliente.class).getResultList();
         return clientes;

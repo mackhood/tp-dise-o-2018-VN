@@ -10,7 +10,7 @@ public class VerificarUsuario {
         {
             return false;
         }
-        Cliente cliente = ClienteManager.getInstance().buscarClientePorUsuario(usuario);
+        Cliente cliente = ClienteManager.getInstance().getClienteDeLaBDPorUsuario(usuario);
         if(cliente == null)
         {
             return false;

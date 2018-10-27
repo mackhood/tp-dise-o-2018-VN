@@ -68,7 +68,7 @@ public class testClienteDispositivo extends AbstractPersistenceTest implements W
     public void testAgregarDispInteligenteAUnUsuarioCantidadDispositivosInteligentes()
     {
         DispositivoInteligente dispositivoInteligente = RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("aireAcondicionado","De 2200 frigorias");
-        Cliente cliente = ClienteManager.getInstance().buscarClientePorUsuario("galvanariel");
+        Cliente cliente = ClienteManager.getInstance().getClienteDeLaBDPorUsuario("galvanariel");
         cliente.agregarDispositivoInteligente(dispositivoInteligente);
         entityManager().persist(dispositivoInteligente);
         Assert.assertEquals(3,cliente.getDispositivosInteligentes().size());

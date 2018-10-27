@@ -27,12 +27,12 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
         });
     }
 
-    public DispositivoInteligente traerCiertoDispositivoInteligenteDeLaDB(Long id)
+    public DispositivoInteligente getDispositivoInteligenteDeLaBDPorID(Long id)
     {
         return entityManager().find(DispositivoInteligente.class, id);
     }
 
-    public List<DispositivoInteligente> getDispositivosInteligentes(){
+    public List<DispositivoInteligente> getDispositivosInteligentesDeLaBD(){
 
         List<DispositivoInteligente> inteligentes = entityManager().createQuery("from DispositivoInteligente d",DispositivoInteligente.class).getResultList();
         return inteligentes;

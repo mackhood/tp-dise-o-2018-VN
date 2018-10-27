@@ -36,10 +36,10 @@ public class testDispositivoABM extends AbstractPersistenceTest implements WithG
 
     @Test
     public void testModificarDispositivoDeLaBD() {
-        DispositivoInteligente dispNuevo = DispositivosManager.getInstance().traerCiertoDispositivoInteligenteDeLaDB(new Long(9));
+        DispositivoInteligente dispNuevo = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(new Long(9));
         dispNuevo.setNombre("equipoModificado");
         entityManager().persist(dispNuevo);
-        Assert.assertEquals("equipoModificado",DispositivosManager.getInstance().traerCiertoDispositivoInteligenteDeLaDB(new Long(9)).getNombre());
+        Assert.assertEquals("equipoModificado",DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(new Long(9)).getNombre());
     }
 
     @After
