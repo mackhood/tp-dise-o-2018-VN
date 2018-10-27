@@ -7,10 +7,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.*;
+
+@Entity
 public class Periodo {
 	
+	@Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "idPeriodo")
+    protected Long id;
+	
+	@OneToOne (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private DispositivoInteligente disp;
+	@Column (name = "fechaInicio")
 	private LocalDateTime fechaInicio;
+	@Column (name = "fechaFin")
 	private LocalDateTime fechaFin;
 	
 	public Periodo(LocalDateTime fechaInicio, LocalDateTime fechaFin, DispositivoInteligente dispositivo) {this.fechaInicio = fechaInicio; 
