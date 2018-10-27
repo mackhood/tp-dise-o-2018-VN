@@ -10,17 +10,17 @@ import java.util.List;
 @DiscriminatorValue(value = "OrdenApagarDI")
 public class OrdenApagarDI extends Actuador {
 
-    public OrdenApagarDI(List<DispositivoInteligente> dispositivosAfectados) {
-        super(dispositivosAfectados);
+    public OrdenApagarDI(DispositivoInteligente disp) {
+        super(disp);
     }
 
     @Override
     public void ejecutar() {
-        dispositivos.forEach(DispositivoInteligente::apagar);
+        dispositivo.apagar();
     }
 
     @Override
     public void ejecutarInversa() {
-        dispositivos.forEach(DispositivoInteligente::encender);
+        dispositivo.encender();
     }
 }

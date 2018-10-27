@@ -20,13 +20,12 @@ public class testOrdenApagarDI {
 
     @Before
     public void setUp() {
-        List<DispositivoInteligente> listaDispositivosEncendidos = new ArrayList<>();
-        ordenApagarDI = new OrdenApagarDI(listaDispositivosEncendidos);
 
         unDI = Mockito.spy(new DispositivoInteligente.DispositivoInteligenteBuilder("MockDI")
                 .estadoDispositivo(new EstadoEncendido()).horaEncendido(LocalDateTime.now()).build());
 
-        listaDispositivosEncendidos.add(unDI);
+        ordenApagarDI = new OrdenApagarDI(unDI);
+
     }
 
     @Test

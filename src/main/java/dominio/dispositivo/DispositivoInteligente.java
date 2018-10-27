@@ -141,11 +141,7 @@ public class DispositivoInteligente extends Dispositivo {
     public void reducirConsumoPor(double cantidad) {
 
         consumoEstimadoPorHora = Math.max(0.0, consumoEstimadoPorHora - cantidad);
-
-        if (consumoEstimadoPorHora == 0) {
-            this.estadoDispositivo.apagar(this);
         }
-    }
 
     public double getConsumoTotal() {
 
