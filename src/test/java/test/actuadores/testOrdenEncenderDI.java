@@ -37,7 +37,7 @@ public class testOrdenEncenderDI {
 
     @Test
     public void testDIApagadoSigueApagado() {
-        ordenEncenderDI.ejecutar();
-        Assert.assertEquals(false,unDI.estaApagado());
+        ordenEncenderDI.ejecutarInversa();
+        assertTrue(unDI.estaApagado());
     }
 }
