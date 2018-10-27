@@ -94,11 +94,14 @@ public class DispositivoInteligente extends Dispositivo {
         this.setHoraEncendido(null);
     }
 
-
+    public double consumoParaIntervalo(Intervalo i) {
+    	
+    	return i.intervaloEnHoras() * consumoEstimadoPorHora;
+    }
     
     public double consumoParaIntervalos(List <Intervalo> intervalos) {
 
-        return intervalos.stream().mapToDouble(i -> i.intervaloEnHoras()*consumoEstimadoPorHora).sum();
+        return intervalos.stream().mapToDouble(i -> consumoParaIntervalo(i)).sum();
     }
 
     public void encender() {
