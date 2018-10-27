@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,10 +32,16 @@ public class testCliente {
     private Conversor moduloAdaptador;
     private DispositivoEstandar mockDE;
     private DispositivoInteligente mockDI;
-
+    
+    private Intervalo i1;
+    private Intervalo i2;
+    
     @Before
     public void setUp() {
-
+    	
+    	List <Intervalo> intervalosDeUsoDI1 = new ArrayList<>();
+    	List <Intervalo> intervalosDeUsoDI2 = new ArrayList<>();
+    	
         mockCategoria = Mockito.spy(new Categoria("CategoriaTest", 0, 3000, 50.0, 20.0));
         mockDispositivo = Mockito.mock(Dispositivo.class);
         moduloAdaptador = new Conversor();
@@ -45,12 +52,18 @@ public class testCliente {
 
         mockDI = Mockito
                 .spy(new DispositivoInteligente.DispositivoInteligenteBuilder("televisor").equipoConcreto("LED de 24")
-                        .consumoEstimadoPorHora(500.0).estadoDispositivo(new EstadoApagado()).horasDeUso(1.0).build());
+                        .consumoEstimadoPorHora(500.0).estadoDispositivo(new EstadoApagado()).intervalosDeUso(intervalosDeUsoDI1).build());
 
         mockDIEncendido = Mockito.spy(new DispositivoInteligente.DispositivoInteligenteBuilder("aireAcondicionado")
                 .equipoConcreto("De 2200 frigorias").consumoEstimadoPorHora(100.0)
-                .estadoDispositivo(new EstadoEncendido()).horasDeUso(19.0).build());
-
+                .estadoDispositivo(new EstadoEncendido()).intervalosDeUso(intervalosDeUsoDI2).build());
+        
+        i1 = spy(new Intervalo(LocalDateTime.of(2018,10,2,19,00),LocalDateTime.of(2018,10,2,20,00)));
+        i2 = spy(new Intervalo(LocalDateTime.of(2018,10,2,4,30),LocalDateTime.of(2018,10,2,23,30)));
+        
+        intervalosDeUsoDI1.add(i1);
+        intervalosDeUsoDI2.add(i2);
+        
         List<DispositivoEstandar> listaDispositivosEstandar = new ArrayList<>();
 
         List<DispositivoEstandar> listaDispositivosParaOtroCliente = new ArrayList<>();
