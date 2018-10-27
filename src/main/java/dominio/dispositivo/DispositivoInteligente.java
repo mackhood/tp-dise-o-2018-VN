@@ -73,8 +73,6 @@ public class DispositivoInteligente extends Dispositivo {
 	public void apagar() {
 		estadoDispositivo.apagar(this);
 		setHoraApagado(LocalDateTime.now());
-		System.out.println(horaEncendido.getHour());
-		System.out.println(horaApagado.getHour());
 		intervalosDeUso.add(new Intervalo(horaEncendido, horaApagado));
 		this.reiniciar();
 	}
