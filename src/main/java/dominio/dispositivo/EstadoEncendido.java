@@ -11,9 +11,6 @@ public class EstadoEncendido implements EstadoDispositivo {
 
     public void apagar(DispositivoInteligente disp) {
 
-        disp.horaApagado = LocalDateTime.now();
-        disp.sumarHorasDeUso(disp.horaEncendido, disp.horaApagado);
-
         disp.cambiarEstado(EstadoApagado.getInstance());
     }
 

@@ -5,6 +5,9 @@ import dominio.dispositivo.Conversor;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoEstandarInteligente;
 import dominio.dispositivo.DispositivoInteligente;
+import dominio.dispositivo.EstadoApagado;
+import dominio.dispositivo.EstadoEncendido;
+import dominio.dispositivo.Intervalo;
 import dominio.entities.NoTieneDispositivoException;
 import dominio.usuario.Cliente;
 import dominio.usuario.Domicilio;
@@ -14,8 +17,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static junit.framework.TestCase.*;
@@ -29,21 +35,34 @@ public class testDispositivo {
     private ConsultaConsumoUltimasNHoras consultaConsumoUltimasNHoras;
     private Cliente unCliente;
     private Conversor moduloAdaptador;
-
+    private Intervalo i1;
+    private Intervalo i2;
+    private Intervalo i3;
+    private Intervalo i4;
+    private Intervalo i5;
+    private Intervalo i6;
+    private Intervalo i7;
+    private Intervalo i8;
+    
     @Before
     public void setUp() {
 
         unDE = new DispositivoEstandar.DispositivoEstandarBuilder("a1").consumoEstimadoPorHora((double) 300).build();
-        unDIEncendido = new DispositivoInteligente.DispositivoInteligenteBuilder("da")
-                .consumoEstimadoPorHora((double) 500).build();
-        unDIApagado = new DispositivoInteligente.DispositivoInteligenteBuilder("AireAcondicionado")
-                .consumoEstimadoPorHora((double) 100).build();
-        unDIEncendido.setConsumoEstimadoPorHora(23);
-        unDIEncendido.setHorasDeUso(2);
-        unDIEncendido.encender();
-
+        
         moduloAdaptador = new Conversor();
-
+        
+        i1 = spy(new Intervalo(LocalDateTime.of(2018,05,12,4,25), LocalDateTime.of(2018,05,12,9,30)));
+        i2 = spy(new Intervalo(LocalDateTime.of(2018,05,18,6,00), LocalDateTime.of(2018,05,18,14,20)));
+        i3 = spy(new Intervalo(LocalDateTime.of(2018,05,20,18,30), LocalDateTime.of(2018,05,20,20,30)));
+        i4 = spy(new Intervalo(LocalDateTime.of(2018,05,29,13,20), LocalDateTime.of(2018,05,29,14,20)));
+        i5 = spy(new Intervalo(LocalDateTime.of(2018,06,03,12,10), LocalDateTime.of(2018,06,04,14,30)));
+        i6 = spy(new Intervalo(LocalDateTime.of(2018,06,20,00,20), LocalDateTime.of(2018,06,20,7,20)));
+        i7 = spy(new Intervalo(LocalDateTime.now().minusHours(10), LocalDateTime.now().minusHours(1)));
+        i8 = spy(new Intervalo(LocalDateTime.of(2018, 06,03,13,00),LocalDateTime.of(2018,06,03,15,00)));
+        
+        List <Intervalo> intervalosDeUso = new ArrayList<>();
+        intervalosDeUso.add(i3);
+        
         // unDIEncendido.serUsado(10);
         List<DispositivoInteligente> listDispApagados = new ArrayList<>();
         listDispApagados.add(unDIApagado);
@@ -64,9 +83,11 @@ public class testDispositivo {
                 listaDispositivosInteligentes));
 
         // unDETransformado = unCliente.agregarModuloAdaptador(moduloAdaptador, unDE);
-
-        unDIEncendido.setConsumoEstimadoPorHora(100);
-
+        
+        unDIEncendido = new DispositivoInteligente.DispositivoInteligenteBuilder("da").estadoDispositivo(new EstadoEncendido())
+                .consumoEstimadoPorHora((double) 500).intervalosDeUso(intervalosDeUso).build();
+        unDIApagado = new DispositivoInteligente.DispositivoInteligenteBuilder("AireAcondicionado").estadoDispositivo(new EstadoApagado())
+                .consumoEstimadoPorHora((double) 100).intervalosDeUso(intervalosDeUso).build();
     }
 
     /*
@@ -84,20 +105,9 @@ public class testDispositivo {
      */
 
     @Test
-    public void testConsumoDIEncendidoLuegoApagado() {
-        LocalDateTime horaEncendido = LocalDateTime.of(2018, 6, 8, 15, 30, 30, 100);
-        LocalDateTime horaApagado = LocalDateTime.of(2018, 6, 8, 21, 25, 30, 100);
-        unDIEncendido.setHoraEncendido(horaEncendido);
-        unDIEncendido.setHoraApagado(horaApagado);
-        unDIEncendido.sumarHorasDeUso(horaEncendido, horaApagado);
-        Assert.assertEquals(700.0, unDIEncendido.getConsumoTotal(), 10);
-
-        // unDIEncendido.apagar();
-        // Assert.assertEquals(0,horaEncendido.until(LocalDateTime.of(2018,8,6,20,45,30,100),ChronoUnit.HOURS));
-        // Assert.assertEquals(0,horaEncendido.until(unDIEncendido.getHoraApagado(),ChronoUnit.HOURS));
-        // Assert.assertEquals(0,unDIEncendido.getHoraApagado().until(horaEncendido,ChronoUnit.HOURS));
-
-        // Assert.assertEquals(0,LocalDateTime.now());
+    public void testConsumoParaIntervaloDe2Horas() {
+        
+        Assert.assertEquals(1000.0, unDIEncendido.consumoParaIntervalo(i3),1);
     }
 
     @Test
@@ -108,27 +118,39 @@ public class testDispositivo {
 
     @Test
     public void testDETUsadoPor90HorasConsumoUltimas3Horas() throws NoTieneDispositivoException {
-        unDE.serUsado(1);
+   
         DispositivoEstandarInteligente unDET = new DispositivoEstandarInteligente(unDE);
-        unCliente.agregarModuloAdaptador(moduloAdaptador, unDE);
         consultaConsumoUltimasNHoras = new ConsultaConsumoUltimasNHoras(unDET, 3);
-        assertEquals(300.0, consultaConsumoUltimasNHoras.consultar());
+        assertEquals(0.0, consultaConsumoUltimasNHoras.consultar());
     }
 
     @Test
     public void testDIEncendidoConsumoUltimas2Horas() {
         consultaConsumoUltimasNHoras = new ConsultaConsumoUltimasNHoras(unDIEncendido, 2);
-        assertEquals(200.0, consultaConsumoUltimasNHoras.consultar());
+        assertEquals(0.0, consultaConsumoUltimasNHoras.consultar());
     }
 
     @Test
-    public void testDIEncendidoConsumoUltimas10Horas() {
-        unDIEncendido.apagar();
-        consultaConsumoUltimasNHoras = new ConsultaConsumoUltimasNHoras(unDIEncendido, 10);
-
-        assertEquals(200.0, consultaConsumoUltimasNHoras.consultar());
+    public void testDIEncendidoConsumoUltimas9Horas() {
+    	
+    	unDIEncendido.agregarIntervalo(i7);
+        assertEquals(4500.0, unDIEncendido.consumoUltimasNHoras(9));
     }
-
+    
+    @Test
+    public void testIntervaloCaeDentroDeOtro() {
+    	
+    	assertTrue(i8.caeDentroDe(i5));
+    }
+    
+    @Test
+    public void testConsumoTotal() {
+    	// i3 agregado en setUp = 2 horas
+    	unDIEncendido.agregarIntervalo(i2); // 8 horas
+    	unDIEncendido.agregarIntervalo(i5); // 26 horas
+    	assertEquals(18000.0,unDIEncendido.getConsumoTotal());
+    }
+    
     @Test
     public void testDEConsultaDeConsumoTotalDeUnDispositivoEstandarUsadoPor3Horas() {
         unDE.serUsado(3);
@@ -141,7 +163,7 @@ public class testDispositivo {
     }
 
     @Test
-    public void testDECambioDeEstadoDispositivoInteligente() {
+    public void testCambioDeEstadoDispositivoInteligente() {
         unDIEncendido.apagar();
         assertFalse(unDIEncendido.estaEncendido());
     }
@@ -153,9 +175,9 @@ public class testDispositivo {
     }
 
     @Test
-    public void testReducirConsumoDispositivoInteligenteYapagarlo() {
+    public void testReducirConsumoDispositivoInteligente() {
         unDIEncendido.reducirConsumoPor(100);
-        assertTrue(unDIEncendido.estaApagado());
+        assertEquals(400.0,unDIEncendido.consumoEstimadoPorHora(),1);
     }
 
 

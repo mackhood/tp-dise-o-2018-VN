@@ -38,6 +38,11 @@ public class Intervalo {
     public void setInicio(LocalDateTime inicioIntervalo) {
         this.inicio = inicioIntervalo;
     }
+    
+    public boolean caeDentroDe(Intervalo i) {
+    	
+    	return fin.isAfter(i.getInicio()) && fin.isBefore(i.getFin());
+    }
 
     public LocalDateTime getFin() {
         return fin;

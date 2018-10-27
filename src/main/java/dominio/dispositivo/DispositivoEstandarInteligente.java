@@ -12,7 +12,6 @@ public class DispositivoEstandarInteligente extends DispositivoInteligente {
         this.nombre = dispositivoEstandar.getNombre();
         this.consumoEstimadoPorHora = dispositivoEstandar.consumoEstimadoPorHora();
         this.dispositivoEstandar = dispositivoEstandar;
-        this.horasDeUso = dispositivoEstandar.getHorasDeUso();
     }
 
     @Override
