@@ -20,13 +20,10 @@ public class testOrdenEncenderDI {
     @Before
     public void setUp() {
 
-        List<DispositivoInteligente> listaDispositivosApagados = new ArrayList<>();
-        ordenEncenderDI = new OrdenEncenderDI(listaDispositivosApagados);
-
         unDI = Mockito.spy(new DispositivoInteligente.DispositivoInteligenteBuilder("MockDI")
                 .estadoDispositivo(new EstadoApagado()).build());
 
-        listaDispositivosApagados.add(unDI);
+        ordenEncenderDI = new OrdenEncenderDI(unDI);
     }
 
     @Test

@@ -10,19 +10,19 @@ import java.util.List;
 @DiscriminatorValue(value = "OrdenPonerModoAhorro")
 public class OrdenPonerModoAhorro extends Actuador {
 
-    public OrdenPonerModoAhorro(List<DispositivoInteligente> dispositivosAfectados) {
-        super(dispositivosAfectados);
+    public OrdenPonerModoAhorro(DispositivoInteligente disp) {
+        super(disp);
     }
 
     @Override
     public void ejecutar() {
 
-        dispositivos.forEach(DispositivoInteligente::ponerModoAhorro);
+        dispositivo.ponerModoAhorro();;
     }
 
     @Override
     public void ejecutarInversa() {
 
-        dispositivos.forEach(DispositivoInteligente::encender);
+        dispositivo.encender();
     }
 }

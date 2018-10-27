@@ -11,19 +11,19 @@ import java.util.List;
 
 public class OrdenEncenderDI extends Actuador {
 
-    public OrdenEncenderDI(List<DispositivoInteligente> listaDI) {
-        super(listaDI);
+    public OrdenEncenderDI(DispositivoInteligente disp) {
+        super(disp);
     }
 
     @Override
     public void ejecutar() {
 
-        dispositivos.forEach(DispositivoInteligente::encender);
+        dispositivo.encender();
     }
 
     @Override
     public void ejecutarInversa() {
 
-        dispositivos.forEach(DispositivoInteligente::apagar);
+        dispositivo.apagar();
     }
 }

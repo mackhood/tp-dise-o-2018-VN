@@ -23,7 +23,7 @@ public class Administrador {
     private LocalDate fechaAlta;
     private long numId;
     private String usuario;
-    private String contraseña;
+    private String contrasenia;
     //private DispositivoABM dispositivoABM;
 
     public Administrador() {
@@ -34,7 +34,7 @@ public class Administrador {
         this.fechaAlta = fecha;
         //this.dispositivoABM = new DispositivoABM();
         this.usuario = username;
-        this.contraseña=password;
+        this.contrasenia=password;
     }
 
     public void setDomicilio(Domicilio domicilio) {
@@ -54,7 +54,7 @@ public class Administrador {
         return fechaAlta.until(ahora, ChronoUnit.MONTHS);
     }
     public String getContrasenia() {
-        return contraseña;
+        return contrasenia;
     }
 
 

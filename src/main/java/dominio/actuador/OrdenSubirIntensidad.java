@@ -10,19 +10,19 @@ import java.util.List;
 @DiscriminatorValue(value = "OrdenSubirIntensidad")
 public class OrdenSubirIntensidad extends Actuador {
 
-    public OrdenSubirIntensidad(List<DispositivoInteligente> dispositivosAfectados) {
-        super(dispositivosAfectados);
+    public OrdenSubirIntensidad(DispositivoInteligente disp) {
+        super(disp);
     }
 
     @Override
     public void ejecutar() {
 
-        dispositivos.forEach(d -> d.aumentarConsumoPor(50));
+        dispositivo.aumentarConsumoPor(50);
     }
 
     @Override
     public void ejecutarInversa() {
 
-        dispositivos.forEach(d -> d.reducirConsumoPor(50));
+        dispositivo.reducirConsumoPor(50);
     }
 }

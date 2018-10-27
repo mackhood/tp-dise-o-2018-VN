@@ -20,13 +20,11 @@ public class testOrdenSubirIntensidad {
     @Before
     public void setUp() {
 
-        List<DispositivoInteligente> listaDispositivosEncendidos = new ArrayList<>();
-        ordenSubirIntensidad = new OrdenSubirIntensidad(listaDispositivosEncendidos);
-
         unDI = Mockito.spy(new DispositivoInteligente.DispositivoInteligenteBuilder("MockDI")
                 .estadoDispositivo(new EstadoEncendido()).consumoEstimadoPorHora(30.0).build());
 
-        listaDispositivosEncendidos.add(unDI);
+
+        ordenSubirIntensidad = new OrdenSubirIntensidad(unDI);
     }
 
     @Test

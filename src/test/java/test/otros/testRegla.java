@@ -30,13 +30,11 @@ public class testRegla {
     public void setUp() {
 
         List<Condicion> listaCondiciones = new ArrayList<>();
-        List<DispositivoInteligente> listaDI = new ArrayList<>();
 
         mockDI = Mockito.spy(new DispositivoInteligente.DispositivoInteligenteBuilder("unDI")
                 .estadoDispositivo(new EstadoApagado()).build());
 
-        listaDI.add(mockDI);
-        mockActuador = Mockito.spy(new OrdenEncenderDI(listaDI));
+        mockActuador = Mockito.spy(new OrdenEncenderDI(mockDI));
         regla = new Regla(mockActuador, listaCondiciones);
         mockCondicion = Mockito.mock(CondicionPorMayor.class);
         otroMockCondicion = Mockito.mock(CondicionPorMenor.class);

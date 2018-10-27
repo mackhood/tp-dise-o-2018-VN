@@ -20,15 +20,11 @@ public class testOrdenPonerModoAhorro {
     @Before
     public void setUp() {
 
-        List<DispositivoInteligente> listaDispositivosApagados = new ArrayList<>();
-
-        ordenPonerModoAhorro = new OrdenPonerModoAhorro(listaDispositivosApagados);
-
 
         unDI = Mockito.spy(new DispositivoInteligente.DispositivoInteligenteBuilder("MockDI")
                 .estadoDispositivo(new EstadoEncendido()).build());
 
-        listaDispositivosApagados.add(unDI);
+        ordenPonerModoAhorro = new OrdenPonerModoAhorro(unDI);
     }
 
     @Test
