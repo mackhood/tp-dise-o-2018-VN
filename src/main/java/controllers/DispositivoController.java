@@ -3,7 +3,6 @@ package controllers;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.manager.*;
 import dominio.manager.ClienteManager;
-import dominio.repositories.RepositorioDispositivo;
 import dominio.usuario.Cliente;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
@@ -12,7 +11,6 @@ import spark.Request;
 import spark.Response;
 import utils.RequestUtil;
 
-import javax.jws.WebParam;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +43,7 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
         Map<String, DispositivoInteligente> model = new HashMap<>();
         String idDispositivo = req.params("id");
 
-        DispositivoInteligente dispositivoInteligente = DispositivosManager.getInstance().traerCiertoDispositivo(Long.parseLong(idDispositivo));
+        DispositivoInteligente dispositivoInteligente = DispositivosManager.getInstance().traerCiertoDispositivoInteligenteDeLaDB(Long.parseLong(idDispositivo));
         model.put("dispositivoInteligente",dispositivoInteligente);
         req.session().attribute("idDispositivo",idDispositivo);
 
@@ -53,7 +51,7 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
     }
     public ModelAndView alta(Request req, Response res)
     {
-        DispositivoInteligente dispositivoInteligente = DispositivosManager.getInstance().traerCiertoDispositivo(Long.parseLong(req.session().attribute("idDispositivo")));
+        DispositivoInteligente dispositivoInteligente = DispositivosManager.getInstance().traerCiertoDispositivoInteligenteDeLaDB(Long.parseLong(req.session().attribute("idDispositivo")));
         req.session().removeAttribute("idDispositivo");
         Cliente cliente = ClienteManager.getInstance().buscarClientePorUsuario(RequestUtil.getSessionCurrentUser(req));
         withTransaction(()->{
@@ -70,7 +68,7 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
         Map<String, DispositivoInteligente> model = new HashMap<>();
         String id = req.params("id");
 
-        DispositivoInteligente disp = DispositivosManager.getInstance().traerCiertoDispositivo(Long.parseLong(id));
+        DispositivoInteligente disp = DispositivosManager.getInstance().traerCiertoDispositivoInteligenteDeLaDB(Long.parseLong(id));
         model.put("dispositivo", disp);
         req.session().attribute("idDispositivo",id);
         return new ModelAndView(model, "usuario/modificar.hbs");
@@ -84,18 +82,18 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
         String consumoEstimadoPorHora = req.queryParams("consumoEstimadoPorHora");
         String id = req.session().attribute("idDispositivo");
         req.session().removeAttribute("idDispositivo");
-        DispositivoInteligente disp = DispositivosManager.getInstance().traerCiertoDispositivo(Long.parseLong(id));
+        DispositivoInteligente disp = DispositivosManager.getInstance().traerCiertoDispositivoInteligenteDeLaDB(Long.parseLong(id));
 
 
         withTransaction(()->{
             disp.setNombre(nombre);
-            disp.setConsumoEstimadoPorHora(Double.parseDouble(consumoEstimadoPorHora));
             disp.setEquipoConcreto(equipoConcreto);
+            disp.setConsumoEstimadoPorHora(Double.parseDouble(consumoEstimadoPorHora));
             entityManager().persist(disp);
             entityManager().getTransaction().commit();
         });
 
-        res.redirect("/usuario");
+        //res.redirect("/usuario");
         return new ModelAndView(null, "usuario/modificar.hbs");
     }
 
@@ -104,7 +102,7 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
         Map<String, DispositivoInteligente> model = new HashMap<>();
         String id = req.params("id");
 
-        DispositivoInteligente disp = DispositivosManager.getInstance().traerCiertoDispositivo(Long.parseLong(id));
+        DispositivoInteligente disp = DispositivosManager.getInstance().traerCiertoDispositivoInteligenteDeLaDB(Long.parseLong(id));
         model.put("dispositivo", disp);
         req.session().attribute("idDispositivo",id);
         return new ModelAndView(model,"usuario/bajar.hbs");
@@ -113,7 +111,7 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
     {
         String id = req.session().attribute("idDispositivo");
         req.session().removeAttribute("idDispositivo");
-        DispositivoInteligente disp = DispositivosManager.getInstance().traerCiertoDispositivo(Long.parseLong(id));
+        DispositivoInteligente disp = DispositivosManager.getInstance().traerCiertoDispositivoInteligenteDeLaDB(Long.parseLong(id));
 
         //Long idCliente = ClienteManager.getInstance().buscarClientePorUsuario(req.session().attribute("currentUser")).getId();
         withTransaction(()->{

@@ -14,8 +14,6 @@ import java.util.List;
 
 
 
-
-
     public class AdministradorManager implements WithGlobalEntityManager, TransactionalOps {
 
 

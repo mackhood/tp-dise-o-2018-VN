@@ -20,11 +20,11 @@ public class Router {
 		DispositivoController dispositivoController = new DispositivoController();
 		UsuarioController usuarioController = new UsuarioController();
 		AdminController adminController = new AdminController();
-		
+
 		Spark.get("/", HomeController::home, engine);
 		Spark.get("/login", LoginController::show, engine);
 		Spark.post("/login", LoginController::login, engine);
-		Spark.post("/logout", LoginController::logout, engine);
+		Spark.post("/usuario/logout", LoginController::logout, engine);
 		Spark.get("/usuario", usuarioController::show, engine);
 		Spark.get("/usuario/verDispositivosAlta", dispositivoController::listarDispositivosAlta,engine);
 		Spark.get("/usuario/altaConfirm/:id",dispositivoController::verAlta, engine);

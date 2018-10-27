@@ -31,7 +31,7 @@ public class testTransformadores extends AbstractPersistenceTest implements With
             entityManager().getTransaction().commit();
         });
 
-        List<Transformador> obtenerListaTransformadores  = entityManager().createQuery("FROM Transformador", Transformador.class).getResultList();
+        List<Transformador> obtenerListaTransformadores  = entityManager().createQuery("from Transformador", Transformador.class).getResultList();
 
         Transformador nuevoTransformador =new Transformador( );
         nuevoTransformador.setUbicacion(new Ubicacion(10,10));

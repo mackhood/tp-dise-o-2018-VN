@@ -27,7 +27,7 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
         });
     }
 
-    public DispositivoInteligente traerCiertoDispositivo(Long id)
+    public DispositivoInteligente traerCiertoDispositivoInteligenteDeLaDB(Long id)
     {
         return entityManager().find(DispositivoInteligente.class, id);
     }

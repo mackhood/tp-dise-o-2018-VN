@@ -51,6 +51,7 @@ public class LoginController {
 		req.session().removeAttribute("currentUser");
 		res.redirect("/login");
 		return null;
+		//return new ModelAndView(null,"home/logout.hbs");
 	}
 	
 }
