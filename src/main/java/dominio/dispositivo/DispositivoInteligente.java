@@ -94,14 +94,11 @@ public class DispositivoInteligente extends Dispositivo {
         this.setHoraEncendido(null);
     }
 
-    public double intervaloEnHoras(Intervalo intervalo) {
 
-        return intervalo.getInicio().until(intervalo.getFin(), ChronoUnit.HOURS);
-    }
+    
+    public double consumoParaIntervalos(List <Intervalo> intervalos) {
 
-    public double consumoParaIntervalo(Intervalo intervalo) {
-
-        return consumoEstimadoPorHora * intervaloEnHoras(intervalo);
+        return intervalos.stream().mapToDouble(i -> i.intervaloEnHoras()*consumoEstimadoPorHora).sum();
     }
 
     public void encender() {
@@ -117,13 +114,20 @@ public class DispositivoInteligente extends Dispositivo {
 
         horasDeUso = horasDeUso + unHorario.until(otroHorario, ChronoUnit.HOURS);
     }
-
-    public double consumoUltimasNHoras(double horas) {
-        if (horas > horasDeUso) {
-            return consumoEstimadoPorHora * horasDeUso;
-        } else {
-            return consumoEstimadoPorHora * horas;
-        }
+    
+    public List <Intervalo> buscarIntervalosEntre(LocalDateTime fecha, LocalDateTime otraFecha) {
+    	
+    	return intervalosDeUso.stream().filter(i-> i.estaEntre(fecha, otraFecha)).collect(Collectors.toList());
+    }
+    
+    public double consumoUltimasNHoras(long horas) {
+        
+    	if (buscarIntervalosEntre(LocalDateTime.now().minusHours(horas),LocalDateTime.now()).isEmpty()) {
+    		
+    		return 0;
+    	}
+    	
+    	else return this.consumoParaIntervalos(buscarIntervalosEntre(LocalDateTime.now().minusHours(horas),LocalDateTime.now()));
     }
 
     public void cambiarEstado(EstadoDispositivo estadoNuevo) {
@@ -132,7 +136,11 @@ public class DispositivoInteligente extends Dispositivo {
     }
 
 
-    // Para aumentar consumo en un 1000% aumentarConsumoPor(consumoEstimadoPorHora*10); -- PARA TEST ENTREGA 3
+    public List<Intervalo> getIntervalosDeUso() {
+		return intervalosDeUso;
+	}
+
+	// Para aumentar consumo en un 1000% aumentarConsumoPor(consumoEstimadoPorHora*10); -- PARA TEST ENTREGA 3
     public void aumentarConsumoPor(double cantidad) {
 
         this.consumoEstimadoPorHora += cantidad;
