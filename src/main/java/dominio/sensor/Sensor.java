@@ -30,7 +30,7 @@ public class Sensor {
 
     public List<Condicion> mismoTipo() {
 
-        return this.getCondiciones().stream().filter(cond -> cond.getTipo().equals(ultimaMedicion.getTipo()))
+        return this.getCondicionesACumplir().stream().filter(cond -> cond.getTipo().equals(ultimaMedicion.getTipo()))
                 .collect(Collectors.toList());
     }
 
@@ -39,7 +39,7 @@ public class Sensor {
         this.mismoTipo().forEach(cond -> cond.actualizar(this));
     }
 
-    public List<Condicion> getCondiciones() {
+    public List<Condicion> getCondicionesACumplir() {
         return regla.getCondicionesACumplir();
     }
 

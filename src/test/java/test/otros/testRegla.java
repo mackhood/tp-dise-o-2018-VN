@@ -3,11 +3,14 @@ package test.otros;
 import dominio.actuador.OrdenEncenderDI;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.dispositivo.EstadoApagado;
+import dominio.manager.DispositivosManager;
 import dominio.regla.Regla;
+import dominio.repositories.RepositorioReglaActuadorCondicion;
 import dominio.sensor.Condicion;
 import dominio.sensor.CondicionPorIgual;
 import dominio.sensor.CondicionPorMayor;
 import dominio.sensor.CondicionPorMenor;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -80,6 +83,13 @@ public class testRegla {
 
         regla.agregarCondicion(mockCondicionNoCumplida);
         assertEquals(false, regla.cumpleTodasLasCondiciones());
+    }
+
+    @Test
+    public void testRepo(){
+        RepositorioReglaActuadorCondicion.getInstance().getSensorCalor().recibirMedicion(RepositorioReglaActuadorCondicion.getInstance().getMedicionCalor());
+
+        Assert.assertEquals(true, DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(new Long(9)).estaEncendido());
     }
 
 }

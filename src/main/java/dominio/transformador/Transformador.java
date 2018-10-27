@@ -52,10 +52,11 @@ public class Transformador {
         usuariosConectados.add(cliente);
     }
 
+    /*
     public double consumoDeIntervalo(Intervalo intervalo) {
 
         return usuariosConectados.stream().mapToDouble(cliente -> cliente.consumoDeIntervalo(intervalo)).sum();
-    }
+    }*/
 
     public List<Cliente> getUsuariosConectados() {
 

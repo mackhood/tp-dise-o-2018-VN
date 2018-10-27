@@ -175,10 +175,10 @@ public class Cliente {
         return categoria.calcularCostosPara(this);
     }
 
-    public double consumoDeIntervalo(Intervalo intervalo) {
+    /*public double consumoDeIntervalo(Intervalo intervalo) {
 
-        return dispositivosInteligentes.stream().mapToDouble(disp -> disp.consumoParaIntervalo(intervalo)).sum();
-    }
+        return dispositivosInteligentes.stream().mapToDouble(disp -> disp.consumoParaIntervalos(intervalo)).sum();
+    }*/
 
     // GETTERS/SETTERS
 
