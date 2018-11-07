@@ -30,6 +30,7 @@
         <class>dominio.usuario.Domicilio</class>
 
         <class>dominio.dispositivo.DispositivoInteligente</class>
+        <class>dominio.dispositivo.Intervalo</class>
         <class>dominio.actuador.Actuador</class>
         <class>dominio.dispositivo.DispositivoEstandar</class>
         <class>dominio.dispositivo.Dispositivo</class>

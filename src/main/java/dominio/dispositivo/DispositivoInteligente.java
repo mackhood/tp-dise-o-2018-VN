@@ -1,9 +1,6 @@
 package dominio.dispositivo;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -18,7 +15,8 @@ public class DispositivoInteligente extends Dispositivo {
     public EstadoDispositivo estadoDispositivo;
     public LocalDateTime horaEncendido;
     public LocalDateTime horaApagado;
-    @Embedded
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<Intervalo> intervalosDeUso = new ArrayList<>();
 
     public DispositivoInteligente(DispositivoInteligenteBuilder builder) {
@@ -55,6 +53,11 @@ public class DispositivoInteligente extends Dispositivo {
 
     public EstadoDispositivo estadoDispositivo() {
         return estadoDispositivo;
+    }
+
+    public void agregarListaIntervalos(List<Intervalo> intervalos)
+    {
+        this.intervalosDeUso = intervalos;
     }
 
     public double getConsumoEstimadoPorHora() {

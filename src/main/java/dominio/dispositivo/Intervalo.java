@@ -1,20 +1,28 @@
 package dominio.dispositivo;
 
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Embeddable
+@Entity
+@Table(name = "intervalo")
 public class Intervalo {
 
-    LocalDateTime inicio;
-    LocalDateTime fin;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "idIntervalo")
+    protected Long id;
 
+    @Column(length = 50)
+    protected LocalDateTime inicio;
+    @Column(length = 50)
+    protected LocalDateTime fin;
+
+    public Intervalo(){}
     public Intervalo(LocalDateTime inicio, LocalDateTime fin) {
         this.inicio = inicio;
         this.fin = fin;
     }
 
-    ;
 
     public boolean estaEntre(LocalDateTime fecha, LocalDateTime otraFecha) {
 

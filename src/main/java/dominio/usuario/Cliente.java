@@ -266,4 +266,8 @@ public class Cliente {
     public String getContrasenia() {
         return contrasenia;
     }
+
+    public String getApellido() {
+        return apellido;
+    }
 }

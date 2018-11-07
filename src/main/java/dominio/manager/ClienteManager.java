@@ -51,7 +51,7 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
         });
     }
 
-    public Cliente buscarClientePorUsuario(String username){
+    public Cliente buscarClienteDeLaBDPorUsuario(String username){
 
         //System.out.println(username.getClass());
         //System.out.println("from Cliente c where usuario ='"+username+"'");
