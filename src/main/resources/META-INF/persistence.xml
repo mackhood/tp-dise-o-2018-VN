@@ -15,6 +15,7 @@
         <class>dominio.sensor.Condicion</class>
         <class>dominio.regla.Regla</class>
         <class>dominio.usuario.Usuario</class>
+        <class>dominio.dispositivo.Intervalo</class>
 
 
 

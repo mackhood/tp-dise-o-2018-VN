@@ -1,8 +1,15 @@
 package dominio.dispositivo;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -13,10 +20,16 @@ import java.util.stream.Collectors;
 @Entity
 @Table(name = "dispositivoInteligente")
 public class DispositivoInteligente extends Dispositivo {
-
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	long id;
+	
 	@Embedded
 	public EstadoDispositivo estadoDispositivo;
-	@Embedded
+	
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_dispositivo")
 	public List<Intervalo> intervalosDeUso = new ArrayList<>();
 
 	public DispositivoInteligente(DispositivoInteligenteBuilder builder) {

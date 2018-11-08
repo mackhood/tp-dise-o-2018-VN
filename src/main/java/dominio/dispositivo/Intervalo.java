@@ -1,13 +1,22 @@
 package dominio.dispositivo;
 
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-
+@Entity
 public class Intervalo {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	long id;
+	
     LocalDateTime inicio;
     LocalDateTime fin;
 
