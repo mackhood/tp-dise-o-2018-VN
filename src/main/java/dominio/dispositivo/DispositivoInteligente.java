@@ -1,5 +1,6 @@
 package dominio.dispositivo;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
@@ -28,8 +29,8 @@ public class DispositivoInteligente extends Dispositivo {
 	@Embedded
 	public EstadoDispositivo estadoDispositivo;
 	
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_dispositivo")
+	@ElementCollection
+	@CollectionTable(name = "Intervalos", joinColumns = @JoinColumn(name= "Intervalo_ID"))
 	public List<Intervalo> intervalosDeUso = new ArrayList<>();
 
 	public DispositivoInteligente(DispositivoInteligenteBuilder builder) {

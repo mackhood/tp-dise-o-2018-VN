@@ -10,13 +10,9 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-@Entity
+@Embeddable
 public class Intervalo {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	long id;
-	
     LocalDateTime inicio;
     LocalDateTime fin;
 
