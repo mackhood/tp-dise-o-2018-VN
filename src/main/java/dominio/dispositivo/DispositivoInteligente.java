@@ -16,8 +16,6 @@ public class DispositivoInteligente extends Dispositivo {
 
 	@Embedded
 	public EstadoDispositivo estadoDispositivo;
-	public LocalDateTime horaEncendido;
-	public LocalDateTime horaApagado;
 	@Embedded
 	public List<Intervalo> intervalosDeUso = new ArrayList<>();
 
@@ -26,8 +24,6 @@ public class DispositivoInteligente extends Dispositivo {
 		this.consumoEstimadoPorHora = builder.consumoEstimadoPorHora;
 		this.equipoConcreto = builder.equipoConcreto;
 		this.estadoDispositivo = builder.estadoDispositivo;
-		this.horaEncendido = builder.horaEncendido;
-		this.horaApagado = builder.horaApagado;
 		this.tipoDispositivo = builder.tipoDispositivo;
 		this.intervalosDeUso = builder.intervalosDeUso;
 
@@ -35,22 +31,6 @@ public class DispositivoInteligente extends Dispositivo {
 
 	public DispositivoInteligente() {
 
-	}
-
-	public LocalDateTime getHoraEncendido() {
-		return horaEncendido;
-	}
-
-	public void setHoraEncendido(LocalDateTime horaEncendido) {
-		this.horaEncendido = horaEncendido;
-	}
-
-	public LocalDateTime getHoraApagado() {
-		return horaApagado;
-	}
-
-	public void setHoraApagado(LocalDateTime horaApagado) {
-		this.horaApagado = horaApagado;
 	}
 
 	public EstadoDispositivo estadoDispositivo() {
@@ -72,9 +52,8 @@ public class DispositivoInteligente extends Dispositivo {
 
 	public void apagar() {
 		estadoDispositivo.apagar(this);
-		setHoraApagado(LocalDateTime.now());
-		intervalosDeUso.add(new Intervalo(horaEncendido, horaApagado));
-		this.reiniciar();
+		Intervalo i = intervalosDeUso.get(intervalosDeUso.size()-1);
+		i.setFin(LocalDateTime.now());
 	}
 
 	public List<Intervalo> encendidoEntre(LocalDateTime fecha, LocalDateTime otraFecha) {
@@ -82,11 +61,6 @@ public class DispositivoInteligente extends Dispositivo {
 		return intervalosDeUso.stream().filter(i -> i.estaEntre(fecha, otraFecha)).collect(Collectors.toList());
 	}
 
-	private void reiniciar() {
-
-		this.setHoraApagado(null);
-		this.setHoraEncendido(null);
-	}
 
 	public double consumoParaIntervalo(Intervalo i) {
 
@@ -103,16 +77,11 @@ public class DispositivoInteligente extends Dispositivo {
 
 	public void encender() {
 		estadoDispositivo.encender(this);
-		setHoraEncendido(LocalDateTime.now());
+		intervalosDeUso.add(new Intervalo(LocalDateTime.now(),null));
 	}
 
 	public void ponerModoAhorro() {
 		estadoDispositivo.ponerModoAhorro(this);
-	}
-
-	public List<Intervalo> buscarIntervalosEntre(LocalDateTime fecha, LocalDateTime otraFecha) {
-
-		return intervalosDeUso.stream().filter(i -> i.estaEntre(fecha, otraFecha)).collect(Collectors.toList());
 	}
 
 	public double consumoUltimasNHoras(long horas) {
@@ -127,7 +96,8 @@ public class DispositivoInteligente extends Dispositivo {
 		}
 
 		else
-			return this.consumoParaIntervalos(intervalosDentro);
+			
+			return intervalosDentro.stream().mapToDouble(i-> i.horasDentroDe(ultimasNHoras)).sum()*consumoEstimadoPorHora;
 	}
 
 	public void cambiarEstado(EstadoDispositivo estadoNuevo) {
@@ -198,19 +168,6 @@ public class DispositivoInteligente extends Dispositivo {
 		public DispositivoInteligenteBuilder intervalosDeUso(List<Intervalo> intervalosDeUso) {
 
 			this.intervalosDeUso = intervalosDeUso;
-			return this;
-		}
-
-		public DispositivoInteligenteBuilder horaEncendido(LocalDateTime horaEncendido) {
-
-			this.horaEncendido = horaEncendido;
-			return this;
-
-		}
-
-		public DispositivoInteligenteBuilder horaApagado(LocalDateTime horaApagado) {
-
-			this.horaApagado = horaApagado;
 			return this;
 		}
 

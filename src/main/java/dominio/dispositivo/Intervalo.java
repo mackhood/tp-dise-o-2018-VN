@@ -3,8 +3,9 @@ package dominio.dispositivo;
 import javax.persistence.Embeddable;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
-@Embeddable
+
 public class Intervalo {
 
     LocalDateTime inicio;
@@ -42,6 +43,29 @@ public class Intervalo {
     public boolean caeDentroDe(Intervalo i) {
     	
     	return fin.isAfter(i.getInicio()) && fin.isBefore(i.getFin());
+    }
+    
+    public double horasDentroDe(Intervalo i) {
+    	
+    	if (inicio.isAfter(i.getInicio()) && fin.isBefore(i.getFin())) {
+    		
+    		return this.intervaloEnHoras();
+    	}
+		
+    	else if (inicio.isAfter(i.getInicio()) && fin.isAfter(i.getFin())) {
+    		
+    		return this.getInicio().until(i.getFin(), ChronoUnit.HOURS);
+    	}
+    	
+    	else if (inicio.isBefore(i.getInicio()) && fin.isAfter(i.getFin())) {
+    		
+    		return i.intervaloEnHoras();
+    	}
+    	
+    	else {
+    		
+    		return i.getInicio().until(fin, ChronoUnit.HOURS);
+    	}
     }
 
     public LocalDateTime getFin() {

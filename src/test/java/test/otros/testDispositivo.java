@@ -57,7 +57,7 @@ public class testDispositivo {
         i4 = spy(new Intervalo(LocalDateTime.of(2018,05,29,13,20), LocalDateTime.of(2018,05,29,14,20)));
         i5 = spy(new Intervalo(LocalDateTime.of(2018,06,03,12,10), LocalDateTime.of(2018,06,04,14,30)));
         i6 = spy(new Intervalo(LocalDateTime.of(2018,06,20,00,20), LocalDateTime.of(2018,06,20,7,20)));
-        i7 = spy(new Intervalo(LocalDateTime.now().minusHours(10), LocalDateTime.now().minusHours(1)));
+        i7 = spy(new Intervalo(LocalDateTime.now().minusHours(10), LocalDateTime.now().minusNanos(1)));
         i8 = spy(new Intervalo(LocalDateTime.of(2018, 06,03,13,00),LocalDateTime.of(2018,06,03,15,00)));
         
         List <Intervalo> intervalosDeUso = new ArrayList<>();
@@ -136,11 +136,12 @@ public class testDispositivo {
         assertEquals(0.0, consultaConsumoUltimasNHoras.consultar());
     }
 
+    
     @Test
-    public void testDIEncendidoConsumoUltimas9Horas() {
+    public void testDIEncendidoConsumoUltimas10Horas() {
     	
     	unDIEncendido.agregarIntervalo(i7);
-        assertEquals(4500.0, unDIEncendido.consumoUltimasNHoras(9));
+        assertEquals(4500.0, unDIEncendido.consumoUltimasNHoras(10));
     }
     
     @Test
