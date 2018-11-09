@@ -16,7 +16,7 @@ public class DispositivoInteligente extends Dispositivo {
     public LocalDateTime horaEncendido;
     public LocalDateTime horaApagado;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dispositivoInteligente",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<Intervalo> intervalosDeUso = new ArrayList<>();
 
     public DispositivoInteligente(DispositivoInteligenteBuilder builder) {
@@ -164,7 +164,9 @@ public class DispositivoInteligente extends Dispositivo {
         return "/usuario/dispositivo/" + this.getId();
     }
 
-
+    public List<Intervalo> getIntervalosDeUso() {
+        return intervalosDeUso;
+    }
 
     public static class DispositivoInteligenteBuilder {
 

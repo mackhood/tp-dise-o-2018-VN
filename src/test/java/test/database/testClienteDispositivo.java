@@ -71,14 +71,8 @@ public class testClienteDispositivo extends AbstractPersistenceTest implements W
 
         di.setNombre("nombreModificado");
         entityManager().persist(di);
-        entityManager().getTransaction().commit();
         //FALTA MOSTRAR POR CONSOLA TODOS LOS INTERVALOS DONDE ESTUVO ENCENDIDO EL DISPOSITIVO
         assertEquals("nombreModificado", entityManager().find(DispositivoInteligente.class, new Long(13)).getNombre());
-    }
-    @Test
-    public void testNose()
-    {
-
     }
     @Test
     public void testTraerClientePorUsuario()

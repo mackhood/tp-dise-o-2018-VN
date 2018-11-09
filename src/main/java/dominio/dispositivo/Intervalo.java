@@ -12,6 +12,11 @@ public class Intervalo {
     @Column(name = "idIntervalo")
     protected Long id;
 
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idDispositivo")
+    private DispositivoInteligente dispositivoInteligente;
+
     @Column(length = 50)
     protected LocalDateTime inicio;
     @Column(length = 50)
