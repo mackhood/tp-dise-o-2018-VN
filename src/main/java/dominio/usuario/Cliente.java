@@ -271,7 +271,11 @@ public class Cliente {
 		return usuario;
 	}
 
-	public String getContrasenia() {
-		return contrasenia;
-	}
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
 }

@@ -1,17 +1,6 @@
 package dominio.dispositivo;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -21,16 +10,16 @@ import java.util.stream.Collectors;
 @Entity
 @Table(name = "dispositivoInteligente")
 public class DispositivoInteligente extends Dispositivo {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	long id;
-	
+
 	@Embedded
 	public EstadoDispositivo estadoDispositivo;
-	
+
 	@ElementCollection
-	@CollectionTable(name = "Intervalos", joinColumns = @JoinColumn(name= "Intervalo_ID"))
+	@CollectionTable(name = "Intervalos", joinColumns = @JoinColumn(name = "Intervalo_ID"))
 	public List<Intervalo> intervalosDeUso = new ArrayList<>();
 
 	public DispositivoInteligente(DispositivoInteligenteBuilder builder) {
@@ -44,7 +33,6 @@ public class DispositivoInteligente extends Dispositivo {
 	}
 
 	public DispositivoInteligente() {
-
 	}
 
 	public EstadoDispositivo estadoDispositivo() {
@@ -66,7 +54,7 @@ public class DispositivoInteligente extends Dispositivo {
 
 	public void apagar() {
 		estadoDispositivo.apagar(this);
-		Intervalo i = intervalosDeUso.get(intervalosDeUso.size()-1);
+		Intervalo i = intervalosDeUso.get(intervalosDeUso.size() - 1);
 		i.setFin(LocalDateTime.now());
 	}
 
@@ -75,30 +63,34 @@ public class DispositivoInteligente extends Dispositivo {
 		return intervalosDeUso.stream().filter(i -> i.estaEntre(fecha, otraFecha)).collect(Collectors.toList());
 	}
 
+	public void agregarListaIntervalos(List<Intervalo> intervalos) {
+		this.intervalosDeUso = intervalos;
+	}
 
 	public double consumoParaIntervalo(Intervalo i) {
 
-		//System.out.println("intervalo en horas " + i.intervaloEnHoras());
-		//System.out.println("consumo por hora" + consumoEstimadoPorHora);
+		// System.out.println("intervalo en horas " + i.intervaloEnHoras());
+		// System.out.println("consumo por hora" + consumoEstimadoPorHora);
 		return i.intervaloEnHoras() * consumoEstimadoPorHora;
 	}
-	
+
 	public double consumoParaPeriodo(Periodo p) {
-		
+
 		Intervalo periodo = p.convertir();
-		List <Intervalo> intervalosDentro = intervalosDeUso.stream().filter(i -> i.caeDentroDe(periodo)).collect(Collectors.toList());
+		List<Intervalo> intervalosDentro = intervalosDeUso.stream().filter(i -> i.caeDentroDe(periodo))
+				.collect(Collectors.toList());
 		return consumoParaIntervalos(intervalosDentro);
 	}
-	
+
 	public double consumoParaIntervalos(List<Intervalo> intervalos) {
 
-		//System.out.println("intervalos tamanio:" + intervalos.size());
+		// System.out.println("intervalos tamanio:" + intervalos.size());
 		return intervalos.stream().mapToDouble(i -> consumoParaIntervalo(i)).sum();
 	}
 
 	public void encender() {
 		estadoDispositivo.encender(this);
-		intervalosDeUso.add(new Intervalo(LocalDateTime.now(),null));
+		intervalosDeUso.add(new Intervalo(LocalDateTime.now(), null));
 	}
 
 	public void ponerModoAhorro() {
@@ -107,18 +99,20 @@ public class DispositivoInteligente extends Dispositivo {
 
 	public double consumoUltimasNHoras(long horas) {
 
-		Intervalo ultimasNHoras = new Intervalo(LocalDateTime.now().minusHours(horas),LocalDateTime.now());
-		
-		List <Intervalo> intervalosDentro = intervalosDeUso.stream().filter(i-> i.caeDentroDe(ultimasNHoras)).collect(Collectors.toList());
-		
+		Intervalo ultimasNHoras = new Intervalo(LocalDateTime.now().minusHours(horas), LocalDateTime.now());
+
+		List<Intervalo> intervalosDentro = intervalosDeUso.stream().filter(i -> i.caeDentroDe(ultimasNHoras))
+				.collect(Collectors.toList());
+
 		if (intervalosDentro.isEmpty()) {
 
 			return 0;
 		}
 
 		else
-			
-			return intervalosDentro.stream().mapToDouble(i-> i.horasDentroDe(ultimasNHoras)).sum()*consumoEstimadoPorHora;
+
+			return intervalosDentro.stream().mapToDouble(i -> i.horasDentroDe(ultimasNHoras)).sum()
+					* consumoEstimadoPorHora;
 	}
 
 	public void cambiarEstado(EstadoDispositivo estadoNuevo) {

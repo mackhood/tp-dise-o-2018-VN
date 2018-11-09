@@ -1,11 +1,7 @@
 package dominio.dispositivo;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -13,9 +9,10 @@ import java.util.List;
 @Embeddable
 public class Intervalo {
 
-    LocalDateTime inicio;
-    LocalDateTime fin;
+    protected LocalDateTime inicio;
+    protected LocalDateTime fin;
 
+    
     public Intervalo(LocalDateTime inicio, LocalDateTime fin) {
         this.inicio = inicio;
         this.fin = fin;

@@ -21,7 +21,7 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
     {
         Map<String, List<DispositivoInteligente>> model = new HashMap<>();
 
-        List<DispositivoInteligente> dispositivos = ClienteManager.getInstance().getClienteDeLaBDPorUsuario(RequestUtil.getSessionCurrentUser(req)).getDispositivosInteligentes();
+        List<DispositivoInteligente> dispositivos = ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario(RequestUtil.getSessionCurrentUser(req)).getDispositivosInteligentes();
 
         //List<DispositivoInteligente> dispositivos = ClienteManager.getInstance().getDispositivosInteligentesDelClienteDeLaBD(RequestUtil.getSessionCurrentUser(req));
         model.put("dispositivos",dispositivos);
@@ -53,7 +53,9 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
     {
         DispositivoInteligente dispositivoInteligente = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(Long.parseLong(req.session().attribute("idDispositivo")));
         req.session().removeAttribute("idDispositivo");
-        Cliente cliente = ClienteManager.getInstance().getClienteDeLaBDPorUsuario(RequestUtil.getSessionCurrentUser(req));
+
+        Cliente cliente = ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario(RequestUtil.getSessionCurrentUser(req));
+
         withTransaction(()->{
             cliente.agregarDispositivoInteligente(dispositivoInteligente);
             entityManager().persist(cliente);
@@ -113,7 +115,8 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
         req.session().removeAttribute("idDispositivo");
         DispositivoInteligente disp = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(Long.parseLong(id));
 
-        //Long idCliente = ClienteManager.getInstance().getClienteDeLaBDPorUsuario(req.session().attribute("currentUser")).getId();
+        //Long idCliente = ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario(req.session().attribute("currentUser")).getId();
+
         withTransaction(()->{
 
             //entityManager().createQuery("delete from Cliente_dispositivointeligente c where cliente_idCliente='"+idCliente+"' and dispositivosInteligentes_idDispositivo='"+id+"'");
