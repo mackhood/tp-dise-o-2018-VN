@@ -41,6 +41,7 @@ public abstract class Condicion {
     public void asociarA(Regla regla) {
     	
     	this.regla = regla;
+    	regla.getCondicionesACumplir().add(this);
     }
     
     public void actualizar(Sensor unSensor) {

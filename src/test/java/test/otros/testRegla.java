@@ -47,12 +47,13 @@ public class testRegla {
         mockCondicion = Mockito.mock(CondicionPorMayor.class);
         otroMockCondicion = Mockito.mock(CondicionPorMenor.class);
         mockCondicionNoCumplida = Mockito.mock(CondicionPorIgual.class);
+        mockCondicion.asociarA(regla);
+        otroMockCondicion.asociarA(regla);
 
         Mockito.when(mockCondicion.cumpleCondicion()).thenReturn(true);
         Mockito.when(otroMockCondicion.cumpleCondicion()).thenReturn(true);
         Mockito.when(mockCondicionNoCumplida.cumpleCondicion()).thenReturn(false);
-        regla.agregarCondicion(mockCondicion);
-        regla.agregarCondicion(otroMockCondicion);
+ 
     }
 
     @Test
@@ -60,6 +61,22 @@ public class testRegla {
 
         regla.agregarCondicion(mockCondicionNoCumplida);
         assertEquals(3, regla.getCondicionesACumplir().size());
+    }
+    
+    /* Hago este test para verificar que asociarA(regla) si hace lo que tiene que hacer, no se por que pero haciendo mocks de 
+     * las condiciones no funciona, cuando inicializandolas como objetos si.
+     */
+    
+    @Test
+    public void mismoTestSinMocks() {
+    	
+    	List<Condicion> listaCondiciones = new ArrayList<>();
+    	CondicionPorMayor c = new CondicionPorMayor(10,"t");
+    	CondicionPorMayor c2 = new CondicionPorMayor(10,"t");
+    	Regla regla = new Regla(mockActuador,listaCondiciones);
+    	c.asociarA(regla);
+    	c2.asociarA(regla);
+    	assertEquals(2,regla.getCondicionesACumplir().size());
     }
 
     @Test
