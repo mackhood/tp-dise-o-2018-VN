@@ -31,7 +31,8 @@ public class testSensor {
         mockActuador = Mockito.mock(OrdenSubirIntensidad.class);
         mockRegla = Mockito.spy(new Regla(mockActuador, listaCondiciones));
         unSensor = new Sensor(mockRegla);
-        mockCondicion = Mockito.spy(new CondicionPorIgual(mockRegla, 1, "Movimiento"));
+        mockCondicion = Mockito.spy(new CondicionPorIgual(1, "Movimiento"));
+        mockCondicion.asociarA(mockRegla);
         mockRegla.agregarCondicion(mockCondicion);
     }
 

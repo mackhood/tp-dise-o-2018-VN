@@ -20,7 +20,8 @@ public class testCondicionPorMenor {
     public void setUp() {
 
         mockRegla = Mockito.mock(Regla.class);
-        menorA20 = new CondicionPorMenor(mockRegla, 20, "Temperatura");
+        menorA20 = new CondicionPorMenor(20, "Temperatura");
+        menorA20.asociarA(mockRegla);
         mockSensor =Mockito.mock(Sensor.class);
         when(mockSensor.getValorMedicion()).thenReturn(125.0);    }
 

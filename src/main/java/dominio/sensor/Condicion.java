@@ -18,11 +18,10 @@ public abstract class Condicion {
     @Basic
     private String tipo;
     @OneToOne(fetch = FetchType.LAZY)
-    private Regla regla;
+    private Regla regla = null;
 
-    public Condicion(Regla regla, double valorLimite, String tipo) {
+    public Condicion(double valorLimite, String tipo) {
 
-        this.regla = regla;
         this.valorLimite = valorLimite;
         this.tipo = tipo;
     }
@@ -38,11 +37,24 @@ public abstract class Condicion {
      */
 
     public abstract boolean cumpleCondicion();
-
+    
+    public void asociarA(Regla regla) {
+    	
+    	this.regla = regla;
+    }
+    
     public void actualizar(Sensor unSensor) {
-
+    	
+    	if (regla == null) {
+    		
+    		throw new RuntimeException("Debe asociarse una regla");
+    	}
+    	
+    	else {
+    	
         this.setMedicionActual(unSensor.getValorMedicion());
         regla.chequearCondicionesYEjecutar();
+    	}
     }
 
     public void modificarCondicion(double nuevoValorLimite) {

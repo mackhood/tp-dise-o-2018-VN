@@ -11,8 +11,8 @@ import javax.persistence.Entity;
 
 public class CondicionPorMenor extends Condicion {
 
-    public CondicionPorMenor(Regla regla, double valorLimite, String tipo) {
-        super(regla, valorLimite, tipo);
+    public CondicionPorMenor(double valorLimite, String tipo) {
+        super(valorLimite, tipo);
     }
 
     ;

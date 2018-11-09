@@ -9,8 +9,8 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "PorIgual")
 public class CondicionPorIgual extends Condicion {
 
-    public CondicionPorIgual(Regla regla, double valorLimite, String tipo) {
-        super(regla, valorLimite, tipo);
+    public CondicionPorIgual(double valorLimite, String tipo) {
+        super(valorLimite, tipo);
     }
 
     @Override
