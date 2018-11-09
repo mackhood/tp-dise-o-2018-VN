@@ -1,5 +1,6 @@
 package dominio.transformador;
 
+import dominio.dispositivo.DispositivoInteligente;
 import dominio.dispositivo.Intervalo;
 import dominio.usuario.Cliente;
 import dominio.zonageografica.Ubicacion;
@@ -7,6 +8,7 @@ import dominio.zonageografica.Ubicacion;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -42,6 +44,21 @@ public class Transformador {
 
     public double energiaConsumidaClientes() {
         return usuariosConectados.stream().mapToDouble(usuario -> usuario.consumoEnergeticoTotal()).sum();
+    }
+    
+    public double consumoEnIntervalo(Intervalo i) {
+    	
+    	double totalConsumo =0;
+    	List<List<DispositivoInteligente>> dispositivosConectados = usuariosConectados.stream()
+    			.map(user -> user.getDispositivosInteligentes()).collect(Collectors.toList());
+    	
+    	for (int n=0; n< dispositivosConectados.size(); n++) {
+    		
+    		double consumoPorUsuario = dispositivosConectados.get(n).stream().mapToDouble(d -> d.consumoParaIntervalo(i)).sum();
+    		totalConsumo += consumoPorUsuario;
+    	}
+    	
+    	return totalConsumo;
     }
 
     public Double calcularDistancia(Ubicacion ubicacionCliente) {

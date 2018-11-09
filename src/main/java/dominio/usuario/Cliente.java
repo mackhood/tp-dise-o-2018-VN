@@ -47,11 +47,11 @@ public class Cliente {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Categoria categoria;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "idCliente")
 	private List<DispositivoEstandar> dispositivosEstandar = new ArrayList<>();
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "idCliente")
 
 	private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
