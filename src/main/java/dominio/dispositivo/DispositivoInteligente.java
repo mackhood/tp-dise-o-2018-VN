@@ -82,7 +82,14 @@ public class DispositivoInteligente extends Dispositivo {
 		//System.out.println("consumo por hora" + consumoEstimadoPorHora);
 		return i.intervaloEnHoras() * consumoEstimadoPorHora;
 	}
-
+	
+	public double consumoParaPeriodo(Periodo p) {
+		
+		Intervalo periodo = p.convertir();
+		List <Intervalo> intervalosDentro = intervalosDeUso.stream().filter(i -> i.caeDentroDe(periodo)).collect(Collectors.toList());
+		return consumoParaIntervalos(intervalosDentro);
+	}
+	
 	public double consumoParaIntervalos(List<Intervalo> intervalos) {
 
 		//System.out.println("intervalos tamanio:" + intervalos.size());

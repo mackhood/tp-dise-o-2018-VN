@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import javax.persistence.*;
 
 @Entity
+@Table(name="periodos")
 public class Periodo {
 	
 	@Id
@@ -33,6 +34,11 @@ public class Periodo {
 
 	public LocalDateTime getFechaFin() {
 		return fechaFin;
+	}
+	
+	public Intervalo convertir() {
+		
+		return new Intervalo(fechaInicio,fechaFin);
 	}
 	
 	public double periodoEnHoras() {
