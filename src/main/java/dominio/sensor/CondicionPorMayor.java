@@ -10,8 +10,8 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "PorMayor")
 public class CondicionPorMayor extends Condicion {
 
-    public CondicionPorMayor(Regla regla, double valorLimite, String tipo) {
-        super(regla, valorLimite, tipo);
+    public CondicionPorMayor(double valorLimite, String tipo) {
+        super(valorLimite, tipo);
     }
 
     @Override

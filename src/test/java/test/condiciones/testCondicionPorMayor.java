@@ -21,7 +21,8 @@ public class testCondicionPorMayor {
     public void setUp() {
 
         mockRegla = Mockito.mock(Regla.class);
-        mayorA25 = new CondicionPorMayor(mockRegla, 25, "NivelDeRadiacion");
+        mayorA25 = new CondicionPorMayor(25, "NivelDeRadiacion");
+        mayorA25.asociarA(mockRegla);
         mockSensor =Mockito.mock(Sensor.class);
         when(mockSensor.getValorMedicion()).thenReturn(125.0);    }
 

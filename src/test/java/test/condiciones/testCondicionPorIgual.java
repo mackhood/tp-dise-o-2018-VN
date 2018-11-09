@@ -20,7 +20,8 @@ public class testCondicionPorIgual {
     public void setUp() {
 
         mockRegla = Mockito.mock(Regla.class);
-        igualA30 = new CondicionPorIgual(mockRegla, 30, "Humedad");
+        igualA30 = new CondicionPorIgual(30, "Humedad");
+        igualA30.asociarA(mockRegla);
         mockSensor =Mockito.mock(Sensor.class);
         when(mockSensor.getValorMedicion()).thenReturn(125.0);    }
 
