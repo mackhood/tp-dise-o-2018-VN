@@ -18,8 +18,8 @@ public class DispositivoInteligente extends Dispositivo {
 	@Embedded
 	public EstadoDispositivo estadoDispositivo;
 
-	@ElementCollection
-	@CollectionTable(name = "Intervalos", joinColumns = @JoinColumn(name = "Intervalo_ID"))
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name="idDispositivo")
 	public List<Intervalo> intervalosDeUso = new ArrayList<>();
 
 	public DispositivoInteligente(DispositivoInteligenteBuilder builder) {

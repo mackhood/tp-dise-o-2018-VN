@@ -1,82 +1,92 @@
 package dominio.dispositivo;
 
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-@Embeddable
+@Entity
+@Table(name = "intervalo")
+
 public class Intervalo {
 
-    protected LocalDateTime inicio;
-    protected LocalDateTime fin;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "idIntervalo")
+	protected Long id;
 
-    
-    public Intervalo(LocalDateTime inicio, LocalDateTime fin) {
-        this.inicio = inicio;
-        this.fin = fin;
-    }
+	@Column(length = 50)
+	protected LocalDateTime inicio;
 
-    public boolean estaEntre(LocalDateTime fecha, LocalDateTime otraFecha) {
+	@Column(length = 50)
+	protected LocalDateTime fin;
 
-        return inicio.isAfter(fecha) && fin.isBefore(otraFecha);
-    }
+	public Intervalo() {}
 
-    public Intervalo ultimoMes() {
+	public Intervalo(LocalDateTime inicio, LocalDateTime fin) {
 
-        LocalDateTime finIntervalo = LocalDateTime.now().minusMonths(1);
-        return new Intervalo(LocalDateTime.now(), finIntervalo);
-    }
-    
-    public double intervaloEnHoras() {
+		this.inicio = inicio;
+		this.fin = fin;
+	}
 
-        return inicio.until(fin, ChronoUnit.HOURS);
-    }
-    
-    public LocalDateTime getInicio() {
-        return inicio;
-    }
+	public boolean estaEntre(LocalDateTime fecha, LocalDateTime otraFecha) {
 
-    public void setInicio(LocalDateTime inicioIntervalo) {
-        this.inicio = inicioIntervalo;
-    }
-    
-    public boolean caeDentroDe(Intervalo i) {
-    	
-    	return fin.isAfter(i.getInicio()) && fin.isBefore(i.getFin());
-    }
-    
-    public double horasDentroDe(Intervalo i) {
-    	
-    	if (inicio.isAfter(i.getInicio()) && fin.isBefore(i.getFin())) {
-    		
-    		return this.intervaloEnHoras();
-    	}
-		
-    	else if (inicio.isAfter(i.getInicio()) && fin.isAfter(i.getFin())) {
-    		
-    		return this.getInicio().until(i.getFin(), ChronoUnit.HOURS);
-    	}
-    	
-    	else if (inicio.isBefore(i.getInicio()) && fin.isAfter(i.getFin())) {
-    		
-    		return i.intervaloEnHoras();
-    	}
-    	
-    	else {
-    		
-    		return i.getInicio().until(fin, ChronoUnit.HOURS);
-    	}
-    }
+		return inicio.isAfter(fecha) && fin.isBefore(otraFecha);
+	}
 
-    public LocalDateTime getFin() {
-        return fin;
-    }
+	public Intervalo ultimoMes() {
 
-    public void setFin(LocalDateTime finIntervalo) {
-        this.fin = finIntervalo;
-    }
+		LocalDateTime finIntervalo = LocalDateTime.now().minusMonths(1);
+		return new Intervalo(LocalDateTime.now(), finIntervalo);
+	}
 
+	public double intervaloEnHoras() {
+
+		return inicio.until(fin, ChronoUnit.HOURS);
+	}
+
+	public LocalDateTime getInicio() {
+		return inicio;
+	}
+
+	public void setInicio(LocalDateTime inicioIntervalo) {
+		this.inicio = inicioIntervalo;
+	}
+
+	public boolean caeDentroDe(Intervalo i) {
+
+		return fin.isAfter(i.getInicio()) && fin.isBefore(i.getFin());
+	}
+
+	public double horasDentroDe(Intervalo i) {
+
+		if (inicio.isAfter(i.getInicio()) && fin.isBefore(i.getFin())) {
+
+			return this.intervaloEnHoras();
+		}
+
+		else if (inicio.isAfter(i.getInicio()) && fin.isAfter(i.getFin())) {
+
+			return this.getInicio().until(i.getFin(), ChronoUnit.HOURS);
+		}
+
+		else if (inicio.isBefore(i.getInicio()) && fin.isAfter(i.getFin())) {
+
+			return i.intervaloEnHoras();
+		}
+
+		else {
+
+			return i.getInicio().until(fin, ChronoUnit.HOURS);
+		}
+	}
+
+	public LocalDateTime getFin() {
+		return fin;
+	}
+
+	public void setFin(LocalDateTime finIntervalo) {
+		this.fin = finIntervalo;
+	}
 
 }
