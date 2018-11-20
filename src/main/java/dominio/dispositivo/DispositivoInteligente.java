@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "dispositivoInteligente")
-@Access(value=AccessType.PROPERTY)
+
 public class DispositivoInteligente extends Dispositivo {
 
 	@Id
@@ -17,12 +17,9 @@ public class DispositivoInteligente extends Dispositivo {
 	long id;
 
 	@Embedded
-	@Access(value=AccessType.FIELD)
 	public EstadoDispositivo estadoDispositivo;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name="idDispositivo")
-
 	public List<Intervalo> intervalosDeUso = new ArrayList<>();
 
 	public DispositivoInteligente(DispositivoInteligenteBuilder builder) {
@@ -34,6 +31,7 @@ public class DispositivoInteligente extends Dispositivo {
 		this.intervalosDeUso = builder.intervalosDeUso;
 
 	}
+
 
 	public DispositivoInteligente() {
 	}

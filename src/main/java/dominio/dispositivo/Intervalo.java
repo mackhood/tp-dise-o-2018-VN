@@ -6,8 +6,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Entity
-@Table(name = "intervalo")
-
+//@Table(name = "intervalo")
 public class Intervalo {
 
 	@Id
