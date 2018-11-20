@@ -1,5 +1,8 @@
 package dominio.dispositivo;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class EstadoModoAhorro implements EstadoDispositivo {
 
     private static EstadoModoAhorro instance = new EstadoModoAhorro();

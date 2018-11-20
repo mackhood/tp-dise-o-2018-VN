@@ -1,7 +1,9 @@
 package dominio.dispositivo;
 
+import javax.persistence.Embeddable;
 import java.time.LocalDateTime;
 
+@Embeddable
 public class EstadoApagado implements EstadoDispositivo {
 
     private static EstadoApagado instance = new EstadoApagado();

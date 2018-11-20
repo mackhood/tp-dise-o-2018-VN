@@ -9,6 +9,13 @@
 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
+        <class>dominio.dispositivo.Intervalo</class>
+        <class>dominio.dispositivo.EstadoNulo</class>
+        <class>dominio.dispositivo.EstadoModoAhorro</class>
+        <class>dominio.dispositivo.EstadoEncendido</class>
+        <class>dominio.dispositivo.EstadoApagado</class>
+
+
         <class>dominio.usuario.Administrador</class>
         <class>dominio.sensor.Sensor</class>
         <class>dominio.sensor.Medicion</class>

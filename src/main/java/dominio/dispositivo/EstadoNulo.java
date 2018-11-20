@@ -1,5 +1,8 @@
 package dominio.dispositivo;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class EstadoNulo implements EstadoDispositivo {
 
     public void apagar(DispositivoInteligente disp) {
