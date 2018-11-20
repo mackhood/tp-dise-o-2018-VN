@@ -2,7 +2,8 @@ package test.actuadores;
 
 import dominio.actuador.OrdenSubirIntensidad;
 import dominio.dispositivo.DispositivoInteligente;
-import dominio.dispositivo.EstadoEncendido;
+import dominio.repositories.RepositorioDispositivo;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -20,22 +21,21 @@ public class testOrdenSubirIntensidad {
     @Before
     public void setUp() {
 
-        unDI = Mockito.spy(new DispositivoInteligente.DispositivoInteligenteBuilder("MockDI")
-                .estadoDispositivo(new EstadoEncendido()).consumoEstimadoPorHora(30.0).build());
+        unDI = Mockito.spy(RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("aireAcondicionado","De 3500 frigorias"));
 
 
         ordenSubirIntensidad = new OrdenSubirIntensidad(unDI);
     }
 
     @Test
-    public void testDISubeIntensidadYAumentaSuConsumoEn50() {
+    public void testDISubeIntensidadYAumentaSuConsumoEnMedioKwh() {
         ordenSubirIntensidad.ejecutar();
-        assertEquals(80, unDI.getConsumoEstimadoPorHora(), 1);
+        assertEquals(2.113, unDI.getConsumoEstimadoPorHora(), 1);
     }
 
     @Test
     public void testDIBajaIntensidadYSuConsumoDesciendeEn50() {
         ordenSubirIntensidad.ejecutarInversa();
-        assertEquals(0, unDI.getConsumoEstimadoPorHora(), 1);
+        assertEquals(1.113, unDI.getConsumoEstimadoPorHora(), 1);
     }
 }

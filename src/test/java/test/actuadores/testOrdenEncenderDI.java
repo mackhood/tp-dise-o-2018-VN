@@ -2,7 +2,6 @@ package test.actuadores;
 
 import dominio.actuador.OrdenEncenderDI;
 import dominio.dispositivo.DispositivoInteligente;
-import dominio.dispositivo.EstadoApagado;
 import dominio.repositories.RepositorioDispositivo;
 import org.junit.Assert;
 import org.junit.Before;
@@ -23,9 +22,6 @@ public class testOrdenEncenderDI {
     public void setUp() {
 
         unDI = Mockito.spy(RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("aireAcondicionado","De 2200 frigorias"));
-        unDI.encender();
-        unDI.apagar();
-
         ordenEncenderDI = new OrdenEncenderDI(unDI);
     }
 

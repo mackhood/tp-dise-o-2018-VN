@@ -17,12 +17,12 @@ public class OrdenSubirIntensidad extends Actuador {
     @Override
     public void ejecutar() {
 
-        dispositivo.aumentarConsumoPor(50);
+        dispositivo.aumentarConsumoPor(0.5);
     }
 
     @Override
     public void ejecutarInversa() {
 
-        dispositivo.reducirConsumoPor(50);
+        dispositivo.reducirConsumoPor(0.5);
     }
 }

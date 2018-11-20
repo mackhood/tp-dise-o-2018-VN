@@ -2,7 +2,8 @@ package test.actuadores;
 
 import dominio.actuador.OrdenPonerModoAhorro;
 import dominio.dispositivo.DispositivoInteligente;
-import dominio.dispositivo.EstadoEncendido;
+import dominio.repositories.RepositorioDispositivo;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -21,12 +22,11 @@ public class testOrdenPonerModoAhorro {
     public void setUp() {
 
 
-        unDI = Mockito.spy(new DispositivoInteligente.DispositivoInteligenteBuilder("MockDI")
-                .estadoDispositivo(new EstadoEncendido()).build());
-
+        unDI = Mockito.spy(RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("televisor","LED de 24"));
+        unDI.encender();
         ordenPonerModoAhorro = new OrdenPonerModoAhorro(unDI);
     }
-
+    
     @Test
     public void testDIEncendidoSePoneEnModoAhorro() {
         ordenPonerModoAhorro.ejecutar();
