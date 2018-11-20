@@ -17,6 +17,7 @@ public class DispositivoInteligente extends Dispositivo {
 	long id;
 
 	@Embedded
+	@Column(name="estado")
 	public EstadoDispositivo estadoDispositivo;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
