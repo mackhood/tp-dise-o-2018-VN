@@ -11,7 +11,7 @@ import java.util.List;
 
 public abstract class Actuador {
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@OneToOne(fetch = FetchType.EAGER)
 	protected DispositivoInteligente dispositivo;
 
 	/*

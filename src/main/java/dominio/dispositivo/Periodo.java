@@ -18,11 +18,11 @@ public class Periodo {
     @Column(name = "idPeriodo")
     protected Long id;
 	
-	@OneToOne (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne (fetch = FetchType.EAGER)
 	private DispositivoInteligente disp;
-	@Column (name = "fechaInicio")
+	
 	private LocalDateTime fechaInicio;
-	@Column (name = "fechaFin")
+	
 	private LocalDateTime fechaFin;
 	
 	public Periodo(LocalDateTime fechaInicio, LocalDateTime fechaFin, DispositivoInteligente dispositivo) {this.fechaInicio = fechaInicio; 

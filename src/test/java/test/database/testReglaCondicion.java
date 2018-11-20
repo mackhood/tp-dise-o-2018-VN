@@ -5,8 +5,11 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import dominio.actuador.OrdenEncenderDI;
 import dominio.dispositivo.DispositivoInteligente;
@@ -16,8 +19,13 @@ import dominio.sensor.Condicion;
 import dominio.sensor.CondicionPorMayor;
 import dominio.sensor.CondicionPorMenor;
 
-public class testReglaCondicion implements WithGlobalEntityManager {
-
+public class testReglaCondicion extends AbstractPersistenceTest implements WithGlobalEntityManager {
+	
+	@Before
+    public void setup() {
+        entityManager().getTransaction().begin();
+    }
+	
     @Test
     public void casoDePrueba3() {
 
@@ -28,20 +36,24 @@ public class testReglaCondicion implements WithGlobalEntityManager {
     	Regla reglaTest = new Regla(actuador,condiciones);
     	CondicionPorMayor mayorA20 = new CondicionPorMayor(20,"Temperatura");
     	mayorA20.asociarA(reglaTest);
-    	condiciones.add(mayorA20);
     	
     	entityManager().persist(di);
     	entityManager().persist(actuador);
     	entityManager().persist(reglaTest);
     	entityManager().persist(mayorA20);
     	
-    	Regla reglaRecuperada = (Regla) entityManager().createQuery("from regla").getSingleResult();
+    	Regla reglaRecuperada = (Regla) entityManager().createQuery("from regla r").getSingleResult();
     	reglaRecuperada.chequearCondicionesYEjecutar();
     	CondicionPorMenor menorA30 = new CondicionPorMenor(15,"Temperatura");
     	menorA30.asociarA(reglaRecuperada);
-    	reglaRecuperada.agregarCondicion(menorA30);
     	entityManager().persist(reglaRecuperada);
-    	Regla reglaRecuperadaV2 = (Regla) entityManager().createQuery("from regla").getSingleResult();
+    	Regla reglaRecuperadaV2 = (Regla) entityManager().createQuery("from regla r").getSingleResult();
     	assertTrue(reglaRecuperadaV2.getCondicionesACumplir().contains(menorA30));
+    }
+    
+    @After
+    public void rollback() {
+    	
+    	entityManager().getTransaction().rollback();
     }
 }

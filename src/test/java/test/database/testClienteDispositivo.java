@@ -84,8 +84,8 @@ public class testClienteDispositivo extends AbstractPersistenceTest implements W
     	List<Intervalo> intervalosDeUso = new ArrayList<>();
     	intervalosDeUso.add(i1);
     	intervalosDeUso.add(i2);
-    	persist(i1);
-        persist(i2);
+    	entityManager().persist(i1);
+        entityManager().persist(i2);
     	
     	DispositivoInteligente di = new DispositivoInteligente.DispositivoInteligenteBuilder("di").consumoEstimadoPorHora((double)200).intervalosDeUso(intervalosDeUso).build();
     	entityManager().persist(di);
@@ -125,7 +125,7 @@ public class testClienteDispositivo extends AbstractPersistenceTest implements W
         Assert.assertEquals(3,cliente.getDispositivosInteligentes().size());
     }
     
-    //@After
+    @After
     public void rollback() {
         entityManager().getTransaction().rollback();
     }
