@@ -12,11 +12,23 @@ import java.util.stream.Collectors;
 
 public class DispositivoInteligente extends Dispositivo {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	long id;
+
+<<<<<<< HEAD
+	@Embedded
+	@Column(name="estado")
+	public EstadoDispositivo estadoDispositivo;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+=======
 	@Enumerated(EnumType.STRING)
 	public EstadoDispositivo estadoDispositivo;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "idDispositivo")
+>>>>>>> testeandoDB
 	public List<Intervalo> intervalosDeUso = new ArrayList<>();
 
 	public DispositivoInteligente(DispositivoInteligenteBuilder builder) {
@@ -147,8 +159,7 @@ public class DispositivoInteligente extends Dispositivo {
 
 		consumoEstimadoPorHora = Math.max(0.0, consumoEstimadoPorHora - cantidad);
 	}
-	
-	@Override
+
 	public double getConsumoTotal() {
 
 		return this.consumoParaIntervalos(intervalosDeUso);
@@ -209,12 +220,6 @@ public class DispositivoInteligente extends Dispositivo {
 
 		}
 
-	}
-
-	@Override
-	public double getHorasDeUso() {
-		
-		return intervalosDeUso.stream().mapToDouble(i -> i.intervaloEnHoras()).sum();
 	}
 
 }

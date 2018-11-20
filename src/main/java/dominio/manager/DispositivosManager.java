@@ -1,6 +1,5 @@
 package dominio.manager;
 
-import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.repositories.RepositorioDispositivo;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
@@ -20,24 +19,10 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
     }
 
     public void persistirDispositivosDelRepositorio() {
-        
-    	withTransaction(() -> {
-        	
-            List <DispositivoEstandar> listaDEs = RepositorioDispositivo.getInstance().getEstandars();
-            
-            for (int i=0;i<listaDEs.size();i++) {
-            	
-            	entityManager().persist(listaDEs.get(i));
-            }
-            
-            List <DispositivoInteligente> listaDIs = RepositorioDispositivo.getInstance().getInteligentes();
-            
-            for (int i=0;i<listaDIs.size();i++) {
-            	
-            	entityManager().persist(listaDIs.get(i));
-            
-            }
-            
+        withTransaction(() -> {
+            RepositorioDispositivo.getInstance().getEstandars().stream().forEach(dispositivoEstandar -> entityManager().persist(dispositivoEstandar));
+            RepositorioDispositivo.getInstance().getInteligentes().stream().forEach(dispositivoInteligente -> entityManager().persist(dispositivoInteligente));
+
             entityManager().getTransaction().commit();
         });
     }

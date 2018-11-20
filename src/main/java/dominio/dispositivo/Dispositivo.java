@@ -46,13 +46,18 @@ public abstract class Dispositivo {
         this.consumoEstimadoPorHora = consumoEstimadoPorHora;
     }
 
-    public abstract double getHorasDeUso();
+    public double getHorasDeUso() {
+        return horasDeUso;
+    }
 
     public void setHorasDeUso(double horasDeUso) {
         this.horasDeUso = horasDeUso;
     }
 
-    public abstract double getConsumoTotal();
+    public double getConsumoTotal() {
+
+        return consumoEstimadoPorHora * horasDeUso;
+    }
 
     public void aumentarConsumoPor(int aumento) {
         consumoEstimadoPorHora = consumoEstimadoPorHora + aumento;
