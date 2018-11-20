@@ -7,7 +7,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "dispositivoEstandar")
 public class DispositivoEstandar extends Dispositivo {
-
+	
+	public double horasDeUso = 0;
+	
     public DispositivoEstandar() {
     }
 
@@ -23,7 +25,12 @@ public class DispositivoEstandar extends Dispositivo {
     public double getHorasDeUso() {
         return horasDeUso;
     }
-
+    
+    public void setHorasDeUso(double horas) {
+    	
+    	horasDeUso += horas;
+    }
+    
     public double getConsumoEstimadoPorHora() {
         return consumoEstimadoPorHora;
     }
@@ -31,7 +38,8 @@ public class DispositivoEstandar extends Dispositivo {
     public String getNombre() {
         return nombre;
     }
-
+    
+    @Override
     public double getConsumoTotal() {
         return consumoEstimadoPorHora * horasDeUso;
     }
