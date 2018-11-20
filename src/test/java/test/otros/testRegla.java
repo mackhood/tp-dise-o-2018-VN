@@ -2,7 +2,6 @@ package test.otros;
 
 import dominio.actuador.OrdenEncenderDI;
 import dominio.dispositivo.DispositivoInteligente;
-import dominio.dispositivo.EstadoApagado;
 import dominio.dispositivo.Intervalo;
 import dominio.manager.DispositivosManager;
 import dominio.regla.Regla;
@@ -38,7 +37,7 @@ public class testRegla {
         List<Intervalo> intervalos = new ArrayList<>();
 
         mockDI = Mockito.spy(new DispositivoInteligente.DispositivoInteligenteBuilder("unDI")
-                .estadoDispositivo(new EstadoApagado()).intervalosDeUso(intervalos).build());
+               .intervalosDeUso(intervalos).build());
         mockDI.encender();
         mockDI.apagar();
 

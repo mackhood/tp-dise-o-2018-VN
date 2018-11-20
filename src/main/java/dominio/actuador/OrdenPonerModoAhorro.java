@@ -17,12 +17,20 @@ public class OrdenPonerModoAhorro extends Actuador {
     @Override
     public void ejecutar() {
 
-        dispositivo.ponerModoAhorro();;
+        dispositivo.ponerModoAhorro();
     }
 
     @Override
     public void ejecutarInversa() {
 
-        dispositivo.encender();
+        if (dispositivo.estaApagado()) {
+        	
+        	dispositivo.apagar();
+        }
+        
+        else {
+        	
+        	dispositivo.encender();
+        }
     }
 }

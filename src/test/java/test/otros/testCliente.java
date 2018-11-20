@@ -28,7 +28,7 @@ public class testCliente {
     private Cliente unClienteConDEyDI;
     private Cliente unClienteSinDEyConDI;
     private Dispositivo mockDispositivo;
-    private DispositivoInteligente mockDIEncendido;
+    private DispositivoInteligente otroMockDI;
     private Conversor moduloAdaptador;
     private DispositivoEstandar mockDE;
     private DispositivoInteligente mockDI;
@@ -58,11 +58,11 @@ public class testCliente {
 
         mockDI = Mockito
                 .spy(new DispositivoInteligente.DispositivoInteligenteBuilder("televisor").equipoConcreto("LED de 24")
-                        .consumoEstimadoPorHora(500.0).estadoDispositivo(new EstadoApagado()).intervalosDeUso(intervalosDeUsoDI1).build());
+                        .consumoEstimadoPorHora(500.0).intervalosDeUso(intervalosDeUsoDI1).build());
 
-        mockDIEncendido = Mockito.spy(new DispositivoInteligente.DispositivoInteligenteBuilder("aireAcondicionado")
+        otroMockDI = Mockito.spy(new DispositivoInteligente.DispositivoInteligenteBuilder("aireAcondicionado")
                 .equipoConcreto("De 2200 frigorias").consumoEstimadoPorHora(100.0)
-                .estadoDispositivo(new EstadoEncendido()).intervalosDeUso(intervalosDeUsoDI2).build());
+                .intervalosDeUso(intervalosDeUsoDI2).build());
         
 
         List<DispositivoEstandar> listaDispositivosEstandar = new ArrayList<>();
@@ -76,7 +76,7 @@ public class testCliente {
         unClienteSinDEyConDI = spy(new Cliente("Nicolas", "Sierra", "fer25","password", new ID(TiposId.DNI, "200"),
                 new Domicilio("bariloche", 3118, 1, 'a'), 250, listaDispositivosParaOtroCliente,
                 listaDispInteligentes));
-        unClienteConDEyDI.agregarDispositivoInteligente(mockDIEncendido);
+        unClienteConDEyDI.agregarDispositivoInteligente(otroMockDI);
         unClienteConDEyDI.agregarDispositivoInteligente(mockDI);
         unClienteConDEyDI.agregarDispositivoEstandar(mockDE);
 
@@ -102,20 +102,21 @@ public class testCliente {
     @Test
     public void testTieneAlgunDispositivoEncendido() {
 
-        assertTrue(unClienteConDEyDI.algunDispositivoEncendido());
+        assertFalse(unClienteConDEyDI.algunDispositivoEncendido());
     }
 
     @Test
     public void testCuantosDIEncendidos() {
 
         mockDI.encender();
+        otroMockDI.encender();
         assertEquals(2, unClienteConDEyDI.cantidadDeDIEncendidos());
     }
 
     @Test
     public void testCuantosDIApagados() {
 
-        assertEquals(1, unClienteConDEyDI.cantidadDeDIApagados());
+        assertEquals(2, unClienteConDEyDI.cantidadDeDIApagados());
     }
 
     @Test

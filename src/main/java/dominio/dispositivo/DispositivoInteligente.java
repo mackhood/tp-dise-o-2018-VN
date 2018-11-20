@@ -15,11 +15,11 @@ public class DispositivoInteligente extends Dispositivo {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	long id;
 
-	@Embedded
+	@Enumerated(EnumType.STRING)
 	public EstadoDispositivo estadoDispositivo;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name="idDispositivo")
+	@JoinColumn(name = "idDispositivo")
 	public List<Intervalo> intervalosDeUso = new ArrayList<>();
 
 	public DispositivoInteligente(DispositivoInteligenteBuilder builder) {
@@ -53,9 +53,18 @@ public class DispositivoInteligente extends Dispositivo {
 	}
 
 	public void apagar() {
-		estadoDispositivo.apagar(this);
-		Intervalo i = intervalosDeUso.get(intervalosDeUso.size() - 1);
-		i.setFin(LocalDateTime.now());
+
+		if (this.estaEncendido() || this.estaEnModoAhorro()) {
+
+			estadoDispositivo.apagar(this);
+			Intervalo i = intervalosDeUso.get(intervalosDeUso.size() - 1);
+			i.setFin(LocalDateTime.now());
+		}
+
+		else {
+
+			estadoDispositivo.apagar(this);
+		}
 	}
 
 	public List<Intervalo> encendidoEntre(LocalDateTime fecha, LocalDateTime otraFecha) {
@@ -162,13 +171,11 @@ public class DispositivoInteligente extends Dispositivo {
 	public static class DispositivoInteligenteBuilder {
 
 		private final String nombre;
-		private EstadoDispositivo estadoDispositivo = new EstadoApagado();
-		private LocalDateTime horaEncendido = null;
-		private LocalDateTime horaApagado = null;
 		private double consumoEstimadoPorHora;
 		private String equipoConcreto;
 		private TipoDispositivo tipoDispositivo;
 		private List<Intervalo> intervalosDeUso;
+		private EstadoDispositivo estadoDispositivo;
 
 		public DispositivoInteligenteBuilder(String nombre) {
 			this.nombre = nombre;
@@ -186,13 +193,6 @@ public class DispositivoInteligente extends Dispositivo {
 			return this;
 		}
 
-		public DispositivoInteligenteBuilder estadoDispositivo(EstadoDispositivo estadoDispositivo) {
-
-			this.estadoDispositivo = estadoDispositivo;
-			return this;
-
-		}
-
 		public DispositivoInteligenteBuilder consumoEstimadoPorHora(Double consumoEstimadoPorHora) {
 			this.consumoEstimadoPorHora = consumoEstimadoPorHora;
 			return this;
@@ -204,7 +204,10 @@ public class DispositivoInteligente extends Dispositivo {
 		}
 
 		public DispositivoInteligente build() {
+
+			this.estadoDispositivo = EstadoDispositivo.APAGADO;
 			return new DispositivoInteligente(this);
+
 		}
 
 	}

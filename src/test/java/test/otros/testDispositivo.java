@@ -5,8 +5,6 @@ import dominio.dispositivo.Conversor;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoEstandarInteligente;
 import dominio.dispositivo.DispositivoInteligente;
-import dominio.dispositivo.EstadoApagado;
-import dominio.dispositivo.EstadoEncendido;
 import dominio.dispositivo.Intervalo;
 import dominio.entities.NoTieneDispositivoException;
 import dominio.usuario.Cliente;
@@ -86,7 +84,7 @@ public class testDispositivo {
         
         unDIEncendido = new DispositivoInteligente.DispositivoInteligenteBuilder("da")
                 .consumoEstimadoPorHora((double) 500).intervalosDeUso(intervalosDeUso).build();
-        unDIApagado = new DispositivoInteligente.DispositivoInteligenteBuilder("AireAcondicionado").estadoDispositivo(new EstadoApagado())
+        unDIApagado = new DispositivoInteligente.DispositivoInteligenteBuilder("AireAcondicionado")
                 .consumoEstimadoPorHora((double) 100).intervalosDeUso(intervalosDeUso).build();
     }
 
