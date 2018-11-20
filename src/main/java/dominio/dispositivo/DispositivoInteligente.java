@@ -12,23 +12,11 @@ import java.util.stream.Collectors;
 
 public class DispositivoInteligente extends Dispositivo {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	long id;
-
-<<<<<<< HEAD
-	@Embedded
-	@Column(name="estado")
-	public EstadoDispositivo estadoDispositivo;
-
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-=======
 	@Enumerated(EnumType.STRING)
 	public EstadoDispositivo estadoDispositivo;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "idDispositivo")
->>>>>>> testeandoDB
 	public List<Intervalo> intervalosDeUso = new ArrayList<>();
 
 	public DispositivoInteligente(DispositivoInteligenteBuilder builder) {

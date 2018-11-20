@@ -1,10 +1,12 @@
 package dominio.manager;
 
+import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.repositories.RepositorioDispositivo;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+import java.math.BigInteger;
 import java.util.List;
 
 public class DispositivosManager implements WithGlobalEntityManager, TransactionalOps {
@@ -38,5 +40,4 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
         return inteligentes;
 
     }
-
 }

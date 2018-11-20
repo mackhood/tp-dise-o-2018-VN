@@ -7,6 +7,7 @@ import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.dispositivo.Intervalo;
 import dominio.manager.ClienteManager;
+import dominio.manager.DispositivosManager;
 import dominio.regla.Regla;
 import dominio.repositories.RepositorioDispositivo;
 import dominio.sensor.Condicion;
@@ -26,6 +27,7 @@ import static org.junit.Assert.assertTrue;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,9 +90,10 @@ public class testClienteDispositivo extends AbstractPersistenceTest implements W
     	DispositivoInteligente di = new DispositivoInteligente.DispositivoInteligenteBuilder("di").consumoEstimadoPorHora((double)200).intervalosDeUso(intervalosDeUso).build();
     	entityManager().persist(di);
 
-        DispositivoInteligente diRecuperado = (DispositivoInteligente) entityManager().createQuery("from dispositivointeligente where nombre = 'di'").getSingleResult();
-        long idQuery = (long) entityManager().createNativeQuery("select idDispositivo from dispositivointeligente where nombre = 'di'").getSingleResult();
+        DispositivoInteligente diRecuperado = (DispositivoInteligente) entityManager().createNativeQuery("SELECT * FROM dispositivointeligente WHERE nombre = 'di'", DispositivoInteligente.class).getSingleResult();
+        BigInteger idQuery = (BigInteger) entityManager().createNativeQuery("select idDispositivo from dispositivointeligente where nombre = 'di'").getSingleResult();
         
+        long id = idQuery.longValue();
         
         assertTrue(diRecuperado.getIntervalosDeUso().stream().anyMatch(i-> i.equals(i1)));
         assertTrue(diRecuperado.getIntervalosDeUso().stream().anyMatch(i-> i.equals(i2)));
@@ -99,7 +102,7 @@ public class testClienteDispositivo extends AbstractPersistenceTest implements W
         diRecuperado.setNombre("nombreModificado");
         entityManager().persist(diRecuperado);
         
-        assertEquals("nombreModificado", ((DispositivoInteligente) entityManager().createQuery("from dispositivointeligente where idDispositivo = :id").setParameter("id",idQuery)).getNombre());
+        assertEquals("nombreModificado", DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(id).getNombre());
     }
     
     @Test

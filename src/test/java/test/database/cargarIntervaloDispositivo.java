@@ -31,11 +31,4 @@ public class cargarIntervaloDispositivo extends AbstractPersistenceTest implemen
         entityManager().getTransaction().commit();
 
     }
-
-    @Test
-    public void test()
-    {
-        DispositivoInteligente di = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(new Long(13));
-        Assert.assertEquals(1,di.getIntervalosDeUso().size());
-    }
 }
