@@ -25,6 +25,7 @@ public abstract class Actuador {
 	public Actuador(DispositivoInteligente disp) {
 		dispositivo = disp;
 	}
+	public Actuador(){}
 
 	public abstract void ejecutar();
 
