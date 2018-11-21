@@ -49,18 +49,36 @@ public class Transformador {
     public double consumoEnIntervalo(Intervalo i) {
     	
     	double totalConsumo =0;
+    	
+    	/* Genera una lista de listas de dispositivos. Esto es, una lista que contiene todos los dispositivos de todos
+    	 * los usuarios y cada sublista representa los dispositivos de cada usuario
+    	 */
     	List<List<DispositivoInteligente>> dispositivosConectados = usuariosConectados.stream()
     			.map(user -> user.getDispositivosInteligentes()).collect(Collectors.toList());
     	
-    	for (int n=0; n< dispositivosConectados.size(); n++) {
-    		
-    		double consumoPorUsuario = dispositivosConectados.get(n).stream().mapToDouble(d -> d.consumoParaIntervalo(i)).sum();
-    		totalConsumo += consumoPorUsuario;
-    	}
+    	/* Recorremos los dispositivos de cada uno de los usuarios */
     	
-    	return totalConsumo;
+    	for (int j=0; j < dispositivosConectados.size(); j++) {
+    		
+    		List <DispositivoInteligente> dispositivosPorUsuario = dispositivosConectados.get(j); 
+    		
+    		/* Recorremos cada uno de los dispositivos de un usuario */
+    		
+    		for (int k = 0; k < dispositivosPorUsuario.size(); k++) {
+    			
+    			List <Intervalo> intervalosDeConsumoPorDispositivo = dispositivosPorUsuario.get(k).getIntervalosDeUso();
+    			
+    			double horasDeConsumoEnPeriodo = intervalosDeConsumoPorDispositivo.stream().mapToDouble(intervalo ->
+    					intervalo.horasDentroDe(i)).sum();
+    			
+    			double consumoDePeriodo = horasDeConsumoEnPeriodo* dispositivosPorUsuario.get(k).getConsumoEstimadoPorHora();
+    			
+    			totalConsumo = totalConsumo + consumoDePeriodo;
+    	}
     }
-
+    	return totalConsumo;
+  }
+    
     public Double calcularDistancia(Ubicacion ubicacionCliente) {
         return ubicacion.calcularDistancia(ubicacionCliente);
     }
