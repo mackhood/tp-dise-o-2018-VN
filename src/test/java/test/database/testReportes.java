@@ -19,7 +19,7 @@ import dominio.usuario.Cliente;
 import reportes.ReporteConsumoPorDispositivo;
 import reportes.ReporteConsumoPorHogar;
 
-public class Reportes implements WithGlobalEntityManager {
+public class testReportes implements WithGlobalEntityManager {
 	
 	@Test
 	public void testConsumoPorDispositivoDeUsuario() {

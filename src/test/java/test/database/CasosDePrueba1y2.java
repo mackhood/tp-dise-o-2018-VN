@@ -32,7 +32,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testClienteDispositivo extends AbstractPersistenceTest implements WithGlobalEntityManager {
+public class CasosDePrueba1y2 extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
     @Before
     public void setup() {

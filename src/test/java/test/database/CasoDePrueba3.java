@@ -19,7 +19,7 @@ import dominio.sensor.Condicion;
 import dominio.sensor.CondicionPorMayor;
 import dominio.sensor.CondicionPorMenor;
 
-public class testReglaCondicion extends AbstractPersistenceTest implements WithGlobalEntityManager {
+public class CasoDePrueba3 extends AbstractPersistenceTest implements WithGlobalEntityManager {
 	
 	@Before
     public void setup() {

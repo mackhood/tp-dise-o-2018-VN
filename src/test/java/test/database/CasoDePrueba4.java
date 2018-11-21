@@ -14,7 +14,7 @@ import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class testTransformadores extends AbstractPersistenceTest implements WithGlobalEntityManager {
+public class CasoDePrueba4 extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
     @Before
     public void setup() {
