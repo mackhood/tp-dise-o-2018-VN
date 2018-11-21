@@ -42,7 +42,7 @@ public class testReglaCondicion extends AbstractPersistenceTest implements WithG
     	entityManager().persist(reglaTest);
     	entityManager().persist(mayorA20);
     	
-    	Regla reglaRecuperada = (Regla) entityManager().createQuery("from regla r").getSingleResult();
+    	Regla reglaRecuperada = (Regla) entityManager().createQuery("from regla ").getSingleResult();
     	reglaRecuperada.chequearCondicionesYEjecutar();
     	CondicionPorMenor menorA30 = new CondicionPorMenor(15,"Temperatura");
     	menorA30.asociarA(reglaRecuperada);

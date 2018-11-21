@@ -8,7 +8,6 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "Tipo", discriminatorType = DiscriminatorType.STRING)
-
 public abstract class Actuador {
 
 	@OneToOne(fetch = FetchType.EAGER)

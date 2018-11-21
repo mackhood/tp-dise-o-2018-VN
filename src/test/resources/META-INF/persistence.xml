@@ -42,7 +42,11 @@
         <class>dominio.dispositivo.DispositivoEstandar</class>
         <class>dominio.dispositivo.Dispositivo</class>
         <class>dominio.zonageografica.ZonaGeografica</class>
-
+        <class>dominio.actuador.Actuador</class>
+        <class>dominio.actuador.OrdenSubirIntensidad</class>
+        <class>dominio.actuador.OrdenApagarDI</class>
+        <class>dominio.actuador.OrdenPonerModoAhorro</class>
+        <class>dominio.actuador.OrdenEncenderDI</class>
 
 
         <properties>
