@@ -20,11 +20,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CargarTransformadores implements WithGlobalEntityManager, TransactionalOps {
+public class ServicioDeCargaDeCargaDeTransformadores implements WithGlobalEntityManager, TransactionalOps {
 
-    private static CargarTransformadores instance = new CargarTransformadores();
+    private static ServicioDeCargaDeCargaDeTransformadores instance = new ServicioDeCargaDeCargaDeTransformadores();
 
-    public static CargarTransformadores getInstance() {
+    public static ServicioDeCargaDeCargaDeTransformadores getInstance() {
         return instance;
     }
     public void persistirTransformadores(){
@@ -67,6 +67,9 @@ public class CargarTransformadores implements WithGlobalEntityManager, Transacti
             listaClientesConectados.add(unCliente);
             Ubicacion ubicacionTransformador = new Ubicacion(3, 3);
             Transformador transformador = new Transformador(new ArrayList<>(), ubicacionTransformador);
+            entityManager().persist(i1);
+            entityManager().persist(i2);
+            entityManager().persist(ubicacionTransformador);
             entityManager().persist(transformador);
             entityManager().getTransaction().commit();
         });

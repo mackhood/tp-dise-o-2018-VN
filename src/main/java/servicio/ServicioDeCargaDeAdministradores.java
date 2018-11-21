@@ -7,11 +7,11 @@ import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import java.util.List;
 
-public class CargarAdministradores extends AbstractPersistenceTest implements WithGlobalEntityManager {
+public class ServicioDeCargaDeAdministradores extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
-    private static CargarAdministradores instance = new CargarAdministradores();
+    private static  ServicioDeCargaDeAdministradores instance = new ServicioDeCargaDeAdministradores();
 
-    public static CargarAdministradores getInstance() {
+    public static ServicioDeCargaDeAdministradores getInstance() {
         return instance;
     }
 
