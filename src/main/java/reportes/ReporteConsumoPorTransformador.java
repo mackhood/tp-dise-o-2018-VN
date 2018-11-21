@@ -10,7 +10,7 @@ public class ReporteConsumoPorTransformador implements WithGlobalEntityManager {
 	
 	public double consumoPorTransformador(long idTransformador, Intervalo i) {
 		
-		Transformador t = (Transformador) entityManager().createQuery("from transformador where id = :id").setParameter("id", idTransformador);
+		Transformador t = (Transformador) entityManager().createQuery("from Transformador where id = :id").setParameter("id", idTransformador);
 		return t.consumoEnIntervalo(i);
 	}
 }

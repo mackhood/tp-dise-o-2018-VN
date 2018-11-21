@@ -84,9 +84,8 @@ public class DispositivoInteligente extends Dispositivo {
 	public double consumoParaPeriodo(Periodo p) {
 
 		Intervalo periodo = p.convertir();
-		List<Intervalo> intervalosDentro = intervalosDeUso.stream().filter(i -> i.caeDentroDe(periodo))
-				.collect(Collectors.toList());
-		return consumoParaIntervalos(intervalosDentro);
+		double horasDeUso = intervalosDeUso.stream().mapToDouble(i -> i.horasDentroDe(periodo)).sum();
+		return horasDeUso*consumoEstimadoPorHora;
 	}
 
 	public double consumoParaIntervalos(List<Intervalo> intervalos) {
