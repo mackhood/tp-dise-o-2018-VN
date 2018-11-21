@@ -40,8 +40,6 @@ public class Reportes implements WithGlobalEntityManager {
 		
 		Periodo p = new Periodo(LocalDateTime.of(2018,06,8,22,10),LocalDateTime.of(2018,06,9,01,50),null);
 		ReporteConsumoPorHogar r = new ReporteConsumoPorHogar();
-		assertEquals(0,r.consumoDeHogarEnPeriodo(25,p),0);
+		assertEquals(0,r.consumoDeHogarEnPeriodo(25,p),-1);
 	}
-	
-	
 }

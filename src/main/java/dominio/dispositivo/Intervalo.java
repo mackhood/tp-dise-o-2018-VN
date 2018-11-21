@@ -64,7 +64,7 @@ public class Intervalo {
 			return this.intervaloEnHoras();
 		}
 
-		else if (inicio.isAfter(i.getInicio()) && fin.isAfter(i.getFin())) {
+		else if (inicio.isAfter(i.getInicio()) && inicio.isBefore(i.getFin()) && fin.isAfter(i.getFin())) {
 
 			return this.getInicio().until(i.getFin(), ChronoUnit.HOURS);
 		}
@@ -74,9 +74,14 @@ public class Intervalo {
 			return i.intervaloEnHoras();
 		}
 
-		else {
+		else if (inicio.isBefore(i.getInicio()) && fin.isBefore(i.getFin()) && fin.isAfter(i.getInicio())) {
 
 			return i.getInicio().until(fin, ChronoUnit.HOURS);
+		}
+		
+		else {
+			
+			return 0;
 		}
 	}
 
