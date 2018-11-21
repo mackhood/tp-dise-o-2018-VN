@@ -40,7 +40,7 @@ public class CasosDePrueba1y2 extends AbstractPersistenceTest implements WithGlo
     }
 
     @Test
-    public void testPersistirUsuarioNuevoRecuperarloModificarSuGeolocalizacionYGrabarloEvaluarCASOPRUEBA1() {
+    public void casoDePrueba1() {
 
         Domicilio domicilio = new Domicilio("av cordoba", 1234, 7, 'A');
         ID id = new ID(TiposId.DNI, "10125789");
@@ -75,7 +75,7 @@ public class CasosDePrueba1y2 extends AbstractPersistenceTest implements WithGlo
     }
 
     @Test
-    public void testTraerDispositivoDeLaBDModificarElNombreYGrabarloCASOPRUEBA2() {
+    public void casoDePrueba2() {
     	
     	Intervalo i1 = new Intervalo(LocalDateTime.of(2018,10,12,19,30),LocalDateTime.of(2018,10,12,21,45));
     	Intervalo i2 = new Intervalo(LocalDateTime.of(2018,10,15,11,50),LocalDateTime.of(2018,10,15,13,00));
