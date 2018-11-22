@@ -1,5 +1,6 @@
 package test.database;
 
+import dominio.manager.TransformadorManager;
 import dominio.repositories.RepositorioTransformadores;
 import dominio.transformador.Transformador;
 import dominio.zonageografica.Ubicacion;
@@ -37,10 +38,13 @@ public class CasoDePrueba4 extends AbstractPersistenceTest implements WithGlobal
     @Test
     public void testPersistirNuevoTransformadorEnJson() throws IOException {
         List<Transformador> transformadorList =RepositorioTransformadores.getInstance().obtenerTransformadores();
-        Transformador nuevoTransformador =new Transformador( );
+        Transformador nuevoTransformador =new Transformador(2);
         nuevoTransformador.setUbicacion(new Ubicacion(10,10));
         transformadorList.add(nuevoTransformador);
         RepositorioTransformadores.getInstance().nuevoTransformador(transformadorList);
+        TransformadorManager.getInstance().transformadoresNoPersistidosYPersistirlos(RepositorioTransformadores.getInstance().obtenerTransformadores());
+        List<Transformador> obtenerListaTransformadores  = entityManager().createQuery("from Transformador", Transformador.class).getResultList();
+        assertEquals(5,obtenerListaTransformadores.size());
     }
 
 }

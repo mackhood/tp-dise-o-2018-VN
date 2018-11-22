@@ -1,6 +1,7 @@
 [
   {
     "usuariosConectados": [],
+    "idTransformador":7,
     "ubicacion": {
       "posicionX": 1,
       "posicionY": 1
@@ -8,6 +9,7 @@
   },
   {
     "usuariosConectados": [],
+    "idTransformador":8,
     "ubicacion": {
       "posicionX": 5,
       "posicionY": 5

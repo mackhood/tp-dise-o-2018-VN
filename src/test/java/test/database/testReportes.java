@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.manager.TransformadorManager;
+import dominio.repositories.RepositorioTransformadores;
 import dominio.transformador.Transformador;
 import dominio.usuario.Domicilio;
 import dominio.usuario.ID;
@@ -74,6 +75,8 @@ public class testReportes implements WithGlobalEntityManager {
 	@Test
 	public void testConsumoTransformadorEnPeriodo() {
 		TransformadorManager.getInstance().persistirTransformadorDePrueba();
+
+
 	}
 
 	

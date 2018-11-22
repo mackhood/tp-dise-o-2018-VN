@@ -23,16 +23,20 @@ public class Transformador {
     @OneToOne(fetch = FetchType.EAGER)
     private Ubicacion ubicacion;
 
-    public Transformador() {
+    private int idTransformador;
+
+    public Transformador(int idTransformador) {
+        this.idTransformador=idTransformador;
     }
 
 
-    public Transformador(List<Cliente> usuariosConectados, Ubicacion ubicacion) {
-
+    public Transformador(List<Cliente> usuariosConectados, Ubicacion ubicacion, int idTransformador) {
         this.ubicacion = ubicacion;
         this.usuariosConectados.addAll(usuariosConectados);
-
+        this.idTransformador=idTransformador;
     }
+
+
 
     public double suministroActual() {
         return this.consumoDeDispositivosInteligentesClientes();
@@ -45,14 +49,14 @@ public class Transformador {
     public double energiaConsumidaClientes() {
         return usuariosConectados.stream().mapToDouble(usuario -> usuario.consumoEnergeticoTotal()).sum();
     }
-    
+
     public double consumoEnIntervalo(Intervalo intervalo) {
     	return usuariosConectados.stream().mapToDouble(usuario -> usuario.consumoEnUnIntervalo(intervalo)).sum();
     }
+
     public double consumoPromedioEnIntervalo(Intervalo intervalo) {
         return this.consumoEnIntervalo(intervalo)/usuariosConectados.size();
     }
-    
     public Double calcularDistancia(Ubicacion ubicacionCliente) {
         return ubicacion.calcularDistancia(ubicacionCliente);
     }
@@ -61,23 +65,26 @@ public class Transformador {
         usuariosConectados.add(cliente);
     }
 
+
     /*
     public double consumoDeIntervalo(Intervalo intervalo) {
 
         return usuariosConectados.stream().mapToDouble(cliente -> cliente.consumoDeIntervalo(intervalo)).sum();
     }*/
-
     public List<Cliente> getUsuariosConectados() {
 
         return usuariosConectados;
     }
-
     public Ubicacion getUbicacion() {
         return ubicacion;
     }
 
     public void setUbicacion(Ubicacion ubicacion) {
         this.ubicacion = ubicacion;
+    }
+
+    public int getIdTransformador() {
+        return idTransformador;
     }
 
 }

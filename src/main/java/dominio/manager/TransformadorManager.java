@@ -12,6 +12,7 @@ import dominio.zonageografica.Ubicacion;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+import javax.persistence.Query;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,10 +56,23 @@ public class TransformadorManager implements WithGlobalEntityManager, Transactio
         Ubicacion ubicacion = new Ubicacion(5, 2);
         unCliente.setUbicacion(ubicacion);
         entityManager().persist(unCliente);
-        Transformador nuevoTransformador = new Transformador();
+        Transformador nuevoTransformador = new Transformador(3);
         nuevoTransformador.setUbicacion(new Ubicacion(15, 15));
         nuevoTransformador.agregarCliente(unCliente);
         entityManager().persist(nuevoTransformador);
+    }
 
+    public void transformadoresNoPersistidosYPersistirlos(List<Transformador> transformadors) {
+        transformadors.stream().forEach(transformador -> {
+            int idTransformador = transformador.getIdTransformador();
+            Query query = entityManager().createQuery("from Transformador t where idTransformador='" + idTransformador + "'", Transformador.class);
+            query.setMaxResults(1);
+            List<Transformador> transformadorObtenidos = query.getResultList();
+
+            if (transformadorObtenidos == null && transformadorObtenidos.size() == 0) {
+                entityManager().persist(transformadorObtenidos);
+            }
+        });
+        entityManager().getTransaction().commit();
     }
 }

@@ -66,7 +66,7 @@ public class ServicioDeCargaDeCargaDeTransformadores implements WithGlobalEntity
             List<Cliente> listaClientesConectados = new ArrayList<>();
             listaClientesConectados.add(unCliente);
             Ubicacion ubicacionTransformador = new Ubicacion(3, 3);
-            Transformador transformador = new Transformador(new ArrayList<>(), ubicacionTransformador);
+            Transformador transformador = new Transformador(new ArrayList<>(), ubicacionTransformador,4);
             entityManager().persist(i1);
             entityManager().persist(i2);
             entityManager().persist(ubicacionTransformador);
