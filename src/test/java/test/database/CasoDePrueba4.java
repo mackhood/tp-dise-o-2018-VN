@@ -22,7 +22,7 @@ public class CasoDePrueba4 extends AbstractPersistenceTest implements WithGlobal
     }
 
     @Test
-    public void testPersistirTransformadores() throws IOException {
+    public void testPersistirTransformadoresYconsultarCantidad() throws IOException {
 
         withTransaction(() -> {
             List<Transformador> transformadorList =RepositorioTransformadores.getInstance().obtenerTransformadores();
@@ -33,14 +33,14 @@ public class CasoDePrueba4 extends AbstractPersistenceTest implements WithGlobal
 
         List<Transformador> obtenerListaTransformadores  = entityManager().createQuery("from Transformador", Transformador.class).getResultList();
 
+    }
+    @Test
+    public void testPersistirNuevoTransformadorEnJson() throws IOException {
+        List<Transformador> transformadorList =RepositorioTransformadores.getInstance().obtenerTransformadores();
         Transformador nuevoTransformador =new Transformador( );
         nuevoTransformador.setUbicacion(new Ubicacion(10,10));
-
-        RepositorioTransformadores.getInstance().nuevoTransformador(nuevoTransformador);
-        //FileReader file = new FileReader(getClass().getClassLoader().getResource("Transformadores.json").getFile());
-        //BufferedReader bufferedReader = new BufferedReader(file);
-
-        //gson.toJson(nuevoTransformador, new FileWriter("D:\\file.json"));
-
+        transformadorList.add(nuevoTransformador);
+        RepositorioTransformadores.getInstance().nuevoTransformador(transformadorList);
     }
+
 }

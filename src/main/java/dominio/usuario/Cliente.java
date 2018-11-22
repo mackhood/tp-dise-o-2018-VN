@@ -278,4 +278,9 @@ public class Cliente {
     public String getApellido() {
         return apellido;
     }
+
+    public Double consumoEnUnIntervalo(Intervalo intervalo) {
+    	return dispositivosInteligentes.stream().mapToDouble(dispositivo->dispositivo.consumoParaIntervalo(intervalo)).sum();
+	}
+
 }

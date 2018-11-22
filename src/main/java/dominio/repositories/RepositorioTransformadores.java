@@ -52,10 +52,17 @@ public class RepositorioTransformadores extends Repositorio {
         return this.obtenerTransformadores().size();
     }
 
-    public void nuevoTransformador(Transformador nuevoTransformador) throws IOException {
+    public void nuevoTransformador(List<Transformador> listaTransformador) throws IOException {
+
         Gson gson = new Gson();
-        gson.toJson(nuevoTransformador,new FileWriter(getJsonFile()));
-        String jsonInString = gson.toJson(nuevoTransformador);
+
+        //convert the Java object to json
+        String jsonString = gson.toJson(listaTransformador);
+        //Write JSON String to file
+        FileWriter fileWriter = new FileWriter("transformadorTest.json");
+        fileWriter.write(jsonString);
+        fileWriter.close();
+
     }
 
 }

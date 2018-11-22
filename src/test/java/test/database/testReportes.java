@@ -8,6 +8,13 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import dominio.dispositivo.DispositivoEstandar;
+import dominio.manager.TransformadorManager;
+import dominio.transformador.Transformador;
+import dominio.usuario.Domicilio;
+import dominio.usuario.ID;
+import dominio.usuario.TiposId;
+import dominio.zonageografica.Ubicacion;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -60,11 +67,15 @@ public class testReportes implements WithGlobalEntityManager {
 
 	@Test
 	public void testConsumoDeHogarEnPeriodo() {
-
 		Periodo p = new Periodo(LocalDateTime.of(2018, 06, 8, 22, 10), LocalDateTime.of(2018, 06, 9, 01, 50), null);
 		ReporteConsumoPorHogar r = new ReporteConsumoPorHogar();
 		assertEquals(0, r.consumoDeHogarEnPeriodo(25, p), -1);
 	}
+	@Test
+	public void testConsumoTransformadorEnPeriodo() {
+		TransformadorManager.getInstance().persistirTransformadorDePrueba();
+	}
+
 	
 	@After
 	public void end() {
