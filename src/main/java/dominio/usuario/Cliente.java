@@ -33,7 +33,7 @@ public class Cliente {
 	private long telefono;
 
 	// @Embedded
-	// private Usuario usuario;
+	//	// private Usuario usuario;
 
 	@Column(length = 50)
 	private String usuario;
