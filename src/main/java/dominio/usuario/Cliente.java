@@ -145,7 +145,7 @@ public class Cliente {
 			throw new NoTieneDispositivoException("No posee el dispositivo indicado");
 	}
 
-	public double consumoEnergeticoTotal() {
+	public Double consumoEnergeticoTotal() {
 
 		return getTodosLosDispositivos().stream().mapToDouble(disp -> disp.getConsumoTotal()).sum();
 	}

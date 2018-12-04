@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.util.stream.Collectors.toList;
+import static org.apache.commons.lang3.ArrayUtils.toArray;
+
 public class AdminController {
 
 
@@ -28,7 +31,7 @@ public class AdminController {
         Map<String, List<Cliente>> model = new HashMap<>();
 
         List<Cliente> hogares = ClienteManager.getInstance().getClientesDeLaBD();
-        //List<Integer> consumos = hogares.getConsumo();
+      //  List<Double> consumos = hogares.toList().forEach(cliente -> cliente.consumoEnergeticoTotal() );
         model.put("hogares",hogares);
       //  model.put("consumos",consumos);
         return new ModelAndView(model,"/admin/verHogares.hbs");
