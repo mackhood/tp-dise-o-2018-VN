@@ -1,11 +1,10 @@
 package test.database;
 
-
-
 import dominio.categoria.AsignadorDeCategoria;
 import dominio.categoria.Categoria;
 import dominio.dispositivo.*;
 import dominio.entities.NoTieneDispositivoException;
+import dominio.manager.ClienteManager;
 import dominio.manager.DispositivosManager;
 import dominio.manager.TransformadorManager;
 import dominio.transformador.Transformador;
@@ -13,6 +12,8 @@ import dominio.usuario.Cliente;
 import dominio.usuario.Domicilio;
 import dominio.usuario.ID;
 import dominio.usuario.TiposId;
+import dominio.zonageografica.Ubicacion;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +21,7 @@ import org.mockito.Mockito;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import reportes.ReporteConsumoPorDispositivo;
 import reportes.ReporteConsumoPorHogar;
+import reportes.ReporteConsumoPorTransformador;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -29,14 +31,15 @@ import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
+
 public class CasoDePrueba5 implements WithGlobalEntityManager {
-	
+
 	@Before
 	public void init() {
-		
+
 		entityManager().getTransaction().begin();
 	}
-	
+
 	@Test
 	public void testConsumoPorDispositivoDeUsuario() {
 
@@ -53,9 +56,9 @@ public class CasoDePrueba5 implements WithGlobalEntityManager {
 
 		ReporteConsumoPorDispositivo r = new ReporteConsumoPorDispositivo();
 		assertEquals(24.1950, r.consumoPorDispositivo(25, 9), 0.5);
-		
-		Periodo p = new Periodo(LocalDateTime.of(2018,10,12,16,20),LocalDateTime.of(2018,10,13,02,00),null);
-		assertEquals(1.075,r.consumoPromedioDispositivoEnPeriodo(9, p),0.5);
+
+		Periodo p = new Periodo(LocalDateTime.of(2018, 10, 12, 16, 20), LocalDateTime.of(2018, 10, 13, 02, 00), null);
+		assertEquals(1.075, r.consumoPromedioDispositivoEnPeriodo(9, p), 0.5);
 	}
 
 	@Test
@@ -69,21 +72,22 @@ public class CasoDePrueba5 implements WithGlobalEntityManager {
 	public void testConsumoDeHogarEnPeriodo() {
 		Periodo p = new Periodo(LocalDateTime.of(2018, 06, 8, 22, 10), LocalDateTime.of(2018, 06, 9, 01, 50), null);
 		ReporteConsumoPorHogar r = new ReporteConsumoPorHogar();
-		assertEquals(0, r.consumoDeHogarEnPeriodo(25, p), -1);
+		assertEquals(0, r.consumoDeHogarEnPeriodo(25, p), 0.1);
 	}
+
 	@Test
 	public void testConsumoTransformadorEnPeriodo() {
-		TransformadorManager.getInstance().persistirTransformadorDePrueba();
-		Transformador transformador = TransformadorManager.getInstance().obtenerTrasformador(3);
-		assertEquals(7000.0,transformador.consumoPromedioEnIntervalo(new Intervalo(LocalDateTime.of(2018, 10, 12, 13, 00), LocalDateTime.of(2018, 10, 12, 23, 45))));
 
+		ReporteConsumoPorTransformador r = new ReporteConsumoPorTransformador();
 
+		assertEquals(8400.0, r.consumoPorTransformador(TransformadorManager.getInstance().obtenerIdBD(3),
+				new Intervalo(LocalDateTime.of(2018, 10, 12, 13, 00), LocalDateTime.of(2018, 10, 12, 23, 45))));
 	}
-	
+
 	@After
 	public void end() {
-		
-		//entityManager().getTransaction().rollback();
+
+		entityManager().getTransaction().rollback();
 	}
 
 }

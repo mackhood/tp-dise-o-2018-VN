@@ -6,7 +6,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Entity
-//@Table(name = "intervalo")
+// @Table(name = "intervalo")
 public class Intervalo {
 
 	@Id
@@ -20,7 +20,8 @@ public class Intervalo {
 	@Column(length = 50)
 	protected LocalDateTime fin;
 
-	public Intervalo() {}
+	public Intervalo() {
+	}
 
 	public Intervalo(LocalDateTime inicio, LocalDateTime fin) {
 
@@ -54,7 +55,10 @@ public class Intervalo {
 
 	public boolean caeDentroDe(Intervalo i) {
 
-		return fin.isAfter(i.getInicio()) && fin.isBefore(i.getFin());
+		return inicio.isBefore(i.getInicio()) && fin.isBefore(i.getFin()) ||
+				inicio.isBefore(i.getInicio()) && fin.isAfter(i.getFin()) ||
+				inicio.isAfter(i.getInicio()) && inicio.isBefore(i.getFin()) && fin.isAfter(i.getFin()) ||
+				inicio.isBefore(i.getInicio()) && fin.isBefore(i.getFin()) && fin.isAfter(i.getInicio());
 	}
 
 	public double horasDentroDe(Intervalo i) {
@@ -78,9 +82,9 @@ public class Intervalo {
 
 			return i.getInicio().until(fin, ChronoUnit.HOURS);
 		}
-		
+
 		else {
-			
+
 			return 0;
 		}
 	}
