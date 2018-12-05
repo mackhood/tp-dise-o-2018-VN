@@ -11,6 +11,11 @@ public class VerificarUsuario {
             return false;
         }
 
+
+        if (! ClienteManager.getInstance().esCliente(usuario)) {
+            return false;
+        }
+
         Cliente cliente = ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario(usuario);
 
         if(cliente == null)

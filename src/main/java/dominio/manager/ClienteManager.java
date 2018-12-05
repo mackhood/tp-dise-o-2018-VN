@@ -51,6 +51,11 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
         });
     }
 
+
+    public boolean esCliente(String username) {
+        return entityManager().createQuery("from Cliente c where usuario='"+username+"'" ,Cliente.class).getResultList().size() > 0;
+    }
+
     public Cliente buscarClienteDeLaBDPorUsuario(String username){
 
 
