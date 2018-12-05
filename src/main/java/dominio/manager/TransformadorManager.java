@@ -55,11 +55,15 @@ public class TransformadorManager implements WithGlobalEntityManager, Transactio
 
         Ubicacion ubicacion = new Ubicacion(5, 2);
         unCliente.setUbicacion(ubicacion);
+        entityManager().persist(ubicacion);
         entityManager().persist(unCliente);
         Transformador nuevoTransformador = new Transformador(3);
-        nuevoTransformador.setUbicacion(new Ubicacion(15, 15));
+        Ubicacion ubicacionTrasnformador = new Ubicacion(15, 15);
+        entityManager().persist(ubicacionTrasnformador);
+        nuevoTransformador.setUbicacion(ubicacionTrasnformador);
         nuevoTransformador.agregarCliente(unCliente);
         entityManager().persist(nuevoTransformador);
+        entityManager().getTransaction().commit();
     }
 
     public void transformadoresNoPersistidosYPersistirlos(List<Transformador> transformadors) {
@@ -75,4 +79,11 @@ public class TransformadorManager implements WithGlobalEntityManager, Transactio
         });
         entityManager().getTransaction().commit();
     }
+    public  Transformador obtenerTrasformador(int idTrasnformador) {
+        Query query = entityManager().createQuery("from Transformador t where idTransformador='" + idTrasnformador + "'", Transformador.class);
+        query.setMaxResults(1);
+        Transformador transformadorObtenidos = (Transformador) query.getSingleResult();
+        return  transformadorObtenidos;
+    }
+
 }

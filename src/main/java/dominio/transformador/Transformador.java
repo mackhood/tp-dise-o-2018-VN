@@ -29,14 +29,13 @@ public class Transformador {
         this.idTransformador=idTransformador;
     }
 
-
+    public Transformador() {
+    }
     public Transformador(List<Cliente> usuariosConectados, Ubicacion ubicacion, int idTransformador) {
         this.ubicacion = ubicacion;
         this.usuariosConectados.addAll(usuariosConectados);
         this.idTransformador=idTransformador;
     }
-
-
 
     public double suministroActual() {
         return this.consumoDeDispositivosInteligentesClientes();
