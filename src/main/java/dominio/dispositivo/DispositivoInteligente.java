@@ -2,7 +2,6 @@ package dominio.dispositivo;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,201 +11,197 @@ import java.util.stream.Collectors;
 
 public class DispositivoInteligente extends Dispositivo {
 
-	@Enumerated(EnumType.STRING)
-	public EstadoDispositivo estadoDispositivo;
+    @Enumerated(EnumType.STRING)
+    public EstadoDispositivo estadoDispositivo;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "idDispositivo")
-	public List<Intervalo> intervalosDeUso = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "idDispositivo")
+    public List<Intervalo> intervalosDeUso = new ArrayList<>();
 
-	public DispositivoInteligente(DispositivoInteligenteBuilder builder) {
-		this.nombre = builder.nombre;
-		this.consumoEstimadoPorHora = builder.consumoEstimadoPorHora;
-		this.equipoConcreto = builder.equipoConcreto;
-		this.estadoDispositivo = builder.estadoDispositivo;
-		this.tipoDispositivo = builder.tipoDispositivo;
-		this.intervalosDeUso = builder.intervalosDeUso;
+    public DispositivoInteligente(DispositivoInteligenteBuilder builder) {
+        this.nombre = builder.nombre;
+        this.consumoEstimadoPorHora = builder.consumoEstimadoPorHora;
+        this.equipoConcreto = builder.equipoConcreto;
+        this.estadoDispositivo = builder.estadoDispositivo;
+        this.tipoDispositivo = builder.tipoDispositivo;
+        this.intervalosDeUso = builder.intervalosDeUso;
 
-	}
+    }
 
 
-	public DispositivoInteligente() {
-	}
+    public DispositivoInteligente() {
+    }
 
-	public EstadoDispositivo estadoDispositivo() {
-		return estadoDispositivo;
-	}
+    public EstadoDispositivo estadoDispositivo() {
+        return estadoDispositivo;
+    }
 
-	public double getConsumoEstimadoPorHora() {
+    public double getConsumoEstimadoPorHora() {
 
-		return consumoEstimadoPorHora;
-	}
+        return consumoEstimadoPorHora;
+    }
 
-	public boolean estaEncendido() {
-		return estadoDispositivo.estaEncendido();
-	}
+    public boolean estaEncendido() {
+        return estadoDispositivo.estaEncendido();
+    }
 
-	public boolean estaApagado() {
-		return estadoDispositivo.estaApagado();
-	}
+    public boolean estaApagado() {
+        return estadoDispositivo.estaApagado();
+    }
 
-	public void apagar() {
+    public void apagar() {
 
-		if (this.estaEncendido() || this.estaEnModoAhorro()) {
+        if (this.estaEncendido() || this.estaEnModoAhorro()) {
 
-			estadoDispositivo.apagar(this);
-			Intervalo i = intervalosDeUso.get(intervalosDeUso.size() - 1);
-			i.setFin(LocalDateTime.now());
-		}
+            estadoDispositivo.apagar(this);
+            Intervalo i = intervalosDeUso.get(intervalosDeUso.size() - 1);
+            i.setFin(LocalDateTime.now());
+        } else {
 
-		else {
+            estadoDispositivo.apagar(this);
+        }
+    }
 
-			estadoDispositivo.apagar(this);
-		}
-	}
+    public List<Intervalo> encendidoEntre(LocalDateTime fecha, LocalDateTime otraFecha) {
 
-	public List<Intervalo> encendidoEntre(LocalDateTime fecha, LocalDateTime otraFecha) {
+        return intervalosDeUso.stream().filter(i -> i.estaEntre(fecha, otraFecha)).collect(Collectors.toList());
+    }
 
-		return intervalosDeUso.stream().filter(i -> i.estaEntre(fecha, otraFecha)).collect(Collectors.toList());
-	}
+    public void agregarListaIntervalos(List<Intervalo> intervalos) {
+        this.intervalosDeUso = intervalos;
+    }
 
-	public void agregarListaIntervalos(List<Intervalo> intervalos) {
-		this.intervalosDeUso = intervalos;
-	}
+    public double consumoParaIntervalo(Intervalo i) {
 
-	public double consumoParaIntervalo(Intervalo i) {
+        // System.out.println("intervalo en horas " + i.intervaloEnHoras());
+        // System.out.println("consumo por hora" + consumoEstimadoPorHora);
+        return i.intervaloEnHoras() * consumoEstimadoPorHora;
+    }
 
-		// System.out.println("intervalo en horas " + i.intervaloEnHoras());
-		// System.out.println("consumo por hora" + consumoEstimadoPorHora);
-		return i.intervaloEnHoras() * consumoEstimadoPorHora;
-	}
+    public double consumoParaPeriodo(Periodo p) {
 
-	public double consumoParaPeriodo(Periodo p) {
+        Intervalo periodo = p.convertir();
+        double horasDeUso = intervalosDeUso.stream().mapToDouble(i -> i.horasDentroDe(periodo)).sum();
+        return horasDeUso * consumoEstimadoPorHora;
+    }
 
-		Intervalo periodo = p.convertir();
-		double horasDeUso = intervalosDeUso.stream().mapToDouble(i -> i.horasDentroDe(periodo)).sum();
-		return horasDeUso*consumoEstimadoPorHora;
-	}
+    public double consumoParaIntervalos(List<Intervalo> intervalos) {
 
-	public double consumoParaIntervalos(List<Intervalo> intervalos) {
+        // System.out.println("intervalos tamanio:" + intervalos.size());
+        return intervalos.stream().mapToDouble(i -> consumoParaIntervalo(i)).sum();
+    }
 
-		// System.out.println("intervalos tamanio:" + intervalos.size());
-		return intervalos.stream().mapToDouble(i -> consumoParaIntervalo(i)).sum();
-	}
+    public void encender() {
+        estadoDispositivo.encender(this);
+        intervalosDeUso.add(new Intervalo(LocalDateTime.now(), null));
+    }
 
-	public void encender() {
-		estadoDispositivo.encender(this);
-		intervalosDeUso.add(new Intervalo(LocalDateTime.now(), null));
-	}
+    public void ponerModoAhorro() {
+        estadoDispositivo.ponerModoAhorro(this);
+    }
 
-	public void ponerModoAhorro() {
-		estadoDispositivo.ponerModoAhorro(this);
-	}
+    public double consumoUltimasNHoras(long horas) {
 
-	public double consumoUltimasNHoras(long horas) {
+        Intervalo ultimasNHoras = new Intervalo(LocalDateTime.now().minusHours(horas), LocalDateTime.now());
 
-		Intervalo ultimasNHoras = new Intervalo(LocalDateTime.now().minusHours(horas), LocalDateTime.now());
+        List<Intervalo> intervalosDentro = intervalosDeUso.stream().filter(i -> i.caeDentroDe(ultimasNHoras))
+                .collect(Collectors.toList());
 
-		List<Intervalo> intervalosDentro = intervalosDeUso.stream().filter(i -> i.caeDentroDe(ultimasNHoras))
-				.collect(Collectors.toList());
+        if (intervalosDentro.isEmpty()) {
 
-		if (intervalosDentro.isEmpty()) {
+            return 0;
+        } else
 
-			return 0;
-		}
+            return intervalosDentro.stream().mapToDouble(i -> i.horasDentroDe(ultimasNHoras)).sum()
+                    * consumoEstimadoPorHora;
+    }
 
-		else
+    public void cambiarEstado(EstadoDispositivo estadoNuevo) {
 
-			return intervalosDentro.stream().mapToDouble(i -> i.horasDentroDe(ultimasNHoras)).sum()
-					* consumoEstimadoPorHora;
-	}
+        estadoDispositivo = estadoNuevo;
+    }
 
-	public void cambiarEstado(EstadoDispositivo estadoNuevo) {
+    public void agregarIntervalo(Intervalo i) {
 
-		estadoDispositivo = estadoNuevo;
-	}
+        intervalosDeUso.add(i);
+    }
 
-	public void agregarIntervalo(Intervalo i) {
+    public List<Intervalo> getIntervalosDeUso() {
+        return intervalosDeUso;
+    }
 
-		intervalosDeUso.add(i);
-	}
+    // Para aumentar consumo en un 1000%
+    // aumentarConsumoPor(consumoEstimadoPorHora*10); -- PARA TEST ENTREGA 3
+    public void aumentarConsumoPor(double cantidad) {
 
-	public List<Intervalo> getIntervalosDeUso() {
-		return intervalosDeUso;
-	}
+        this.consumoEstimadoPorHora += cantidad;
+    }
 
-	// Para aumentar consumo en un 1000%
-	// aumentarConsumoPor(consumoEstimadoPorHora*10); -- PARA TEST ENTREGA 3
-	public void aumentarConsumoPor(double cantidad) {
+    public void reducirConsumoPor(double cantidad) {
 
-		this.consumoEstimadoPorHora += cantidad;
-	}
+        consumoEstimadoPorHora = Math.max(0.0, consumoEstimadoPorHora - cantidad);
+    }
 
-	public void reducirConsumoPor(double cantidad) {
+    public double getConsumoTotal() {
 
-		consumoEstimadoPorHora = Math.max(0.0, consumoEstimadoPorHora - cantidad);
-	}
+        return this.consumoParaIntervalos(intervalosDeUso);
+    }
 
-	public double getConsumoTotal() {
+    public boolean estaEnModoAhorro() {
 
-		return this.consumoParaIntervalos(intervalosDeUso);
-	}
+        return estadoDispositivo.estaEnModoAhorro();
+    }
 
-	public boolean estaEnModoAhorro() {
+    public int getPuntos() {
+        return 15;
+    }
 
-		return estadoDispositivo.estaEnModoAhorro();
-	}
+    public String getUrl() {
+        return "/usuario/dispositivo/" + this.getId();
+    }
 
-	public int getPuntos() {
-		return 15;
-	}
+    public static class DispositivoInteligenteBuilder {
 
-	public String getUrl() {
-		return "/usuario/dispositivo/" + this.getId();
-	}
+        private final String nombre;
+        private double consumoEstimadoPorHora;
+        private String equipoConcreto;
+        private TipoDispositivo tipoDispositivo;
+        private List<Intervalo> intervalosDeUso;
+        private EstadoDispositivo estadoDispositivo;
 
-	public static class DispositivoInteligenteBuilder {
+        public DispositivoInteligenteBuilder(String nombre) {
+            this.nombre = nombre;
 
-		private final String nombre;
-		private double consumoEstimadoPorHora;
-		private String equipoConcreto;
-		private TipoDispositivo tipoDispositivo;
-		private List<Intervalo> intervalosDeUso;
-		private EstadoDispositivo estadoDispositivo;
+        }
 
-		public DispositivoInteligenteBuilder(String nombre) {
-			this.nombre = nombre;
+        public DispositivoInteligenteBuilder tipoDispositivo(TipoDispositivo tipoDispositivo) {
+            this.tipoDispositivo = tipoDispositivo;
+            return this;
+        }
 
-		}
+        public DispositivoInteligenteBuilder intervalosDeUso(List<Intervalo> intervalosDeUso) {
 
-		public DispositivoInteligenteBuilder tipoDispositivo(TipoDispositivo tipoDispositivo) {
-			this.tipoDispositivo = tipoDispositivo;
-			return this;
-		}
+            this.intervalosDeUso = intervalosDeUso;
+            return this;
+        }
 
-		public DispositivoInteligenteBuilder intervalosDeUso(List<Intervalo> intervalosDeUso) {
+        public DispositivoInteligenteBuilder consumoEstimadoPorHora(Double consumoEstimadoPorHora) {
+            this.consumoEstimadoPorHora = consumoEstimadoPorHora;
+            return this;
+        }
 
-			this.intervalosDeUso = intervalosDeUso;
-			return this;
-		}
+        public DispositivoInteligenteBuilder equipoConcreto(String equipoConcreto) {
+            this.equipoConcreto = equipoConcreto;
+            return this;
+        }
 
-		public DispositivoInteligenteBuilder consumoEstimadoPorHora(Double consumoEstimadoPorHora) {
-			this.consumoEstimadoPorHora = consumoEstimadoPorHora;
-			return this;
-		}
+        public DispositivoInteligente build() {
 
-		public DispositivoInteligenteBuilder equipoConcreto(String equipoConcreto) {
-			this.equipoConcreto = equipoConcreto;
-			return this;
-		}
+            this.estadoDispositivo = EstadoDispositivo.APAGADO;
+            return new DispositivoInteligente(this);
 
-		public DispositivoInteligente build() {
+        }
 
-			this.estadoDispositivo = EstadoDispositivo.APAGADO;
-			return new DispositivoInteligente(this);
-
-		}
-
-	}
+    }
 
 }

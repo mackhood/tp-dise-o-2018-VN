@@ -58,10 +58,4 @@ public class RepositorioClientes extends Repositorio implements WithGlobalEntity
         }
 
     }
-
-    /*
-     * private String getJsonFile() { //Separe este metodo para poder mockearlo al
-     * momento de testear return
-     * getClass().getClassLoader().getResource("Clientes.json").getFile(); }
-     */
 }

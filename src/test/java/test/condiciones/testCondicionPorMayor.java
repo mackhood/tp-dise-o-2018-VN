@@ -17,14 +17,16 @@ public class testCondicionPorMayor {
     CondicionPorMayor mayorA25;
     Regla mockRegla;
     Sensor mockSensor;
+
     @Before
     public void setUp() {
 
         mockRegla = Mockito.mock(Regla.class);
         mayorA25 = new CondicionPorMayor(25, "NivelDeRadiacion");
         mayorA25.asociarA(mockRegla);
-        mockSensor =Mockito.mock(Sensor.class);
-        when(mockSensor.getValorMedicion()).thenReturn(125.0);    }
+        mockSensor = Mockito.mock(Sensor.class);
+        when(mockSensor.getValorMedicion()).thenReturn(125.0);
+    }
 
     @Test
     public void testCumpleCondicionPorMayor() {
@@ -42,13 +44,11 @@ public class testCondicionPorMayor {
 
 
     @Test
-    public void testActualizar () {
+    public void testActualizar() {
 
         mayorA25.actualizar(mockSensor);
-      TestCase.assertEquals(125.0, mockSensor.getValorMedicion());
+        TestCase.assertEquals(125.0, mockSensor.getValorMedicion());
     }
-
-
 
 
 }

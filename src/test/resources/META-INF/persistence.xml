@@ -10,7 +10,7 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <class>dominio.dispositivo.Intervalo</class>
-		<class>dominio.dispositivo.Periodo</class>
+        <class>dominio.dispositivo.Periodo</class>
         <class>dominio.usuario.Administrador</class>
         <class>dominio.sensor.Sensor</class>
         <class>dominio.sensor.Medicion</class>

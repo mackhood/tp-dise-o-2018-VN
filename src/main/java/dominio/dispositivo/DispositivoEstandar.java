@@ -1,6 +1,5 @@
 package dominio.dispositivo;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -18,30 +17,6 @@ public class DispositivoEstandar extends Dispositivo {
         this.horasDeUso = builder.horasDeUso;
         this.tipoDispositivo = builder.tipoDispositivo;
 
-    }
-
-    public double getHorasDeUso() {
-        return horasDeUso;
-    }
-
-    public double getConsumoEstimadoPorHora() {
-        return consumoEstimadoPorHora;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public double getConsumoTotal() {
-        return consumoEstimadoPorHora * horasDeUso;
-    }
-
-    public int getPuntos() {
-        return 0;
-    }
-
-    public void serUsado(double cantHorasEstimada) {
-        horasDeUso = horasDeUso + cantHorasEstimada;
     }
 
     public static class DispositivoEstandarBuilder {
@@ -83,6 +58,30 @@ public class DispositivoEstandar extends Dispositivo {
             return new DispositivoEstandar(this);
         }
 
+    }
+
+    public double getHorasDeUso() {
+        return horasDeUso;
+    }
+
+    public double getConsumoEstimadoPorHora() {
+        return consumoEstimadoPorHora;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public double getConsumoTotal() {
+        return consumoEstimadoPorHora * horasDeUso;
+    }
+
+    public int getPuntos() {
+        return 0;
+    }
+
+    public void serUsado(double cantHorasEstimada) {
+        horasDeUso = horasDeUso + cantHorasEstimada;
     }
 
 }

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class cargarDispositivosYClienteDePrueba  extends AbstractPersistenceTest implements WithGlobalEntityManager {
+public class cargarDispositivosYClienteDePrueba extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
     @Test
     public void cargarTablaDispositivos() {

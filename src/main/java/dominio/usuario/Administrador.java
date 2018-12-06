@@ -28,13 +28,14 @@ public class Administrador {
 
     public Administrador() {
     }
-    public Administrador(String nombre, String unApellido, LocalDate fecha,String username , String password) {
+
+    public Administrador(String nombre, String unApellido, LocalDate fecha, String username, String password) {
         this.nombre = nombre;
         this.apellido = unApellido;
         this.fechaAlta = fecha;
         //this.dispositivoABM = new DispositivoABM();
         this.usuario = username;
-        this.contrasenia=password;
+        this.contrasenia = password;
     }
 
     public void setDomicilio(Domicilio domicilio) {
@@ -53,13 +54,14 @@ public class Administrador {
         LocalDate ahora = LocalDate.now();
         return fechaAlta.until(ahora, ChronoUnit.MONTHS);
     }
+
     public String getContrasenia() {
         return contrasenia;
     }
 
 
     public void agregarDispositivoDB(Dispositivo dispositivo) {
-      //  dispositivoABM.agregarDispositivoBD(dispositivo);
+        //  dispositivoABM.agregarDispositivoBD(dispositivo);
 		/*
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ejemplo");
 		EntityManager em = emf.createEntityManager();
@@ -151,6 +153,5 @@ public class Administrador {
     }
 
 
-
-    }
+}
 

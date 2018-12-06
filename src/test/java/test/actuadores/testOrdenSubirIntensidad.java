@@ -21,7 +21,7 @@ public class testOrdenSubirIntensidad {
     @Before
     public void setUp() {
 
-        unDI = Mockito.spy(RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("aireAcondicionado","De 3500 frigorias"));
+        unDI = Mockito.spy(RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("aireAcondicionado", "De 3500 frigorias"));
 
 
         ordenSubirIntensidad = new OrdenSubirIntensidad(unDI);

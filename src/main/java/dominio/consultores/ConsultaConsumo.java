@@ -17,5 +17,6 @@ public abstract class ConsultaConsumo {
 
     public abstract double consultar();
 
+    //Usado en el overRide en consumoultimas horas
     public abstract double consultarDI(DispositivoInteligente unDI);
 }

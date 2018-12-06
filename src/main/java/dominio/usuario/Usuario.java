@@ -1,6 +1,7 @@
 package dominio.usuario;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
 @Embeddable
 public class Usuario {
@@ -11,9 +12,10 @@ public class Usuario {
     @Column(length = 150)
     private String contrasenia;
 
-    public Usuario(){}
-    public Usuario(String usuario, String contrasenia)
-    {
+    public Usuario() {
+    }
+
+    public Usuario(String usuario, String contrasenia) {
         this.usuario = usuario;
         this.contrasenia = contrasenia;
     }

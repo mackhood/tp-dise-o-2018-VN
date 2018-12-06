@@ -37,7 +37,7 @@ public class testSistemaInteligente {
         mockDE = Mockito.mock(DispositivoEstandar.class);
         otroMockDE = Mockito.mock(DispositivoEstandar.class);
 
-        mockCliente = Mockito.spy(new Cliente("John", "Doe", "johnDoe777","password", new ID(TiposId.DNI, "41291009"),
+        mockCliente = Mockito.spy(new Cliente("John", "Doe", "johnDoe777", "password", new ID(TiposId.DNI, "41291009"),
                 new Domicilio("Av Test", 2805, 14, 'B'), 44239910, listaDispEstandar, listaDispInteligentes));
 
         mockCliente.agregarDispositivoEstandar(mockDE);

@@ -1,12 +1,10 @@
 package dominio.manager;
 
-import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.repositories.RepositorioDispositivo;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
-import java.math.BigInteger;
 import java.util.List;
 
 public class DispositivosManager implements WithGlobalEntityManager, TransactionalOps {
@@ -29,14 +27,13 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
         });
     }
 
-    public DispositivoInteligente getDispositivoInteligenteDeLaBDPorID(Long id)
-    {
+    public DispositivoInteligente getDispositivoInteligenteDeLaBDPorID(Long id) {
         return entityManager().find(DispositivoInteligente.class, id);
     }
 
-    public List<DispositivoInteligente> getDispositivosInteligentesDeLaBD(){
+    public List<DispositivoInteligente> getDispositivosInteligentesDeLaBD() {
 
-        List<DispositivoInteligente> inteligentes = entityManager().createQuery("from DispositivoInteligente d",DispositivoInteligente.class).getResultList();
+        List<DispositivoInteligente> inteligentes = entityManager().createQuery("from DispositivoInteligente d", DispositivoInteligente.class).getResultList();
         return inteligentes;
 
     }
