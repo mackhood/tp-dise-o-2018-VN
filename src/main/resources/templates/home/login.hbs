@@ -1,22 +1,46 @@
 {{#partial "contenido"}}
 
-<form method="POST" action="/login">
+<style media="screen">
+	body
+	{
+		background-image: url(https://cdn.forbes.com.mx/2014/09/reuters_energia_electrica_republica_dominicana1.jpg);
+		background-repeat:  no-repeat;
+		background-size: cover;
+	}
+	
+	input[type="text"] {
+		font-size:20px;
+		width:200px;
+		border:2px solid red;
+		border-radius:4px;
+		height:40px
+	}
+	
+	input[type="password"] {
+		font-size:20px;
+		width:200px;
+		border:2px solid red;
+		border-radius:4px;
+		height:40px
+	}
+</style>
+<iframe width="768" height="439"
+		src="https://www.youtube.com/embed/fEIpuUpe6QE?autoplay=1" align="right">
+</iframe>
+<h1 style="color:Tomato"> Bienvenido </h1>
+<h4> Por favor, ingrese Usuario y password </h4>
+<br>
+	<form method="POST" action="/login" align="left">
 	<div class="form-group">
-        <label for="usuario">Usuario</label>
-        <input type="text" name="usuario"/>  </div>
+        <label for="usuario"> <strong> <font size="4"> Usuario  </font> </strong> &nbsp &nbsp &nbsp &nbsp </label>
+        <input type="text" name="usuario" placeholder="Username" required />  </div>
 	<div class="form-group">
-        <label for="password">Password</label>
-        <input type="text" name="password"/>  </div>
-    <input class="btn btn-primary btn-login" type="submit" value="Login">
-
-    <div class="entry">
-        {{#if errorVerificacion}}
-            <p> Error en usuario o contrasenia</p>
-        {{/if}}
-    </div>
-
-
-
+        <label for="password"> <strong> <font size="4"> Password </font> </strong> &nbsp &nbsp </label>
+        <input type="password" name="password" placeholder="********" required/>  </div>
+    <input class="btn btn-primary btn-login" type="submit" value="Ingresar">
+    <br>
+    <br>
+    {{#block "alerta"}}{{/block}}
 </form>
 
 {{/partial}}

@@ -16,14 +16,15 @@ public class Router {
 				.build();
 		
 		Spark.staticFiles.location("/");
-
+		
 		DispositivoController dispositivoController = new DispositivoController();
 		UsuarioController usuarioController = new UsuarioController();
 		AdminController adminController = new AdminController();
 
-		Spark.get("/", HomeController::home, engine);
-		Spark.get("/login", LoginController::show, engine);
+		Spark.get("/", HomeController::showLoginForm, engine);
 		Spark.post("/login", LoginController::login, engine);
+		Spark.get("/loginFailure", LoginController::loginFailure, engine);
+		Spark.post("/loginFailure", LoginController::loginFailure, engine);
 		Spark.post("/usuario/logout", LoginController::logout, engine);
 		Spark.get("/usuario", usuarioController::show, engine);
 		Spark.get("/usuario/verDispositivosAlta", dispositivoController::listarDispositivosAlta,engine);

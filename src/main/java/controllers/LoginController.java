@@ -11,12 +11,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginController {
-
-
-    public static ModelAndView show(Request req, Response res) {
-        return new ModelAndView(null, "home/login.hbs");
-    }
-
+	
+	public static ModelAndView loginFailure(Request req, Response res) {
+		
+		return new ModelAndView(null,"/home/errorLogin.hbs");
+	}
+	
     public static ModelAndView login(Request req, Response res) {
         Map<String, String> model = new HashMap<>();
         if (VerificarUsuario.verificar(RequestUtil.getQueryUsername(req), RequestUtil.getQueryPassword(req))) {
@@ -29,11 +29,8 @@ public class LoginController {
                 return new ModelAndView(null, "/home/admin.hbs");
             } else {
 
-                //Spark.halt(401,"Usuario o contrasenia incorrecto");
-                //Spark.notFound("<html><body><h1>Custom 404 handling</h1></body></html>");
-                //res.redirect("/login");
-                return new ModelAndView(null, "/home/login");
-
+                res.redirect("/loginFailure");
+                return null;
             }
         }
     }
