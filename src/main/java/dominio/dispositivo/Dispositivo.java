@@ -30,6 +30,14 @@ public abstract class Dispositivo {
         return consumoEstimadoPorHora;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public double getConsumoEstimadoPorHora() {
         return consumoEstimadoPorHora;
     }
@@ -51,6 +59,10 @@ public abstract class Dispositivo {
         return consumoEstimadoPorHora * horasDeUso;
     }
 
+    public void aumentarConsumoPor(int aumento) {
+        consumoEstimadoPorHora = consumoEstimadoPorHora + aumento;
+    }
+
     public abstract int getPuntos();
 
     public String getEquipoConcreto() {
@@ -61,23 +73,11 @@ public abstract class Dispositivo {
         this.equipoConcreto = equipoConcreto;
     }
 
-    public Long getId() {
-        return id;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void aumentarConsumoPor(int aumento) {
-        consumoEstimadoPorHora = consumoEstimadoPorHora + aumento;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public Long getId() {
+        return id;
     }
 }

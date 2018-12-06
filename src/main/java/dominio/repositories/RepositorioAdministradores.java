@@ -46,4 +46,9 @@ public class RepositorioAdministradores extends Repositorio {
         }
     }
 
+    /*
+     * public String getJsonFile() { //Separe este metodo para poder mockearlo al
+     * momento de testear return
+     * getClass().getClassLoader().getResource("Administradores.json").getFile(); }
+     */
 }

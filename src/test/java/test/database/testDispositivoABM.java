@@ -15,12 +15,12 @@ public class testDispositivoABM extends AbstractPersistenceTest implements WithG
 
     @Before
     public void setUp() {
-        admin = new Administrador("admin", "adminADMIN", LocalDate.now(), "jorge", "jorgito");
+        admin = new Administrador("admin", "adminADMIN", LocalDate.now(),"jorge","jorgito");
     }
 
     @Test
     public void testEliminarDispositivoDeLaBD() {
-        DispositivoInteligente disp = entityManager().find(DispositivoInteligente.class, new Long(24));
+        DispositivoInteligente disp = entityManager().find(DispositivoInteligente.class,new Long(24));
         entityManager().remove(disp);
         Assert.assertEquals(null, entityManager().find(Dispositivo.class, new Long(24)));
     }
@@ -39,7 +39,7 @@ public class testDispositivoABM extends AbstractPersistenceTest implements WithG
         DispositivoInteligente dispNuevo = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(new Long(9));
         dispNuevo.setNombre("equipoModificado");
         entityManager().persist(dispNuevo);
-        Assert.assertEquals("equipoModificado", DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(new Long(9)).getNombre());
+        Assert.assertEquals("equipoModificado",DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(new Long(9)).getNombre());
     }
 
     @After

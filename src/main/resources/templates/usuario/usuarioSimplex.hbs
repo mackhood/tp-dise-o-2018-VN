@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 
 <head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-    <link rel="stylesheet" href="/css/styleMap.css">
-    <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
-    <link rel='stylesheet' href='https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-blue.min.css'>
+  <meta charset="UTF-8">
+  <title>Home</title>
+  <link rel="stylesheet" href="/css/styleMap.css">
+  <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+  <link rel='stylesheet' href='https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-blue.min.css'>
 
 </head>
 
@@ -14,92 +14,92 @@
 
 <html lang="pl">
 <head>
-    <meta charset="utf-8">
-    <title>Code-mine App1</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontawesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/styleUsuario.css">
+  <meta charset="utf-8">
+  <title>Code-mine App1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontawesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/styleUsuario.css">
 </head>
 <body>
 <div class="container">
-    <!-- Header -->
-    <div class="header">
-        <div class="header-content">
-            <div class="head-menu">
-                <ul>
-                    <div class="link">
-                        <li><a href="/usuario/{{cliente.numeroDeUsuario}}"> Inicio</a></li>
-                        <li><a href="/usuarioEstados">Dispositivos</a></li>
-                        <li><a href="/usuarioUltimas">Mediciones</a></li>
-                        <li><a href="/usuarioSimplex" style="font-size:15px;">Simplex</a></li>
-                    </div>
+  <!-- Header -->
+  <div class="header">
+    <div class="header-content">
+      <div class="head-menu">
+        <ul>
+          <div class="link">
+          <li><a href="/usuario/{{cliente.numeroDeUsuario}}" > Inicio</a></li>
+          <li><a href="/usuarioEstados">Dispositivos</a></li>
+          <li><a href="/usuarioUltimas">Mediciones</a></li>
+          <li><a href="/usuarioSimplex" style="font-size:15px;">Simplex</a></li>
+          </div>
 
-                </ul>
-            </div>
-            <div class="head-buttons">
-                <div class="link-logOut">
-                    <a style="text-align:right;" href="/logout"> LOGOUT</a>
-                </div>
-                <div class="head-profile">
-                    <img src="https://image.flaticon.com/icons/png/512/17/17797.png" alt="Profile photo">
-                </div>
-            </div>
+        </ul>
+      </div>
+      <div class="head-buttons">
+        <div class="link-logOut">
+        <a style="text-align:right;" href="/logout"> LOGOUT</a>
         </div>
-    </div>
-
-
-    <div class="navigation">
-        <div class="header-content">
-            <div class="nav-top">
-                <div class="nav-top-left">
-                    <p>{{ cliente.nombreYApellido }}</p>
-                </div>
-                <div class="nav-top-right">
-                </div>
-                <div class="nav-bottom">
-                    <ul>
-                        <li>Cliente N° {{ cliente.numeroDeUsuario }}</li>
-                    </ul>
-                </div>
-            </div>
+        <div class="head-profile">
+          <img src="https://image.flaticon.com/icons/png/512/17/17797.png" alt="Profile photo">
         </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Content -->
-    <!-- Content -->
-    <div class="content row">
-        <!-- Second table of completed tests section-->
-        <div class="complete-tests-title2">
-            <p> CONSUMO IDEAL PARA EL PERIODO {{ periodo }} </p>
+
+  <div class="navigation">
+    <div class="header-content">
+      <div class="nav-top">
+        <div class="nav-top-left">
+          <p>{{ cliente.nombreYApellido }}</p>
         </div>
-        {{#listaDispositivos}}
-        <div class="complete-test-table2">
-            <div class="test to-buy2" style="display: inline-block;margin-right:50px;">
-                <p style="text-align:left">{{ name }}</p>
-                <p style="text-align:center">DISPOSITIVO </p>
-            </div>
-            <div class="test desirability2" style="display: inline-block;margin-right: 50px;">
-                <p style="text-align:left">{{ estadoString }}</p>
-                <p style="text-align:center">ESTADO ACTUAL</p>
-            </div>
-            <div class="test desirability3" style="display: inline-block;margin-right: 50px;">
-                <p style="text-align:left">{{ consumoIdealString }} </p>
-                <p style="text-align:center">ESTADO IDEAL</p>
-            </div>
-            <div class="test desirability4" style="display: inline-block">
-                <p style="text-align:left">{{ potenciaString }}</p>
-                <p style="text-align:center">POTENCIA</p>
-            </div>
-        {{/listaDispositivos}}
-        <div style="margin:10px;padding-top: 26px;">
-            SITIO CREADO POR NOSOTROS skeree
+        <div class="nav-top-right">
         </div>
-
-
-
+        <div class="nav-bottom">
+          <ul>
+            <li>Cliente N° {{ cliente.numeroDeUsuario }}</li>
+          </ul>
+        </div>
+      </div>
     </div>
-        <!-- Completed tests -->
+  </div>
 
+  <!-- Content -->
+  <!-- Content -->
+  <div class="content row">
+    <!-- Second table of completed tests section-->
+    <div class="complete-tests-title2">
+      <p> CONSUMO IDEAL PARA EL PERIODO {{ periodo }} </p>
     </div>
+    {{#listaDispositivos}}
+    <div class="complete-test-table2">
+      <div class="test to-buy2" style="display: inline-block;margin-right:50px;" >
+        <p style="text-align:left">{{ name }}</p>
+        <p style="text-align:center">DISPOSITIVO </p>
+      </div>
+      <div class="test desirability2" style="display: inline-block;margin-right: 50px;">
+        <p style="text-align:left">{{ estadoString }}</p>
+        <p style="text-align:center">ESTADO ACTUAL</p>
+      </div>
+      <div class="test desirability3" style="display: inline-block;margin-right: 50px;">
+        <p style="text-align:left">{{ consumoIdealString }} </p>
+        <p style="text-align:center">ESTADO IDEAL</p>
+      </div>
+      <div class="test desirability4" style="display: inline-block">
+        <p style="text-align:left">{{ potenciaString }}</p>
+        <p style="text-align:center">POTENCIA</p>
+      </div>
+      {{/listaDispositivos}}
+    <div style="margin:10px;padding-top: 26px;"  >
+              SITIO CREADO POR NOSOTROS skeree
+            </div>
+
+
+
+          </div>
+          <!-- Completed tests -->
+
+        </div>
 
 </body>
 

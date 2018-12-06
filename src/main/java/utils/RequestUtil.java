@@ -22,11 +22,17 @@ public class RequestUtil {
     }
 
 
+
+
+
+
     public static boolean removeSessionAttrLoggedOut(Request request) {
         Object loggedOut = request.session().attribute("loggedOut");
         request.session().removeAttribute("loggedOut");
         return loggedOut != null;
     }
+
+
 
 
     public static String removeSessionAttrLoginRedirect(Request request) {
@@ -36,10 +42,14 @@ public class RequestUtil {
     }
 
 
+
     public static boolean clientAcceptsHtml(Request request) {
         String accept = request.headers("Accept");
         return accept != null && accept.contains("text/html");
     }
+
+
+
 
 
 }

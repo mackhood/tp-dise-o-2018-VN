@@ -3,89 +3,98 @@ package dominio.dispositivo;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 @Entity
 // @Table(name = "intervalo")
 public class Intervalo {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "idIntervalo")
-    protected Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "idIntervalo")
+	protected Long id;
 
-    @Column(length = 50)
-    protected LocalDateTime inicio;
+	@Column(length = 50)
+	protected LocalDateTime inicio;
 
-    @Column(length = 50)
-    protected LocalDateTime fin;
+	@Column(length = 50)
+	protected LocalDateTime fin;
 
-    public Intervalo() {
-    }
+	public Intervalo() {
+	}
 
-    public Intervalo(LocalDateTime inicio, LocalDateTime fin) {
+	public Intervalo(LocalDateTime inicio, LocalDateTime fin) {
 
-        this.inicio = inicio;
-        this.fin = fin;
-    }
+		this.inicio = inicio;
+		this.fin = fin;
+	}
 
-    public boolean estaEntre(LocalDateTime fecha, LocalDateTime otraFecha) {
+	public boolean estaEntre(LocalDateTime fecha, LocalDateTime otraFecha) {
 
-        return inicio.isAfter(fecha) && fin.isBefore(otraFecha);
-    }
+		return inicio.isAfter(fecha) && fin.isBefore(otraFecha);
+	}
 
-    public Intervalo ultimoMes() {
+	public Intervalo ultimoMes() {
 
-        LocalDateTime finIntervalo = LocalDateTime.now().minusMonths(1);
-        return new Intervalo(LocalDateTime.now(), finIntervalo);
-    }
+		LocalDateTime finIntervalo = LocalDateTime.now().minusMonths(1);
+		return new Intervalo(LocalDateTime.now(), finIntervalo);
+	}
 
-    public double intervaloEnHoras() {
+	public double intervaloEnHoras() {
 
-        return inicio.until(fin, ChronoUnit.HOURS);
-    }
+		return inicio.until(fin, ChronoUnit.HOURS);
+	}
 
-    public LocalDateTime getInicio() {
-        return inicio;
-    }
+	public LocalDateTime getInicio() {
+		return inicio;
+	}
 
-    public void setInicio(LocalDateTime inicioIntervalo) {
-        this.inicio = inicioIntervalo;
-    }
+	public void setInicio(LocalDateTime inicioIntervalo) {
+		this.inicio = inicioIntervalo;
+	}
 
-    public boolean caeDentroDe(Intervalo i) {
+	public boolean caeDentroDe(Intervalo i) {
 
-        return inicio.isBefore(i.getInicio()) && fin.isBefore(i.getFin()) ||
-                inicio.isBefore(i.getInicio()) && fin.isAfter(i.getFin()) ||
-                inicio.isAfter(i.getInicio()) && inicio.isBefore(i.getFin()) && fin.isAfter(i.getFin()) ||
-                inicio.isBefore(i.getInicio()) && fin.isBefore(i.getFin()) && fin.isAfter(i.getInicio());
-    }
+		return inicio.isBefore(i.getInicio()) && fin.isBefore(i.getFin()) ||
+				inicio.isBefore(i.getInicio()) && fin.isAfter(i.getFin()) ||
+				inicio.isAfter(i.getInicio()) && inicio.isBefore(i.getFin()) && fin.isAfter(i.getFin()) ||
+				inicio.isBefore(i.getInicio()) && fin.isBefore(i.getFin()) && fin.isAfter(i.getInicio());
+	}
 
-    public double horasDentroDe(Intervalo i) {
+	public double horasDentroDe(Intervalo i) {
 
-        if (inicio.isAfter(i.getInicio()) && fin.isBefore(i.getFin())) {
+		if (inicio.isAfter(i.getInicio()) && fin.isBefore(i.getFin())) {
 
-            return this.intervaloEnHoras();
-        } else if (inicio.isAfter(i.getInicio()) && inicio.isBefore(i.getFin()) && fin.isAfter(i.getFin())) {
+			return this.intervaloEnHoras();
+		}
 
-            return this.getInicio().until(i.getFin(), ChronoUnit.HOURS);
-        } else if (inicio.isBefore(i.getInicio()) && fin.isAfter(i.getFin())) {
+		else if (inicio.isAfter(i.getInicio()) && inicio.isBefore(i.getFin()) && fin.isAfter(i.getFin())) {
 
-            return i.intervaloEnHoras();
-        } else if (inicio.isBefore(i.getInicio()) && fin.isBefore(i.getFin()) && fin.isAfter(i.getInicio())) {
+			return this.getInicio().until(i.getFin(), ChronoUnit.HOURS);
+		}
 
-            return i.getInicio().until(fin, ChronoUnit.HOURS);
-        } else {
+		else if (inicio.isBefore(i.getInicio()) && fin.isAfter(i.getFin())) {
 
-            return 0;
-        }
-    }
+			return i.intervaloEnHoras();
+		}
 
-    public LocalDateTime getFin() {
-        return fin;
-    }
+		else if (inicio.isBefore(i.getInicio()) && fin.isBefore(i.getFin()) && fin.isAfter(i.getInicio())) {
 
-    public void setFin(LocalDateTime finIntervalo) {
-        this.fin = finIntervalo;
-    }
+			return i.getInicio().until(fin, ChronoUnit.HOURS);
+		}
+
+		else {
+
+			return 0;
+		}
+	}
+
+	public LocalDateTime getFin() {
+		return fin;
+	}
+
+	public void setFin(LocalDateTime finIntervalo) {
+		this.fin = finIntervalo;
+	}
 
 }

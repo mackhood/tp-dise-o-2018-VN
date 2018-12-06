@@ -16,256 +16,260 @@ import java.util.stream.Collectors;
 @Table(name = "cliente")
 public class Cliente {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "idCliente")
-    protected Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "idCliente")
+	protected Long id;
 
-    @Column(name = "Nombre", nullable = false, length = 100)
-    private String nombre;
+	@Column(name = "Nombre", nullable = false, length = 100)
+	private String nombre;
 
-    @Column(length = 50)
-    private String apellido;
+	@Column(length = 50)
+	private String apellido;
 
-    @Embedded
-    private ID identificacion;
+	@Embedded
+	private ID identificacion;
 
-    private long telefono;
+	private long telefono;
 
-    // @Embedded
-    //	// private Usuario usuario;
+	// @Embedded
+	//	// private Usuario usuario;
 
-    @Column(length = 50)
-    private String usuario;
+	@Column(length = 50)
+	private String usuario;
 
-    @Column(length = 50)
-    private String contrasenia;
+	@Column(length = 50)
+	private String contrasenia;
 
-    @Embedded
-    private Domicilio domicilio;
-    private LocalDate fechaDeAlta;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Categoria categoria;
+	@Embedded
+	private Domicilio domicilio;
+	private LocalDate fechaDeAlta;
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Categoria categoria;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "idCliente")
-    private List<DispositivoEstandar> dispositivosEstandar = new ArrayList<>();
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "idCliente")
+	private List<DispositivoEstandar> dispositivosEstandar = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "idCliente")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "idCliente")
 
-    private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
+	private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Ubicacion ubicacion;
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Ubicacion ubicacion;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Transformador transformador;
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Transformador transformador;
 
-    private boolean ahorroAutomatico = false;
+	private boolean ahorroAutomatico = false;
 
-    public Cliente() {
-    }
+	public Cliente() {
+	}
 
-    public Cliente(String unNombre, String unApellido, String username, String contrasenia, ID id,
-                   Domicilio unDomicilio, long unTelefono, List<DispositivoEstandar> estandares,
-                   List<DispositivoInteligente> inteligentes) {
+	public Cliente(String unNombre, String unApellido, String username, String contrasenia, ID id,
+			Domicilio unDomicilio, long unTelefono, List<DispositivoEstandar> estandares,
+			List<DispositivoInteligente> inteligentes) {
 
-        this.nombre = unNombre;
-        this.apellido = unApellido;
-        this.identificacion = id;
-        this.domicilio = unDomicilio;
-        this.telefono = unTelefono;
-        this.dispositivosEstandar = estandares;
-        this.dispositivosInteligentes = inteligentes;
-        this.fechaDeAlta = LocalDate.now();
-        this.usuario = username;
-        this.contrasenia = contrasenia;
-        // usuario = new Usuario(username,contrasenia);
-    }
+		this.nombre = unNombre;
+		this.apellido = unApellido;
+		this.identificacion = id;
+		this.domicilio = unDomicilio;
+		this.telefono = unTelefono;
+		this.dispositivosEstandar = estandares;
+		this.dispositivosInteligentes = inteligentes;
+		this.fechaDeAlta = LocalDate.now();
+		this.usuario = username;
+		this.contrasenia = contrasenia;
+		// usuario = new Usuario(username,contrasenia);
+	}
 
-    public double puntosAcumulados() {
-        return dispositivosInteligentes.stream().mapToDouble(inte -> inte.getPuntos()).sum()
-                + dispositivosEstandar.stream().mapToDouble(estandar -> estandar.getPuntos()).sum();
-    }
+	public double puntosAcumulados() {
+		return dispositivosInteligentes.stream().mapToDouble(inte -> inte.getPuntos()).sum()
+				+ dispositivosEstandar.stream().mapToDouble(estandar -> estandar.getPuntos()).sum();
+	}
 
-    public void agregarModuloAdaptador(Conversor conversor, DispositivoEstandar disp)
+	public void agregarModuloAdaptador(Conversor conversor, DispositivoEstandar disp)
 
-            throws NoTieneDispositivoException {
+			throws NoTieneDispositivoException {
 
-        if (this.tieneDE(disp)) {
-            conversor.convertirInteligente(this, disp);
-        } else
-            throw new NoTieneDispositivoException("No se encuentra en posesion del dispositivo que intenta adaptar");
-    }
+		if (this.tieneDE(disp)) {
+			conversor.convertirInteligente(this, disp);
+		} else
+			throw new NoTieneDispositivoException("No se encuentra en posesion del dispositivo que intenta adaptar");
+	}
 
-    public boolean tieneDE(DispositivoEstandar disp) {
+	public boolean tieneDE(DispositivoEstandar disp) {
 
-        return dispositivosEstandar.contains(disp);
-    }
+		return dispositivosEstandar.contains(disp);
+	}
 
-    public boolean algunDispositivoEncendido() {
+	public boolean algunDispositivoEncendido() {
 
-        return dispositivosInteligentes.stream().anyMatch(disp -> disp.estaEncendido());
-    }
+		return dispositivosInteligentes.stream().anyMatch(disp -> disp.estaEncendido());
+	}
 
-    public long cantidadDeDIEncendidos() {
+	public long cantidadDeDIEncendidos() {
 
-        return dispositivosInteligentes.stream().filter(disp -> disp.estaEncendido()).count();
-    }
+		return dispositivosInteligentes.stream().filter(disp -> disp.estaEncendido()).count();
+	}
 
-    public long cantidadDeDIApagados() {
+	public long cantidadDeDIApagados() {
 
-        return dispositivosInteligentes.stream().filter(disp -> disp.estaApagado()).count();
-    }
+		return dispositivosInteligentes.stream().filter(disp -> disp.estaApagado()).count();
+	}
 
-    public int cantidadDeDispositivos() {
+	public int cantidadDeDispositivos() {
 
-        return getTodosLosDispositivos().size();
-    }
+		return getTodosLosDispositivos().size();
+	}
 
-    public void agregarDispositivoInteligente(DispositivoInteligente disp) {
+	public void agregarDispositivoInteligente(DispositivoInteligente disp) {
 
-        dispositivosInteligentes.add(disp);
-    }
+		dispositivosInteligentes.add(disp);
+	}
 
-    public void agregarDispositivoEstandar(DispositivoEstandar disp) {
+	public void agregarDispositivoEstandar(DispositivoEstandar disp) {
 
-        dispositivosEstandar.add(disp);
-    }
+		dispositivosEstandar.add(disp);
+	}
 
-    public void usarDispositivo(DispositivoEstandar dispositivo, double cantHorasEstimada)
+	public void usarDispositivo(DispositivoEstandar dispositivo, double cantHorasEstimada)
 
-            throws NoTieneDispositivoException {
+			throws NoTieneDispositivoException {
 
-        if (this.tieneDE(dispositivo)) {
+		if (this.tieneDE(dispositivo)) {
 
-            dispositivo.serUsado(cantHorasEstimada);
-        } else
-            throw new NoTieneDispositivoException("No posee el dispositivo indicado");
-    }
+			dispositivo.serUsado(cantHorasEstimada);
+		} else
+			throw new NoTieneDispositivoException("No posee el dispositivo indicado");
+	}
 
-    public Double consumoEnergeticoTotal() {
+	public Double consumoEnergeticoTotal() {
 
-        return getTodosLosDispositivos().stream().mapToDouble(disp -> disp.getConsumoTotal()).sum();
-    }
+		return getTodosLosDispositivos().stream().mapToDouble(disp -> disp.getConsumoTotal()).sum();
+	}
 
-    public void activarAhorroAutomatico() {
+	public void activarAhorroAutomatico() {
 
-        this.ahorroAutomatico = true;
-    }
+		this.ahorroAutomatico = true;
+	}
 
-    public boolean estaEnModoAhorroAutomatico() {
-        return ahorroAutomatico == true;
-    }
+	public boolean estaEnModoAhorroAutomatico() {
+		return ahorroAutomatico == true;
+	}
 
-    public double consumoDispositivosInteligentes() {
-        return dispositivosInteligentes.stream()
-                .mapToDouble(dispositivoInteligente -> dispositivoInteligente.getConsumoTotal()).sum();
-    }
+	public double consumoDispositivosInteligentes() {
+		return dispositivosInteligentes.stream()
+				.mapToDouble(dispositivoInteligente -> dispositivoInteligente.getConsumoTotal()).sum();
+	}
 
-    public DispositivoEstandar sacarDispositivoEstandarLista(DispositivoEstandar estandar) {
+	public DispositivoEstandar sacarDispositivoEstandarLista(DispositivoEstandar estandar) {
 
-        dispositivosEstandar.remove(estandar);
-        return estandar;
-    }
+		dispositivosEstandar.remove(estandar);
+		return estandar;
+	}
 
-    public double obtenerGastosAproximados() {
+	public double obtenerGastosAproximados() {
 
-        return categoria.calcularCostosPara(this);
-    }
+		return categoria.calcularCostosPara(this);
+	}
 
-    /*
-     * public double consumoDeIntervalo(Intervalo intervalo) {
-     *
-     * return dispositivosInteligentes.stream().mapToDouble(disp ->
-     * disp.consumoParaIntervalos(intervalo)).sum(); }
-     */
+	/*
+	 * public double consumoDeIntervalo(Intervalo intervalo) {
+	 * 
+	 * return dispositivosInteligentes.stream().mapToDouble(disp ->
+	 * disp.consumoParaIntervalos(intervalo)).sum(); }
+	 */
 
-    // GETTERS/SETTERS
+	// GETTERS/SETTERS
 
-    public String getNombreCategoria() {
+	public String getNombreCategoria() {
 
-        return categoria.getNombre();
-    }
+		return categoria.getNombre();
+	}
 
-    public String getNombre() {
+	public String getNombre() {
 
-        return nombre;
-    }
+		return nombre;
+	}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public Ubicacion getUbicacion() {
-        return ubicacion;
-    }
+	public Ubicacion getUbicacion() {
+		return ubicacion;
+	}
 
-    public void setUbicacion(Ubicacion ubicacion) {
-        this.ubicacion = ubicacion;
-    }
+	public void setUbicacion(Ubicacion ubicacion) {
+		this.ubicacion = ubicacion;
+	}
 
-    public List<DispositivoEstandar> getDispositivosEstandar() {
+	public List<DispositivoEstandar> getDispositivosEstandar() {
 
-        return dispositivosEstandar;
-    }
+		return dispositivosEstandar;
+	}
 
-    public List<Dispositivo> getTodosLosDispositivos() {
+	public List<Dispositivo> getTodosLosDispositivos() {
 
-        List<Dispositivo> todos = new ArrayList<>();
-        todos.addAll(dispositivosInteligentes);
-        todos.addAll(dispositivosEstandar);
-        return todos;
-    }
+		List<Dispositivo> todos = new ArrayList<>();
+		todos.addAll(dispositivosInteligentes);
+		todos.addAll(dispositivosEstandar);
+		return todos;
+	}
 
-    public Transformador getTransformador() {
-        return transformador;
-    }
+	public Transformador getTransformador() {
+		return transformador;
+	}
 
-    public void setTransformador(Transformador transformador) {
-        this.transformador = transformador;
-    }
+	public void setTransformador(Transformador transformador) {
+		this.transformador = transformador;
+	}
 
-    public Categoria getCategoria() {
+	public Categoria getCategoria() {
 
-        return categoria;
-    }
+		return categoria;
+	}
 
-    public void setCategoria(Categoria unaCategoria) {
+	public void setCategoria(Categoria unaCategoria) {
 
-        categoria = unaCategoria;
-    }
+		categoria = unaCategoria;
+	}
 
-    public List<DispositivoInteligente> getDispositivosInteligentes() {
+	public List<DispositivoInteligente> getDispositivosInteligentes() {
 
-        return dispositivosInteligentes;
-    }
+		return dispositivosInteligentes;
+	}
 
-    public Domicilio getDomicilio() {
-        return domicilio;
-    }
+	public Domicilio getDomicilio() {
+		return domicilio;
+	}
 
-    public void setDomicilio(Domicilio domicilio) {
-        this.domicilio = domicilio;
-    }
+	public void setDomicilio(Domicilio domicilio) {
+		this.domicilio = domicilio;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public Dispositivo getDispositivoDeNombre(String nombreDisp) {
-        return this.getTodosLosDispositivos().stream().filter(dispositivo -> nombreDisp.equals(dispositivo.getNombre()))
-                .collect(Collectors.toList()).get(0);
-    }
+	public Dispositivo getDispositivoDeNombre(String nombreDisp) {
+		return this.getTodosLosDispositivos().stream().filter(dispositivo -> nombreDisp.equals(dispositivo.getNombre()))
+				.collect(Collectors.toList()).get(0);
+	}
 
-    public String getUsuario() {
-        return usuario;
-    }
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
 
-    /*
-     * public Usuario getUsuario() { return usuario; }
-     */
+	/*
+	 * public Usuario getUsuario() { return usuario; }
+	 */
+
+	public String getUsuario() {
+		return usuario;
+	}
 
     public String getContrasenia() {
         return contrasenia;
@@ -275,12 +279,8 @@ public class Cliente {
         return apellido;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
     public Double consumoEnUnIntervalo(Intervalo intervalo) {
-        return dispositivosInteligentes.stream().mapToDouble(dispositivo -> dispositivo.consumoParaIntervalo(intervalo)).sum();
-    }
+    	return dispositivosInteligentes.stream().mapToDouble(dispositivo->dispositivo.consumoParaIntervalo(intervalo)).sum();
+	}
 
 }

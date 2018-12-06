@@ -13,116 +13,116 @@ import java.util.stream.Collectors;
 @Entity
 public class Transformador {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    protected Long id;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Cliente> usuariosConectados = new ArrayList<>();
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	protected Long id;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Cliente> usuariosConectados = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.EAGER)
-    private Ubicacion ubicacion;
+	@OneToOne(fetch = FetchType.EAGER)
+	private Ubicacion ubicacion;
+	
+	private int idTransformador;
 
-    private int idTransformador;
+	public Transformador(int idTransformador) {
+		this.idTransformador = idTransformador;
+	}
 
-    public Transformador(int idTransformador) {
-        this.idTransformador = idTransformador;
-    }
+	public Transformador() {
+	}
 
-    public Transformador() {
-    }
+	public Transformador(List<Cliente> usuariosConectados, Ubicacion ubicacion, int idTransformador) {
+		this.ubicacion = ubicacion;
+		this.usuariosConectados.addAll(usuariosConectados);
+		this.idTransformador = idTransformador;
+	}
 
-    public Transformador(List<Cliente> usuariosConectados, Ubicacion ubicacion, int idTransformador) {
-        this.ubicacion = ubicacion;
-        this.usuariosConectados.addAll(usuariosConectados);
-        this.idTransformador = idTransformador;
-    }
+	public double suministroActual() {
+		return this.consumoDeDispositivosInteligentesClientes();
+	}
 
-    public double suministroActual() {
-        return this.consumoDeDispositivosInteligentesClientes();
-    }
+	private double consumoDeDispositivosInteligentesClientes() {
+		return usuariosConectados.stream().mapToDouble(cliente -> cliente.consumoDispositivosInteligentes()).sum();
+	}
 
-    private double consumoDeDispositivosInteligentesClientes() {
-        return usuariosConectados.stream().mapToDouble(cliente -> cliente.consumoDispositivosInteligentes()).sum();
-    }
+	public double energiaConsumidaClientes() {
+		return usuariosConectados.stream().mapToDouble(usuario -> usuario.consumoEnergeticoTotal()).sum();
+	}
 
-    public double energiaConsumidaClientes() {
-        return usuariosConectados.stream().mapToDouble(usuario -> usuario.consumoEnergeticoTotal()).sum();
-    }
+	public double consumoEnIntervalo(Intervalo i) {
 
-    public double consumoEnIntervalo(Intervalo i) {
+		double totalConsumo = 0;
 
-        double totalConsumo = 0;
+		/*
+		 * Genera una lista de listas de dispositivos. Esto es, una lista que contiene
+		 * todos los dispositivos de todos los usuarios y cada sublista representa los
+		 * dispositivos de cada usuario
+		 */
+		List<List<DispositivoInteligente>> dispositivosConectados = usuariosConectados.stream()
+				.map(user -> user.getDispositivosInteligentes()).collect(Collectors.toList());
 
-        /*
-         * Genera una lista de listas de dispositivos. Esto es, una lista que contiene
-         * todos los dispositivos de todos los usuarios y cada sublista representa los
-         * dispositivos de cada usuario
-         */
-        List<List<DispositivoInteligente>> dispositivosConectados = usuariosConectados.stream()
-                .map(user -> user.getDispositivosInteligentes()).collect(Collectors.toList());
+		/* Recorremos los dispositivos de cada uno de los usuarios */
 
-        /* Recorremos los dispositivos de cada uno de los usuarios */
+		for (int j = 0; j < dispositivosConectados.size(); j++) {
 
-        for (int j = 0; j < dispositivosConectados.size(); j++) {
+			List<DispositivoInteligente> dispositivosPorUsuario = dispositivosConectados.get(j);
 
-            List<DispositivoInteligente> dispositivosPorUsuario = dispositivosConectados.get(j);
+			/* Recorremos cada uno de los dispositivos de un usuario */
 
-            /* Recorremos cada uno de los dispositivos de un usuario */
+			for (int k = 0; k < dispositivosPorUsuario.size(); k++) {
 
-            for (int k = 0; k < dispositivosPorUsuario.size(); k++) {
+				List<Intervalo> intervalosDeConsumoPorDispositivo = dispositivosPorUsuario.get(k).getIntervalosDeUso();
 
-                List<Intervalo> intervalosDeConsumoPorDispositivo = dispositivosPorUsuario.get(k).getIntervalosDeUso();
+				/* Recorremos cada uno de los intervalos de un dispositivo */
 
-                /* Recorremos cada uno de los intervalos de un dispositivo */
+				for (int l = 0; l < intervalosDeConsumoPorDispositivo.size(); l++) {
 
-                for (int l = 0; l < intervalosDeConsumoPorDispositivo.size(); l++) {
+					double horasDeConsumo = intervalosDeConsumoPorDispositivo.get(l).horasDentroDe(i);
+					System.out.println(intervalosDeConsumoPorDispositivo.get(l).getInicio().toString());
+					System.out.println(intervalosDeConsumoPorDispositivo.get(l).getFin().toString());
+					
+					totalConsumo = totalConsumo
+							+ (horasDeConsumo * dispositivosPorUsuario.get(k).consumoEstimadoPorHora());
+				}
 
-                    double horasDeConsumo = intervalosDeConsumoPorDispositivo.get(l).horasDentroDe(i);
-                    System.out.println(intervalosDeConsumoPorDispositivo.get(l).getInicio().toString());
-                    System.out.println(intervalosDeConsumoPorDispositivo.get(l).getFin().toString());
+			}
+		}
+		return totalConsumo;
+	}
 
-                    totalConsumo = totalConsumo
-                            + (horasDeConsumo * dispositivosPorUsuario.get(k).consumoEstimadoPorHora());
-                }
+	public double consumoPromedioEnIntervalo(Intervalo intervalo) {
+		return this.consumoEnIntervalo(intervalo) / usuariosConectados.size();
+	}
 
-            }
-        }
-        return totalConsumo;
-    }
+	public Double calcularDistancia(Ubicacion ubicacionCliente) {
+		return ubicacion.calcularDistancia(ubicacionCliente);
+	}
 
-    public double consumoPromedioEnIntervalo(Intervalo intervalo) {
-        return this.consumoEnIntervalo(intervalo) / usuariosConectados.size();
-    }
+	public void agregarCliente(Cliente cliente) {
+		usuariosConectados.add(cliente);
+	}
 
-    public Double calcularDistancia(Ubicacion ubicacionCliente) {
-        return ubicacion.calcularDistancia(ubicacionCliente);
-    }
+	/*
+	 * public double consumoDeIntervalo(Intervalo intervalo) {
+	 * 
+	 * return usuariosConectados.stream().mapToDouble(cliente ->
+	 * cliente.consumoDeIntervalo(intervalo)).sum(); }
+	 */
+	public List<Cliente> getUsuariosConectados() {
 
-    public void agregarCliente(Cliente cliente) {
-        usuariosConectados.add(cliente);
-    }
+		return usuariosConectados;
+	}
 
-    /*
-     * public double consumoDeIntervalo(Intervalo intervalo) {
-     *
-     * return usuariosConectados.stream().mapToDouble(cliente ->
-     * cliente.consumoDeIntervalo(intervalo)).sum(); }
-     */
-    public List<Cliente> getUsuariosConectados() {
+	public Ubicacion getUbicacion() {
+		return ubicacion;
+	}
 
-        return usuariosConectados;
-    }
+	public void setUbicacion(Ubicacion ubicacion) {
+		this.ubicacion = ubicacion;
+	}
 
-    public Ubicacion getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(Ubicacion ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
-    public int getIdTransformador() {
-        return idTransformador;
-    }
+	public int getIdTransformador() {
+		return idTransformador;
+	}
 
 }

@@ -37,23 +37,25 @@ public abstract class Condicion {
      */
 
     public abstract boolean cumpleCondicion();
-
+    
     public void asociarA(Regla regla) {
-
-        this.regla = regla;
-        regla.getCondicionesACumplir().add(this);
+    	
+    	this.regla = regla;
+    	regla.getCondicionesACumplir().add(this);
     }
-
+    
     public void actualizar(Sensor unSensor) {
-
-        if (regla == null) {
-
-            throw new RuntimeException("Debe asociarse una regla");
-        } else {
-
-            this.setMedicionActual(unSensor.getValorMedicion());
-            regla.chequearCondicionesYEjecutar();
-        }
+    	
+    	if (regla == null) {
+    		
+    		throw new RuntimeException("Debe asociarse una regla");
+    	}
+    	
+    	else {
+    	
+        this.setMedicionActual(unSensor.getValorMedicion());
+        regla.chequearCondicionesYEjecutar();
+    	}
     }
 
     public void modificarCondicion(double nuevoValorLimite) {

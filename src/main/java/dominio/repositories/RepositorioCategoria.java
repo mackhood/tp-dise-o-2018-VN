@@ -44,4 +44,13 @@ public class RepositorioCategoria extends Repositorio {
             throw new ProcessingDataFailedException(e.getLocalizedMessage());
         }
     }
+
+    // Separe este metodo para poder mockearlo al momento de testear
+    // Lo hice publico para poder mockearlo
+
+    /*
+     * public String getJsonFile() { return
+     * getClass().getClassLoader().getResource("categoria.json").getFile(); }
+     */
+
 }

@@ -46,8 +46,8 @@ public class testParaTransformador {
         List<Cliente> listaClientesTransformador1 = new ArrayList<>();
         List<Cliente> listaClientesTransformador2 = new ArrayList<>();
 
-        transformador1_Zona1 = new Transformador(listaClientesTransformador1, new Ubicacion(20.0, 20.0), 5);
-        transformador2_Zona1 = new Transformador(listaClientesTransformador2, new Ubicacion(10.0, 10.0), 6);
+        transformador1_Zona1 = new Transformador(listaClientesTransformador1, new Ubicacion(20.0, 20.0),5);
+        transformador2_Zona1 = new Transformador(listaClientesTransformador2, new Ubicacion(10.0, 10.0),6);
 
         transformador1_Zona1.agregarCliente(clienteMock1);
         transformador1_Zona1.agregarCliente(clienteMock2);

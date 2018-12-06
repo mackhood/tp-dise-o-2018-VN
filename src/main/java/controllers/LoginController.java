@@ -24,7 +24,7 @@ public class LoginController {
             return new ModelAndView(null, "/home/usuario.hbs");
         } else {
 
-            if (VerificarAdmin.verificar(RequestUtil.getQueryUsername(req), RequestUtil.getQueryPassword(req))) {
+            if (  VerificarAdmin.verificar(RequestUtil.getQueryUsername(req), RequestUtil.getQueryPassword(req))) {
                 req.session().attribute("currentUser", req.queryParams("usuario"));
                 return new ModelAndView(null, "/home/admin.hbs");
             } else {

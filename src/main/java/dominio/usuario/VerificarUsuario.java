@@ -4,19 +4,22 @@ import dominio.manager.ClienteManager;
 
 public class VerificarUsuario {
 
-    public static boolean verificar(String usuario, String contrasenia) {
-        if (usuario.isEmpty() || contrasenia.isEmpty()) {
+    public static boolean verificar(String usuario, String contrasenia)
+    {
+        if(usuario.isEmpty() || contrasenia.isEmpty())
+        {
             return false;
         }
 
 
-        if (!ClienteManager.getInstance().esCliente(usuario)) {
+        if (! ClienteManager.getInstance().esCliente(usuario)) {
             return false;
         }
 
         Cliente cliente = ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario(usuario);
 
-        if (cliente == null) {
+        if(cliente == null)
+        {
             return false;
         }
 

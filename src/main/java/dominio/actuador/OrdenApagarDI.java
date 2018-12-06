@@ -4,6 +4,7 @@ import dominio.dispositivo.DispositivoInteligente;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import java.util.List;
 
 @Entity
 @DiscriminatorValue(value = "OrdenApagarDI")

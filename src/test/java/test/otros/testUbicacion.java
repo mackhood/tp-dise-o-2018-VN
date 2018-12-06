@@ -2,6 +2,12 @@ package test.otros;
 
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
+
+import dominio.usuario.*;
+import dominio.zonageografica.Ubicacion;
+import org.junit.Before;
+import org.junit.Ignore;
+
 import dominio.usuario.Cliente;
 import dominio.usuario.Domicilio;
 import dominio.usuario.ID;
@@ -24,17 +30,20 @@ public class testUbicacion {
     List<DispositivoEstandar> dispositivoEstandars;
 
 
-    @Before
-    public void setUp() {
-        ubicacionTest = new Ubicacion(8, 3);
+	@Before
+	public void setUp() {
 
-        dispositivoInteligentes = new ArrayList<>();
+	    List<DispositivoEstandar> estandars = new ArrayList<>();
+	    List<DispositivoInteligente> inteligentes = new ArrayList<>();
+		ubicacionTest = new Ubicacion(8, 3);
+
+		dispositivoInteligentes = new ArrayList<>();
         dispositivoEstandars = new ArrayList<>();
 
-        mockCliente = Mockito.spy(new Cliente("John", "Doe", "johndoe777", "password", new ID(TiposId.DNI, "34900213"),
+        mockCliente = Mockito.spy(new Cliente("John", "Doe", "johndoe777", "password",new ID(TiposId.DNI, "34900213"),
                 new Domicilio("Av Test", 132, 13, 'B'), 20426007, dispositivoEstandars, dispositivoInteligentes));
-        mockCliente.setUbicacion(new Ubicacion(12.0, 1.5));
-    }
+		mockCliente.setUbicacion( new Ubicacion(12.0, 1.5));
+	}
 
     @Test
     public void testCalcularDistancia() {

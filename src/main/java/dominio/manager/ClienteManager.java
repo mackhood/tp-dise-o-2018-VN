@@ -10,6 +10,7 @@ import dominio.zonageografica.Ubicacion;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+import javax.management.Query;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
             dispositivosInteligentes.add(aireAcondicionado3500);
             dispositivosInteligentes.add(ventilador);
 
-            Cliente unCliente = new Cliente("ariel", "galvan", "galvanariel", "password", id, domicilio, 47581269,
+            Cliente unCliente = new Cliente("ariel", "galvan", "galvanariel","password", id, domicilio, 47581269,
                     dispositivosEstandares, dispositivosInteligentes);
 
             Ubicacion ubicacion = new Ubicacion(5, 2);
@@ -52,24 +53,25 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 
 
     public boolean esCliente(String username) {
-        return entityManager().createQuery("from Cliente c where usuario='" + username + "'", Cliente.class).getResultList().size() > 0;
+        return entityManager().createQuery("from Cliente c where usuario='"+username+"'" ,Cliente.class).getResultList().size() > 0;
     }
 
-    public Cliente buscarClienteDeLaBDPorUsuario(String username) {
+    public Cliente buscarClienteDeLaBDPorUsuario(String username){
 
 
-        Cliente cliente = entityManager().createQuery("from Cliente c where usuario='" + username + "'", Cliente.class).getSingleResult();
+        Cliente cliente = entityManager().createQuery("from Cliente c where usuario='"+username+"'" ,Cliente.class).getSingleResult();
 
         return cliente;
 
     }
 
-    public List<Cliente> getClientesDeLaBD() {
+    public List<Cliente> getClientesDeLaBD(){
 
-        List<Cliente> clientes = entityManager().createQuery("from Cliente c", Cliente.class).getResultList();
+        List<Cliente> clientes = entityManager().createQuery("from Cliente c",Cliente.class).getResultList();
         return clientes;
 
     }
+
 
 
 }

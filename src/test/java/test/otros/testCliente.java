@@ -19,8 +19,7 @@ import java.util.List;
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.*;
 
 public class testCliente {
 
@@ -33,22 +32,22 @@ public class testCliente {
     private Conversor moduloAdaptador;
     private DispositivoEstandar mockDE;
     private DispositivoInteligente mockDI;
-
+    
     private Intervalo i1;
     private Intervalo i2;
-
+    
     @Before
     public void setUp() {
-
-        List<Intervalo> intervalosDeUsoDI1 = new ArrayList<>();
-        List<Intervalo> intervalosDeUsoDI2 = new ArrayList<>();
-
+    	
+    	List <Intervalo> intervalosDeUsoDI1 = new ArrayList<>();
+    	List <Intervalo> intervalosDeUsoDI2 = new ArrayList<>();
+    	
         mockCategoria = Mockito.spy(new Categoria("CategoriaTest", 0, 3000, 50.0, 20.0));
         mockDispositivo = Mockito.mock(Dispositivo.class);
         moduloAdaptador = new Conversor();
 
-        i1 = spy(new Intervalo(LocalDateTime.of(2018, 10, 2, 19, 00), LocalDateTime.of(2018, 10, 2, 20, 00)));
-        i2 = spy(new Intervalo(LocalDateTime.of(2018, 10, 2, 4, 30), LocalDateTime.of(2018, 10, 2, 23, 30)));
+        i1 = spy(new Intervalo(LocalDateTime.of(2018,10,2,19,00),LocalDateTime.of(2018,10,2,20,00)));
+        i2 = spy(new Intervalo(LocalDateTime.of(2018,10,2,4,30),LocalDateTime.of(2018,10,2,23,30)));
 
         intervalosDeUsoDI1.add(i1);
         intervalosDeUsoDI2.add(i2);
@@ -64,7 +63,7 @@ public class testCliente {
         otroMockDI = Mockito.spy(new DispositivoInteligente.DispositivoInteligenteBuilder("aireAcondicionado")
                 .equipoConcreto("De 2200 frigorias").consumoEstimadoPorHora(100.0)
                 .intervalosDeUso(intervalosDeUsoDI2).build());
-
+        
 
         List<DispositivoEstandar> listaDispositivosEstandar = new ArrayList<>();
 
@@ -72,9 +71,9 @@ public class testCliente {
 
         List<DispositivoInteligente> listaDispInteligentes = new ArrayList<>();
 
-        unClienteConDEyDI = spy(new Cliente("Fernando", "Sierra", "fer22", "password", new ID(TiposId.DNI, "200"),
+        unClienteConDEyDI = spy(new Cliente("Fernando", "Sierra", "fer22","password", new ID(TiposId.DNI, "200"),
                 new Domicilio("bariloche", 3118, 1, 'a'), 250, listaDispositivosEstandar, listaDispInteligentes));
-        unClienteSinDEyConDI = spy(new Cliente("Nicolas", "Sierra", "fer25", "password", new ID(TiposId.DNI, "200"),
+        unClienteSinDEyConDI = spy(new Cliente("Nicolas", "Sierra", "fer25","password", new ID(TiposId.DNI, "200"),
                 new Domicilio("bariloche", 3118, 1, 'a'), 250, listaDispositivosParaOtroCliente,
                 listaDispInteligentes));
         unClienteConDEyDI.agregarDispositivoInteligente(otroMockDI);
@@ -84,7 +83,6 @@ public class testCliente {
         asignadorMock = mock(AsignadorDeCategoria.class);
 
     }
-
     @Test
     public void testPuntosAcumuladosDespuesDeAgregar2DICliente() {
         assertEquals(30.0, unClienteConDEyDI.puntosAcumulados());
@@ -146,7 +144,7 @@ public class testCliente {
     @Test
     public void testConsumoDICliente() {
 
-        assertEquals(2400.0, unClienteConDEyDI.consumoDispositivosInteligentes(), 0);
+        assertEquals(2400.0, unClienteConDEyDI.consumoDispositivosInteligentes(),0);
     }
 
     @Test

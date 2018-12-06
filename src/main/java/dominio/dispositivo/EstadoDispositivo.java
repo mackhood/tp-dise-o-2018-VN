@@ -1,128 +1,131 @@
 package dominio.dispositivo;
 
 public enum EstadoDispositivo {
+	
+	ENCENDIDO {
+	
+	@Override
+	public void apagar(DispositivoInteligente disp) {
+    	
+    	disp.cambiarEstado(APAGADO);
+    }
 
-    ENCENDIDO {
-        @Override
-        public void apagar(DispositivoInteligente disp) {
+    @Override
+    public void encender(DispositivoInteligente disp) {
+    	  
+    }
 
-            disp.cambiarEstado(APAGADO);
-        }
+    @Override
+    public void ponerModoAhorro(DispositivoInteligente disp) {
+    	
+    	disp.cambiarEstado(MODOAHORRO);
+    }
 
-        @Override
-        public void encender(DispositivoInteligente disp) {
+    @Override
+    public boolean estaEncendido() {
+    	
+    	return true;
+    }
 
-        }
+    @Override
+    public boolean estaApagado() {
+    	
+    	return false;
+    }
 
-        @Override
-        public void ponerModoAhorro(DispositivoInteligente disp) {
+    @Override
+    public boolean estaEnModoAhorro() {
+    	
+    	return false;
+    }
+},
+	
+	APAGADO {
+	
+    @Override
+    public void apagar(DispositivoInteligente disp) {
+    	
+    }
 
-            disp.cambiarEstado(MODOAHORRO);
-        }
+    @Override
+    public void encender(DispositivoInteligente disp) {
+    
+    	disp.cambiarEstado(ENCENDIDO);
+    }
+   
+    @Override
+    public void ponerModoAhorro(DispositivoInteligente disp) {
+    	
+    	disp.cambiarEstado(MODOAHORRO);
+    }
 
-        @Override
-        public boolean estaEncendido() {
+    @Override
+    public boolean estaEncendido() {
+    	
+    	return false;
+    }
 
-            return true;
-        }
+    @Override
+    public boolean estaApagado() {
+    	
+    	return true;
+    }
 
-        @Override
-        public boolean estaApagado() {
+    @Override
+    public boolean estaEnModoAhorro() {
+    	
+    	return false;
+    }
+},
+	
+	MODOAHORRO {
 
-            return false;
-        }
+    @Override
+    public void apagar(DispositivoInteligente disp) {
+    	
+    	disp.cambiarEstado(APAGADO);
+    }
 
-        @Override
-        public boolean estaEnModoAhorro() {
+    @Override
+    public void encender(DispositivoInteligente disp) {
+    	
+    	disp.cambiarEstado(ENCENDIDO);
+    }
 
-            return false;
-        }
-    },
+    @Override
+    public void ponerModoAhorro(DispositivoInteligente disp) {
+    	
+    }
 
-    APAGADO {
-        @Override
-        public void apagar(DispositivoInteligente disp) {
+    @Override
+    public boolean estaEncendido() {
+    	
+    	return false;
+    }
 
-        }
-
-        @Override
-        public void encender(DispositivoInteligente disp) {
-
-            disp.cambiarEstado(ENCENDIDO);
-        }
-
-        @Override
-        public void ponerModoAhorro(DispositivoInteligente disp) {
-
-            disp.cambiarEstado(MODOAHORRO);
-        }
-
-        @Override
-        public boolean estaEncendido() {
-
-            return false;
-        }
-
-        @Override
-        public boolean estaApagado() {
-
-            return true;
-        }
-
-        @Override
-        public boolean estaEnModoAhorro() {
-
-            return false;
-        }
-    },
-
-    MODOAHORRO {
-        @Override
-        public void apagar(DispositivoInteligente disp) {
-
-            disp.cambiarEstado(APAGADO);
-        }
-
-        @Override
-        public void encender(DispositivoInteligente disp) {
-
-            disp.cambiarEstado(ENCENDIDO);
-        }
-
-        @Override
-        public void ponerModoAhorro(DispositivoInteligente disp) {
-
-        }
-
-        @Override
-        public boolean estaEncendido() {
-
-            return false;
-        }
-
-        @Override
-        public boolean estaApagado() {
-
-            return false;
-        }
-
-        @Override
-        public boolean estaEnModoAhorro() {
-
-            return true;
-        }
-    };
-
-    public abstract void apagar(DispositivoInteligente disp);
-
-    public abstract void encender(DispositivoInteligente disp);
-
-    public abstract void ponerModoAhorro(DispositivoInteligente disp);
-
-    public abstract boolean estaEncendido();
-
-    public abstract boolean estaApagado();
-
-    public abstract boolean estaEnModoAhorro();
+    @Override
+    public boolean estaApagado() {
+    	
+    	return false;
+    }
+    
+    @Override
+	public boolean estaEnModoAhorro() {
+    	
+    	return true;
+    }
+};
+	
+	public abstract void apagar(DispositivoInteligente disp);
+	
+	public abstract void encender(DispositivoInteligente disp);
+	
+	public abstract void ponerModoAhorro(DispositivoInteligente disp);
+	
+	public abstract boolean estaEncendido();
+	
+	public abstract boolean estaApagado();
+	
+	public abstract boolean estaEnModoAhorro();
 
 }

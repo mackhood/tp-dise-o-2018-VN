@@ -1,6 +1,8 @@
 package test.database;
 
 
+
+
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.dispositivo.Intervalo;
 import dominio.manager.AdministradorManager;
@@ -16,17 +18,18 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class cargarAdminPrueba extends AbstractPersistenceTest implements WithGlobalEntityManager {
+public class cargarAdminPrueba  extends AbstractPersistenceTest implements WithGlobalEntityManager {
+
 
 
     @Test
     public void testCargarCliente() {
-        AdministradorManager.getInstance().persistirAdminDePrueba();
+        AdministradorManager.getInstance() .persistirAdminDePrueba() ;
 
 
     }
 
-}
+    }
 
 
 

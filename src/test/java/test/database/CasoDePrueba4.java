@@ -25,9 +25,9 @@ public class CasoDePrueba4 extends AbstractPersistenceTest implements WithGlobal
     @Test
     public void testPersistirTransformadoresYconsultarCantidad() throws IOException {
 
-        String archivo = "testTransformadores.json";
-        List<Transformador> transformadorList = RepositorioTransformadores.getInstance().obtenerTransformadores(archivo);
-        assertEquals(2, transformadorList.size());
+        String archivo = "transformadorTest.json";
+        List<Transformador> transformadorList =RepositorioTransformadores.getInstance().obtenerTransformadores(archivo);
+        assertEquals(2,transformadorList.size());
         withTransaction(() -> {
 
             transformadorList.stream().forEach(transformador -> entityManager().persist(transformador.getUbicacion()));
@@ -35,22 +35,21 @@ public class CasoDePrueba4 extends AbstractPersistenceTest implements WithGlobal
             entityManager().getTransaction().commit();
         });
 
-        List<Transformador> obtenerListaTransformadores = entityManager().createQuery("from Transformador", Transformador.class).getResultList();
-        assertEquals(2, obtenerListaTransformadores.size());
+        List<Transformador> obtenerListaTransformadores  = entityManager().createQuery("from Transformador", Transformador.class).getResultList();
+        assertEquals(2,obtenerListaTransformadores.size());
     }
-
     @Test
     public void testPersistirNuevoTransformadorEnJson() throws IOException {
-        String archivo = "testTransformadores.json";
-        List<Transformador> transformadorList = RepositorioTransformadores.getInstance().obtenerTransformadores();
-        Transformador nuevoTransformador = new Transformador(2);
-        nuevoTransformador.setUbicacion(new Ubicacion(10, 10));
+        String archivo = "transformadorTest.json";
+        List<Transformador> transformadorList =RepositorioTransformadores.getInstance().obtenerTransformadores();
+        Transformador nuevoTransformador =new Transformador(2);
+        nuevoTransformador.setUbicacion(new Ubicacion(10,10));
         transformadorList.add(nuevoTransformador);
-        RepositorioTransformadores.getInstance().nuevoTransformador(transformadorList, archivo);
-        List<Transformador> transformadorListDesdeJson = RepositorioTransformadores.getInstance().obtenerTransformadores(archivo);
+        RepositorioTransformadores.getInstance().nuevoTransformador(transformadorList);
+        List<Transformador> transformadorListDesdeJson=RepositorioTransformadores.getInstance().obtenerTransformadores(archivo);
         TransformadorManager.getInstance().transformadoresNoPersistidosYPersistirlos(transformadorListDesdeJson);
-        List<Transformador> obtenerListaTransformadores = entityManager().createQuery("from Transformador", Transformador.class).getResultList();
-        assertEquals(3, obtenerListaTransformadores.size());
+        List<Transformador> obtenerListaTransformadores  = entityManager().createQuery("from Transformador", Transformador.class).getResultList();
+        assertEquals(3,obtenerListaTransformadores.size());
     }
 
 }

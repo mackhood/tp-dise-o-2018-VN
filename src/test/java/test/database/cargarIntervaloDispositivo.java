@@ -14,12 +14,13 @@ import java.util.List;
 
 public class cargarIntervaloDispositivo extends AbstractPersistenceTest implements WithGlobalEntityManager {
     @Test
-    public void cargarIntervaloADispositivoID13() {
+    public void cargarIntervaloADispositivoID13()
+    {
         //Falta agregar un dispositivo para q este test funcione y no hardcodear el value 13 (ID)
         DispositivoInteligente di = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(new Long(13));
         LocalDateTime horaEncendido = LocalDateTime.of(2018, 6, 8, 15, 30, 30, 100);
         LocalDateTime horaApagado = LocalDateTime.of(2018, 6, 8, 21, 25, 30, 100);
-        Intervalo intervalo = new Intervalo(horaEncendido, horaApagado);
+        Intervalo intervalo = new Intervalo(horaEncendido,horaApagado);
         List<Intervalo> intervalos = new ArrayList<>();
         intervalos.add(intervalo);
 

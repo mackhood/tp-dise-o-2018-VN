@@ -26,10 +26,7 @@ public class Regla {
         this.actuador = actuador;
         this.condicionesACumplir = listaCondiciones;
     }
-
-    public Regla() {
-    }
-
+    public Regla(){}
     public boolean cumpleTodasLasCondiciones() {
 
         return condicionesACumplir.stream().allMatch(cond -> cond.cumpleCondicion());

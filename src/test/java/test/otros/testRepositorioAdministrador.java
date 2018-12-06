@@ -5,6 +5,7 @@ import dominio.repositories.RepositorioTransformadores;
 import dominio.transformador.Transformador;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
+import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.List;
@@ -35,10 +36,9 @@ public class testRepositorioAdministrador {
     public String getJsonTestFile() {
         return getClass().getClassLoader().getResource("testAdministradores.json").getFile();
     }
-
     @Ignore
-    public void obtenerDeJson() throws Exception {
-        List<Transformador> transformadorList = RepositorioTransformadores.getInstance().obtenerTransformadores();
+    public void obtenerDeJson ()throws Exception {
+        List<Transformador> transformadorList =RepositorioTransformadores.getInstance().obtenerTransformadores();
         assertNotNull(transformadorList.isEmpty());
     }
 }

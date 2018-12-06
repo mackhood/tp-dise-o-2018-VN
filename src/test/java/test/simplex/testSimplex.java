@@ -45,7 +45,7 @@ public class testSimplex {
         inteligentes.add(aireAcondicionado3500);
         inteligentes.add(lampara11W);
 
-        unCliente = new Cliente("Ariel", "Galvan", "galvanariel97", "password", new ID(TiposId.DNI, "40130179"),
+        unCliente = new Cliente("Ariel", "Galvan", "galvanariel97","password", new ID(TiposId.DNI, "40130179"),
                 new Domicilio("asd", 1, 1, 'a'), 4444444, estandares, inteligentes);
 
         dispositivos.add(aireAcondicionado3500);

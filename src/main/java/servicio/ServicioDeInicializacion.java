@@ -17,8 +17,7 @@ public class ServicioDeInicializacion {
     public static ServicioDeInicializacion getInstance() {
         return instance;
     }
-
-    public static void init() {
+    public static void init(){
         ServicioDeCargaDeAdministradores.getInstance().persistirAdministradores();
         ServicioDeCargaDeCargaDeTransformadores.getInstance().persistirTransformadores();
         ServicioDeCargaDeCargaDeTransformadores.getInstance().persistirNuevoTransformador();

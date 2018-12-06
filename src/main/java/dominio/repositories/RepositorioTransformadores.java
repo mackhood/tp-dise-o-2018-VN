@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import dominio.entities.ProcessingDataFailedException;
 import dominio.transformador.Transformador;
+import dominio.usuario.Administrador;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -23,13 +24,11 @@ public class RepositorioTransformadores extends Repositorio {
     public static RepositorioTransformadores getInstance() {
         return instance;
     }
-
     public List<Transformador> obtenerTransformadores(String archivo) throws ProcessingDataFailedException {
-        return obtenerTransformadoresDelJson(archivo);
+        return  obtenerTransformadoresDelJson(archivo);
     }
-
     public List<Transformador> obtenerTransformadores() throws ProcessingDataFailedException {
-        return obtenerTransformadoresDelJson(this.nombreArchivo);
+        return  obtenerTransformadoresDelJson(this.nombreArchivo);
     }
 
     private List<Transformador> obtenerTransformadoresDelJson(String archivo) throws ProcessingDataFailedException {
@@ -54,15 +53,19 @@ public class RepositorioTransformadores extends Repositorio {
         }
     }
 
-    public void nuevoTransformador(List<Transformador> listaTransformador, String archivo) throws IOException {
+    public int cantidadTransformadores() {
 
+        return this.obtenerTransformadores().size();
+    }
+
+    public void nuevoTransformador(List<Transformador> listaTransformador) throws IOException {
 
         Gson gson = new Gson();
 
         //convert the Java object to json
         String jsonString = gson.toJson(listaTransformador);
         //Write JSON String to file
-        FileWriter fileWriter = new FileWriter(archivo);
+        FileWriter fileWriter = new FileWriter("transformadorTest.json");
         fileWriter.write(jsonString);
         fileWriter.close();
 
