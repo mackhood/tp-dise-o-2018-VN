@@ -3,6 +3,7 @@ package dominio.manager;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.dispositivo.Intervalo;
+import dominio.repositories.RepositorioDispositivo;
 import dominio.transformador.Transformador;
 import dominio.usuario.Cliente;
 import dominio.usuario.Domicilio;
@@ -80,11 +81,16 @@ public class TransformadorManager implements WithGlobalEntityManager, Transactio
 			query.setMaxResults(1);
 			List<Transformador> transformadorObtenidos = query.getResultList();
 
-			if (transformadorObtenidos == null && transformadorObtenidos.size() == 0) {
-				entityManager().persist(transformadorObtenidos);
+			if (transformadorObtenidos.size() == 0) {
+				withTransaction(() -> {
+					entityManager().persist(transformador.getUbicacion());
+					entityManager().persist(transformador);
+					entityManager().getTransaction().commit();
+				});
+
+
 			}
 		});
-		entityManager().getTransaction().commit();
 	}
 
 	public Transformador obtenerTrasformador(int idTrasnformador) {

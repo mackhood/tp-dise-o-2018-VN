@@ -25,26 +25,31 @@ public class CasoDePrueba4 extends AbstractPersistenceTest implements WithGlobal
     @Test
     public void testPersistirTransformadoresYconsultarCantidad() throws IOException {
 
+        String archivo = "transformadorTest.json";
+        List<Transformador> transformadorList =RepositorioTransformadores.getInstance().obtenerTransformadores(archivo);
+        assertEquals(2,transformadorList.size());
         withTransaction(() -> {
-            List<Transformador> transformadorList =RepositorioTransformadores.getInstance().obtenerTransformadores();
+
             transformadorList.stream().forEach(transformador -> entityManager().persist(transformador.getUbicacion()));
             transformadorList.stream().forEach(transformador -> entityManager().persist(transformador));
             entityManager().getTransaction().commit();
         });
 
         List<Transformador> obtenerListaTransformadores  = entityManager().createQuery("from Transformador", Transformador.class).getResultList();
-
+        assertEquals(2,obtenerListaTransformadores.size());
     }
     @Test
     public void testPersistirNuevoTransformadorEnJson() throws IOException {
+        String archivo = "transformadorTest.json";
         List<Transformador> transformadorList =RepositorioTransformadores.getInstance().obtenerTransformadores();
         Transformador nuevoTransformador =new Transformador(2);
         nuevoTransformador.setUbicacion(new Ubicacion(10,10));
         transformadorList.add(nuevoTransformador);
         RepositorioTransformadores.getInstance().nuevoTransformador(transformadorList);
-        TransformadorManager.getInstance().transformadoresNoPersistidosYPersistirlos(RepositorioTransformadores.getInstance().obtenerTransformadores());
+        List<Transformador> transformadorListDesdeJson=RepositorioTransformadores.getInstance().obtenerTransformadores(archivo);
+        TransformadorManager.getInstance().transformadoresNoPersistidosYPersistirlos(transformadorListDesdeJson);
         List<Transformador> obtenerListaTransformadores  = entityManager().createQuery("from Transformador", Transformador.class).getResultList();
-        assertEquals(5,obtenerListaTransformadores.size());
+        assertEquals(3,obtenerListaTransformadores.size());
     }
 
 }

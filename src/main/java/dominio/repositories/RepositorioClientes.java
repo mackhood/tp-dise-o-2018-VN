@@ -38,7 +38,7 @@ public class RepositorioClientes extends Repositorio implements WithGlobalEntity
     public List<Cliente> obtenerClientes() throws ProcessingDataFailedException {
 
         try {
-            FileReader file = new FileReader(getJsonFile());
+            FileReader file = new FileReader(getJsonFile(nombreArchivo));
             BufferedReader bufferedReader = new BufferedReader(file);
             Gson gson = new Gson();
             Object jsonObject = gson.fromJson(bufferedReader, Object.class);

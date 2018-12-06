@@ -27,7 +27,7 @@ public class RepositorioAdministradores extends Repositorio {
     public List<Administrador> obtenerAdministradores() throws ProcessingDataFailedException {
 
         try {
-            FileReader file = new FileReader(getJsonFile());
+            FileReader file = new FileReader(getJsonFile(nombreArchivo));
             BufferedReader bufferedReader = new BufferedReader(file);
             Gson gson = new Gson();
 

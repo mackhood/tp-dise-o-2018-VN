@@ -20,7 +20,7 @@ public abstract class Repositorio {
      * } catch (IOException e) { e.printStackTrace(); throw new
      * ProcessingDataFailedException(e.getLocalizedMessage()); } }
      */
-    public String getJsonFile() { // Separe este metodo para poder mockearlo al momento de testear
-        return getClass().getClassLoader().getResource(nombreArchivo).getFile();
+    public String getJsonFile(String archivo) { // Separe este metodo para poder mockearlo al momento de testear
+        return getClass().getClassLoader().getResource(archivo).getFile();
     }
 }

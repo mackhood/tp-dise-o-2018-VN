@@ -28,7 +28,7 @@ public class RepositorioCategoria extends Repositorio {
 
     public List<Categoria> obtenerCategorias() throws ProcessingDataFailedException {
         try {
-            FileReader file = new FileReader(getJsonFile());
+            FileReader file = new FileReader(getJsonFile(nombreArchivo));
             BufferedReader bufferedReader = new BufferedReader(file);
 
             Gson gson = new Gson();

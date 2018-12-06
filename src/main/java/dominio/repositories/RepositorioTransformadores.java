@@ -24,11 +24,17 @@ public class RepositorioTransformadores extends Repositorio {
     public static RepositorioTransformadores getInstance() {
         return instance;
     }
-
+    public List<Transformador> obtenerTransformadores(String archivo) throws ProcessingDataFailedException {
+        return  obtenerTransformadoresDelJson(archivo);
+    }
     public List<Transformador> obtenerTransformadores() throws ProcessingDataFailedException {
+        return  obtenerTransformadoresDelJson(this.nombreArchivo);
+    }
+
+    private List<Transformador> obtenerTransformadoresDelJson(String archivo) throws ProcessingDataFailedException {
 
         try {
-            FileReader file = new FileReader(getJsonFile());
+            FileReader file = new FileReader(getJsonFile(archivo));
             BufferedReader bufferedReader = new BufferedReader(file);
             Gson gson = new Gson();
 
