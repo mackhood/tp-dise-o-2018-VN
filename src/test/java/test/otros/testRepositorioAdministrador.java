@@ -24,8 +24,7 @@ public class testRepositorioAdministrador {
     @Ignore
     public void testDadoUnJsonDeTestSeObtieneCorrectamenteLaCantidadDeRegistros() throws Exception {
         RepositorioAdministradores repositorio = Mockito.mock(RepositorioAdministradores.class);
-        String archivo = "testAdministradores.json";
-        when(repositorio.getJsonFile(archivo)).thenReturn(this.getJsonTestFile());
+        when(repositorio.getJsonFile()).thenReturn(this.getJsonTestFile());
         when(repositorio.obtenerAdministradores()).thenCallRealMethod();
 
         int sizeExpected = repositorio.obtenerAdministradores().size();

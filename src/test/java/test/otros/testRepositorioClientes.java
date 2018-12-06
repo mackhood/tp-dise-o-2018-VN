@@ -12,8 +12,7 @@ public class testRepositorioClientes {
     @Ignore
     public void testDadoUnJsonDeTestSeObtieneCorrectamenteLaCantidadDeRegistros() throws Exception {
         RepositorioCategoria repositorio = Mockito.mock(RepositorioCategoria.class);
-        String archivo = "testClientes.json";
-        when(repositorio.getJsonFile(archivo)).thenReturn(this.getJsonTestFile());
+        when(repositorio.getJsonFile()).thenReturn(this.getJsonTestFile());
         when(repositorio.obtenerCategorias()).thenCallRealMethod();
 
         int sizeExoected = repositorio.obtenerCategorias().size();
