@@ -1,0 +1,25 @@
+
+{{#partial "contenido"}}
+
+    {{#with hogares}}
+    
+    <table class="table table-stripped">
+        <tr>
+            <th> Inicio </th>
+            <th> Fin </th>
+            <th> Consumo </th>
+        </tr>
+        
+        {{#each consumos}}
+        	<tr>
+        		<td>{{inicio}}</td>
+        		<td>{{fin}}</td>
+        		<td>{{consumo}}</td>
+        	</tr>
+        {{/each}}	
+    </table>
+
+    {{/with}}
+{{/partial}}
+
+{{>admin/adminBase.hbs}}

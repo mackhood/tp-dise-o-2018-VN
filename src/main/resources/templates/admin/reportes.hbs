@@ -1,0 +1,14 @@
+{{#partial "contenido"}}
+<br>
+    <h1>Elija un reporte</h1>
+
+    <form method=POST action="/admin/reportes/ingresarDatos" align="left">
+    	<input type="radio" name="reporte" value="hogar" checked> <strong> Consumo por hogar/periodo </strong> <br>
+    	<input type="radio" name="reporte" value="dispositivo"> <strong> Consumo promedio por dispositivo de usuario </strong> <br>
+ 		<input type="radio" name="reporte" value="transformador"> <strong> Consumo por transformador/periodo </strong> <br><br>
+		<button class="btn btn-info" type="submit"> Consultar  </button>	
+    </form>
+    
+{{/partial}}
+
+{{>admin/adminBase.hbs}}

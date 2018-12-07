@@ -1,0 +1,21 @@
+{{#partial "contenido"}}
+<br>
+    <h1>Hogares conectados a la red</h1>
+
+    <table class="table table-stripped">
+        <tr>
+            <th>Titular del servicio</th>
+            <th>Ver consumos</th>
+        </tr>
+        
+        {{#each hogares}}
+        	<tr>
+        		<td>{{apellido}}, &nbsp{{nombre}}</td>
+        		<td> <a href="/admin/hogares/consumo/{{id}}"> Consumos </td></a>
+        	</tr>
+        {{/each}}	
+    </table>
+
+{{/partial}}
+
+{{>admin/adminBase.hbs}}

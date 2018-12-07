@@ -38,7 +38,12 @@ public class Router {
         Spark.post("/usuario/dispositivo/modificar", dispositivoController::modificar, engine);
 		Spark.get("/usuario/dispositivo/bajar/:id",dispositivoController::verBajar, engine);
         Spark.post("/usuario/dispositivo/bajar",dispositivoController::bajar,engine);
-		Spark.get("/admin/verHogares", adminController::listarHogares,engine);
+		Spark.get("/admin/hogares", adminController::verHogares,engine);
+
+		Spark.get("/admin/hogares/consumo/:id",adminController::verConsumos,engine);
+		Spark.get("/admin/reportes", adminController::verReportes,engine);
+		Spark.post("/admin/reportes/ingresarDatos", adminController::ingresarDatos,engine);
+		Spark.post("/admin/reportes/reporteHogares/:id", adminController::verReporteSeleccionado,engine );
 
 		//Spark.get("/usuario/dispositivo/alta", dispositivoController::verAlta,engine);
         //Spark.put("/agregarDispositivo", DispositivoController::crear, engine);

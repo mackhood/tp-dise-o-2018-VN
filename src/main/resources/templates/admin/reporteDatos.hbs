@@ -1,0 +1,41 @@
+{{#partial "contenido"}}
+<br>
+	
+	<style>
+		
+		input {
+			
+			margin-right:16px;
+		}
+		
+	</style>
+	
+    <h1>Seleccione hogar y periodo</h1>
+	<br>
+    <form class="form-inline" method=POST action="/admin/reportes/reporteHogares/{{id}} id="parametrosReporte" align="left">
+    	<div class="form-group">
+    		<label for="fechaInicio"> <strong> <font size="3"> Periodo- Inicio </font> </strong> &nbsp </label>
+    		<input type="date" name="fechaInicio" required> <br>
+    	</div>
+    	
+    	<div class="form-group">
+    	 	<label for="fechaFin"> <strong> <font size="3"> Periodo- Final </font> </strong> &nbsp </label>
+    		<input type="date" name="fechaFin" required> <br>
+		</div>
+		
+		<div class="form-group">
+    		<label for="hogares"> <strong> <font size="3"> Hogar </font> </strong> &nbsp &nbsp </label>
+			<select name="hogares" form="parametrosReporte" style="width:100px">
+    			{{#each hogares}}
+    				<option title="{{apellido}}, {{nombre}}"> {{id}} </option>
+				{{/each}}
+			</select>
+		</div>
+	<br>
+		<button class="btn btn-info" type="info"> Consultar  </button>	
+    </form>
+   
+    
+	{{/partial}}
+	
+{{>admin/adminBase.hbs}}
