@@ -26,7 +26,7 @@ public class LoginController {
 
             if (  VerificarAdmin.verificar(RequestUtil.getQueryUsername(req), RequestUtil.getQueryPassword(req))) {
                 req.session().attribute("currentUser", req.queryParams("usuario"));
-                return new ModelAndView(null, "/home/admin.hbs");
+                return new ModelAndView(null, "/home/adminBase.hbs");
             } else {
 
                 res.redirect("/loginFailure");
@@ -37,8 +37,7 @@ public class LoginController {
 
     public static ModelAndView logout(Request req, Response res) {
         req.session().removeAttribute("currentUser");
-        res.redirect("/login");
+        res.redirect("/");
         return null;
-        //return new ModelAndView(null,"home/logout.hbs");
     }
 }

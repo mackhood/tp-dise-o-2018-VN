@@ -22,10 +22,12 @@ public class Router {
 		AdminController adminController = new AdminController();
 
 		Spark.get("/", HomeController::showLoginForm, engine);
-		Spark.post("/login", LoginController::login, engine);
+		Spark.get("/login", LoginController::login, engine);
 		Spark.get("/loginFailure", LoginController::loginFailure, engine);
 		Spark.post("/loginFailure", LoginController::loginFailure, engine);
-		Spark.post("/usuario/logout", LoginController::logout, engine);
+		Spark.post("/principal",LoginController::login,engine);
+		Spark.post("/login", LoginController::logout,engine);
+		Spark.get("/login", LoginController::logout, engine);
 		Spark.get("/usuario", usuarioController::show, engine);
 		Spark.get("/usuario/verDispositivosAlta", dispositivoController::listarDispositivosAlta,engine);
 		Spark.get("/usuario/altaConfirm/:id",dispositivoController::verAlta, engine);
