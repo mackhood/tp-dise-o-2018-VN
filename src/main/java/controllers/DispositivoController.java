@@ -11,11 +11,14 @@ import spark.Request;
 import spark.Response;
 import utils.RequestUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class DispositivoController extends AbstractPersistenceTest implements WithGlobalEntityManager {
+
+
 
     public ModelAndView listar(Request req, Response res)
     {
@@ -75,6 +78,34 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
         req.session().attribute("idDispositivo",id);
         return new ModelAndView(model, "usuario/modificar.hbs");
     }
+
+
+    public ModelAndView agregarDispositivoInteligenteAdmin(Request req, Response res){
+
+
+        String nombre = req.queryParams("nombre");
+        String equipoConcreto = req.queryParams("equipoConcreto");
+        String consumoEstimadoPorHora = req.queryParams("consumoEstimadoPorHora");
+        String id = req.session().attribute("idDispositivo");
+        DispositivoInteligente disp = new DispositivoInteligente();
+
+        disp.setNombre(nombre);
+        disp.setEquipoConcreto(equipoConcreto);
+        disp.setConsumoEstimadoPorHora(Double.parseDouble(consumoEstimadoPorHora));
+        disp.setId(Long.valueOf(id));
+       DispositivosManager.getInstance().persistirDispositivoInteligente(disp);
+
+
+
+        return new ModelAndView(null, "admin/agregarDispositivoInteligente.hbs");
+    }
+
+
+
+
+
+
+
 
     public ModelAndView modificar(Request req, Response res)
     {

@@ -26,7 +26,7 @@ public class LoginController {
 
             if (  VerificarAdmin.verificar(RequestUtil.getQueryUsername(req), RequestUtil.getQueryPassword(req))) {
                 req.session().attribute("currentUser", req.queryParams("usuario"));
-                return new ModelAndView(null, "/home/adminBase.hbs");
+                return new ModelAndView(null, "/home/admin.hbs");
             } else {
 
                 res.redirect("/loginFailure");

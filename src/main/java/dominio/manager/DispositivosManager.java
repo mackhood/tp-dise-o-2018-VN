@@ -40,4 +40,15 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
         return inteligentes;
 
     }
+
+
+    public void persistirDispositivoInteligente(DispositivoInteligente disp) {
+        withTransaction(() -> {
+        entityManager().persist(disp);
+
+            entityManager().getTransaction().commit();
+        });
+
+    }
+
 }

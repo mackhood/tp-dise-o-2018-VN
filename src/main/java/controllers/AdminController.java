@@ -23,7 +23,25 @@ public class AdminController {
         model.put("hogares", hogares);
         return new ModelAndView(model, "/admin/verHogares.hbs");
     }
+
+
+   /* public ModelAndView dispositivosGenericos(Request req, Response res) {
+        Map<String, List<Cliente>> model = new HashMap<>();
+
+      //  List<Cliente> hogares = ClienteManager.getInstance().getClientesDeLaBD();
+        model.put("hogares", hogares);
+        return new ModelAndView(model, "/admin/verHogares.hbs");
+    }   */
+
+
+
+
+
+
+
 }
+
+
 
 
 

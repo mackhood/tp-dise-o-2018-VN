@@ -1,0 +1,40 @@
+
+{{#partial "contenido"}}
+
+    {{#with dispositivo}}
+        <form method="POST" action="/admin/dispositivo/modificar">
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <select name="nombre">
+                {{#each dispositivos}}
+                    <tr>
+                        <td>{{nombre}}</td>
+
+                    </tr>
+                {{/each}}
+                    <div class="form-group">
+                <label for="equipoConcreto">Equipo concreto</label>
+
+
+
+                        {{#each dispositivos}}
+                            <tr>
+                                <td>{{equipoConcreto}}</td>
+
+                            </tr>
+                        {{/each}}
+
+
+                  </div>
+            <div class="form-group">
+                <label for="consumoEstimadoPorHora">Consumo estimado por hora</label>
+                <input type="text" name="consumoEstimadoPorHora"/>  </div>
+            <input class="btn btn-primary btn-modificar" type="submit" value="Modificar" href="/admin"}>
+
+            </div>
+        </form>
+
+    {{/with}}
+{{/partial}}
+
+{{>home/admin.hbs}}
