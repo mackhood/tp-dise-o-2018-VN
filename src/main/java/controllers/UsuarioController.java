@@ -29,17 +29,12 @@ public class UsuarioController {
 
     public ModelAndView showConfirmacionRecomendacionHogar(Request req, Response res)
     {
-        //ClienteManager.getInstance().ejecutarRecomendacionHogar(RequestUtil.getQueryUsername(req));
         return new ModelAndView(null,"usuario/recomendacion.hbs");
     }
     public ModelAndView realizarRecomendacion(Request req, Response res)
     {
 
         ClienteManager.getInstance().ejecutarRecomendacionHogar(RequestUtil.getSessionCurrentUser(req));
-        /*Cliente cliente = ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario(RequestUtil.getSessionCurrentUser(req));
-        RecomendacionParaHogarEficiente recomendacionParaHogarEficiente = new RecomendacionParaHogarEficiente(cliente);
-        recomendacionParaHogarEficiente.realizarRecomendacionParaLosDispositivosInteligentes();*/
-
         return new ModelAndView(null,"usuario/resRecomendacionHogar.hbs");
     }
     public ModelAndView showConsumoPeriodo(Request req, Response res)

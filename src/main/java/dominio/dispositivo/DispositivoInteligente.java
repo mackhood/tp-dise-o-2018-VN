@@ -167,6 +167,10 @@ public class DispositivoInteligente extends Dispositivo {
 		return this.getIntervalosDeUso().stream().max(Comparator.comparing(Intervalo::getFin)).get();
 
 	}
+	public double consumoUltimoIntervalo()
+	{
+		return this.consumoParaIntervalo(this.getUltimoIntervalo());
+	}
 	public int getPuntos() {
 		return 15;
 	}

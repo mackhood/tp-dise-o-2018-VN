@@ -36,19 +36,19 @@ public class Router {
 		Spark.get("/usuario", usuarioController::show, engine);
 
 		Spark.get("/usuario/recomendacionHogar", usuarioController::showConfirmacionRecomendacionHogar, engine);
-		Spark.get("/usuario/realizarRecomendacion", usuarioController::realizarRecomendacion, engine);
+		Spark.post("/usuario/realizarRecomendacion", usuarioController::realizarRecomendacion, engine);
 
 		Spark.get("/usuario/consultaConsumoPeriodo", usuarioController :: showConsumoPeriodo, engine);
-		Spark.post("/usuario/consumoPeriodo", usuarioController :: consumoPeriodo, engine);
+		Spark.get("/usuario/consumoPeriodo", usuarioController :: consumoPeriodo, engine);
 
-		Spark.get("/usuario/consumoUltimoPeriodo", usuarioController::showConsumoUltimoPeriodo, engine);
+		//Spark.get("/usuario/consumoUltimoPeriodo", usuarioController::showConsumoUltimoPeriodo, engine);
 
 		Spark.get("/usuario/verDispositivosAlta", dispositivoController::listarDispositivosAlta,engine);
 		Spark.get("/usuario/altaConfirm/:id",dispositivoController::verAlta, engine);
 		Spark.post("/usuario/altaConfirm", dispositivoController::alta,engine);
 
 		Spark.get("/usuario/dispositivo", dispositivoController::listar, engine);
-		Spark.get("/usuario/dispositivo/:id", dispositivoController::verModificar, engine);
+		Spark.get("/usuario/dispositivo/:id", dispositivoController::consumoUltimoPeriodo, engine);
         Spark.post("/usuario/dispositivo/modificar", dispositivoController::modificar, engine);
 		Spark.get("/usuario/dispositivo/bajar/:id",dispositivoController::verBajar, engine);
         Spark.post("/usuario/dispositivo/bajar",dispositivoController::bajar,engine);

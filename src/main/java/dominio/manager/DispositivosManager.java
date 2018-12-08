@@ -54,4 +54,8 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
         return entityManager().find(DispositivoEstandar.class, id);
 
     }
+    public double getConsumoUltimoPeriodo(Long id)
+    {
+        return this.getDispositivoInteligenteDeLaBDPorID(id).consumoUltimoIntervalo();
+    }
 }
