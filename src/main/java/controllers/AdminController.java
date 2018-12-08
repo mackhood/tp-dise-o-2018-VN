@@ -57,7 +57,7 @@ public class AdminController {
 		Map<String, List<Cliente>> model = new HashMap<>();
 		
 		String reporte = req.queryParams("reporte");
-		// if
+
 		List<Cliente> hogares = ClienteManager.getInstance().getClientesDeLaBD();
 		model.put("hogares", hogares);
 		return new ModelAndView(model, "/admin/reporteDatos.hbs");
