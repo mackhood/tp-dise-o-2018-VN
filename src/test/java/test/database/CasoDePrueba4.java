@@ -24,6 +24,11 @@ public class CasoDePrueba4 extends AbstractPersistenceTest implements WithGlobal
     //El problema con este test es q corre bien la primera vez
     //pero cuando crea el archivo transformadorTest.json , la segunda vez
     //lee este archivo y no el q esta en resources en test.
+    //Clases: Transformadores
+    //        Ubicacion
+    //        Gson
+    //Metodo Importante: TransformadorManager.getInstance().transformadoresNoPersistidosYPersistirlos(ListaDeTransformadores)
+    //Evita q persista repetidos
     @Test
     public void testPersistirTransformadoresYconsultarCantidad() throws IOException {
         String archivo = "transformadorTest.json";
@@ -31,7 +36,11 @@ public class CasoDePrueba4 extends AbstractPersistenceTest implements WithGlobal
         List<Transformador> obtenerListaTransformadores = entityManager().createQuery("from Transformador", Transformador.class).getResultList();
         assertEquals(3, obtenerListaTransformadores.size());
     }
-
+    //Clases: Transformadores
+    //        Ubicacion
+    //        Gson
+    //        RepositorioTransformadores
+    //Metodo Importante: TransformadorManager.getInstance().transformadoresNoPersistidosYPersistirlos(ListaDeTransformadores)
     @Test
     public void testPersistirNuevoTransformadorEnJson() throws IOException {
         Transformador nuevoTransformador = new Transformador(15);

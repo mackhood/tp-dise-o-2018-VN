@@ -1,6 +1,7 @@
 package dominio.manager;
 
 import dominio.dispositivo.Dispositivo;
+import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.repositories.RepositorioDispositivo;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
@@ -38,10 +39,10 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
 
         List<DispositivoInteligente> inteligentes = entityManager().createQuery("from DispositivoInteligente d",DispositivoInteligente.class).getResultList();
         return inteligentes;
-    }
-    public DispositivoInteligente getDispositivoInteligenteDeLaBDPorID(String id)
-    {
-        return entityManager().find(DispositivoInteligente.class, id);
-    }
 
+    }
+    public DispositivoEstandar getDispositivoEstandarDeLaBD(Long id)
+    {
+        return entityManager().find(DispositivoEstandar.class, id);
+    }
 }

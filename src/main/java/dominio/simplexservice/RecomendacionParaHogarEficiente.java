@@ -24,8 +24,10 @@ public class RecomendacionParaHogarEficiente {
     //Hacer metodo que apague a los dispositivos inteligentes si supera la horasMaximaDeConsumoPorDispositivo solo a los dispositivos inteligentes
     public void realizarRecomendacionParaLosDispositivosInteligentes() {
 
-        for (int i = 0; i < unCliente.getDispositivosInteligentes().size(); i++) {
+        int i;
+        for (i = 0; i < unCliente.getDispositivosInteligentes().size(); i++) {
             if (unCliente.getDispositivosInteligentes().get(i).getHorasDeUso() > this.getHorasMaximaDeConsumoPorDispositivo()[i]) {
+
                 unCliente.getDispositivosInteligentes().get(i).apagar();
             }
         }

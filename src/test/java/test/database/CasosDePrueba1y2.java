@@ -39,6 +39,14 @@ public class CasosDePrueba1y2 extends AbstractPersistenceTest implements WithGlo
         entityManager().getTransaction().begin();
     }
 
+    /*Clases:   Domicilio
+                ID
+                Cliente
+                Ubicacion
+    */
+
+    //Metodos: SetUbicacion de cliente
+
     @Test
     public void casoDePrueba1() {
 
@@ -55,12 +63,11 @@ public class CasosDePrueba1y2 extends AbstractPersistenceTest implements WithGlo
         entityManager().persist(unCliente);
 
         Cliente mismoCliente = entityManager().createQuery("from Cliente c where nombre = 'nombre'", Cliente.class).getSingleResult();
-        //En vez de modificar su nombre modificar la geolocalizacion
-        //mismoCliente.setNombre("nombreNuevo");
+
         Ubicacion nuevaUbicacion = new Ubicacion(2, 2);
         mismoCliente.setUbicacion(nuevaUbicacion);
         entityManager().persist(mismoCliente);
-        //Lo mismo con el assert
+
         assertEquals(mismoCliente.getApellido(),ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario("nombreApellido").getApellido());
         assertEquals(mismoCliente.getUsuario(),ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario("nombreApellido").getUsuario());
         assertEquals(mismoCliente.getContrasenia(),ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario("nombreApellido").getContrasenia());
@@ -74,6 +81,10 @@ public class CasosDePrueba1y2 extends AbstractPersistenceTest implements WithGlo
         assertTrue(unCliente.getUbicacion().equals(mismoCliente.getUbicacion()));
     }
 
+    /*  Clases:
+            Intervalo
+            DispositivoInteligente
+     */
     @Test
     public void casoDePrueba2() {
     	
@@ -104,14 +115,19 @@ public class CasosDePrueba1y2 extends AbstractPersistenceTest implements WithGlo
         
         assertEquals("nombreModificado", DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(id).getNombre());
     }
-    
+
+    /*Clases: VerificarUsuario
+              Cliente
+    */
     @Test
     public void testTraerClientePorUsuario()
-    {	   	
-        //VerificarUsuario verificarUsuario = new VerificarUsuario();
+    {
         assertEquals(true,VerificarUsuario.verificar("galvanariel","password"));
     }
 
+    /*Clases: DispositivoInteligente
+              Cliente
+    */
     @Test
     public void testAgregarDispInteligenteAUnUsuarioCantidadDispositivosInteligentes()
     {

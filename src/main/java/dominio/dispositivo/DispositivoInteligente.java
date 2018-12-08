@@ -42,6 +42,10 @@ public class DispositivoInteligente extends Dispositivo {
 		return consumoEstimadoPorHora;
 	}
 
+	public EstadoDispositivo getEstadoDispositivo() {
+		return estadoDispositivo;
+	}
+
 	public boolean estaEncendido() {
 		return estadoDispositivo.estaEncendido();
 	}

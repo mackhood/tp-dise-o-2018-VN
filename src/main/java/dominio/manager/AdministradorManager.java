@@ -48,6 +48,10 @@ public class AdministradorManager implements WithGlobalEntityManager, Transactio
             return administrador;
 
         }
+    public boolean esAdministrador(String username) {
+        return entityManager().createQuery("from Administrador c where usuario='" + username + "'", Administrador.class)
+                .getResultList().size() > 0;
+    }
     }
 
 

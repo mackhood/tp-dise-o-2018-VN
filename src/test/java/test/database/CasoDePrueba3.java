@@ -25,7 +25,13 @@ public class CasoDePrueba3 extends AbstractPersistenceTest implements WithGlobal
     public void setup() {
         entityManager().getTransaction().begin();
     }
-	
+
+    //Clases: 	Regla
+	//			CondicionPorMenor
+    //			OrdenEncenderDI
+	//			Intervalo
+	// 			Condicion
+	//Metodo: regla.getCondicionesACumplir().contains(Condicion)
     @Test
     public void casoDePrueba3() {
 
