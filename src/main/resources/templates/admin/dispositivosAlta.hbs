@@ -1,0 +1,22 @@
+{{#partial "contenido"}}
+<br>
+    <h1>Seleccione el dispositivo que quiere dar de alta</h1>
+
+    <table class="table table-stripped">
+        <tr>
+            <th>Equipo</th>
+            <th>Detalle</th>
+            <th>Accion</th>
+        </tr>
+
+        {{#each dispositivos}}
+            <tr>
+                <td>{{nombre}}</td>
+                <td>{{equipoConcreto}}</td>
+                <td><a class="btn btn-info" type="button" href="/admin/dispositivosAlta/{{nombre}}/{{equipoConcreto}}">Dar de alta</a><td>
+            </tr>
+        {{/each}}
+    </table>
+{{/partial}}
+
+{{>admin/adminBase.hbs}}
