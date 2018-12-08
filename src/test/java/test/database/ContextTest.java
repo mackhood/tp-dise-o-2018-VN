@@ -9,8 +9,6 @@ import static org.junit.Assert.assertNotNull;
 
 public class ContextTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
-    private DispositivosManager dispositivosManager;
-
     @Test
     public void contextUp() {
         assertNotNull(entityManager());
