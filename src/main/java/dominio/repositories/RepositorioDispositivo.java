@@ -107,7 +107,7 @@ public class RepositorioDispositivo {
 
     public Dispositivo dispBuscadoDelRepositorio(Dispositivo dispositivo) {
         return this.getTodosLosDispositivos().stream()
-                .filter(disp -> dispositivo.getEquipoConcreto() == disp.getEquipoConcreto() && dispositivo.getNombre() == disp.getNombre())
+                .filter(disp -> dispositivo.getEquipoConcreto().equals(disp.getEquipoConcreto()) && dispositivo.getNombre().equals(disp.getNombre()))
                 .collect(Collectors.toList()).get(0);
     }
 

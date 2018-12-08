@@ -1,0 +1,17 @@
+{{#partial "contenido"}}
+
+
+    <form method="POST" action="/usuario/consumoPeriodo" align="left">
+
+        <div class="form-group">
+            <label for="fechaInicio"> <strong> <font size="4"> Fecha inicio  </font> </strong> &nbsp &nbsp &nbsp &nbsp </label>
+            <input type="datetime-local" name="fechaInicio" required/>  </div>
+        <div class="form-group">
+            <label for="fechaFin"> <strong> <font size="4"> Fecha fin </font> </strong> &nbsp &nbsp </label>
+            <input type="datetime-local" name="fechaFin"  required/> </div>
+
+        <input class="btn btn-primary btn-verConsumoPeriodo" type="submit" value="ver consumo del periodo"}>
+    </form>
+{{/partial}}
+
+{{>home/usuario.hbs}}

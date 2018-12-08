@@ -1,6 +1,7 @@
 package dominio.usuario;
 
 import dominio.manager.AdministradorManager;
+import dominio.manager.ClienteManager;
 
 public class VerificarAdmin {
 
@@ -11,6 +12,10 @@ public class VerificarAdmin {
         {
             if(usuario.isEmpty() || contrasenia.isEmpty())
             {
+                return false;
+            }
+
+            if (! AdministradorManager.getInstance().esAdministrador(usuario)) {
                 return false;
             }
             Administrador administrador = AdministradorManager.getInstance().getAdministradorDeLaBDPorUsuario(usuario);
