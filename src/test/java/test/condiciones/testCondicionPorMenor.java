@@ -16,14 +16,16 @@ public class testCondicionPorMenor {
     CondicionPorMenor menorA20;
     Regla mockRegla;
     Sensor mockSensor;
+
     @Before
     public void setUp() {
 
         mockRegla = Mockito.mock(Regla.class);
         menorA20 = new CondicionPorMenor(20, "Temperatura");
         menorA20.asociarA(mockRegla);
-        mockSensor =Mockito.mock(Sensor.class);
-        when(mockSensor.getValorMedicion()).thenReturn(125.0);    }
+        mockSensor = Mockito.mock(Sensor.class);
+        when(mockSensor.getValorMedicion()).thenReturn(125.0);
+    }
 
 
     @Test
@@ -41,12 +43,11 @@ public class testCondicionPorMenor {
     }
 
     @Test
-    public void testActualizar () {
+    public void testActualizar() {
 
         menorA20.actualizar(mockSensor);
         TestCase.assertEquals(125.0, mockSensor.getValorMedicion());
     }
-
 
 
 }

@@ -1,6 +1,6 @@
 {{#partial "contenido"}}
 
-<style media="screen">
+    <style media="screen">
 	body
 	{
 		background-image: url(https://cdn.forbes.com.mx/2014/09/reuters_energia_electrica_republica_dominicana1.jpg);
@@ -23,25 +23,26 @@
 		border-radius:4px;
 		height:40px
 	}
-</style>
-<iframe width="768" height="439"
-		src="https://www.youtube.com/embed/fEIpuUpe6QE?autoplay=1" align="right">
-</iframe>
-<h1 style="color:Tomato"> Bienvenido </h1>
-<h4> Por favor, ingrese Usuario y password </h4>
-<br>
-	<form method="POST" action="/principal" align="left">
-	<div class="form-group">
-        <label for="usuario"> <strong> <font size="4"> Usuario  </font> </strong> &nbsp &nbsp &nbsp &nbsp </label>
-        <input type="text" name="usuario" placeholder="Username" required />  </div>
-	<div class="form-group">
-        <label for="password"> <strong> <font size="4"> Password </font> </strong> &nbsp &nbsp </label>
-        <input type="password" name="password" placeholder="********" required/>  </div>
-    <input class="btn btn-primary btn-login" type="submit" value="Ingresar">
+
+    </style>
+    <iframe width="768" height="439"
+            src="https://www.youtube.com/embed/fEIpuUpe6QE?autoplay=1" align="right">
+    </iframe>
+    <h1 style="color:Tomato"> Bienvenido </h1>
+    <h4> Por favor, ingrese Usuario y password </h4>
     <br>
-    <br>
-    {{#block "alerta"}}{{/block}}
-</form>
+    <form method="POST" action="/principal" align="left">
+        <div class="form-group">
+            <label for="usuario"> <strong> <font size="4"> Usuario </font> </strong> &nbsp &nbsp &nbsp &nbsp </label>
+            <input type="text" name="usuario" placeholder="Username" required/></div>
+        <div class="form-group">
+            <label for="password"> <strong> <font size="4"> Password </font> </strong> &nbsp &nbsp </label>
+            <input type="password" name="password" placeholder="********" required/></div>
+        <input class="btn btn-primary btn-login" type="submit" value="Ingresar">
+        <br>
+        <br>
+        {{#block "alerta"}}{{/block}}
+    </form>
 
 {{/partial}}
 

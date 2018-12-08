@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ServicioDeCargaDeAdministradores extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
-    private static  ServicioDeCargaDeAdministradores instance = new ServicioDeCargaDeAdministradores();
+    private static ServicioDeCargaDeAdministradores instance = new ServicioDeCargaDeAdministradores();
 
     public static ServicioDeCargaDeAdministradores getInstance() {
         return instance;

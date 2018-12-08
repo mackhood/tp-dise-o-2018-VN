@@ -1,21 +1,20 @@
-
 {{#partial "contenido"}}
 
     {{#with dispositivo}}
         <form method="POST" action="/admin/dispositivo/modificar">
             <div class="form-group">
                 <label for="nombre">Nombre</label>
-                <input type="text" name="nombre"/>  </div>
+                <input type="text" name="nombre"/></div>
             <div class="form-group">
                 <label for="id">ID</label>
-                <input type="text" name="id"/>  </div>
+                <input type="text" name="id"/></div>
             <div class="form-group">
                 <label for="equipoConcreto">Equipo concreto</label>
-                <input type="text" name="equipoConcreto"/>  </div>
+                <input type="text" name="equipoConcreto"/></div>
             <div class="form-group">
                 <label for="consumoEstimadoPorHora">Consumo estimado por hora</label>
-                <input type="text" name="consumoEstimadoPorHora"/>  </div>
-            <input class="btn btn-primary btn-modificar" type="submit" value="Modificar" href="/admin"}>
+                <input type="text" name="consumoEstimadoPorHora"/></div>
+            <input class="btn btn-primary btn-modificar" type="submit" value="Modificar" href="/admin" }>
 
 
         </form>

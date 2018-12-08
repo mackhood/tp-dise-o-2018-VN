@@ -1,29 +1,17 @@
 package test.database;
 
-import dominio.actuador.Actuador;
-import dominio.actuador.OrdenEncenderDI;
-import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.dispositivo.Intervalo;
 import dominio.manager.ClienteManager;
 import dominio.manager.DispositivosManager;
-import dominio.regla.Regla;
 import dominio.repositories.RepositorioDispositivo;
-import dominio.sensor.Condicion;
-import dominio.sensor.CondicionPorIgual;
-import dominio.sensor.CondicionPorMayor;
-import dominio.sensor.CondicionPorMenor;
 import dominio.usuario.*;
 import dominio.zonageografica.Ubicacion;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
@@ -31,6 +19,10 @@ import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class CasosDePrueba1y2 extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
@@ -47,7 +39,7 @@ public class CasosDePrueba1y2 extends AbstractPersistenceTest implements WithGlo
         List<DispositivoEstandar> dispositivosEstandares = new ArrayList<>();
         List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
 
-        Cliente unCliente = new Cliente("nombre", "apellido", "nombreApellido","password", id, domicilio, 47581269,
+        Cliente unCliente = new Cliente("nombre", "apellido", "nombreApellido", "password", id, domicilio, 47581269,
                 dispositivosEstandares, dispositivosInteligentes);
 
         Ubicacion ubicacion = new Ubicacion(5, 2);
@@ -61,70 +53,68 @@ public class CasosDePrueba1y2 extends AbstractPersistenceTest implements WithGlo
         mismoCliente.setUbicacion(nuevaUbicacion);
         entityManager().persist(mismoCliente);
         //Lo mismo con el assert
-        assertEquals(mismoCliente.getApellido(),ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario("nombreApellido").getApellido());
-        assertEquals(mismoCliente.getUsuario(),ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario("nombreApellido").getUsuario());
-        assertEquals(mismoCliente.getContrasenia(),ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario("nombreApellido").getContrasenia());
-        assertEquals(nuevaUbicacion.getPosicionX(),ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario("nombreApellido").getUbicacion().getPosicionX());
-        assertEquals(nuevaUbicacion.getPosicionY(),ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario("nombreApellido").getUbicacion().getPosicionY());
+        assertEquals(mismoCliente.getApellido(), ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario("nombreApellido").getApellido());
+        assertEquals(mismoCliente.getUsuario(), ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario("nombreApellido").getUsuario());
+        assertEquals(mismoCliente.getContrasenia(), ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario("nombreApellido").getContrasenia());
+        assertEquals(nuevaUbicacion.getPosicionX(), ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario("nombreApellido").getUbicacion().getPosicionX());
+        assertEquals(nuevaUbicacion.getPosicionY(), ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario("nombreApellido").getUbicacion().getPosicionY());
         //
-        assertEquals(unCliente.getApellido(),mismoCliente.getApellido());
-        assertEquals(unCliente.getUsuario(),mismoCliente.getUsuario());
-        assertEquals(unCliente.getContrasenia(),mismoCliente.getContrasenia());
-  
+        assertEquals(unCliente.getApellido(), mismoCliente.getApellido());
+        assertEquals(unCliente.getUsuario(), mismoCliente.getUsuario());
+        assertEquals(unCliente.getContrasenia(), mismoCliente.getContrasenia());
+
         assertTrue(unCliente.getUbicacion().equals(mismoCliente.getUbicacion()));
     }
 
     @Test
     public void casoDePrueba2() {
-    	
-    	Intervalo i1 = new Intervalo(LocalDateTime.of(2018,10,12,19,30),LocalDateTime.of(2018,10,12,21,45));
-    	Intervalo i2 = new Intervalo(LocalDateTime.of(2018,10,15,11,50),LocalDateTime.of(2018,10,15,13,00));
-    	Intervalo i3 = new Intervalo(LocalDateTime.of(2018,11,9,04,20),LocalDateTime.of(2018,11,10,00,10));
-    	
-    	List<Intervalo> intervalosDeUso = new ArrayList<>();
-    	intervalosDeUso.add(i1);
-    	intervalosDeUso.add(i2);
-    	entityManager().persist(i1);
+
+        Intervalo i1 = new Intervalo(LocalDateTime.of(2018, 10, 12, 19, 30), LocalDateTime.of(2018, 10, 12, 21, 45));
+        Intervalo i2 = new Intervalo(LocalDateTime.of(2018, 10, 15, 11, 50), LocalDateTime.of(2018, 10, 15, 13, 00));
+        Intervalo i3 = new Intervalo(LocalDateTime.of(2018, 11, 9, 04, 20), LocalDateTime.of(2018, 11, 10, 00, 10));
+
+        List<Intervalo> intervalosDeUso = new ArrayList<>();
+        intervalosDeUso.add(i1);
+        intervalosDeUso.add(i2);
+        entityManager().persist(i1);
         entityManager().persist(i2);
-    	
-    	DispositivoInteligente di = new DispositivoInteligente.DispositivoInteligenteBuilder("di").consumoEstimadoPorHora((double)200).intervalosDeUso(intervalosDeUso).build();
-    	entityManager().persist(di);
+
+        DispositivoInteligente di = new DispositivoInteligente.DispositivoInteligenteBuilder("di").consumoEstimadoPorHora((double) 200).intervalosDeUso(intervalosDeUso).build();
+        entityManager().persist(di);
 
         DispositivoInteligente diRecuperado = (DispositivoInteligente) entityManager().createNativeQuery("SELECT * FROM dispositivointeligente WHERE nombre = 'di'", DispositivoInteligente.class).getSingleResult();
         BigInteger idQuery = (BigInteger) entityManager().createNativeQuery("select idDispositivo from dispositivointeligente where nombre = 'di'").getSingleResult();
-        
+
         long id = idQuery.longValue();
-        
-        assertTrue(diRecuperado.getIntervalosDeUso().stream().anyMatch(i-> i.equals(i1)));
-        assertTrue(diRecuperado.getIntervalosDeUso().stream().anyMatch(i-> i.equals(i2)));
-        assertFalse(diRecuperado.getIntervalosDeUso().stream().anyMatch(i-> i.equals(i3))); 
+
+        assertTrue(diRecuperado.getIntervalosDeUso().stream().anyMatch(i -> i.equals(i1)));
+        assertTrue(diRecuperado.getIntervalosDeUso().stream().anyMatch(i -> i.equals(i2)));
+        assertFalse(diRecuperado.getIntervalosDeUso().stream().anyMatch(i -> i.equals(i3)));
 
         diRecuperado.setNombre("nombreModificado");
         entityManager().persist(diRecuperado);
-        
+
         assertEquals("nombreModificado", DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(id).getNombre());
     }
-    
+
     @Test
-    public void testTraerClientePorUsuario()
-    {	   	
+    public void testTraerClientePorUsuario() {
         //VerificarUsuario verificarUsuario = new VerificarUsuario();
-        assertEquals(true,VerificarUsuario.verificar("galvanariel","password"));
+        assertEquals(true, VerificarUsuario.verificar("galvanariel", "password"));
     }
 
     @Test
-    public void testAgregarDispInteligenteAUnUsuarioCantidadDispositivosInteligentes()
-    {
+    public void testAgregarDispInteligenteAUnUsuarioCantidadDispositivosInteligentes() {
 
-        DispositivoInteligente dispositivoInteligente = RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("aireAcondicionado","De 2200 frigorias");
+        DispositivoInteligente dispositivoInteligente = RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("aireAcondicionado", "De 2200 frigorias");
 
         Cliente cliente = ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario("galvanariel");
 
         cliente.agregarDispositivoInteligente(dispositivoInteligente);
         entityManager().persist(dispositivoInteligente);
-        Assert.assertEquals(3,cliente.getDispositivosInteligentes().size());
+        Assert.assertEquals(3, cliente.getDispositivosInteligentes().size());
     }
-    
+
     @After
     public void rollback() {
         entityManager().getTransaction().rollback();

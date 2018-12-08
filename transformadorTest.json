@@ -1,1 +1,26 @@
-[{"usuariosConectados":[],"ubicacion":{"posicionX":1.0,"posicionY":1.0},"idTransformador":7},{"usuariosConectados":[],"ubicacion":{"posicionX":5.0,"posicionY":5.0},"idTransformador":7},{"usuariosConectados":[],"ubicacion":{"posicionX":10.0,"posicionY":10.0},"idTransformador":2}]
+[
+  {
+    "usuariosConectados": [],
+    "ubicacion": {
+      "posicionX": 1.0,
+      "posicionY": 1.0
+    },
+    "idTransformador": 7
+  },
+  {
+    "usuariosConectados": [],
+    "ubicacion": {
+      "posicionX": 5.0,
+      "posicionY": 5.0
+    },
+    "idTransformador": 7
+  },
+  {
+    "usuariosConectados": [],
+    "ubicacion": {
+      "posicionX": 10.0,
+      "posicionY": 10.0
+    },
+    "idTransformador": 2
+  }
+]

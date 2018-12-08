@@ -5,7 +5,6 @@ import dominio.repositories.RepositorioTransformadores;
 import dominio.transformador.Transformador;
 import dominio.zonageografica.Ubicacion;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
@@ -26,25 +25,26 @@ public class CasoDePrueba4 extends AbstractPersistenceTest implements WithGlobal
     public void testPersistirTransformadoresYconsultarCantidad() throws IOException {
 
         withTransaction(() -> {
-            List<Transformador> transformadorList =RepositorioTransformadores.getInstance().obtenerTransformadores();
+            List<Transformador> transformadorList = RepositorioTransformadores.getInstance().obtenerTransformadores();
             transformadorList.stream().forEach(transformador -> entityManager().persist(transformador.getUbicacion()));
             transformadorList.stream().forEach(transformador -> entityManager().persist(transformador));
             entityManager().getTransaction().commit();
         });
 
-        List<Transformador> obtenerListaTransformadores  = entityManager().createQuery("from Transformador", Transformador.class).getResultList();
+        List<Transformador> obtenerListaTransformadores = entityManager().createQuery("from Transformador", Transformador.class).getResultList();
 
     }
+
     @Test
     public void testPersistirNuevoTransformadorEnJson() throws IOException {
-        List<Transformador> transformadorList =RepositorioTransformadores.getInstance().obtenerTransformadores();
-        Transformador nuevoTransformador =new Transformador(2);
-        nuevoTransformador.setUbicacion(new Ubicacion(10,10));
+        List<Transformador> transformadorList = RepositorioTransformadores.getInstance().obtenerTransformadores();
+        Transformador nuevoTransformador = new Transformador(2);
+        nuevoTransformador.setUbicacion(new Ubicacion(10, 10));
         transformadorList.add(nuevoTransformador);
         RepositorioTransformadores.getInstance().nuevoTransformador(transformadorList);
         TransformadorManager.getInstance().transformadoresNoPersistidosYPersistirlos(RepositorioTransformadores.getInstance().obtenerTransformadores());
-        List<Transformador> obtenerListaTransformadores  = entityManager().createQuery("from Transformador", Transformador.class).getResultList();
-        assertEquals(5,obtenerListaTransformadores.size());
+        List<Transformador> obtenerListaTransformadores = entityManager().createQuery("from Transformador", Transformador.class).getResultList();
+        assertEquals(5, obtenerListaTransformadores.size());
     }
 
 }

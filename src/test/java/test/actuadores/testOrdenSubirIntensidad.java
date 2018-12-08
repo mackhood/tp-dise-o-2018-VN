@@ -3,13 +3,9 @@ package test.actuadores;
 import dominio.actuador.OrdenSubirIntensidad;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.repositories.RepositorioDispositivo;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -21,7 +17,7 @@ public class testOrdenSubirIntensidad {
     @Before
     public void setUp() {
 
-        unDI = Mockito.spy(RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("aireAcondicionado","De 3500 frigorias"));
+        unDI = Mockito.spy(RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("aireAcondicionado", "De 3500 frigorias"));
 
 
         ordenSubirIntensidad = new OrdenSubirIntensidad(unDI);

@@ -1,4 +1,3 @@
-
 {{#partial "contenido"}}
 
     {{#with dispositivo}}
@@ -6,14 +5,14 @@
             <div class="form-group">
                 <label for="nombre">Nombre</label>
                 <select name="nombre">
-                {{#each dispositivos}}
-                    <tr>
-                        <td>{{nombre}}</td>
+                    {{#each dispositivos}}
+                        <tr>
+                            <td>{{nombre}}</td>
 
-                    </tr>
-                {{/each}}
+                        </tr>
+                    {{/each}}
                     <div class="form-group">
-                <label for="equipoConcreto">Equipo concreto</label>
+                        <label for="equipoConcreto">Equipo concreto</label>
 
 
 
@@ -25,11 +24,11 @@
                         {{/each}}
 
 
-                  </div>
-            <div class="form-group">
-                <label for="consumoEstimadoPorHora">Consumo estimado por hora</label>
-                <input type="text" name="consumoEstimadoPorHora"/>  </div>
-            <input class="btn btn-primary btn-modificar" type="submit" value="Modificar" href="/admin"}>
+                    </div>
+                    <div class="form-group">
+                        <label for="consumoEstimadoPorHora">Consumo estimado por hora</label>
+                        <input type="text" name="consumoEstimadoPorHora"/></div>
+                    <input class="btn btn-primary btn-modificar" type="submit" value="Modificar" href="/admin" }>
 
             </div>
         </form>

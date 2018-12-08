@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import dominio.entities.ProcessingDataFailedException;
 import dominio.transformador.Transformador;
-import dominio.usuario.Administrador;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

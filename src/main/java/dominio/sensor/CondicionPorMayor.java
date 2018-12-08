@@ -1,7 +1,5 @@
 package dominio.sensor;
 
-import dominio.regla.Regla;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 

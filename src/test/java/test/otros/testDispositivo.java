@@ -1,11 +1,7 @@
 package test.otros;
 
 import dominio.consultores.ConsultaConsumoUltimasNHoras;
-import dominio.dispositivo.Conversor;
-import dominio.dispositivo.DispositivoEstandar;
-import dominio.dispositivo.DispositivoEstandarInteligente;
-import dominio.dispositivo.DispositivoInteligente;
-import dominio.dispositivo.Intervalo;
+import dominio.dispositivo.*;
 import dominio.entities.NoTieneDispositivoException;
 import dominio.usuario.Cliente;
 import dominio.usuario.Domicilio;
@@ -15,11 +11,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static junit.framework.TestCase.*;
@@ -41,26 +34,26 @@ public class testDispositivo {
     private Intervalo i6;
     private Intervalo i7;
     private Intervalo i8;
-    
+
     @Before
     public void setUp() {
 
         unDE = new DispositivoEstandar.DispositivoEstandarBuilder("a1").consumoEstimadoPorHora((double) 300).build();
-        
+
         moduloAdaptador = new Conversor();
-        
-        i1 = spy(new Intervalo(LocalDateTime.of(2018,05,12,4,25), LocalDateTime.of(2018,05,12,9,30)));
-        i2 = spy(new Intervalo(LocalDateTime.of(2018,05,18,6,00), LocalDateTime.of(2018,05,18,14,20)));
-        i3 = spy(new Intervalo(LocalDateTime.of(2018,05,20,18,30), LocalDateTime.of(2018,05,20,20,30)));
-        i4 = spy(new Intervalo(LocalDateTime.of(2018,05,29,13,20), LocalDateTime.of(2018,05,29,14,20)));
-        i5 = spy(new Intervalo(LocalDateTime.of(2018,06,03,12,10), LocalDateTime.of(2018,06,04,14,30)));
-        i6 = spy(new Intervalo(LocalDateTime.of(2018,06,20,00,20), LocalDateTime.of(2018,06,20,7,20)));
+
+        i1 = spy(new Intervalo(LocalDateTime.of(2018, 05, 12, 4, 25), LocalDateTime.of(2018, 05, 12, 9, 30)));
+        i2 = spy(new Intervalo(LocalDateTime.of(2018, 05, 18, 6, 00), LocalDateTime.of(2018, 05, 18, 14, 20)));
+        i3 = spy(new Intervalo(LocalDateTime.of(2018, 05, 20, 18, 30), LocalDateTime.of(2018, 05, 20, 20, 30)));
+        i4 = spy(new Intervalo(LocalDateTime.of(2018, 05, 29, 13, 20), LocalDateTime.of(2018, 05, 29, 14, 20)));
+        i5 = spy(new Intervalo(LocalDateTime.of(2018, 06, 03, 12, 10), LocalDateTime.of(2018, 06, 04, 14, 30)));
+        i6 = spy(new Intervalo(LocalDateTime.of(2018, 06, 20, 00, 20), LocalDateTime.of(2018, 06, 20, 7, 20)));
         i7 = spy(new Intervalo(LocalDateTime.now().minusHours(10), LocalDateTime.now().minusNanos(1)));
-        i8 = spy(new Intervalo(LocalDateTime.of(2018, 06,03,13,00),LocalDateTime.of(2018,06,03,15,00)));
-        
-        List <Intervalo> intervalosDeUso = new ArrayList<>();
+        i8 = spy(new Intervalo(LocalDateTime.of(2018, 06, 03, 13, 00), LocalDateTime.of(2018, 06, 03, 15, 00)));
+
+        List<Intervalo> intervalosDeUso = new ArrayList<>();
         intervalosDeUso.add(i3);
-        
+
         // unDIEncendido.serUsado(10);
         List<DispositivoInteligente> listDispApagados = new ArrayList<>();
         listDispApagados.add(unDIApagado);
@@ -76,12 +69,12 @@ public class testDispositivo {
 
         listaDispositivosEstandard.add(unDE);
 
-        unCliente = spy(new Cliente("Nicolas", "Sierra", "fer25","password", new ID(TiposId.DNI, "200"),
+        unCliente = spy(new Cliente("Nicolas", "Sierra", "fer25", "password", new ID(TiposId.DNI, "200"),
                 new Domicilio("Bariloche", 3118, 1, 'a'), 250, listaDispositivosEstandard,
                 listaDispositivosInteligentes));
 
         // unDETransformado = unCliente.agregarModuloAdaptador(moduloAdaptador, unDE);
-        
+
         unDIEncendido = new DispositivoInteligente.DispositivoInteligenteBuilder("da")
                 .consumoEstimadoPorHora((double) 500).intervalosDeUso(intervalosDeUso).build();
         unDIApagado = new DispositivoInteligente.DispositivoInteligenteBuilder("AireAcondicionado")
@@ -110,8 +103,8 @@ public class testDispositivo {
 
     @Test
     public void testConsumoParaIntervaloDe2Horas() {
-        
-        Assert.assertEquals(1000.0, unDIEncendido.consumoParaIntervalo(i3),1);
+
+        Assert.assertEquals(1000.0, unDIEncendido.consumoParaIntervalo(i3), 1);
     }
 
     @Test
@@ -122,7 +115,7 @@ public class testDispositivo {
 
     @Test
     public void testDETUsadoPor90HorasConsumoUltimas3Horas() throws NoTieneDispositivoException {
-   
+
         DispositivoEstandarInteligente unDET = new DispositivoEstandarInteligente(unDE);
         consultaConsumoUltimasNHoras = new ConsultaConsumoUltimasNHoras(unDET, 3);
         assertEquals(0.0, consultaConsumoUltimasNHoras.consultar());
@@ -134,28 +127,28 @@ public class testDispositivo {
         assertEquals(0.0, consultaConsumoUltimasNHoras.consultar());
     }
 
-    
+
     @Test
     public void testDIEncendidoConsumoUltimas10Horas() {
-    	
-    	unDIEncendido.agregarIntervalo(i7);
+
+        unDIEncendido.agregarIntervalo(i7);
         assertEquals(4500.0, unDIEncendido.consumoUltimasNHoras(10));
     }
-    
+
     @Test
     public void testIntervaloCaeDentroDeOtro() {
-    	
-    	assertTrue(i8.caeDentroDe(i5));
+
+        assertTrue(i8.caeDentroDe(i5));
     }
-    
+
     @Test
     public void testConsumoTotal() {
-    	// i3 agregado en setUp = 2 horas
-    	unDIEncendido.agregarIntervalo(i2); // 8 horas
-    	unDIEncendido.agregarIntervalo(i5); // 26 horas
-    	assertEquals(18000.0,unDIEncendido.getConsumoTotal());
+        // i3 agregado en setUp = 2 horas
+        unDIEncendido.agregarIntervalo(i2); // 8 horas
+        unDIEncendido.agregarIntervalo(i5); // 26 horas
+        assertEquals(18000.0, unDIEncendido.getConsumoTotal());
     }
-    
+
     @Test
     public void testDEConsultaDeConsumoTotalDeUnDispositivoEstandarUsadoPor3Horas() {
         unDE.serUsado(3);
@@ -177,7 +170,7 @@ public class testDispositivo {
     @Test
     public void testReducirConsumoDispositivoInteligente() {
         unDIEncendido.reducirConsumoPor(100);
-        assertEquals(400.0,unDIEncendido.consumoEstimadoPorHora(),1);
+        assertEquals(400.0, unDIEncendido.consumoEstimadoPorHora(), 1);
     }
 
 

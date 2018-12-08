@@ -3,13 +3,9 @@ package test.actuadores;
 import dominio.actuador.OrdenEncenderDI;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.repositories.RepositorioDispositivo;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
@@ -21,7 +17,7 @@ public class testOrdenEncenderDI {
     @Before
     public void setUp() {
 
-        unDI = Mockito.spy(RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("aireAcondicionado","De 2200 frigorias"));
+        unDI = Mockito.spy(RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("aireAcondicionado", "De 2200 frigorias"));
         ordenEncenderDI = new OrdenEncenderDI(unDI);
     }
 

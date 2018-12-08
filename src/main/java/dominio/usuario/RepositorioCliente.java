@@ -17,7 +17,7 @@ public class RepositorioCliente implements WithGlobalEntityManager {
 
         Domicilio domicilio = new Domicilio("av cordoba", 1234, 7, 'A');
         ID id = new ID(TiposId.DNI, "10125789");
-        Cliente unCliente = new Cliente("ariel", "galvan", "galvanariel97","password", id, domicilio, 47581269, dispositivoEstandars, dispositivoInteligentes);
+        Cliente unCliente = new Cliente("ariel", "galvan", "galvanariel97", "password", id, domicilio, 47581269, dispositivoEstandars, dispositivoInteligentes);
 
 
     }

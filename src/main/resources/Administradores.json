@@ -2,8 +2,8 @@
   {
     "nombre": "AAAAA",
     "apellido": "BBBBBB",
-    "usuario":"AAAAA",
-    "contraseña":"AAAAA",
+    "usuario": "AAAAA",
+    "contraseña": "AAAAA",
     "domicilio": {
       "calle": "Av.X",
       "altura": 1234,
@@ -20,8 +20,8 @@
   {
     "nombre": "XXXX",
     "apellido": "ZZZZ",
-    "usuario":"XXXX",
-    "contraseña":"XXXX",
+    "usuario": "XXXX",
+    "contraseña": "XXXX",
     "domicilio": {
       "calle": "Av.X",
       "altura": 1234,

@@ -11,12 +11,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginController {
-	
-	public static ModelAndView loginFailure(Request req, Response res) {
-		
-		return new ModelAndView(null,"/home/errorLogin.hbs");
-	}
-	
+
+    public static ModelAndView loginFailure(Request req, Response res) {
+
+        return new ModelAndView(null, "/home/errorLogin.hbs");
+    }
+
     public static ModelAndView login(Request req, Response res) {
         Map<String, String> model = new HashMap<>();
         if (VerificarUsuario.verificar(RequestUtil.getQueryUsername(req), RequestUtil.getQueryPassword(req))) {
@@ -24,7 +24,7 @@ public class LoginController {
             return new ModelAndView(null, "/home/usuario.hbs");
         } else {
 
-            if (  VerificarAdmin.verificar(RequestUtil.getQueryUsername(req), RequestUtil.getQueryPassword(req))) {
+            if (VerificarAdmin.verificar(RequestUtil.getQueryUsername(req), RequestUtil.getQueryPassword(req))) {
                 req.session().attribute("currentUser", req.queryParams("usuario"));
                 return new ModelAndView(null, "/home/admin.hbs");
             } else {

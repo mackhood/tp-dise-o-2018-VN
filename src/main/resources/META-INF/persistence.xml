@@ -38,7 +38,7 @@
         <class>dominio.dispositivo.DispositivoEstandar</class>
         <class>dominio.dispositivo.Dispositivo</class>
         <class>dominio.zonageografica.ZonaGeografica</class>
-		<class>dominio.dispositivo.Periodo</class>
+        <class>dominio.dispositivo.Periodo</class>
 
 
         <properties>

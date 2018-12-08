@@ -37,7 +37,7 @@ public class testRegla {
         List<Intervalo> intervalos = new ArrayList<>();
 
         mockDI = Mockito.spy(new DispositivoInteligente.DispositivoInteligenteBuilder("unDI")
-               .intervalosDeUso(intervalos).build());
+                .intervalosDeUso(intervalos).build());
         mockDI.encender();
         mockDI.apagar();
 
@@ -52,7 +52,7 @@ public class testRegla {
         Mockito.when(mockCondicion.cumpleCondicion()).thenReturn(true);
         Mockito.when(otroMockCondicion.cumpleCondicion()).thenReturn(true);
         Mockito.when(mockCondicionNoCumplida.cumpleCondicion()).thenReturn(false);
- 
+
     }
 
     @Test
@@ -61,21 +61,21 @@ public class testRegla {
         regla.agregarCondicion(mockCondicionNoCumplida);
         assertEquals(3, regla.getCondicionesACumplir().size());
     }
-    
-    /* Hago este test para verificar que asociarA(regla) si hace lo que tiene que hacer, no se por que pero haciendo mocks de 
+
+    /* Hago este test para verificar que asociarA(regla) si hace lo que tiene que hacer, no se por que pero haciendo mocks de
      * las condiciones no funciona, cuando inicializandolas como objetos si.
      */
-    
+
     @Test
     public void mismoTestSinMocks() {
-    	
-    	List<Condicion> listaCondiciones = new ArrayList<>();
-    	CondicionPorMayor c = new CondicionPorMayor(10,"t");
-    	CondicionPorMayor c2 = new CondicionPorMayor(10,"t");
-    	Regla regla = new Regla(mockActuador,listaCondiciones);
-    	c.asociarA(regla);
-    	c2.asociarA(regla);
-    	assertEquals(2,regla.getCondicionesACumplir().size());
+
+        List<Condicion> listaCondiciones = new ArrayList<>();
+        CondicionPorMayor c = new CondicionPorMayor(10, "t");
+        CondicionPorMayor c2 = new CondicionPorMayor(10, "t");
+        Regla regla = new Regla(mockActuador, listaCondiciones);
+        c.asociarA(regla);
+        c2.asociarA(regla);
+        assertEquals(2, regla.getCondicionesACumplir().size());
     }
 
     @Test
@@ -107,7 +107,7 @@ public class testRegla {
     }
 
     @Ignore
-    public void testRepo(){
+    public void testRepo() {
         RepositorioReglaActuadorCondicion.getInstance().getSensorCalor().recibirMedicion(RepositorioReglaActuadorCondicion.getInstance().getMedicionCalor());
 
         Assert.assertEquals(true, DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(new Long(9)).estaEncendido());
