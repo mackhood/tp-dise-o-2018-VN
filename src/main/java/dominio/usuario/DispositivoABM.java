@@ -11,7 +11,7 @@ public class DispositivoABM implements WithGlobalEntityManager {
     }
 
     public void modificarDispositivoBD(Long idDispViejo, DispositivoEstandar dispNuevo) {
-        DispositivoEstandar dispAModificar = entityManager().find(DispositivoEstandar.class, idDispViejo);
+        DispositivoEstandar dispAModificar;
         entityManager().getTransaction().begin();
         dispAModificar = dispNuevo;
         entityManager().merge(dispAModificar);

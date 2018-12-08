@@ -102,7 +102,7 @@ public class AdminController {
 		String detalle = req.params("detalle");
 		
 		DispositivoInteligente di = new DispositivoInteligente.DispositivoInteligenteBuilder(equipo).equipoConcreto(detalle).build();
-		DispositivosManager.getInstance().persistirDispositivo(di);
+		DispositivosManager.getInstance().persistirDispositivoInteligente(di);
 		
 		res.redirect("/admin/dispositivosAlta");
 		return null;

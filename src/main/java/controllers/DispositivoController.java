@@ -55,12 +55,10 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
         req.session().removeAttribute("idDispositivo");
 
         Cliente cliente = ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario(RequestUtil.getSessionCurrentUser(req));
+        cliente.agregarDispositivoInteligente(dispositivoInteligente);
+        ClienteManager.getInstance().persistirCliente(cliente);
 
-        withTransaction(()->{
-            cliente.agregarDispositivoInteligente(dispositivoInteligente);
-            entityManager().persist(cliente);
-            entityManager().getTransaction().commit();
-        });
+
 
         res.redirect("/usuario");
         return new ModelAndView(null,"/usuario/altaConfirm.hbs");
@@ -85,18 +83,13 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
         String id = req.session().attribute("idDispositivo");
         req.session().removeAttribute("idDispositivo");
         DispositivoInteligente disp = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(Long.parseLong(id));
+        disp.setNombre(nombre);
+        disp.setEquipoConcreto(equipoConcreto);
+        disp.setConsumoEstimadoPorHora(Double.parseDouble(consumoEstimadoPorHora));
 
+        DispositivosManager.getInstance().persistirDispositivoInteligente(disp);
 
-        withTransaction(()->{
-            disp.setNombre(nombre);
-            disp.setEquipoConcreto(equipoConcreto);
-            disp.setConsumoEstimadoPorHora(Double.parseDouble(consumoEstimadoPorHora));
-            entityManager().persist(disp);
-            entityManager().getTransaction().commit();
-        });
-
-        //res.redirect("/usuario");
-        return new ModelAndView(null, "usuario/modificar.hbs");
+       return new ModelAndView(null, "usuario/modificar.hbs");
     }
     public ModelAndView consumoUltimoPeriodo(Request req, Response res){
 
@@ -124,14 +117,8 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
         req.session().removeAttribute("idDispositivo");
         DispositivoInteligente disp = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(Long.parseLong(id));
 
-        //Long idCliente = ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario(req.session().attribute("currentUser")).getId();
+        DispositivosManager.getInstance().borrarDispositivoInteligene(disp);
 
-        withTransaction(()->{
-
-            //entityManager().createQuery("delete from Cliente_dispositivointeligente c where cliente_idCliente='"+idCliente+"' and dispositivosInteligentes_idDispositivo='"+id+"'");
-            entityManager().remove(disp);
-            entityManager().getTransaction().commit();
-        });
         res.redirect("/usuario");
         return new ModelAndView(null,"usuario/bajar.hbs");
     }

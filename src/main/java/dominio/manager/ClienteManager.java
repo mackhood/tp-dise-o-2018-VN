@@ -120,4 +120,20 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
     			+ " on i.idDispositivo = di.idDispositivo and di.idCliente = :id",Intervalo.class).setParameter("id", id).getResultList();
     }
 
+
+    public void  persistirCliente(Cliente cliente) {
+		withTransaction(() -> {
+
+		entityManager().persist(cliente);
+		entityManager().getTransaction().commit();
+		});
+
+	}
+
+
+
+
+
+
+
 }

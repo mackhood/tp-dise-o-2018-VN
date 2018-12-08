@@ -41,9 +41,9 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
         return inteligentes;
 
     }
-    public void persistirDispositivo(DispositivoInteligente di) {
+    public void persistirDispositivoInteligente(DispositivoInteligente di) {
     	withTransaction(() -> {
-    		
+
     	entityManager().persist(di);
     	entityManager().getTransaction().commit();
     	});
@@ -58,4 +58,17 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
     {
         return this.getDispositivoInteligenteDeLaBDPorID(id).consumoUltimoIntervalo();
     }
+
+    public void borrarDispositivoInteligene(DispositivoInteligente disp) {
+
+       withTransaction(()->{
+            entityManager().remove(disp);
+            entityManager().getTransaction().commit();
+        });
+
+
+    }
+
+
+
 }
