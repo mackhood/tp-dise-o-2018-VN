@@ -175,9 +175,6 @@ public class DispositivoInteligente extends Dispositivo {
 		return 15;
 	}
 
-	public String getUrl() {
-		return "/usuario/dispositivo/" + this.getId();
-	}
 
 	public static class DispositivoInteligenteBuilder {
 

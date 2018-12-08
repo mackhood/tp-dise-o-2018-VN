@@ -57,7 +57,7 @@ public class AdminController {
 		Map<String, List<Cliente>> model = new HashMap<>();
 		
 		String reporte = req.queryParams("reporte");
-		// if
+
 		List<Cliente> hogares = ClienteManager.getInstance().getClientesDeLaBD();
 		model.put("hogares", hogares);
 		return new ModelAndView(model, "/admin/reporteDatos.hbs");
@@ -102,7 +102,7 @@ public class AdminController {
 		String detalle = req.params("detalle");
 		
 		DispositivoInteligente di = new DispositivoInteligente.DispositivoInteligenteBuilder(equipo).equipoConcreto(detalle).build();
-		DispositivosManager.getInstance().persistirDispositivo(di);
+		DispositivosManager.getInstance().persistirDispositivoInteligente(di);
 		
 		res.redirect("/admin/dispositivosAlta");
 		return null;
