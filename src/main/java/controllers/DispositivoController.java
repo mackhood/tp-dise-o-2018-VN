@@ -98,6 +98,15 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
         //res.redirect("/usuario");
         return new ModelAndView(null, "usuario/modificar.hbs");
     }
+    public ModelAndView consumoUltimoPeriodo(Request req, Response res){
+
+        Map<String, Double> model = new HashMap<>();
+        String id = req.params("id");
+        Long idd = Long.valueOf(id).longValue();
+        model.put("consumoUltimoPeriodo",DispositivosManager.getInstance().getConsumoUltimoPeriodo((idd)));
+
+        return new ModelAndView(model,"/usuario/consumoUltimoPeriodo.hbs");
+    }
 
     public ModelAndView verBajar(Request req, Response res)
     {

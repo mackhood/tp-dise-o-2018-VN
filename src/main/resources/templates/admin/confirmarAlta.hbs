@@ -1,0 +1,15 @@
+
+{{#partial "contenido"}}
+<br>
+        <form method="POST" action="/admin/dispositivosAlta/{{equipo}}/{{detalle}}/confirmed">
+            <div class="form-group">
+                <label> <font size="4"> Dispositivo Seleccionado: </font> <font size="4" color="Tomato"> {{equipo}} {{detalle}} </font> </label> <br>
+            </div>
+            <label> Desea confimar la operacion? </label><br>
+            <input class="btn btn-success btn-alta" type="submit" value="Confirmar">
+       		<a class="btn btn-danger btn-cancel" role="button" href="/admin/dispositivosAlta"> Cancelar </a>
+        </form>
+
+{{/partial}}
+
+{{>admin/adminBase.hbs}}

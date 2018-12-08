@@ -41,8 +41,21 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
         return inteligentes;
 
     }
+    public void persistirDispositivo(DispositivoInteligente di) {
+    	withTransaction(() -> {
+    		
+    	entityManager().persist(di);
+    	entityManager().getTransaction().commit();
+    	});
+}
+
     public DispositivoEstandar getDispositivoEstandarDeLaBD(Long id)
     {
         return entityManager().find(DispositivoEstandar.class, id);
+
+    }
+    public double getConsumoUltimoPeriodo(Long id)
+    {
+        return this.getDispositivoInteligenteDeLaBDPorID(id).consumoUltimoIntervalo();
     }
 }

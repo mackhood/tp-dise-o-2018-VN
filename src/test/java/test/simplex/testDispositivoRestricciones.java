@@ -13,7 +13,7 @@ public class testDispositivoRestricciones {
 
     @Test
     public void testAireAcondicionadoRestriccionMinima() {
-        disp = RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("aireAcondicionado", "De 3500 frigorias");
+        disp = RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("Aire Acondicionado", "De 3500 frigorias");
 
         Assert.assertEquals(90, disp.getRestriccionMinima(), 0);
     }

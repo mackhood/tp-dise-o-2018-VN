@@ -97,4 +97,5 @@ public class Intervalo {
 		this.fin = finIntervalo;
 	}
 
+
 }

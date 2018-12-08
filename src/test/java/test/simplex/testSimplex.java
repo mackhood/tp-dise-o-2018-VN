@@ -30,16 +30,16 @@ public class testSimplex {
 
     @Before
     public void setUp() {
-        aireAcondicionado3500 = RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("aireAcondicionado", "De 3500 frigorias");
+        aireAcondicionado3500 = RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("Aire Acondicionado", "De 3500 frigorias");
 
-        lampara11W = RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("lampara", "De 11W");
+        lampara11W = RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("Lampara", "De 11W");
 
         aireAcondicionado3500.setHorasDeUso(900);
         aireAcondicionado3500.encender();
 
         lampara11W.encender();
 
-        lavarropas5kgAgua = RepositorioDispositivo.getInstance().traerDispositivoEstandarDeNombreConcreto("lavarropas", "Automatico de 5kg con calentamiento de agua");
+        lavarropas5kgAgua = RepositorioDispositivo.getInstance().traerDispositivoEstandarDeNombreConcreto("Lavarropas", "Automatico de 5kg con calentamiento de agua");
 
         estandares.add(lavarropas5kgAgua);
         inteligentes.add(aireAcondicionado3500);

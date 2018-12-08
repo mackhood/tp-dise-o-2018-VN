@@ -180,5 +180,33 @@ public class testDispositivo {
         assertEquals(400.0,unDIEncendido.consumoEstimadoPorHora(),1);
     }
 
+    @Test
+    public void testUltimoIntervaloDispEncendido()
+    {
+        unDIEncendido.agregarIntervalo(i3);
+        unDIEncendido.agregarIntervalo(i1);
+        unDIEncendido.agregarIntervalo(i2);
 
+        Assert.assertEquals(LocalDateTime.of(2018,05,20,20,30),unDIEncendido.getUltimoIntervalo().getFin());
+    }
+
+    @Test
+    public void testConsumoUltimoPeriodoDelCliente()
+    {
+
+        unDIApagado.agregarIntervalo(i2);
+        unDIApagado.agregarIntervalo(i1);
+
+        unDIApagado.agregarIntervalo(i4);
+        unDIApagado.agregarIntervalo(i5);
+        unDIApagado.agregarIntervalo(i3);
+
+
+        unCliente.agregarDispositivoInteligente(unDIApagado);
+        unCliente.agregarDispositivoInteligente(unDIEncendido);
+
+        System.out.println(i5.intervaloEnHoras());
+        Assert.assertEquals(2600,unCliente.getConsumoUltimoIntervalo(),1);
+
+    }
 }
