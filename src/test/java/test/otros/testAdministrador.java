@@ -23,14 +23,14 @@ public class testAdministrador {
     // deja de funcionar.
     @Test
     public void testCantMesesDelAdminCaso1() {
-        Assert.assertEquals(29, unNuevoAdmin.cantMesesComoAdmin());
+        Assert.assertEquals(30, unNuevoAdmin.cantMesesComoAdmin());
     }
 
     // @Ignore //Los ignoro porque no tiene sentido testear eso porque con el tiempo
     // deja de funcionar.
     @Test
     public void testCantMesesDelAdminCaso2() {
-        Assert.assertEquals(49, otroNuevoAdmin.cantMesesComoAdmin());
+        Assert.assertEquals(50, otroNuevoAdmin.cantMesesComoAdmin());
     }
 
 }

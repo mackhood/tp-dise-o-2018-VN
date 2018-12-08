@@ -9,6 +9,7 @@ import dominio.zonageografica.Ubicacion;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -175,6 +176,16 @@ public class Cliente {
 		return categoria.calcularCostosPara(this);
 	}
 
+	public double getConsumoUltimoIntervalo()
+	{
+		List<Intervalo> maximoIntervalos = this.getDispositivosInteligentes().stream().map(dispositivoInteligente -> dispositivoInteligente.getUltimoIntervalo()).collect(Collectors.toList());
+
+		Intervalo intervaloMaximoDeTodosLosDispositivos =  maximoIntervalos.stream().max(Comparator.comparing(Intervalo::getFin)).get();
+
+		DispositivoInteligente inteligente =  this.getDispositivosInteligentes().stream().filter(disp -> disp.getIntervalosDeUso().contains(intervaloMaximoDeTodosLosDispositivos)).collect(Collectors.toList()).get(0);
+
+		return inteligente.consumoParaIntervalo(intervaloMaximoDeTodosLosDispositivos);
+	}
 	/*
 	 * public double consumoDeIntervalo(Intervalo intervalo) {
 	 * 

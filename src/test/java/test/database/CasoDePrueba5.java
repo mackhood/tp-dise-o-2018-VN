@@ -50,15 +50,15 @@ public class CasoDePrueba5 implements WithGlobalEntityManager {
 		li.add(i1);
 		li.add(i2);
 		li.add(i3);
-		DispositivoInteligente d = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID((long) 9);
+		DispositivoInteligente d = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID((long) 10);
 		d.agregarListaIntervalos(li);
 		entityManager().persist(d);
 
 		ReporteConsumoPorDispositivo r = new ReporteConsumoPorDispositivo();
-		assertEquals(24.1950, r.consumoPorDispositivo(25, 9), 0.5);
+		assertEquals(24.1950, r.consumoPorDispositivo(25, 10), 0.5);
 
 		Periodo p = new Periodo(LocalDateTime.of(2018, 10, 12, 16, 20), LocalDateTime.of(2018, 10, 13, 02, 00), null);
-		assertEquals(1.075, r.consumoPromedioDispositivoEnPeriodo(9, p), 0.5);
+		assertEquals(1.075, r.consumoPromedioDispositivoEnPeriodo(10, p), 0.5);
 	}
 
 	@Test

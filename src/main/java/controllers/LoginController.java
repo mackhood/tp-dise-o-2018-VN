@@ -19,20 +19,22 @@ public class LoginController {
 	
     public static ModelAndView login(Request req, Response res) {
         Map<String, String> model = new HashMap<>();
-        if (VerificarUsuario.verificar(RequestUtil.getQueryUsername(req), RequestUtil.getQueryPassword(req))) {
+        if (VerificarUsuario.verificar(RequestUtil.getQueryUsername(req), RequestUtil.getQueryPassword(req)))
+        {
             req.session().attribute("currentUser", req.queryParams("usuario"));
             return new ModelAndView(null, "/home/usuario.hbs");
-        } else {
-
-            if (  VerificarAdmin.verificar(RequestUtil.getQueryUsername(req), RequestUtil.getQueryPassword(req))) {
-                req.session().attribute("currentUser", req.queryParams("usuario"));
-                return new ModelAndView(null, "/admin/adminBase.hbs");
-            } else {
-
+        }
+        else if (  VerificarAdmin.verificar(RequestUtil.getQueryUsername(req), RequestUtil.getQueryPassword(req)))
+        {
+            req.session().attribute("currentUser", req.queryParams("usuario"));
+            return new ModelAndView(null, "/admin/adminBase.hbs");
+        }
+        else
+            {
                 res.redirect("/loginFailure");
                 return null;
             }
-        }
+
     }
 
     public static ModelAndView logout(Request req, Response res) {

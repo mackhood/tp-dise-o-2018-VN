@@ -22,13 +22,27 @@ public class Router {
 		AdminController adminController = new AdminController();
 
 		Spark.get("/", HomeController::showLoginForm, engine);
+		Spark.post("/principal",LoginController::login,engine);
+
 		Spark.get("/login", LoginController::login, engine);
 		Spark.get("/loginFailure", LoginController::loginFailure, engine);
 		Spark.post("/loginFailure", LoginController::loginFailure, engine);
-		Spark.post("/principal",LoginController::login,engine);
+
+
 		Spark.post("/login", LoginController::logout,engine);
 		Spark.get("/login", LoginController::logout, engine);
+
+
 		Spark.get("/usuario", usuarioController::show, engine);
+
+		Spark.get("/usuario/recomendacionHogar", usuarioController::showConfirmacionRecomendacionHogar, engine);
+		Spark.get("/usuario/realizarRecomendacion", usuarioController::realizarRecomendacion, engine);
+
+		Spark.get("/usuario/consultaConsumoPeriodo", usuarioController :: showConsumoPeriodo, engine);
+		Spark.post("/usuario/consumoPeriodo", usuarioController :: consumoPeriodo, engine);
+
+		Spark.get("/usuario/consumoUltimoPeriodo", usuarioController::showConsumoUltimoPeriodo, engine);
+
 		Spark.get("/usuario/verDispositivosAlta", dispositivoController::listarDispositivosAlta,engine);
 		Spark.get("/usuario/altaConfirm/:id",dispositivoController::verAlta, engine);
 		Spark.post("/usuario/altaConfirm", dispositivoController::alta,engine);

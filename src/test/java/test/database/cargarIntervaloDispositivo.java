@@ -31,4 +31,40 @@ public class cargarIntervaloDispositivo extends AbstractPersistenceTest implemen
         entityManager().getTransaction().commit();
 
     }
+    @Test
+    public void cargarIntervaloADispositivoID10()
+    {
+        //Falta agregar un dispositivo para q este test funcione y no hardcodear el value 13 (ID)
+        DispositivoInteligente di = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(new Long(10));
+        LocalDateTime horaEncendido = LocalDateTime.of(2018, 6, 8, 15, 30, 30, 100);
+        LocalDateTime horaApagado = LocalDateTime.of(2018, 6, 8, 21, 25, 30, 100);
+        Intervalo intervalo = new Intervalo(horaEncendido,horaApagado);
+        List<Intervalo> intervalos = new ArrayList<>();
+        intervalos.add(intervalo);
+
+        persist(intervalo);
+        di.agregarListaIntervalos(intervalos);
+
+        entityManager().persist(di);
+        entityManager().getTransaction().commit();
+
+    }
+    @Test
+    public void cargarIntervaloADispositivoID17()
+    {
+        //Falta agregar un dispositivo para q este test funcione y no hardcodear el value 13 (ID)
+        DispositivoInteligente di = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(new Long(17));
+        LocalDateTime horaEncendido = LocalDateTime.of(2018, 6, 8, 15, 30, 30, 100);
+        LocalDateTime horaApagado = LocalDateTime.of(2018, 6, 8, 21, 25, 30, 100);
+        Intervalo intervalo = new Intervalo(horaEncendido,horaApagado);
+        List<Intervalo> intervalos = new ArrayList<>();
+        intervalos.add(intervalo);
+
+        persist(intervalo);
+        di.agregarListaIntervalos(intervalos);
+
+        entityManager().persist(di);
+        entityManager().getTransaction().commit();
+
+    }
 }
