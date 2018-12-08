@@ -116,7 +116,7 @@ public class CasosDePrueba1y2 extends AbstractPersistenceTest implements WithGlo
     public void testAgregarDispInteligenteAUnUsuarioCantidadDispositivosInteligentes()
     {
 
-        DispositivoInteligente dispositivoInteligente = RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("aireAcondicionado","De 2200 frigorias");
+        DispositivoInteligente dispositivoInteligente = RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("Aire Acondicionado","De 2200 frigorias");
 
         Cliente cliente = ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario("galvanariel");
 

@@ -22,7 +22,7 @@ public class testOrdenApagarDI {
     @Before
     public void setUp() {
 
-        unDI = Mockito.spy(RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("aireAcondicionado","De 2200 frigorias"));
+        unDI = Mockito.spy(RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("Aire Acondicionado","De 2200 frigorias"));
         unDI.encender();
         ordenApagarDI = new OrdenApagarDI(unDI);
 

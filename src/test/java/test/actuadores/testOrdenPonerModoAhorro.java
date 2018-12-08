@@ -22,7 +22,7 @@ public class testOrdenPonerModoAhorro {
     public void setUp() {
 
 
-        unDI = Mockito.spy(RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("televisor","LED de 24"));
+        unDI = Mockito.spy(RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("Televisor","LED de 24"));
         unDI.encender();
         ordenPonerModoAhorro = new OrdenPonerModoAhorro(unDI);
     }
