@@ -22,8 +22,6 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
         Map<String, List<DispositivoInteligente>> model = new HashMap<>();
 
         List<DispositivoInteligente> dispositivos = ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario(RequestUtil.getSessionCurrentUser(req)).getDispositivosInteligentes();
-
-        //List<DispositivoInteligente> dispositivos = ClienteManager.getInstance().getDispositivosInteligentesDelClienteDeLaBD(RequestUtil.getSessionCurrentUser(req));
         model.put("dispositivos",dispositivos);
 
         return new ModelAndView(model,"/usuario/dispositivo.hbs");
