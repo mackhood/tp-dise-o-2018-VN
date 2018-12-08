@@ -5,7 +5,6 @@ import dominio.repositories.RepositorioTransformadores;
 import dominio.transformador.Transformador;
 import dominio.zonageografica.Ubicacion;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
@@ -22,29 +21,28 @@ public class CasoDePrueba4 extends AbstractPersistenceTest implements WithGlobal
         entityManager().getTransaction().begin();
     }
 
+
+    //El problema con este test es q corre bien la primera vez
+    //pero cuando crea el archivo transformadorTest.json , la segunda vez
+    //lee este archivo y no el q esta en resources en test.
     @Test
     public void testPersistirTransformadoresYconsultarCantidad() throws IOException {
-
-        withTransaction(() -> {
-            List<Transformador> transformadorList =RepositorioTransformadores.getInstance().obtenerTransformadores();
-            transformadorList.stream().forEach(transformador -> entityManager().persist(transformador.getUbicacion()));
-            transformadorList.stream().forEach(transformador -> entityManager().persist(transformador));
-            entityManager().getTransaction().commit();
-        });
-
-        List<Transformador> obtenerListaTransformadores  = entityManager().createQuery("from Transformador", Transformador.class).getResultList();
-
+        String archivo = "transformadorTest.json";
+        TransformadorManager.getInstance().transformadoresNoPersistidosYPersistirlos(RepositorioTransformadores.getInstance().obtenerTransformadores(archivo));
+        List<Transformador> obtenerListaTransformadores = entityManager().createQuery("from Transformador", Transformador.class).getResultList();
+        assertEquals(3, obtenerListaTransformadores.size());
     }
+
     @Test
     public void testPersistirNuevoTransformadorEnJson() throws IOException {
-        List<Transformador> transformadorList =RepositorioTransformadores.getInstance().obtenerTransformadores();
-        Transformador nuevoTransformador =new Transformador(2);
-        nuevoTransformador.setUbicacion(new Ubicacion(10,10));
-        transformadorList.add(nuevoTransformador);
-        RepositorioTransformadores.getInstance().nuevoTransformador(transformadorList);
-        TransformadorManager.getInstance().transformadoresNoPersistidosYPersistirlos(RepositorioTransformadores.getInstance().obtenerTransformadores());
-        List<Transformador> obtenerListaTransformadores  = entityManager().createQuery("from Transformador", Transformador.class).getResultList();
-        assertEquals(5,obtenerListaTransformadores.size());
+        Transformador nuevoTransformador = new Transformador(15);
+        nuevoTransformador.setUbicacion(new Ubicacion(10, 10));
+        String archivo = "transformadorTest.json";
+        List <Transformador> transformadorList =RepositorioTransformadores.getInstance().nuevoTransformador(nuevoTransformador,archivo);
+        TransformadorManager.getInstance().transformadoresNoPersistidosYPersistirlos(transformadorList);
+        List<Transformador> obtenerListaTransformadores = entityManager().createQuery("from Transformador", Transformador.class).getResultList();
+        assertEquals(4, obtenerListaTransformadores.size());
     }
+
 
 }

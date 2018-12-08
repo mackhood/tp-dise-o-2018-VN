@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import dominio.entities.ProcessingDataFailedException;
 import dominio.transformador.Transformador;
-import dominio.usuario.Administrador;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -24,11 +23,16 @@ public class RepositorioTransformadores extends Repositorio {
     public static RepositorioTransformadores getInstance() {
         return instance;
     }
-
+    public List<Transformador> obtenerTransformadores(String archivo) throws ProcessingDataFailedException {
+        return  obtenerTransformadoresDelJson(archivo);
+    }
     public List<Transformador> obtenerTransformadores() throws ProcessingDataFailedException {
+        return  obtenerTransformadoresDelJson(this.nombreArchivo);
+    }
 
+    private List<Transformador> obtenerTransformadoresDelJson(String archivo) throws ProcessingDataFailedException {
         try {
-            FileReader file = new FileReader(getJsonFile());
+            FileReader file = new FileReader(archivo);
             BufferedReader bufferedReader = new BufferedReader(file);
             Gson gson = new Gson();
 
@@ -52,16 +56,20 @@ public class RepositorioTransformadores extends Repositorio {
         return this.obtenerTransformadores().size();
     }
 
-    public void nuevoTransformador(List<Transformador> listaTransformador) throws IOException {
-
+    public List<Transformador> nuevoTransformador(Transformador transformador,String archivo) throws IOException {
         Gson gson = new Gson();
-
-        //convert the Java object to json
-        String jsonString = gson.toJson(listaTransformador);
-        //Write JSON String to file
-        FileWriter fileWriter = new FileWriter("transformadorTest.json");
+        List<Transformador> transformadores = this.obtenerTransformadoresDelJson(archivo);
+        transformadores.add(transformador);
+        String jsonString = gson.toJson(transformadores);
+        FileWriter fileWriter = new FileWriter(archivo);
+        //Saco el append
+        //FileWriter fileWriter = new FileWriter(archivo,true);
         fileWriter.write(jsonString);
         fileWriter.close();
+        List<Transformador> transformadoresConElNuevoTransformador = this.obtenerTransformadores(archivo);
+
+        return transformadoresConElNuevoTransformador;
+
 
     }
 
