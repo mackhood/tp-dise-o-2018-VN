@@ -59,4 +59,11 @@ public class UsuarioController {
         return new ModelAndView(model,"usuario/resConsumoPeriodo.hbs");
     }
 
+    public ModelAndView showConsumoUltimoPeriodo(Request req, Response res)
+    {
+        Map<String,Double> model = new HashMap<>();
+
+        model.put("consumoUltimoPeriodo",ClienteManager.getInstance().consumoUltimoPeriodo(RequestUtil.getSessionCurrentUser(req)));
+        return new ModelAndView(model,"usuario/consumoUltimoPeriodo.hbs");
+    }
 }

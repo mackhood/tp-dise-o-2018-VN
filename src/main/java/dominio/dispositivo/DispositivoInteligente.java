@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -161,6 +162,11 @@ public class DispositivoInteligente extends Dispositivo {
 		return estadoDispositivo.estaEnModoAhorro();
 	}
 
+	public Intervalo getUltimoIntervalo()
+	{
+		return this.getIntervalosDeUso().stream().max(Comparator.comparing(Intervalo::getFin)).get();
+
+	}
 	public int getPuntos() {
 		return 15;
 	}

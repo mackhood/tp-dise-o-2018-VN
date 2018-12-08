@@ -55,7 +55,7 @@ public class CasoDePrueba5 implements WithGlobalEntityManager {
 		entityManager().persist(d);
 
 		ReporteConsumoPorDispositivo r = new ReporteConsumoPorDispositivo();
-		assertEquals(24.1950, r.consumoPorDispositivo(26, 10), 0.5);
+		assertEquals(24.1950, r.consumoPorDispositivo(25, 10), 0.5);
 
 		Periodo p = new Periodo(LocalDateTime.of(2018, 10, 12, 16, 20), LocalDateTime.of(2018, 10, 13, 02, 00), null);
 		assertEquals(1.075, r.consumoPromedioDispositivoEnPeriodo(10, p), 0.5);
@@ -65,14 +65,14 @@ public class CasoDePrueba5 implements WithGlobalEntityManager {
 	public void testTotalDispositivosDeUsuario() {
 
 		ReporteConsumoPorDispositivo r = new ReporteConsumoPorDispositivo();
-		assertEquals(2, r.totalDispositivos(26), 0);
+		assertEquals(2, r.totalDispositivos(25), 0);
 	}
 
 	@Test
 	public void testConsumoDeHogarEnPeriodo() {
 		Periodo p = new Periodo(LocalDateTime.of(2018, 06, 8, 22, 10), LocalDateTime.of(2018, 06, 9, 01, 50), null);
 		ReporteConsumoPorHogar r = new ReporteConsumoPorHogar();
-		assertEquals(0, r.consumoDeHogarEnPeriodo(26, p), 0.1);
+		assertEquals(0, r.consumoDeHogarEnPeriodo(25, p), 0.1);
 	}
 
 	@Test

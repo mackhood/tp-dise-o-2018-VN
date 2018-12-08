@@ -41,6 +41,7 @@ public class Router {
 		Spark.get("/usuario/consultaConsumoPeriodo", usuarioController :: showConsumoPeriodo, engine);
 		Spark.post("/usuario/consumoPeriodo", usuarioController :: consumoPeriodo, engine);
 
+		Spark.get("/usuario/consumoUltimoPeriodo", usuarioController::showConsumoUltimoPeriodo, engine);
 
 		Spark.get("/usuario/verDispositivosAlta", dispositivoController::listarDispositivosAlta,engine);
 		Spark.get("/usuario/altaConfirm/:id",dispositivoController::verAlta, engine);
