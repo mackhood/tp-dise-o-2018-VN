@@ -52,15 +52,29 @@ public class AdminController {
 		
 		return new ModelAndView(model, "/admin/reportes.hbs");
 	}
-
+	
+	// PARA LOS REQUERIMIENTOS NO PEDIDOS EN EL ENUNCIADO
+	public ModelAndView noFeatureHere(Request req, Response res) {
+		
+		return new ModelAndView(null,"/admin/noFeature.hbs");
+	}
+	
 	public ModelAndView ingresarDatos(Request req, Response res) {
 		Map<String, List<Cliente>> model = new HashMap<>();
 		
 		String reporte = req.queryParams("reporte");
-
-		List<Cliente> hogares = ClienteManager.getInstance().getClientesDeLaBD();
-		model.put("hogares", hogares);
-		return new ModelAndView(model, "/admin/reporteDatos.hbs");
+		
+		if (reporte.equals("hogar")) {
+		
+			List<Cliente> hogares = ClienteManager.getInstance().getClientesDeLaBD();
+			model.put("hogares", hogares);
+			return new ModelAndView(model, "/admin/reporteDatos.hbs");
+		}
+		
+		else {
+			res.redirect("/admin/reportes/noFeature");
+			return null;
+		}
 	}
 
 	public ModelAndView verReporteSeleccionado(Request req, Response res) {
