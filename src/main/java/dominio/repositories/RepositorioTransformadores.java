@@ -23,11 +23,16 @@ public class RepositorioTransformadores extends Repositorio {
     public static RepositorioTransformadores getInstance() {
         return instance;
     }
-
+    public List<Transformador> obtenerTransformadores(String archivo) throws ProcessingDataFailedException {
+        return  obtenerTransformadoresDelJson(archivo);
+    }
     public List<Transformador> obtenerTransformadores() throws ProcessingDataFailedException {
+        return  obtenerTransformadoresDelJson(this.nombreArchivo);
+    }
 
+    private List<Transformador> obtenerTransformadoresDelJson(String archivo) throws ProcessingDataFailedException {
         try {
-            FileReader file = new FileReader(getJsonFile());
+            FileReader file = new FileReader(archivo);
             BufferedReader bufferedReader = new BufferedReader(file);
             Gson gson = new Gson();
 
@@ -51,16 +56,35 @@ public class RepositorioTransformadores extends Repositorio {
         return this.obtenerTransformadores().size();
     }
 
-    public void nuevoTransformador(List<Transformador> listaTransformador) throws IOException {
+    public List<Transformador> nuevoTransformador(Transformador transformador,String archivo) throws IOException {
 
+        FileReader file = new FileReader(archivo);
+        BufferedReader bufferedReader = new BufferedReader(file);
         Gson gson = new Gson();
-
-        //convert the Java object to json
-        String jsonString = gson.toJson(listaTransformador);
-        //Write JSON String to file
-        FileWriter fileWriter = new FileWriter("transformadorTest.json");
+        Object jsonObject = gson.fromJson(bufferedReader, Object.class);
+        String json = jsonObject.toString();
+        Type tipoListaTransformadores = new TypeToken<List<Transformador>>() {
+        }.getType();
+        List<Transformador> transformadores = gson.fromJson(json, tipoListaTransformadores);
+        transformadores.add(transformador);
+        String jsonString = gson.toJson(transformadores);
+        FileWriter fileWriter = new FileWriter(archivo);
+        //Saco el append
+        //FileWriter fileWriter = new FileWriter(archivo,true);
         fileWriter.write(jsonString);
         fileWriter.close();
+
+
+        FileReader archivoConElNuevoTransformador = new FileReader(archivo);
+        BufferedReader bufferedReaderNuevoTransformador = new BufferedReader(archivoConElNuevoTransformador);
+        Object jsonObjectConElNuevoTransformador = gson.fromJson(bufferedReaderNuevoTransformador, Object.class);
+        String jsonConElNuevoTransformador = jsonObjectConElNuevoTransformador.toString();
+        Type tipoListaTransformadoresConElNuevoTransformador = new TypeToken<List<Transformador>>() {
+        }.getType();
+        List<Transformador> transformadoresConElNuevoTransformador = gson.fromJson(jsonConElNuevoTransformador, tipoListaTransformadoresConElNuevoTransformador);
+
+        return transformadoresConElNuevoTransformador;
+
 
     }
 

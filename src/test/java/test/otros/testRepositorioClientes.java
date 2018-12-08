@@ -3,13 +3,14 @@ package test.otros;
 import dominio.repositories.RepositorioCategoria;
 import org.junit.Assert;
 import org.junit.Ignore;
+import org.junit.Test;
 import org.mockito.Mockito;
 
 import static org.mockito.Mockito.when;
 
 public class testRepositorioClientes {
 
-    @Ignore
+    @Test
     public void testDadoUnJsonDeTestSeObtieneCorrectamenteLaCantidadDeRegistros() throws Exception {
         RepositorioCategoria repositorio = Mockito.mock(RepositorioCategoria.class);
         when(repositorio.getJsonFile()).thenReturn(this.getJsonTestFile());

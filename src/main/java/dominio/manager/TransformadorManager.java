@@ -78,9 +78,9 @@ public class TransformadorManager implements WithGlobalEntityManager, Transactio
                     "from Transformador t where idTransformador='" + idTransformador + "'", Transformador.class);
             query.setMaxResults(1);
             List<Transformador> transformadorObtenidos = query.getResultList();
-
-            if (transformadorObtenidos == null && transformadorObtenidos.size() == 0) {
-                entityManager().persist(transformadorObtenidos);
+            if (transformadorObtenidos.size() == 0) {
+                entityManager().persist(transformador.getUbicacion());
+                entityManager().persist(transformador);
             }
         });
         entityManager().getTransaction().commit();
@@ -102,5 +102,6 @@ public class TransformadorManager implements WithGlobalEntityManager, Transactio
 
         return id.longValue();
     }
+
 
 }
