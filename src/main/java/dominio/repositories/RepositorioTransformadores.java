@@ -57,15 +57,8 @@ public class RepositorioTransformadores extends Repositorio {
     }
 
     public List<Transformador> nuevoTransformador(Transformador transformador,String archivo) throws IOException {
-
-        FileReader file = new FileReader(archivo);
-        BufferedReader bufferedReader = new BufferedReader(file);
         Gson gson = new Gson();
-        Object jsonObject = gson.fromJson(bufferedReader, Object.class);
-        String json = jsonObject.toString();
-        Type tipoListaTransformadores = new TypeToken<List<Transformador>>() {
-        }.getType();
-        List<Transformador> transformadores = gson.fromJson(json, tipoListaTransformadores);
+        List<Transformador> transformadores = this.obtenerTransformadoresDelJson(archivo);
         transformadores.add(transformador);
         String jsonString = gson.toJson(transformadores);
         FileWriter fileWriter = new FileWriter(archivo);
@@ -73,15 +66,7 @@ public class RepositorioTransformadores extends Repositorio {
         //FileWriter fileWriter = new FileWriter(archivo,true);
         fileWriter.write(jsonString);
         fileWriter.close();
-
-
-        FileReader archivoConElNuevoTransformador = new FileReader(archivo);
-        BufferedReader bufferedReaderNuevoTransformador = new BufferedReader(archivoConElNuevoTransformador);
-        Object jsonObjectConElNuevoTransformador = gson.fromJson(bufferedReaderNuevoTransformador, Object.class);
-        String jsonConElNuevoTransformador = jsonObjectConElNuevoTransformador.toString();
-        Type tipoListaTransformadoresConElNuevoTransformador = new TypeToken<List<Transformador>>() {
-        }.getType();
-        List<Transformador> transformadoresConElNuevoTransformador = gson.fromJson(jsonConElNuevoTransformador, tipoListaTransformadoresConElNuevoTransformador);
+        List<Transformador> transformadoresConElNuevoTransformador = this.obtenerTransformadores(archivo);
 
         return transformadoresConElNuevoTransformador;
 
