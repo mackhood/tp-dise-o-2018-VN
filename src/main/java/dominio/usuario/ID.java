@@ -9,10 +9,6 @@ import javax.persistence.Enumerated;
 @Embeddable
 public class ID {
 
-    //@Id
-    //@GeneratedValue( strategy= GenerationType.AUTO)
-    //@Column(name="idID")
-    //protected Long idID;
 
 
     @Enumerated(EnumType.STRING)

@@ -33,8 +33,6 @@ public class Cliente {
 
 	private long telefono;
 
-	// @Embedded
-	//	// private Usuario usuario;
 
 	@Column(length = 50)
 	private String usuario;
@@ -82,7 +80,7 @@ public class Cliente {
 		this.fechaDeAlta = LocalDate.now();
 		this.usuario = username;
 		this.contrasenia = contrasenia;
-		// usuario = new Usuario(username,contrasenia);
+
 	}
 
 	public double puntosAcumulados() {
@@ -186,12 +184,7 @@ public class Cliente {
 
 		return inteligente.consumoParaIntervalo(intervaloMaximoDeTodosLosDispositivos);
 	}
-	/*
-	 * public double consumoDeIntervalo(Intervalo intervalo) {
-	 * 
-	 * return dispositivosInteligentes.stream().mapToDouble(disp ->
-	 * disp.consumoParaIntervalos(intervalo)).sum(); }
-	 */
+
 
 	// GETTERS/SETTERS
 
@@ -274,9 +267,7 @@ public class Cliente {
 		this.apellido = apellido;
 	}
 
-	/*
-	 * public Usuario getUsuario() { return usuario; }
-	 */
+
 
 	public String getUsuario() {
 		return usuario;

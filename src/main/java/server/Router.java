@@ -62,13 +62,7 @@ public class Router {
 		Spark.get("/admin/dispositivosAlta/:equipo/:detalle", adminController::confirmarAlta,engine);
 		Spark.post("/admin/dispositivosAlta/:equipo/:detalle/confirmed",adminController::altaConfirmada,engine);
 		Spark.get("/principal",adminController::altaConfirmada,engine);
-		//Spark.get("/usuario/dispositivo/alta", dispositivoController::verAlta,engine);
-        //Spark.put("/agregarDispositivo", DispositivoController::crear, engine);
-		//Spark.get("/dispositivo", DispositivoController::show, engine);
-		//Spark.get("/proyectos", proyectosController::listar, engine);
-		//Spark.get("/proyectos/new", proyectosController::nuevo, engine);
-		//Spark.get("/proyectos/:id", proyectosController::mostrar, engine);
-		//Spark.post("/proyectos", proyectosController::crear);
+
 
 
 
