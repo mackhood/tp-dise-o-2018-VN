@@ -80,8 +80,9 @@ public class TransformadorManager implements WithGlobalEntityManager, Transactio
 			query.setMaxResults(1);
 			List<Transformador> transformadorObtenidos = query.getResultList();
 
-			if (transformadorObtenidos == null && transformadorObtenidos.size() == 0) {
-				entityManager().persist(transformadorObtenidos);
+			if (transformadorObtenidos.size() == 0) {
+				entityManager().persist(transformador.getUbicacion());
+				entityManager().persist(transformador);
 			}
 		});
 		entityManager().getTransaction().commit();
