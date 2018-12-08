@@ -33,21 +33,21 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 
 	public void persistirClienteDePrueba() {
 		withTransaction(() -> {
-			Domicilio domicilio = new Domicilio("av cordoba", 1234, 7, 'A');
-			ID id = new ID(TiposId.DNI, "10125789");
-			DispositivoEstandar dispEstandar = entityManager().find(DispositivoEstandar.class, new Long(3));
+			Domicilio domicilio = new Domicilio("Av. Cordoba", 1230, 7, 'A');
+			ID id = new ID(TiposId.DNI, "40241506");
+			DispositivoEstandar dispEstandar = entityManager().find(DispositivoEstandar.class, new Long(6));
 			List<DispositivoEstandar> dispositivosEstandares = new ArrayList<>();
 			dispositivosEstandares.add(dispEstandar);
 
 			DispositivoInteligente aireAcondicionado3500 = entityManager().find(DispositivoInteligente.class,
-					new Long(10));
+					new Long(13));
 			DispositivoInteligente ventilador = entityManager().find(DispositivoInteligente.class, new Long(17));
 			List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
 
 			dispositivosInteligentes.add(aireAcondicionado3500);
 			dispositivosInteligentes.add(ventilador);
 
-			Cliente unCliente = new Cliente("ariel", "galvan", "galvanariel", "password", id, domicilio, 47581269,
+			Cliente unCliente = new Cliente("Ariel", "Galvan", "galvanariel", "password", id, domicilio, 47581269,
 					dispositivosEstandares, dispositivosInteligentes);
 
 			Ubicacion ubicacion = new Ubicacion(5, 2);

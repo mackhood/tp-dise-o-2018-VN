@@ -78,10 +78,7 @@ public class Transformador {
 				for (int l = 0; l < intervalosDeConsumoPorDispositivo.size(); l++) {
 
 					double horasDeConsumo = intervalosDeConsumoPorDispositivo.get(l).horasDentroDe(i);
-					System.out.println(intervalosDeConsumoPorDispositivo.get(l).getInicio().toString());
-					System.out.println(intervalosDeConsumoPorDispositivo.get(l).getFin().toString());
-					
-					totalConsumo = totalConsumo
+						totalConsumo = totalConsumo
 							+ (horasDeConsumo * dispositivosPorUsuario.get(k).consumoEstimadoPorHora());
 				}
 

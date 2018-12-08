@@ -14,53 +14,43 @@ import java.util.List;
 
 import static java.sql.JDBCType.NULL;
 
-
 public class AdministradorManager implements WithGlobalEntityManager, TransactionalOps {
 
+	private static dominio.manager.AdministradorManager instance = new dominio.manager.AdministradorManager();
 
-        private static dominio.manager.AdministradorManager instance = new dominio.manager.AdministradorManager();
+	private AdministradorManager() {
+	}
 
-        private AdministradorManager() {
-        }
+	public static dominio.manager.AdministradorManager getInstance() {
+		return instance;
+	}
 
-        public static dominio.manager.AdministradorManager getInstance() {
-            return instance;
-        }
+	public void persistirAdminDePrueba() {
+		withTransaction(() -> {
+			Domicilio domicilio = new Domicilio("Jean Jaures", 905, 4, 'D');
 
-        public void persistirAdminDePrueba() {
-            withTransaction(() -> {
-                Domicilio domicilio = new Domicilio("av cordoba", 1234, 7, 'A');
+			Administrador unAdministrador = new Administrador("German", "Jugo", LocalDate.of(2016, 5, 18), "gerjor",
+					"1234");
 
+			unAdministrador.setDomicilio(domicilio);
 
-                Administrador unAdministrador = new Administrador("ger", "jugo", LocalDate.of(2016, 5, 18),"gerjor","1234");
+			entityManager().persist(unAdministrador);
+			entityManager().getTransaction().commit();
+		});
+	}
 
-                unAdministrador.setDomicilio(domicilio);
+	public Administrador getAdministradorDeLaBDPorUsuario(String username) {
 
-                entityManager().persist(unAdministrador);
-                entityManager().getTransaction().commit();
-            });
-        }
+		Administrador administrador = entityManager()
+				.createQuery("from Administrador where usuario='" + username + "'", Administrador.class)
+				.getSingleResult();
 
-        public Administrador getAdministradorDeLaBDPorUsuario(String username){
+		return administrador;
 
-            Administrador administrador = entityManager().createQuery("from Administrador where usuario='"+username+"'" ,Administrador.class).getSingleResult();
+	}
 
-            return administrador;
-
-        }
-    public boolean esAdministrador(String username) {
-        return entityManager().createQuery("from Administrador c where usuario='" + username + "'", Administrador.class)
-                .getResultList().size() > 0;
-    }
-    }
-
-
-
-
-
-
-
-
-
-
-
+	public boolean esAdministrador(String username) {
+		return entityManager().createQuery("from Administrador c where usuario='" + username + "'", Administrador.class)
+				.getResultList().size() > 0;
+	}
+}
