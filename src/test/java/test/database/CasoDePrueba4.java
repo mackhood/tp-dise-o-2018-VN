@@ -21,7 +21,6 @@ public class CasoDePrueba4 extends AbstractPersistenceTest implements WithGlobal
         entityManager().getTransaction().begin();
     }
 
-
     //El problema con este test es q corre bien la primera vez
     //pero cuando crea el archivo transformadorTest.json , la segunda vez
     //lee este archivo y no el q esta en resources en test.
@@ -43,6 +42,4 @@ public class CasoDePrueba4 extends AbstractPersistenceTest implements WithGlobal
         List<Transformador> obtenerListaTransformadores = entityManager().createQuery("from Transformador", Transformador.class).getResultList();
         assertEquals(4, obtenerListaTransformadores.size());
     }
-
-
 }
