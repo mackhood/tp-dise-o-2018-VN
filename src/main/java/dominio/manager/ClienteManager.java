@@ -1,6 +1,5 @@
 package dominio.manager;
 
-import dominio.Consumo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.dispositivo.Intervalo;
@@ -71,40 +70,28 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 		return cliente;
 
 	}
-	public void ejecutarRecomendacionHogar(String username)
-	{
+
+	public void ejecutarRecomendacionHogar(String username) {
 		Cliente cliente = this.buscarClienteDeLaBDPorUsuario(username);
 		RecomendacionParaHogarEficiente recomendacionParaHogarEficiente = new RecomendacionParaHogarEficiente(cliente);
 		recomendacionParaHogarEficiente.realizarRecomendacionParaLosDispositivosInteligentes();
 	}
 
-	public Long getIdDelClientePorUsuario(String username)
-	{
+	public Long getIdDelClientePorUsuario(String username) {
 		Cliente cliente = entityManager().createQuery("from Cliente c where usuario='" + username + "'", Cliente.class)
 				.getSingleResult();
 
 		return cliente.getId();
 	}
 
-	public double consumoHogar(String username, LocalDateTime fechaInicio, LocalDateTime fechaFin)
-	{
+	public double consumoHogar(String username, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
 		ReporteConsumoPorHogar reporteConsumoPorHogar = new ReporteConsumoPorHogar();
-		Periodo periodo = new Periodo(fechaInicio,fechaFin,null);
-		return reporteConsumoPorHogar.consumoDeHogarEnPeriodo(this.getIdDelClientePorUsuario(username),periodo);
+		Periodo periodo = new Periodo(fechaInicio, fechaFin, null);
+		return reporteConsumoPorHogar.consumoDeHogarEnPeriodo(this.getIdDelClientePorUsuario(username), periodo);
 	}
 
-	public double consumoUltimoPeriodo(String username)
-	{
+	public double consumoUltimoPeriodo(String username) {
 		return this.buscarClienteDeLaBDPorUsuario(username).getConsumoUltimoIntervalo();
-	}
-	@SuppressWarnings("unchecked")
-	public List<Consumo> getConsumosDeCliente(long id) {
-
-		return (List<Consumo>) entityManager()
-				.createNativeQuery("select inicio, fin, consumoEstimadoPorHora*timestampdiff(HOUR,inicio,fin) "
-						+ "from intervalo i join dispositivointeligente di ON i.idDispositivo = di.idDispositivo "
-						+ "and di.idCliente = :id")
-				.setParameter("id", id).getResultList();
 	}
 
 	public List<Cliente> getClientesDeLaBD() {
@@ -115,25 +102,44 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 
 	@SuppressWarnings("unchecked")
 	public List<Intervalo> getIntervalosDeUso(long id) {
-    	
-    	return (List<Intervalo>) entityManager().createNativeQuery("select * from intervalo i join dispositivointeligente di"
-    			+ " on i.idDispositivo = di.idDispositivo and di.idCliente = :id",Intervalo.class).setParameter("id", id).getResultList();
-    }
 
-
-    public void  persistirCliente(Cliente cliente) {
-		withTransaction(() -> {
-
-		entityManager().persist(cliente);
-		entityManager().getTransaction().commit();
-		});
-
+		return (List<Intervalo>) entityManager()
+				.createNativeQuery("select * from intervalo i join dispositivointeligente di"
+						+ " on i.idDispositivo = di.idDispositivo and di.idCliente = :id", Intervalo.class)
+				.setParameter("id", id).getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<DispositivoInteligente> getDispositivoConsumo(long id) {
 
+		return (List<DispositivoInteligente>) entityManager().createNativeQuery(
+				"select * from dispositivointeligente di join intervalo i "
+						+ " on i.idDispositivo = di.idDispositivo and di.idCliente = :id",
+				DispositivoInteligente.class).setParameter("id", id).getResultList();
+	}
 
+	public void persistirCliente(Cliente cliente) {
+		withTransaction(() -> {
 
-
-
+			entityManager().persist(cliente);
+			entityManager().getTransaction().commit();
+		});
+	}
+	
+	public List<Double> auxiliarAdminConsumosWeb(List<Intervalo> li, List<DispositivoInteligente> ld) {
+		
+		List<Double> listaConsumos = new ArrayList<>();
+		
+		if(li.size() == ld.size()) {
+			
+			for(int i=0;i<li.size();i++) {
+				
+				double consumo = li.get(i).intervaloEnHoras() * ld.get(i).getConsumoEstimadoPorHora();
+				listaConsumos.add(consumo);
+			}
+		}
+		
+		return listaConsumos;
+	}
 
 }

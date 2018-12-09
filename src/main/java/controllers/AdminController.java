@@ -1,6 +1,5 @@
 package controllers;
 
-import dominio.Consumo;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.dispositivo.Intervalo;
 import dominio.dispositivo.Periodo;
@@ -19,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.persistence.Tuple;
 
@@ -39,11 +39,15 @@ public class AdminController {
 	}
 
 	public ModelAndView verConsumos(Request req, Response res) {
-		Map<String, List<Consumo>> model = new HashMap<>();
+		Map<String,Object> model = new HashMap<>();
 
 		String idCliente = req.params("id");
-		List<Consumo> consumos = ClienteManager.getInstance().getConsumosDeCliente(Long.parseLong(idCliente));
+		List<Intervalo> consumos = ClienteManager.getInstance().getIntervalosDeUso(Long.parseLong(idCliente));
+		List<DispositivoInteligente> dispositivosUsados = ClienteManager.getInstance().getDispositivoConsumo(Long.parseLong(idCliente));
 		model.put("consumos", consumos);
+		model.put("dispositivos",dispositivosUsados);
+		List<Double> valorConsumos = ClienteManager.getInstance().auxiliarAdminConsumosWeb(consumos, dispositivosUsados);
+		model.put("valores",valorConsumos);
 		return new ModelAndView(model, "/admin/consumo.hbs");
 	}
 

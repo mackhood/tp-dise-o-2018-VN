@@ -1,25 +1,53 @@
 
 {{#partial "contenido"}}
 
-    {{#with hogares}}
-    
-    <table class="table table-stripped">
+<style>
+	
+  table.one {
+  position:relative;
+  float:left;
+  border:solid 1px green;
+  width:45%;
+}
+
+  table.two {
+  position:relative;
+  float:right;
+  border:solid 1px red;
+  width:45%;
+}
+
+</style>
+
+    <table class="one">
         <tr>
             <th> Inicio </th>
             <th> Fin </th>
-            <th> Consumo </th>
         </tr>
-        
-        {{#each consumos}}
-        	<tr>
-        		<td>{{inicio}}</td>
-        		<td>{{fin}}</td>
-        		<td>{{consumo}}</td>
-        	</tr>
-        {{/each}}	
+    
+    {{#each consumos}}
+        <tr>
+        	<td>{{inicio}}</td>
+        	<td>{{fin}}</td>
+       	</tr> 
+    {{/each}}
+    
     </table>
-
-    {{/with}}
+	
+	<table class="two">
+        <tr>
+            <th> Consumo</th>
+        </tr>
+    
+    {{#each valores}}
+        <tr>
+        	<td>{{this}}</td>
+       	</tr> 
+    {{/each}}
+    
+    </table>
+		
+		
 {{/partial}}
 
 {{>admin/adminBase.hbs}}
