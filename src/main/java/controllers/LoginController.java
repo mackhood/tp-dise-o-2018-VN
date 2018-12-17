@@ -1,6 +1,6 @@
 package controllers;
 
-import dominio.usuario.VerificarAdmin;
+import dominio.manager.ClienteManager;
 import dominio.usuario.VerificarUsuario;
 import spark.ModelAndView;
 import spark.Request;
@@ -20,15 +20,20 @@ public class LoginController {
     public static ModelAndView login(Request req, Response res) {
         Map<String, String> model = new HashMap<>();
         if (VerificarUsuario.verificar(RequestUtil.getQueryUsername(req), RequestUtil.getQueryPassword(req)))
-        {
-            req.session().attribute("currentUser", req.queryParams("usuario"));
-            return new ModelAndView(null, "/home/usuario.hbs");
+        {	
+        	if(ClienteManager.getInstance().esCliente(RequestUtil.getQueryUsername(req)))
+        	{
+        		req.session().attribute("currentUser", req.queryParams("usuario"));
+        		return new ModelAndView(null, "/home/usuario.hbs");
+        	}
+        	
+        	else
+        	{
+        		req.session().attribute("currentUser", req.queryParams("usuario"));
+            	return new ModelAndView(null, "/admin/adminBase.hbs");
+        	}
         }
-        else if (  VerificarAdmin.verificar(RequestUtil.getQueryUsername(req), RequestUtil.getQueryPassword(req)))
-        {
-            req.session().attribute("currentUser", req.queryParams("usuario"));
-            return new ModelAndView(null, "/admin/adminBase.hbs");
-        }
+        
         else
             {
                 res.redirect("/loginFailure");
