@@ -29,13 +29,33 @@ public class AdminController {
 	public ModelAndView show(Request req, Response res) {
 		return new ModelAndView(null, "home/adminBase.hbs");
 	}
-
+	
+	public ModelAndView seleccionarCantidad(Request req, Response res)
+	{
+		return new ModelAndView(null,"/admin/hogaresBase.hbs");
+	}
+	
 	public ModelAndView verHogares(Request req, Response res) {
-		Map<String, List<Cliente>> model = new HashMap<>();
-
-		List<Cliente> hogares = ClienteManager.getInstance().getClientesDeLaBD();
+		Map<String, Object> model = new HashMap<>();
+		
+		int n = Integer.parseInt(req.queryParams("cant"));
+		
+		List<Cliente> hogares = ClienteManager.getInstance().obtenerPrimerosNClientes(n);
 		model.put("hogares", hogares);
+		model.put("cant", n);
 		return new ModelAndView(model, "/admin/hogares.hbs");
+	}
+	
+	public ModelAndView busquedaHogar(Request req, Response res)
+	{
+		Map<String, Object> model = new HashMap<>();
+		
+		String apellido = req.queryParams("apellido");
+		List<Cliente> hogares = ClienteManager.getInstance().filtrarClientesPorApellido(apellido);
+		
+		model.put("hogares", hogares);
+		
+		return new ModelAndView(model,"/admin/busquedaHogar.hbs");
 	}
 
 	public ModelAndView verConsumos(Request req, Response res) {
@@ -43,12 +63,14 @@ public class AdminController {
 
 		String idCliente = req.params("id");
 		List<Intervalo> consumos = ClienteManager.getInstance().getIntervalosDeUso(Long.parseLong(idCliente));
+		
 		List<DispositivoInteligente> dispositivosUsados = ClienteManager.getInstance().getDispositivoConsumo(Long.parseLong(idCliente));
 		model.put("consumos", consumos);
 		model.put("dispositivos",dispositivosUsados);
 		List<Double> valorConsumos = ClienteManager.getInstance().auxiliarAdminConsumosWeb(consumos, dispositivosUsados);
 		model.put("valores",valorConsumos);
 		return new ModelAndView(model, "/admin/consumo.hbs");
+
 	}
 
 	public ModelAndView verReportes(Request req, Response res) {

@@ -1,0 +1,21 @@
+{{#partial "contenido"}}
+<br>
+    <h4>Seleccione la cantidad de resultados a mostrar</h4>
+	<br>
+    <form class="form-inline" method=POST action="/admin/hogares/{{cant}}>
+    
+    <div class="form-group">
+    	<label for="cant"> Mostrar: </label>
+    	<select name="cant" required>
+    		<option value="10" name="cant"> 10 </option>
+    		<option value="25" name="cant"> 25 </option>
+    		<option value="50" name="cant"> 50 </option> 
+        </select>
+        &nbsp &nbsp 
+        <button class"btn-btn primary"> Mostrar </button>
+     </div>
+     </form>
+
+{{/partial}}
+
+{{>admin/adminBase.hbs}}

@@ -15,6 +15,17 @@
         	</tr>
         {{/each}}	
     </table>
+    <br>
+    <p> Mostrando primeros <font color="highlight"> {{cant}} </font> resultados </p>
+    
+    <form class="form-inline" method=GET action="/admin/hogares/searchresults">
+	    <div class="form-group">
+		    <label for="apellido"> Aun no encuentra el hogar que busca? Ingrese el apellido del titular del servicio:  </label>
+		    &nbsp &nbsp
+		    <input type="text" name="apellido" required>
+		    <button class="btn-btn primary" type="submit"> Buscar </button>
+	    </div>
+    </form>
 
 {{/partial}}
 

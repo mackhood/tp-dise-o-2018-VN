@@ -99,7 +99,14 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 		List<Cliente> clientes = entityManager().createQuery("from Cliente c", Cliente.class).getResultList();
 		return clientes;
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public List<Cliente> obtenerPrimerosNClientes(int val)
+	{
+		return (List<Cliente>) entityManager().createNativeQuery("SELECT * FROM cliente LIMIT :n",Cliente.class)
+				.setParameter("n",val).getResultList();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Intervalo> getIntervalosDeUso(long id) {
 
@@ -166,13 +173,12 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 				+ "ORDER BY Nombre DESC",Cliente.class)
 			.setParameter("nombre", '%'+nombre+'%').getResultList();
 	}
-	
+*/	
 	@SuppressWarnings("unchecked")
 	public List<Cliente> filtrarClientesPorApellido(String apellido)
 	{
-		return (List<Cliente>) entityManager().createNativeQuery("SELECT * FROM cliente WHERE apellido LIKE '%:apellido%'"
+		return (List<Cliente>) entityManager().createNativeQuery("SELECT * FROM cliente WHERE apellido LIKE :apellido "
 				+ "ORDER BY apellido DESC",Cliente.class)
-			.setParameter("calle", '%'+apellido+'%').getResultList();
+			.setParameter("apellido", '%'+apellido+'%').getResultList();
 	}
-*/
 }
