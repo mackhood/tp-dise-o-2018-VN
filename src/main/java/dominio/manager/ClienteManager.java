@@ -141,5 +141,38 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 		
 		return listaConsumos;
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public List<Cliente> filtradoClientes(String nombre,String apellido, String calle)
+	{
+		return (List<Cliente>) entityManager().createNativeQuery("SELECT * FROM cliente WHERE Calle LIKE :calle AND Nombre LIKE :nombre "
+				+ "AND apellido LIKE :apellido ORDER BY Calle DESC",Cliente.class)
+			.setParameter("calle", '%' + calle + '%').setParameter("apellido", '%' + apellido + '%').setParameter("nombre", '%' + nombre + '%')
+				.getResultList();
+	}
+/*	
+	@SuppressWarnings("unchecked")
+	public List<Cliente> filtrarClientesPorCalle(String calle)
+	{
+		return (List<Cliente>) entityManager().createNativeQuery("SELECT * FROM cliente WHERE Calle LIKE :calle "
+				+ "ORDER BY Calle DESC",Cliente.class)
+			.setParameter("calle", '%'+calle+'%').getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Cliente> filtrarClientesPorNombre(String nombre)
+	{
+		return (List<Cliente>) entityManager().createNativeQuery("SELECT * FROM cliente WHERE Nombre LIKE :nombre "
+				+ "ORDER BY Nombre DESC",Cliente.class)
+			.setParameter("nombre", '%'+nombre+'%').getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Cliente> filtrarClientesPorApellido(String apellido)
+	{
+		return (List<Cliente>) entityManager().createNativeQuery("SELECT * FROM cliente WHERE apellido LIKE '%:apellido%'"
+				+ "ORDER BY apellido DESC",Cliente.class)
+			.setParameter("calle", '%'+apellido+'%').getResultList();
+	}
+*/
 }

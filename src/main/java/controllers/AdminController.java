@@ -63,16 +63,18 @@ public class AdminController {
 		return new ModelAndView(null,"/admin/noFeature.hbs");
 	}
 	
+	public ModelAndView noResultsFound(Request req, Response res) 
+	{
+		return new ModelAndView(null,"/admin/noResFound.hbs");
+	}
+	
 	public ModelAndView ingresarDatos(Request req, Response res) {
-		Map<String, List<Cliente>> model = new HashMap<>();
-		
+
 		String reporte = req.queryParams("reporte");
 		
 		if (reporte.equals("hogar")) {
 		
-			List<Cliente> hogares = ClienteManager.getInstance().getClientesDeLaBD();
-			model.put("hogares", hogares);
-			return new ModelAndView(model, "/admin/reporteDatos.hbs");
+			return new ModelAndView(null, "/admin/reporteDatos.hbs");
 		}
 		
 		else {
@@ -80,18 +82,57 @@ public class AdminController {
 			return null;
 		}
 	}
-
-	public ModelAndView verReporteSeleccionado(Request req, Response res) {
-		Map<String,Double> model = new HashMap<>();
+	
+	public ModelAndView seleccionHogar(Request req, Response res)
+	{
+		Map<String,Object> model = new HashMap<>();
 		
+		String nombre = req.queryParams("nombre");
+		String apellido = req.queryParams("apellido");
+		String calle = req.queryParams("calle");
+		
+		if(!nombre.equals("") || !apellido.equals("") || !calle.equals("")) 
+		{
+			List<Cliente> clientes = ClienteManager.getInstance().filtradoClientes(nombre,apellido,calle);
+			
+			if(clientes.isEmpty())
+			{
+				res.redirect("/admin/reportes/noResultsFound");
+				return null;
+			}
+			
+			else
+			{
+				model.put("clientes", clientes);
+				return new ModelAndView(model,"admin/listadoBusqueda.hbs");
+			}
+		}
+		
+		else 
+		{	
+			return new ModelAndView(null,"admin/reporteDatos.hbs");
+		}
+	}
+	
+	public ModelAndView seleccionIntervalo(Request req, Response res) 
+	{	
+		Map<String,Object> model = new HashMap<>();
+		String id = req.params("id");
+		model.put("id", id);
+		return new ModelAndView(model,"admin/resultadosReporte.hbs");
+	}
+	
+	public ModelAndView resultadosReporte(Request req, Response res)
+	{
+		Map<String,Object> model = new HashMap<>();
 		String inicio = req.queryParams("fechaInicio");
 		String fin = req.queryParams("fechaFin");
-		String id = req.queryParams("id");
+		String id = req.params("id");
 		ReporteConsumoPorHogar r = new ReporteConsumoPorHogar();
 		
 		double resultado = r.consumoDeHogarEnPeriodo(Long.parseLong(id),new Periodo(LocalDateTime.parse(inicio),LocalDateTime.parse(fin),null));
 		model.put("resultado",resultado);
-		return new ModelAndView(model, "/admin/reporteDatos.hbs");
+		return new ModelAndView(model, "/admin/resultadosReporte.hbs");
 	}
 
 	public ModelAndView verAltaDispositivos(Request req, Response res) {

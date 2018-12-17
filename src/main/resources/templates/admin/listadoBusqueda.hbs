@@ -1,0 +1,23 @@
+{{#partial "contenido"}}
+<br>
+
+  <h1>Resultados de busqueda</h1>
+
+    <table class="table table-stripped">
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Accion</th>
+        </tr>
+
+        {{#each clientes}}
+            <tr>
+                <td>{{nombre}}</td>
+                <td>{{apellido}}</td>
+                <td><a href="/admin/reportes/hogares/{{id}}">Ver consumo</a><td>
+            </tr>
+        {{/each}}
+    </table>
+
+{{/partial}}
+{{>admin/adminBase.hbs}}

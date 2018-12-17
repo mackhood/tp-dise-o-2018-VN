@@ -1,5 +1,5 @@
 {{#partial "contenido"}}
--
+
 	<style>
 		
 		input {
@@ -9,34 +9,32 @@
 		
 	</style>
 	
-    <h1>Seleccione hogar y periodo</h1>
-	<br>
-    <form class="form-inline" method=POST action="/admin/reportes/ingresarDatos/result" align="left">
-    	<div class="form-group">
-    		<label for="fechaInicio"> <strong> <font size="3"> Periodo- Inicio </font> </strong> &nbsp </label>
-    		<input type="datetime-local" name="fechaInicio" required> <br>
-    	</div>
-    	
-    	<div class="form-group">
-    	 	<label for="fechaFin"> <strong> <font size="3"> Periodo- Final </font> </strong> &nbsp </label>
-    		<input type="datetime-local" name="fechaFin" required> <br>
+	<h1> <color="Red"> Seleccion de hogar </color> </h1>
+		<br>
+	<h5> Para filtrar los resultados, pruebe utilizando uno o todos los filtros de busqueda </h5> 
+		<br>
+	
+	<form class="form-inline" method=POST action="/admin/reportes/filter/hogares" align="left">
+		<div class="form-group">
+			<label for="nombre"> Nombre del titular </label>
+			<input type="text" name="nombre"> <br>
+		</div> 
+	
+		<div class="form-group">
+			<label for="apellido"> Apellido del titular </label>
+			<input type="text" name="apellido"> <br>
 		</div>
 		
 		<div class="form-group">
-    		<label for="id"> <strong> <font size="3"> Hogar </font> </strong> &nbsp &nbsp </label>
-			<!-- <select name="id" form="parametrosReporte" style="width:160px" required> -->
-    		<!--	{{#each hogares}} -->
-    		<!--		<option value={{id}} title="{{apellido}}, {{nombre}}"> {{id}} </option> -->
-			<!--	{{/each}} -->
-			<!-- </select> -->
-			<input type="text" name="id" required> 
+			<label for="calle"> Calle del hogar </label>
+			<input type="text" name="calle"> <br>
 		</div>
-	<br>
-		<button class="btn btn-info" type="info"> Consultar  </button>	
-    </form>
-    <br>
-    <label> Consumo: </label>
-    <a> {{resultado}} </a>
+	
+		<button class= "btn btn-info" type="info"> Buscar </button> <br>
+			<br>
+			
+		{{#block "noresultsfound"}} {{/block}}
+	</form>
     
 	{{/partial}}
 	

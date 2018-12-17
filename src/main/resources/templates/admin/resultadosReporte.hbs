@@ -1,0 +1,26 @@
+{{#partial "contenido"}}
+<br>
+    <h4>Indique fecha de inicio y fin del periodo para delimitar la consulta</h4>
+   		<br>
+   		
+    <form class="form-inline" method=POST action="/admin/reportes/hogares/{{id}}/results" align="left">
+    	<div class="form-group">
+    		<label for="fechaInicio"> <strong> <font size="3"> Periodo- Inicio </font> </strong> &nbsp </label>
+    		<input type="datetime-local" name="fechaInicio" required> <br>
+    	</div>
+    	
+    	<div class="form-group">
+    	 	<label for="fechaFin"> <strong> <font size="3"> Periodo- Final </font> </strong> &nbsp </label>
+    		<input type="datetime-local" name="fechaFin" required> <br>
+		</div>
+		
+		&nbsp &nbsp <button class="btn btn-success" type="success"> Consultar </button>
+		
+	</form>
+	
+	<label> Consumo: </label>
+	<a> {{resultado}} </a>
+	
+{{/partial}}
+
+{{>admin/adminBase.hbs}}
