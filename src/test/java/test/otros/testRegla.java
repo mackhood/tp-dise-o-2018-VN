@@ -3,13 +3,14 @@ package test.otros;
 import dominio.actuador.OrdenEncenderDI;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.dispositivo.Intervalo;
-import dominio.manager.DispositivosManager;
 import dominio.regla.Regla;
 import dominio.repositories.RepositorioReglaActuadorCondicion;
 import dominio.sensor.Condicion;
 import dominio.sensor.CondicionPorIgual;
 import dominio.sensor.CondicionPorMayor;
 import dominio.sensor.CondicionPorMenor;
+import persistence.DispositivosManager;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;

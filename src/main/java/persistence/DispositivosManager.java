@@ -1,4 +1,4 @@
-package dominio.manager;
+package persistence;
 
 import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;

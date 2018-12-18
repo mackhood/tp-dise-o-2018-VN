@@ -23,21 +23,16 @@ public class Router {
 
 		Spark.get("/", HomeController::showLoginForm, engine);
 		Spark.post("/principal",LoginController::login,engine);
-
 		Spark.get("/login", LoginController::login, engine);
 		Spark.get("/loginFailure", LoginController::loginFailure, engine);
 		Spark.post("/loginFailure", LoginController::loginFailure, engine);
-
-
 		Spark.post("/login", LoginController::logout,engine);
 		Spark.get("/login", LoginController::logout, engine);
 
 
 		Spark.get("/usuario", usuarioController::show, engine);
-
 		Spark.get("/usuario/recomendacionHogar", usuarioController::showConfirmacionRecomendacionHogar, engine);
 		Spark.post("/usuario/realizarRecomendacion", usuarioController::realizarRecomendacion, engine);
-
 		Spark.get("/usuario/consultaConsumoPeriodo", usuarioController :: showConsumoPeriodo, engine);
 		Spark.get("/usuario/consumoPeriodo", usuarioController :: consumoPeriodo, engine);
 

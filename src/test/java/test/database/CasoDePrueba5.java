@@ -4,15 +4,15 @@ import dominio.categoria.AsignadorDeCategoria;
 import dominio.categoria.Categoria;
 import dominio.dispositivo.*;
 import dominio.entities.NoTieneDispositivoException;
-import dominio.manager.ClienteManager;
-import dominio.manager.DispositivosManager;
-import dominio.manager.TransformadorManager;
 import dominio.transformador.Transformador;
 import dominio.usuario.Cliente;
 import dominio.usuario.Domicilio;
 import dominio.usuario.ID;
 import dominio.usuario.TiposId;
 import dominio.zonageografica.Ubicacion;
+import persistence.ClienteManager;
+import persistence.DispositivosManager;
+import persistence.TransformadorManager;
 
 import org.junit.After;
 import org.junit.Before;

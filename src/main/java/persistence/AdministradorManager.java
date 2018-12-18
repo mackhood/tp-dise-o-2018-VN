@@ -1,4 +1,4 @@
-package dominio.manager;
+package persistence;
 
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
@@ -16,12 +16,12 @@ import static java.sql.JDBCType.NULL;
 
 public class AdministradorManager implements WithGlobalEntityManager, TransactionalOps {
 
-	private static dominio.manager.AdministradorManager instance = new dominio.manager.AdministradorManager();
+	private static persistence.AdministradorManager instance = new persistence.AdministradorManager();
 
 	private AdministradorManager() {
 	}
 
-	public static dominio.manager.AdministradorManager getInstance() {
+	public static persistence.AdministradorManager getInstance() {
 		return instance;
 	}
 

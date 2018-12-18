@@ -1,9 +1,9 @@
 package controllers;
 
 import dominio.dispositivo.DispositivoInteligente;
-import dominio.manager.*;
-import dominio.manager.ClienteManager;
+import persistence.*;
 import dominio.usuario.Cliente;
+
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 import spark.ModelAndView;

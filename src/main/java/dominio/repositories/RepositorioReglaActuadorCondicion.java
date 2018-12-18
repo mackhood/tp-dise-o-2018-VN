@@ -3,9 +3,9 @@ package dominio.repositories;
 
 import dominio.actuador.Actuador;
 import dominio.actuador.OrdenEncenderDI;
-import dominio.manager.DispositivosManager;
 import dominio.regla.Regla;
 import dominio.sensor.*;
+import persistence.DispositivosManager;
 
 import java.util.ArrayList;
 import java.util.List;

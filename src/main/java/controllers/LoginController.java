@@ -1,7 +1,7 @@
 package controllers;
 
-import dominio.manager.ClienteManager;
 import dominio.usuario.VerificarUsuario;
+import persistence.ClienteManager;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;

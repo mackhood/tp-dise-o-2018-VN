@@ -2,8 +2,9 @@ package test.database;
 
 import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoInteligente;
-import dominio.manager.DispositivosManager;
 import dominio.usuario.Administrador;
+import persistence.DispositivosManager;
+
 import org.junit.*;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;

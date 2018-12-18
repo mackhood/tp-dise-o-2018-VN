@@ -3,10 +3,11 @@ package test.web;
 import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
-import dominio.manager.ClienteManager;
-import dominio.manager.DispositivosManager;
 import dominio.repositories.RepositorioDispositivo;
 import dominio.usuario.*;
+import persistence.ClienteManager;
+import persistence.DispositivosManager;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
@@ -31,18 +32,8 @@ public class testRecomendacionHogar extends AbstractPersistenceTest implements W
     @Before
     public void setUp() {
 
-
-
     }
 
-    @Test
-    public void test()
-    {
-        System.out.println(unCliente.getDispositivosInteligentes().get(0).getNombre());
-        System.out.println(unCliente.getDispositivosInteligentes().get(0).getNombre());
-        System.out.println(unCliente.getDispositivosEstandar().get(0).getNombre());
-
-    }
     @Test
     public void testRecomendacion()
     {

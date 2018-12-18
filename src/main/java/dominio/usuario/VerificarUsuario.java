@@ -1,7 +1,7 @@
 package dominio.usuario;
 
-import dominio.manager.AdministradorManager;
-import dominio.manager.ClienteManager;
+import persistence.AdministradorManager;
+import persistence.ClienteManager;
 
 public class VerificarUsuario {
 

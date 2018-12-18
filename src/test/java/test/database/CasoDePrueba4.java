@@ -1,9 +1,10 @@
 package test.database;
 
-import dominio.manager.TransformadorManager;
 import dominio.repositories.RepositorioTransformadores;
 import dominio.transformador.Transformador;
 import dominio.zonageografica.Ubicacion;
+import persistence.TransformadorManager;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;

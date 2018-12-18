@@ -1,7 +1,7 @@
 package servicio;
 
-import dominio.manager.ClienteManager;
-import dominio.manager.DispositivosManager;
+import persistence.ClienteManager;
+import persistence.DispositivosManager;
 
 public class ServicioDeInicializacion {
 

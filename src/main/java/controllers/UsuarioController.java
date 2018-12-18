@@ -2,9 +2,9 @@ package controllers;
 
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.dispositivo.Periodo;
-import dominio.manager.ClienteManager;
 import dominio.simplexservice.RecomendacionParaHogarEficiente;
 import dominio.usuario.Cliente;
+import persistence.ClienteManager;
 import reportes.ReporteConsumoPorHogar;
 import spark.ModelAndView;
 import spark.Request;

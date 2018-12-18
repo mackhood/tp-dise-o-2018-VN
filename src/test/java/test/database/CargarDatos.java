@@ -3,15 +3,15 @@ package test.database;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.dispositivo.Intervalo;
-import dominio.manager.AdministradorManager;
-import dominio.manager.ClienteManager;
-import dominio.manager.DispositivosManager;
 import dominio.transformador.Transformador;
 import dominio.usuario.Cliente;
 import dominio.usuario.Domicilio;
 import dominio.usuario.ID;
 import dominio.usuario.TiposId;
 import dominio.zonageografica.Ubicacion;
+import persistence.AdministradorManager;
+import persistence.ClienteManager;
+import persistence.DispositivosManager;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;

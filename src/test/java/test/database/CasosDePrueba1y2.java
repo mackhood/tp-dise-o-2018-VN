@@ -6,8 +6,6 @@ import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.dispositivo.Intervalo;
-import dominio.manager.ClienteManager;
-import dominio.manager.DispositivosManager;
 import dominio.regla.Regla;
 import dominio.repositories.RepositorioDispositivo;
 import dominio.sensor.Condicion;
@@ -16,6 +14,9 @@ import dominio.sensor.CondicionPorMayor;
 import dominio.sensor.CondicionPorMenor;
 import dominio.usuario.*;
 import dominio.zonageografica.Ubicacion;
+import persistence.ClienteManager;
+import persistence.DispositivosManager;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

@@ -4,14 +4,15 @@ package test.simplex;
 import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
-import dominio.manager.ClienteManager;
-import dominio.manager.DispositivosManager;
 import dominio.repositories.RepositorioDispositivo;
 import dominio.simplexservice.RecomendacionParaHogarEficiente;
 import dominio.usuario.Cliente;
 import dominio.usuario.Domicilio;
 import dominio.usuario.ID;
 import dominio.usuario.TiposId;
+import persistence.ClienteManager;
+import persistence.DispositivosManager;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
