@@ -63,7 +63,7 @@ public class Router {
 		Spark.get("/usuario/altaConfirm/:id",dispositivoController::verAlta, engine);
 		Spark.post("/usuario/altaConfirm", dispositivoController::alta,engine);
 
-		Spark.get("/usuario/dispositivo", dispositivoController::listar, engine);
+		Spark.get("/usuario/dispositivo", dispositivoController::listarDispositivosDeCliente, engine);
 		Spark.get("/usuario/dispositivo/:id", dispositivoController::consumoUltimoPeriodo, engine);
         Spark.post("/usuario/dispositivo/modificar", dispositivoController::modificar, engine);
 		Spark.get("/usuario/dispositivo/bajar/:id",dispositivoController::verBajar, engine);

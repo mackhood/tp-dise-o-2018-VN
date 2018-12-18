@@ -15,10 +15,10 @@ public class Server {
 
 	static int getSparkAssignedPort() {
 		ProcessBuilder processBuilder = new ProcessBuilder();
-		if (processBuilder.environment().get("9001") != null) {
-			return Integer.parseInt(processBuilder.environment().get("9001"));
+		if (processBuilder.environment().get("9000") != null) {
+			return Integer.parseInt(processBuilder.environment().get("9000"));
 		}
-		return 9001; //return default port if saprk-port isn't set (i.e. on localhost)
+		return 9000; //return default port if saprk-port isn't set (i.e. on localhost)
 	}
 
 

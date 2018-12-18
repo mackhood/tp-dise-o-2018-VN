@@ -1,12 +1,16 @@
 {{#partial "contenido"}}
-    <h1>Dispositivos</h1>
-
+    <h1 align="center">Mis dispositivos</h1>
+	<br>
+	<br>
     <table class="table table-stripped">
         <tr>
-            <th>Nombre</th>
-            <th>Equipo Concreto</th>
-            <th>Consumo estimado por hora</th>
-            <th>Estado</th>
+            <th>Equipo</th>
+            <th>Detalle</th>
+            <th>Consumo (KwH)</th>
+            <th>Estado Actual</th>
+            <th>Acciones Disponibles </th>
+            <th> </th>
+            <th> </th>
 
         </tr>
 
@@ -16,9 +20,8 @@
                 <td>{{equipoConcreto}}</td>
                 <td>{{consumoEstimadoPorHora}}</td>
                 <td>{{estadoDispositivo}}</td>
-
-                <td><a href="{{url}}">Consumo ultimo periodo</a><td>
-                <td><a href="/usuario/dispositivo/bajar/{{id}}">Bajar</a></td>
+                <td><a href="{{url}}">Ver ultimo consumo</a><td>
+                <td><a href="/usuario/dispositivo/bajar/{{id}}">Dar de Baja</a></td>
 
             </tr>
         {{/each}}

@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class DispositivoController extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
-    public ModelAndView listar(Request req, Response res)
+    public ModelAndView listarDispositivosDeCliente(Request req, Response res)
     {
         Map<String, List<DispositivoInteligente>> model = new HashMap<>();
 
@@ -30,7 +30,7 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
     {
         Map<String, List<DispositivoInteligente>> model = new HashMap<>();
 
-        List<DispositivoInteligente> dispositivos = DispositivosManager.getInstance().getDispositivosInteligentesDeLaBD();
+        List<DispositivoInteligente> dispositivos = DispositivosManager.getInstance().getDispositivosParaAlta();
 
         model.put("dispositivos",dispositivos);
 

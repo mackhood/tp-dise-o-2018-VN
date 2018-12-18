@@ -47,7 +47,15 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
     	entityManager().persist(di);
     	entityManager().getTransaction().commit();
     	});
-}
+    }
+    
+    @SuppressWarnings("unchecked")
+	public List<DispositivoInteligente> getDispositivosParaAlta()
+    {
+    	return (List<DispositivoInteligente>) entityManager()
+    		.createNativeQuery("SELECT * FROM dispositivointeligente WHERE idCliente IS NULL"
+    				+ " AND equipoConcreto IS NOT NULL ORDER BY Nombre ASC",DispositivoInteligente.class).getResultList();
+    }
 
     public DispositivoEstandar getDispositivoEstandarDeLaBD(Long id)
     {

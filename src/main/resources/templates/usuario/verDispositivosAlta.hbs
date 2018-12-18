@@ -1,13 +1,13 @@
 {{#partial "contenido"}}
-    <h1>Dispositivos que se pueden dar de alta</h1>
-
+    <h1 align="center">Dispositivos disponibles para dar de alta</h1>
+	<br>
+	<br>
     <table class="table table-stripped">
         <tr>
-            <th>Nombre</th>
-            <th>Equipo Concreto</th>
-            <th>Consumo estimado por hora</th>
-            <th>Id</th>
-
+            <th>Equipo</th>
+            <th>Detalle</th>
+            <th>Consumo (KwH)</th>
+            <th>Accion</th>
         </tr>
 
         {{#each dispositivos}}
@@ -15,9 +15,7 @@
                 <td>{{nombre}}</td>
                 <td>{{equipoConcreto}}</td>
                 <td>{{consumoEstimadoPorHora}}</td>
-                <td>{{id}}</td>
-                <td><a href="/usuario/altaConfirm/{{id}}">Alta</a><td>
-
+                <td><a href="/usuario/altaConfirm/{{id}}">Dar de alta</a><td>
             </tr>
         {{/each}}
     </table>
