@@ -5,6 +5,7 @@ import persistence.ClienteManager;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.Session;
 import utils.RequestUtil;
 
 import java.util.HashMap;
@@ -17,34 +18,47 @@ public class LoginController {
 		return new ModelAndView(null,"/home/errorLogin.hbs");
 	}
 	
-    public static ModelAndView login(Request req, Response res) {
-        Map<String, String> model = new HashMap<>();
+	public static ModelAndView adminHome(Request req, Response res)
+	{
+		return new ModelAndView(null,"/admin/adminBase.hbs");
+	}
+	
+	public static ModelAndView userHome(Request req, Response res)
+	{
+		return new ModelAndView(null,"/home/usuario.hbs");
+	}
+	
+    public static Void login(Request req, Response res) {
+    	
         if (VerificarUsuario.verificar(RequestUtil.getQueryUsername(req), RequestUtil.getQueryPassword(req)))
         {	
         	if(ClienteManager.getInstance().esCliente(RequestUtil.getQueryUsername(req)))
-        	{
-        		req.session().attribute("currentUser", req.queryParams("usuario"));
-        		return new ModelAndView(null, "/home/usuario.hbs");
+        	{	
+        		Session session = req.session(true);
+        		session.attribute("currentUser", req.queryParams("usuario"));
+        		res.redirect("/usuario");
         	}
         	
         	else
-        	{
-        		req.session().attribute("currentUser", req.queryParams("usuario"));
-            	return new ModelAndView(null, "/admin/adminBase.hbs");
+        	{	
+        		Session session = req.session(true);
+        		session.attribute("currentUser", req.queryParams("usuario"));
+            	res.redirect("/admin");
         	}
         }
         
         else
             {
                 res.redirect("/loginFailure");
-                return null;
             }
-
+        
+        return null;
     }
 
     public static ModelAndView logout(Request req, Response res) {
+        Session session = req.session(true);
+        session.invalidate();
         req.session().removeAttribute("currentUser");
-        res.redirect("/");
         return null;
     }
 }

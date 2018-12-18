@@ -1,13 +1,32 @@
 package server;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import controllers.*;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import utils.BooleanHelper;
 import utils.HandlebarsTemplateEngineBuilder;
+import utils.SessionHandler;
 
 public class Router {
-
+	
+	static Set<String> publicRoutes = new HashSet<String>();
+	
+	
+	public static Boolean isPublic(String route)
+	{
+		return publicRoutes.contains(route);
+	}
+	
+	private static void setPublicRoutes(Set<String> publicRoutes)
+	{	
+		publicRoutes.add("/");
+		publicRoutes.add("/login");
+		publicRoutes.add("/loginFailure");
+	}
+	
 	public static void configure() {
 		HandlebarsTemplateEngine engine = HandlebarsTemplateEngineBuilder
 				.create()
@@ -15,22 +34,24 @@ public class Router {
 				.withHelper("isTrue", BooleanHelper.isTrue)
 				.build();
 		
-		Spark.staticFiles.location("/");
+		Spark.staticFiles.location("/public");
+		setPublicRoutes(publicRoutes);
+		
+		Spark.before(SessionHandler.allowed());
 		
 		DispositivoController dispositivoController = new DispositivoController();
 		UsuarioController usuarioController = new UsuarioController();
 		AdminController adminController = new AdminController();
 
 		Spark.get("/", HomeController::showLoginForm, engine);
-		Spark.post("/principal",LoginController::login,engine);
-		Spark.get("/login", LoginController::login, engine);
+		Spark.post("/login", LoginController::login);
 		Spark.get("/loginFailure", LoginController::loginFailure, engine);
 		Spark.post("/loginFailure", LoginController::loginFailure, engine);
-		Spark.post("/login", LoginController::logout,engine);
-		Spark.get("/login", LoginController::logout, engine);
+		Spark.post("/", LoginController::logout,engine);
+		
+		Spark.get("/admin", LoginController::adminHome,engine);
 
-
-		Spark.get("/usuario", usuarioController::show, engine);
+		Spark.get("/usuario", LoginController::userHome, engine);
 		Spark.get("/usuario/recomendacionHogar", usuarioController::showConfirmacionRecomendacionHogar, engine);
 		Spark.post("/usuario/realizarRecomendacion", usuarioController::realizarRecomendacion, engine);
 		Spark.get("/usuario/consultaConsumoPeriodo", usuarioController :: showConsumoPeriodo, engine);
@@ -61,12 +82,6 @@ public class Router {
 		Spark.get("/admin/dispositivosAlta",adminController::verAltaDispositivos,engine);
 		Spark.get("/admin/dispositivosAlta/:equipo/:detalle", adminController::confirmarAlta,engine);
 		Spark.post("/admin/dispositivosAlta/:equipo/:detalle/confirmed",adminController::altaConfirmada,engine);
-		Spark.get("/principal",adminController::altaConfirmada,engine);
-
-
-
-
-
 
 	}
 
