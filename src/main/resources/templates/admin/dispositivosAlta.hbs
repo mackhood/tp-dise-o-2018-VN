@@ -6,6 +6,7 @@
         <tr>
             <th>Equipo</th>
             <th>Detalle</th>
+            <th>Consumo (KwH) </th>
             <th>Accion</th>
         </tr>
 
@@ -13,7 +14,8 @@
             <tr>
                 <td>{{nombre}}</td>
                 <td>{{equipoConcreto}}</td>
-                <td><a class="btn btn-info" type="button" href="/admin/dispositivosAlta/{{nombre}}/{{equipoConcreto}}">Dar de alta</a><td>
+                <td>{{consumoEstimadoPorHora}} </td>
+                <td><a class="btn btn-info" type="button" href="/admin/dispositivosAlta/{{nombre}}/{{equipoConcreto}}/{{consumoEstimadoPorHora}}">Dar de alta</a><td>
             </tr>
         {{/each}}
     </table>

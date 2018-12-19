@@ -78,8 +78,8 @@ public class Router {
 		Spark.get("/admin/reportes/noFeature", adminController::noFeatureHere, engine);
 		Spark.post("/admin/reportes/hogares/:id/results", adminController::resultadosReporte,engine);
 		Spark.get("/admin/dispositivosAlta",adminController::verAltaDispositivos,engine);
-		Spark.get("/admin/dispositivosAlta/:equipo/:detalle", adminController::confirmarAlta,engine);
-		Spark.post("/admin/dispositivosAlta/:equipo/:detalle/confirmed",adminController::altaConfirmada,engine);
+		Spark.get("/admin/dispositivosAlta/:equipo/:detalle/:kwh", adminController::confirmarAlta,engine);
+		Spark.post("/admin/dispositivosAlta/:equipo/:detalle/:kwh/confirmed",adminController::altaConfirmada,engine);
 
 	}
 
