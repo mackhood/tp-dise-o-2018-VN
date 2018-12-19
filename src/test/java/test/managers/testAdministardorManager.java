@@ -19,86 +19,61 @@ import static junit.framework.TestCase.assertEquals;
 
 public class testAdministardorManager {
 
+	private AdministradorManager instance;
+	private AdministradorManager mockAdminManager;
+	private Administrador mockAdministrador;
+	private Domicilio mockDomicilio;
+	private ID mockId;
+	private DispositivoEstandar mockDispositivoEstandar;
 
+	@Before
+	public void setUp() {
 
+		mockAdministrador = Mockito
+				.spy(new Administrador("German", "Jugo", LocalDate.of(2016, 5, 18), "gerjor", "1234"));
 
-  private AdministradorManager instance;
-    private AdministradorManager mockAdminManager ;
-    private Administrador mockAdministrador;
-    private Domicilio mockDomicilio;
-    private ID mockId;
-    private DispositivoEstandar mockDispositivoEstandar;
+		mockDispositivoEstandar = Mockito.spy(
+				new DispositivoEstandar.DispositivoEstandarBuilder("a1").consumoEstimadoPorHora((double) 300).build());
 
+		List<DispositivoEstandar> dispositivosEstandares = new ArrayList<>();
 
-    @Before
-    public void setUp() {
+		List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
 
-        mockAdministrador = Mockito.spy( new Administrador("German", "Jugo", LocalDate.of(2016, 5, 18), "gerjor",
-                "1234"));
+	}
 
+	@Test
+	public void testGetInstance() {
 
+		AdministradorManager instance = AdministradorManager.getInstance();
 
+		assertEquals(instance.getClass(), AdministradorManager.class);
 
-        mockDispositivoEstandar = Mockito.spy(  new DispositivoEstandar.DispositivoEstandarBuilder("a1").consumoEstimadoPorHora((double) 300).build());
+	}
 
-        List<DispositivoEstandar> dispositivosEstandares = new ArrayList<>();
+	@Test
+	public void testEsAdminVerdadero() {
 
-        List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
+		AdministradorManager instance = AdministradorManager.getInstance();
 
+		assertEquals(true, instance.esAdministrador("gerjor"));
 
+	}
 
+	@Test
+	public void testEsAdministrador() {
+		AdministradorManager instance = AdministradorManager.getInstance();
 
+		assertEquals(false, instance.esAdministrador("xxxxxx"));
 
+	}
 
-    }
+	@Test
+	public void testGetAdministradorDeLaBDPorUsuario() {
 
+		AdministradorManager instance = AdministradorManager.getInstance();
 
+		assertEquals(Administrador.class, instance.getAdministradorDeLaBDPorUsuario("gerjor").getClass());
 
-    @Test
-    public void testGetInstance() {
-
-        AdministradorManager instance = AdministradorManager.getInstance();
-
-
-        assertEquals(instance.getClass(),AdministradorManager.class);
-
-    }
-
-
-    @Test
-    public void testEsAdminVerdadero () {
-
-        AdministradorManager instance = AdministradorManager.getInstance();
-
-        assertEquals(true,instance.esAdministrador("gerjor"));
-
-
-    }
-
-    @Test
-    public void testEsAdministrador () {
-        AdministradorManager instance = AdministradorManager.getInstance();
-
-
-        assertEquals(false,instance.esAdministrador("xxxxxx"));
-
-
-    }
-
-
-    @Test
-    public void testGetAdministradorDeLaBDPorUsuario () {
-
-        AdministradorManager instance = AdministradorManager.getInstance();
-
-
-        assertEquals(Administrador.class,instance.getAdministradorDeLaBDPorUsuario("gerjor").getClass());
-
-
-    }
-
-
-
-
+	}
 
 }

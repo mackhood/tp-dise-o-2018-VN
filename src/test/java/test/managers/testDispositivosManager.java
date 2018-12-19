@@ -8,44 +8,22 @@ import static junit.framework.TestCase.assertEquals;
 
 public class testDispositivosManager {
 
+	@Test
+	public void testGetInstance() {
 
+		DispositivosManager instance = DispositivosManager.getInstance();
 
+		assertEquals(instance.getClass(), DispositivosManager.class);
 
+	}
 
+	@Test
+	public void getDispositivoInteligenteDeLaBDPorID() {
 
+		DispositivosManager instance = DispositivosManager.getInstance();
 
-@Test
-public void testGetInstance() {
+		assertEquals(9,instance.getDispositivoInteligenteDeLaBDPorID((long) 9).getId(),0);
 
-    DispositivosManager instance = DispositivosManager.getInstance();
-
-
-    assertEquals(instance.getClass(),DispositivosManager.class);
-
-}
-@Test
-    public void getDispositivoInteligenteDeLaBDPorID() {
-
-        DispositivosManager instance = DispositivosManager.getInstance();
-
-
-        assertEquals(instance.getDispositivoInteligenteDeLaBDPorID((long) 9),null);
-
-
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
-
+	}
 
 }
