@@ -2,11 +2,16 @@
 {{#partial "contenido"}}
 
     {{#with dispositivo}}
-        <form method="POST" action="/usuario/dispositivo/bajar">
+        <form method="POST" action="/usuario/dispositivo/confirmarBaja/{{id}}">
             <div class="form-group">
-                <label for="nombre">Esta seguro en eliminar este dispositivo?</label>
+                <label for="nombre"> Esta a punto de dar de baja el dispositivo: <font size="4" color="orange"> {{nombre}} {{equipoConcreto}} </font> </label>
+            	<br>
+            	<br>
+            	<label> Desea confirmar la operacion? </label>
             </div>
-            <input class="btn btn-primary btn-bajar" type="submit" value="Bajar">
+            
+	 <a class="btn btn-info btn-cancel" role="button" href="/usuario/dispositivo"> Volver </a>
+     <input class="btn btn-danger btn-confirm" type="submit" value="Confirmar">
 
 
         </form>

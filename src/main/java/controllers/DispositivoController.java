@@ -1,6 +1,7 @@
 package controllers;
 
 import dominio.dispositivo.DispositivoInteligente;
+import dominio.dispositivo.Intervalo;
 import persistence.*;
 import dominio.usuario.Cliente;
 
@@ -14,16 +15,23 @@ import utils.RequestUtil;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class DispositivoController extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
     public ModelAndView listarDispositivosDeCliente(Request req, Response res)
     {
-        Map<String, List<DispositivoInteligente>> model = new HashMap<>();
-
-        List<DispositivoInteligente> dispositivos = ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario(RequestUtil.getSessionCurrentUser(req)).getDispositivosInteligentes();
+        Map<String,Object> model = new HashMap<>();
+        
+        Intervalo ultimoIntervaloDeUso = ClienteManager.getInstance().ultimoIntervalo(ClienteManager.getInstance()
+        		.getIdDelClientePorUsuario(RequestUtil.getSessionCurrentUser(req)));
+        model.put("intervalo",ultimoIntervaloDeUso);
+        List<DispositivoInteligente> dispositivos = DispositivosManager.getInstance()
+        		.getDispositivosDeCliente(ClienteManager.getInstance().getIdDelClientePorUsuario(RequestUtil.getSessionCurrentUser(req)));
         model.put("dispositivos",dispositivos);
-
+        
+        double consumoUltimo = DispositivosManager.getInstance().dispUltimoConsumo().consumoParaIntervalo(ultimoIntervaloDeUso);
+        model.put("consumo",consumoUltimo);
         return new ModelAndView(model,"/usuario/dispositivo.hbs");
     }
     public ModelAndView listarDispositivosAlta(Request req, Response res)
@@ -38,57 +46,26 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
     }
     public ModelAndView verAlta(Request req, Response res)
     {
-        Map<String, DispositivoInteligente> model = new HashMap<>();
-        String idDispositivo = req.params("id");
+        Map<String, String> model = new HashMap<>();
+        String equipo = req.params("equipo");
+        String detalle = req.params("detalle");
+        String id = req.params("id");
 
-        DispositivoInteligente dispositivoInteligente = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(Long.parseLong(idDispositivo));
-        model.put("dispositivoInteligente",dispositivoInteligente);
-        req.session().attribute("idDispositivo",idDispositivo);
-
+        model.put("equipo",equipo);
+		model.put("detalle", detalle);
+		model.put("id",id);
+		
         return new ModelAndView(model,"usuario/altaConfirm.hbs");
     }
     public ModelAndView alta(Request req, Response res)
-    {
-        DispositivoInteligente dispositivoInteligente = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(Long.parseLong(req.session().attribute("idDispositivo")));
-        req.session().removeAttribute("idDispositivo");
+    {	
+    	String id = req.params("id");
 
-        Cliente cliente = ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario(RequestUtil.getSessionCurrentUser(req));
-        cliente.agregarDispositivoInteligente(dispositivoInteligente);
-        ClienteManager.getInstance().persistirCliente(cliente);
-
-
-
+        DispositivosManager.getInstance().agregarDispositivoACliente(ClienteManager.getInstance().getIdDelClientePorUsuario(RequestUtil.getSessionCurrentUser(req)), Long.parseLong(id));
         res.redirect("/usuario");
-        return new ModelAndView(null,"/usuario/altaConfirm.hbs");
+        return null;
     }
 
-    public ModelAndView verModificar(Request req, Response res){
-        Map<String, DispositivoInteligente> model = new HashMap<>();
-        String id = req.params("id");
-
-        DispositivoInteligente disp = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(Long.parseLong(id));
-        model.put("dispositivo", disp);
-        req.session().attribute("idDispositivo",id);
-        return new ModelAndView(model, "usuario/modificar.hbs");
-    }
-
-    public ModelAndView modificar(Request req, Response res)
-    {
-
-        String nombre = req.queryParams("nombre");
-        String equipoConcreto = req.queryParams("equipoConcreto");
-        String consumoEstimadoPorHora = req.queryParams("consumoEstimadoPorHora");
-        String id = req.session().attribute("idDispositivo");
-        req.session().removeAttribute("idDispositivo");
-        DispositivoInteligente disp = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(Long.parseLong(id));
-        disp.setNombre(nombre);
-        disp.setEquipoConcreto(equipoConcreto);
-        disp.setConsumoEstimadoPorHora(Double.parseDouble(consumoEstimadoPorHora));
-
-        DispositivosManager.getInstance().persistirDispositivoInteligente(disp);
-
-       return new ModelAndView(null, "usuario/modificar.hbs");
-    }
     public ModelAndView consumoUltimoPeriodo(Request req, Response res){
 
         Map<String, Double> model = new HashMap<>();
@@ -106,13 +83,12 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
 
         DispositivoInteligente disp = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(Long.parseLong(id));
         model.put("dispositivo", disp);
-        req.session().attribute("idDispositivo",id);
         return new ModelAndView(model,"usuario/bajar.hbs");
     }
     public ModelAndView bajar(Request req, Response res)
-    {
-        String id = req.session().attribute("idDispositivo");
-        req.session().removeAttribute("idDispositivo");
+    {	
+    	
+    	String id = req.params("id");
         DispositivoInteligente disp = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(Long.parseLong(id));
 
         DispositivosManager.getInstance().borrarDispositivoInteligene(disp);

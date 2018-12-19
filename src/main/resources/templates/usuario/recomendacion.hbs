@@ -1,9 +1,12 @@
 {{#partial "contenido"}}
-    <form method="POST" action="/usuario/realizarRecomendacion">
-            <h4> Desea realizar la recomendacion del hogar? </h4>
-
-            <input class="btn btn-primary btn-confirmar" type="submit" value="Confirmar"}>
-
+    <form method="POST" action="/usuario/recomendacion/success">
+    <h3> Se encuentra a un solo click de adecuar sus dispositivos a los estandares recomendados </h3>
+    <h5> Esto implica que algunos de sus dispositivos se apaguen si su consumo es mayor al optimo </h5>
+	<h5> Desea continuar? </h5>
+	
+    <a class="btn btn-danger btn-cancel" role="button" href="/usuario"> Volver </a>
+	<input class="btn btn-success btn-alta" type="submit" value="Continuar">
+	
     </form>
 {{/partial}}
 
