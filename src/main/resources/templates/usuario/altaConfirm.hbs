@@ -1,10 +1,11 @@
 
 {{#partial "contenido"}}
-        <form method="POST" action="/usuario/altaConfirm">
+        <form method="POST" action="/usuario/altaConfirm/{{id}}/{{equipo}}/{{detalle}}/confirmed">
             <div class="form-group">
-                <label for="nombre">Esta seguro en dar de alta este dispositivo?</label>
-            </div>>
-            <input class="btn btn-primary btn-alta" type="submit" value="Alta">
+                <label for="nombre">Por favor, confirme que desea dar de alta el dispositivo: {{equipo}} {{detalle}} </label>
+            </div>
+            <input class="btn btn-primary btn-alta" type="submit" value="Confirmar">
+       		<a class="btn btn-danger btn-cancel" role="button" href="/usuario/dispositivo"> Cancelar </a>
 
         </form>
 

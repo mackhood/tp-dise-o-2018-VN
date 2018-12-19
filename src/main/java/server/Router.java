@@ -50,24 +50,22 @@ public class Router {
 		Spark.post("/", LoginController::logout,engine);
 		
 		Spark.get("/admin", LoginController::adminHome,engine);
-
 		Spark.get("/usuario", LoginController::userHome, engine);
+		
 		Spark.get("/usuario/recomendacionHogar", usuarioController::showConfirmacionRecomendacionHogar, engine);
-		Spark.post("/usuario/realizarRecomendacion", usuarioController::realizarRecomendacion, engine);
+		Spark.post("/usuario/recomendacion/success", usuarioController::realizarRecomendacion, engine);
 		Spark.get("/usuario/consultaConsumoPeriodo", usuarioController :: showConsumoPeriodo, engine);
-		Spark.get("/usuario/consumoPeriodo", usuarioController :: consumoPeriodo, engine);
-
+		Spark.post("/usuario/consumoPeriodo", usuarioController::consumoPeriodo, engine);
 		//Spark.get("/usuario/consumoUltimoPeriodo", usuarioController::showConsumoUltimoPeriodo, engine);
-
 		Spark.get("/usuario/verDispositivosAlta", dispositivoController::listarDispositivosAlta,engine);
-		Spark.get("/usuario/altaConfirm/:id",dispositivoController::verAlta, engine);
-		Spark.post("/usuario/altaConfirm", dispositivoController::alta,engine);
-
+		Spark.get("/usuario/altaConfirm/:id/:equipo/:detalle",dispositivoController::verAlta, engine);
+		Spark.post("/usuario/altaConfirm/:id/:equipo/:detalle/confirmed", dispositivoController::alta,engine);
 		Spark.get("/usuario/dispositivo", dispositivoController::listarDispositivosDeCliente, engine);
 		Spark.get("/usuario/dispositivo/:id", dispositivoController::consumoUltimoPeriodo, engine);
-        Spark.post("/usuario/dispositivo/modificar", dispositivoController::modificar, engine);
-		Spark.get("/usuario/dispositivo/bajar/:id",dispositivoController::verBajar, engine);
-        Spark.post("/usuario/dispositivo/bajar",dispositivoController::bajar,engine);
+        Spark.get("/usuario/dispositivo/bajar/:id",dispositivoController::verBajar,engine);
+        Spark.post("/usuario/dispositivo/confirmarBaja/:id", dispositivoController::bajar,engine);
+        Spark.get("/usuario/consumos",usuarioController::todasLasMediciones,engine);
+        
         Spark.get("/admin/hogares", adminController::seleccionarCantidad,engine);
         Spark.post("/admin/hogares/:cant", adminController::verHogares,engine);
         Spark.get("/admin/hogares/searchresults",adminController::busquedaHogar,engine);

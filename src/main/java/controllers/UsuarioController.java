@@ -1,6 +1,7 @@
 package controllers;
 
 import dominio.dispositivo.DispositivoInteligente;
+import dominio.dispositivo.Intervalo;
 import dominio.dispositivo.Periodo;
 import dominio.simplexservice.RecomendacionParaHogarEficiente;
 import dominio.usuario.Cliente;
@@ -51,14 +52,21 @@ public class UsuarioController {
         double consumoHogar = ClienteManager.getInstance().consumoHogar(RequestUtil.getSessionCurrentUser(req),fechaInicio, fechaFin);
         model.put("consumoHogar", consumoHogar);
 
-        return new ModelAndView(model,"usuario/resConsumoPeriodo.hbs");
+        return new ModelAndView(model,"usuario/consumoPeriodo.hbs");
     }
-
-    public ModelAndView showConsumoUltimoPeriodo(Request req, Response res)
+    
+    public ModelAndView todasLasMediciones(Request req, Response res)
     {
-        Map<String,Double> model = new HashMap<>();
-
-        model.put("consumoUltimoPeriodo",ClienteManager.getInstance().consumoUltimoPeriodo(RequestUtil.getSessionCurrentUser(req)));
-        return new ModelAndView(model,"usuario/consumoUltimoPeriodo.hbs");
+    	Map<String,Object> model = new HashMap<>();
+    	
+    	long id = ClienteManager.getInstance().getIdDelClientePorUsuario(RequestUtil.getSessionCurrentUser(req));
+		
+		List<Intervalo> consumos = ClienteManager.getInstance().getIntervalosDeUso(id);
+		List<DispositivoInteligente> dispositivosUsados = ClienteManager.getInstance().getDispositivoConsumo(id);
+		model.put("consumos", consumos);
+		model.put("dispositivos",dispositivosUsados);
+		List<Double> valorConsumos = ClienteManager.getInstance().auxiliarAdminConsumosWeb(consumos, dispositivosUsados);
+		model.put("valores",valorConsumos);
+		return new ModelAndView(model, "/usuario/consumos.hbs");
     }
 }

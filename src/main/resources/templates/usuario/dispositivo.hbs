@@ -2,15 +2,24 @@
     <h1 align="center">Mis dispositivos</h1>
 	<br>
 	<br>
+	
+	{{#with intervalo}}
+	<label> Ultimo consumo registrado: <font color="highlight"> {{this.inicio}} - {{this.fin}} </font> </label> 
+	{{/with}}
+	{{#with consumo}}
+	<label> :: {{this}} KwH </label>
+	{{/with}}
+	&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
+	<a href="/usuario/consumos"> <font size="4"> Ver todos mis consumos </font> </a>
+	<br>
+	<br>
     <table class="table table-stripped">
         <tr>
             <th>Equipo</th>
             <th>Detalle</th>
             <th>Consumo (KwH)</th>
             <th>Estado Actual</th>
-            <th>Acciones Disponibles </th>
-            <th> </th>
-            <th> </th>
+            <th>Accion</th>
 
         </tr>
 
@@ -20,7 +29,6 @@
                 <td>{{equipoConcreto}}</td>
                 <td>{{consumoEstimadoPorHora}}</td>
                 <td>{{estadoDispositivo}}</td>
-                <td><a href="{{url}}">Ver ultimo consumo</a><td>
                 <td><a href="/usuario/dispositivo/bajar/{{id}}">Dar de Baja</a></td>
 
             </tr>

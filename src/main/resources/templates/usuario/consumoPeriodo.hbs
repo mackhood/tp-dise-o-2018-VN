@@ -1,17 +1,24 @@
 {{#partial "contenido"}}
 
-
-    <form method="GET" action="/usuario/consumoPeriodo" align="left">
+	<h3> Ingrese la fecha de inicio y fin del periodo a consultar </h3>
+<br>
+<br>
+    <form method=POST action="/usuario/consumoPeriodo" align="left">
 
         <div class="form-group">
-            <label for="fechaInicio"> <strong> <font size="4"> Fecha inicio  </font> </strong> &nbsp &nbsp &nbsp &nbsp </label>
+            <label for="fechaInicio"> <strong> <font size="4"> Inicio del periodo: </font> </strong> &nbsp &nbsp </label>
             <input type="datetime-local" name="fechaInicio" required/>  </div>
         <div class="form-group">
-            <label for="fechaFin"> <strong> <font size="4"> Fecha fin </font> </strong> &nbsp &nbsp </label>
+            <label for="fechaFin"> <strong> <font size="4"> Fin del periodo: </font> </strong> &nbsp &nbsp &nbsp &nbsp &nbsp </label>
             <input type="datetime-local" name="fechaFin"  required/> </div>
 
-        <input class="btn btn-primary btn-verConsumoPeriodo" type="submit" value="Ver consumo del periodo"}>
+        <input class="btn btn-info btn-verConsumoPeriodo" type="submit" value="Consultar"}>
     </form>
+    <br>
+    <br>
+    <label> <strong> <font size="4"> Consumo:  </font> </strong> &nbsp &nbsp &nbsp &nbsp </label>
+	<label for="ConsumoHogar"> <strong> <font size="4" color="highlight"> {{consumoHogar}} KwH  </font> </strong> &nbsp &nbsp &nbsp &nbsp </label>
+	
 {{/partial}}
 
 {{>home/usuario.hbs}}
