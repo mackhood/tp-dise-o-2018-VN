@@ -32,22 +32,40 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 
 	public void persistirClienteDePrueba() {
 		withTransaction(() -> {
-			Domicilio domicilio = new Domicilio("Av. Cordoba", 1230, 7, 'A');
-			ID id = new ID(TiposId.DNI, "40241506");
-			DispositivoEstandar dispEstandar = entityManager().find(DispositivoEstandar.class, new Long(6));
-			List<DispositivoEstandar> dispositivosEstandares = new ArrayList<>();
-			dispositivosEstandares.add(dispEstandar);
 
-			DispositivoInteligente aireAcondicionado3500 = entityManager().find(DispositivoInteligente.class,
-					new Long(13));
-			DispositivoInteligente ventilador = entityManager().find(DispositivoInteligente.class, new Long(17));
+			Intervalo i1 = new Intervalo(LocalDateTime.of(2018, 12, 18, 13, 00),
+					LocalDateTime.of(2018, 12, 18, 23, 50));
+			Intervalo i2 = new Intervalo(LocalDateTime.of(2018, 12, 14, 00, 10),
+					LocalDateTime.of(2018, 12, 14, 05, 05));
+			Intervalo i3 = new Intervalo(LocalDateTime.of(2018, 12, 11, 03, 30),
+					LocalDateTime.of(2018, 12, 11, 12, 00));
+			
+			List<Intervalo> li = new ArrayList<>();
+			List<Intervalo> li2 = new ArrayList<>();
+			li.add(i1);
+			li.add(i2);
+			li2.add(i3);
+			DispositivoInteligente di1 = new DispositivoInteligente.DispositivoInteligenteBuilder("Tester3")
+					.equipoConcreto("Dispositivo de Testeo").consumoEstimadoPorHora((double) 0.913).intervalosDeUso(li)
+					.build();
+			di1.agregarListaIntervalos(li);
+			entityManager().persist(di1);
+
+			DispositivoInteligente di2 = new DispositivoInteligente.DispositivoInteligenteBuilder("Tester4")
+					.equipoConcreto("Dispositivo de Testeo").consumoEstimadoPorHora((double) 0.24).intervalosDeUso(li2)
+					.build();
+			di2.agregarListaIntervalos(li2);
+			entityManager().persist(di2);
+
+			Domicilio domicilio = new Domicilio("Alem", 204, 9, 'B');
+			ID id = new ID(TiposId.DNI, "37110945");
+			List<DispositivoEstandar> dispositivosEstandares = new ArrayList<>();
 			List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
 
-			dispositivosInteligentes.add(aireAcondicionado3500);
-			dispositivosInteligentes.add(ventilador);
-
-			Cliente unCliente = new Cliente("Ariel", "Galvan", "galvanariel", "password", id, domicilio, 47581269,
-					dispositivosEstandares, dispositivosInteligentes);
+			dispositivosInteligentes.add(di1);
+			dispositivosInteligentes.add(di2);
+			Cliente unCliente = new Cliente("Ariel", "Galvan", "galvanariel", "password", id, domicilio,
+					42211000, dispositivosEstandares, dispositivosInteligentes);
 
 			Ubicacion ubicacion = new Ubicacion(5, 2);
 			unCliente.setUbicacion(ubicacion);
@@ -99,14 +117,13 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 		List<Cliente> clientes = entityManager().createQuery("from Cliente c", Cliente.class).getResultList();
 		return clientes;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<Cliente> obtenerPrimerosNClientes(int val)
-	{
-		return (List<Cliente>) entityManager().createNativeQuery("SELECT * FROM cliente LIMIT :n",Cliente.class)
-				.setParameter("n",val).getResultList();
+	public List<Cliente> obtenerPrimerosNClientes(int val) {
+		return (List<Cliente>) entityManager().createNativeQuery("SELECT * FROM cliente LIMIT :n", Cliente.class)
+				.setParameter("n", val).getResultList();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Intervalo> getIntervalosDeUso(long id) {
 
@@ -119,10 +136,12 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 	@SuppressWarnings("unchecked")
 	public List<DispositivoInteligente> getDispositivoConsumo(long id) {
 
-		return (List<DispositivoInteligente>) entityManager().createNativeQuery(
-				"select * from dispositivointeligente di join intervalo i "
-						+ " on i.idDispositivo = di.idDispositivo and di.idCliente = :id",
-				DispositivoInteligente.class).setParameter("id", id).getResultList();
+		return (List<DispositivoInteligente>) entityManager()
+				.createNativeQuery(
+						"select * from dispositivointeligente di join intervalo i "
+								+ " on i.idDispositivo = di.idDispositivo and di.idCliente = :id",
+						DispositivoInteligente.class)
+				.setParameter("id", id).getResultList();
 	}
 
 	public void persistirCliente(Cliente cliente) {
@@ -132,62 +151,61 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 			entityManager().getTransaction().commit();
 		});
 	}
-	
+
 	public List<Double> auxiliarAdminConsumosWeb(List<Intervalo> li, List<DispositivoInteligente> ld) {
-		
+
 		List<Double> listaConsumos = new ArrayList<>();
-		
-		if(li.size() == ld.size()) {
-			
-			for(int i=0;i<li.size();i++) {
-				
+
+		if (li.size() == ld.size()) {
+
+			for (int i = 0; i < li.size(); i++) {
+
 				double consumo = li.get(i).intervaloEnHoras() * ld.get(i).getConsumoEstimadoPorHora();
 				listaConsumos.add(consumo);
 			}
 		}
-		
+
 		return listaConsumos;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<Cliente> filtradoClientes(String nombre,String apellido, String calle)
-	{
-		return (List<Cliente>) entityManager().createNativeQuery("SELECT * FROM cliente WHERE Calle LIKE :calle AND Nombre LIKE :nombre "
-				+ "AND apellido LIKE :apellido ORDER BY Calle DESC",Cliente.class)
-			.setParameter("calle", '%' + calle + '%').setParameter("apellido", '%' + apellido + '%').setParameter("nombre", '%' + nombre + '%')
-				.getResultList();
+	public List<Cliente> filtradoClientes(String nombre, String apellido, String calle) {
+		return (List<Cliente>) entityManager()
+				.createNativeQuery("SELECT * FROM cliente WHERE Calle LIKE :calle AND Nombre LIKE :nombre "
+						+ "AND apellido LIKE :apellido ORDER BY Calle DESC", Cliente.class)
+				.setParameter("calle", '%' + calle + '%').setParameter("apellido", '%' + apellido + '%')
+				.setParameter("nombre", '%' + nombre + '%').getResultList();
 	}
-/*	
+
+	/*
+	 * @SuppressWarnings("unchecked") public List<Cliente>
+	 * filtrarClientesPorCalle(String calle) { return (List<Cliente>)
+	 * entityManager().
+	 * createNativeQuery("SELECT * FROM cliente WHERE Calle LIKE :calle " +
+	 * "ORDER BY Calle DESC",Cliente.class) .setParameter("calle",
+	 * '%'+calle+'%').getResultList(); }
+	 * 
+	 * @SuppressWarnings("unchecked") public List<Cliente>
+	 * filtrarClientesPorNombre(String nombre) { return (List<Cliente>)
+	 * entityManager().
+	 * createNativeQuery("SELECT * FROM cliente WHERE Nombre LIKE :nombre " +
+	 * "ORDER BY Nombre DESC",Cliente.class) .setParameter("nombre",
+	 * '%'+nombre+'%').getResultList(); }
+	 */
 	@SuppressWarnings("unchecked")
-	public List<Cliente> filtrarClientesPorCalle(String calle)
-	{
-		return (List<Cliente>) entityManager().createNativeQuery("SELECT * FROM cliente WHERE Calle LIKE :calle "
-				+ "ORDER BY Calle DESC",Cliente.class)
-			.setParameter("calle", '%'+calle+'%').getResultList();
+	public List<Cliente> filtrarClientesPorApellido(String apellido) {
+		return (List<Cliente>) entityManager()
+				.createNativeQuery("SELECT * FROM cliente WHERE apellido LIKE :apellido " + "ORDER BY apellido DESC",
+						Cliente.class)
+				.setParameter("apellido", '%' + apellido + '%').getResultList();
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<Cliente> filtrarClientesPorNombre(String nombre)
-	{
-		return (List<Cliente>) entityManager().createNativeQuery("SELECT * FROM cliente WHERE Nombre LIKE :nombre "
-				+ "ORDER BY Nombre DESC",Cliente.class)
-			.setParameter("nombre", '%'+nombre+'%').getResultList();
-	}
-*/	
-	@SuppressWarnings("unchecked")
-	public List<Cliente> filtrarClientesPorApellido(String apellido)
-	{
-		return (List<Cliente>) entityManager().createNativeQuery("SELECT * FROM cliente WHERE apellido LIKE :apellido "
-				+ "ORDER BY apellido DESC",Cliente.class)
-			.setParameter("apellido", '%'+apellido+'%').getResultList();
-	}
-	
-	@SuppressWarnings("unchecked")
-	public Intervalo ultimoIntervalo(long id)
-	{
-		List<Intervalo> li = entityManager().createNativeQuery("SELECT * FROM intervalo WHERE fin = (SELECT max(fin) FROM intervalo) AND "
-				+ "idDispositivo IN (SELECT idDispositivo FROM dispositivoInteligente WHERE idCliente = :id)",Intervalo.class)
-					.setParameter("id", id).getResultList();
+	public Intervalo ultimoIntervalo(long id) {
+		List<Intervalo> li = entityManager().createNativeQuery(
+				"SELECT * FROM intervalo WHERE fin = (SELECT max(fin) FROM intervalo) AND "
+						+ "idDispositivo IN (SELECT idDispositivo FROM dispositivoInteligente WHERE idCliente = :id)",
+				Intervalo.class).setParameter("id", id).getResultList();
 		return li.get(0);
 	}
 }

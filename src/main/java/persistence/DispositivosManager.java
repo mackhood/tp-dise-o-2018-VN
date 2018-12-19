@@ -60,6 +60,13 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
 				.getResultList();
 	}
 
+	public DispositivoInteligente getDispositivoPorDetalleEquipo(String detalle) {
+		return (DispositivoInteligente) entityManager()
+				.createNativeQuery("SELECT * FROM dispositivointeligente WHERE nombreConcreto = :detalle LIMIT 1",
+						DispositivoInteligente.class)
+				.setParameter("detalle", detalle).getSingleResult();
+	}
+
 	public DispositivoEstandar getDispositivoEstandarDeLaBD(Long id) {
 		return entityManager().find(DispositivoEstandar.class, id);
 
