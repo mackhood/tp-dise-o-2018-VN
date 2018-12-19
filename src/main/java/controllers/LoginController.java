@@ -55,10 +55,11 @@ public class LoginController {
         return null;
     }
 
-    public static ModelAndView logout(Request req, Response res) {
+    public static Void logout(Request req, Response res) {
         Session session = req.session(true);
         session.invalidate();
         req.session().removeAttribute("currentUser");
+        res.redirect("/");
         return null;
     }
 }
