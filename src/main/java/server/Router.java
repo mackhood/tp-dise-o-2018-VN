@@ -13,7 +13,8 @@ import utils.SessionHandler;
 public class Router {
 	
 	static Set<String> publicRoutes = new HashSet<String>();
-	
+	static Set<String> adminRoutes = new HashSet<String>();
+	static Set<String> userRoutes = new HashSet<String>();
 	
 	public static Boolean isPublic(String route)
 	{
@@ -25,6 +26,53 @@ public class Router {
 		publicRoutes.add("/");
 		publicRoutes.add("/login");
 		publicRoutes.add("/loginFailure");
+		publicRoutes.add("/logout");
+	}
+	
+	public static void setAdminRoutes(Set<String> adminRoutes)
+	{
+		adminRoutes.add("/admin");
+		adminRoutes.add("/admin/hogares");
+		adminRoutes.add("/admin/hogares/:cant");
+		adminRoutes.add("/admin/hogares/searchresults");
+		adminRoutes.add("/admin/hogares/consumo/:id");
+		adminRoutes.add("/admin/reportes");
+		adminRoutes.add("/admin/reportes/ingresarDatos");
+		adminRoutes.add("/admin/reportes/filter/hogares");
+		adminRoutes.add("/admin/reportes/noResultsFound");
+		adminRoutes.add("/admin/reportes/hogares/:id");
+		adminRoutes.add("/admin/reportes/noFeature");
+		adminRoutes.add("/admin/reportes/hogares/:id/results");
+		adminRoutes.add("/admin/dispositivosAlta");
+		adminRoutes.add("/admin/dispositivosAlta/:equipo/:detalle/:kwh");
+		adminRoutes.add("/admin/dispositivosAlta/:equipo/:detalle/:kwh/confirmed");
+	}
+	
+	public static void setUserRoutes(Set<String> userRoutes)
+	{
+		userRoutes.add("/usuario");
+		userRoutes.add("/usuario/recomendacionHogar");
+		userRoutes.add("/usuario/recomendacion/success");
+		userRoutes.add("/usuario/consultaConsumoPeriodo");
+		userRoutes.add("/usuario/consumoPeriodo");
+		userRoutes.add("/usuario/verDispositivosAlta");
+		userRoutes.add("/usuario/altaConfirm/:id/:equipo/:detalle");
+		userRoutes.add("/usuario/altaConfirm/:id/:equipo/:detalle/confirmed");
+		userRoutes.add("/usuario/dispositivo");
+		userRoutes.add("/usuario/dispositivo/:id");
+		userRoutes.add("/usuario/dispositivo/bajar/:id");
+		userRoutes.add("/usuario/consumos");
+		userRoutes.add("/usuario/dispositivo/confirmarBaja/:id");
+	}
+	
+	public static Boolean isUserRoute(String route)
+	{
+		return userRoutes.contains(route);
+	}
+	
+	public static Boolean isAdminRoute(String route)
+	{
+		return adminRoutes.contains(route);
 	}
 	
 	public static void configure() {
@@ -36,6 +84,8 @@ public class Router {
 		
 		Spark.staticFiles.location("/public");
 		setPublicRoutes(publicRoutes);
+		setUserRoutes(userRoutes);
+		setAdminRoutes(adminRoutes);
 		
 		Spark.before(SessionHandler.allowed());
 		

@@ -36,6 +36,7 @@ public class LoginController {
         	{	
         		Session session = req.session(true);
         		session.attribute("currentUser", req.queryParams("usuario"));
+        		session.attribute("role", "user");
         		res.redirect("/usuario");
         	}
         	
@@ -43,6 +44,7 @@ public class LoginController {
         	{	
         		Session session = req.session(true);
         		session.attribute("currentUser", req.queryParams("usuario"));
+        		session.attribute("role", "admin");
             	res.redirect("/admin");
         	}
         }
@@ -59,6 +61,7 @@ public class LoginController {
         Session session = req.session(true);
         session.invalidate();
         req.session().removeAttribute("currentUser");
+        req.session().removeAttribute("role");
         res.redirect("/");
         return null;
     }
