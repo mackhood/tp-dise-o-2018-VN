@@ -11,7 +11,6 @@ public enum TipoDispositivo {
     VENTILADOR(120, 360),
     OTRO(0, 0);
 
-
     double restriccionMinima;
     double restriccionMaxima;
 
@@ -30,4 +29,5 @@ public enum TipoDispositivo {
     public double getRestriccionMaxima() {
         return restriccionMaxima;
     }
+
 }
