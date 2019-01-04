@@ -4,6 +4,7 @@ package test.simplex;
 import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
+import dominio.dispositivo.Intervalo;
 import dominio.repositories.RepositorioDispositivo;
 import dominio.simplexservice.RecomendacionParaHogarEficiente;
 import dominio.simplexservice.SimplexBuilder;
@@ -15,7 +16,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import persistence.DispositivosManager;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,8 +26,8 @@ import java.util.Map;
 
 public class testSimplex {
 
-    DispositivoInteligente aireAcondicionado3500;
-    DispositivoInteligente lampara11W;
+    DispositivoInteligente aireAcondicionado2200;
+    DispositivoInteligente led40;
     DispositivoEstandar lavarropas5kgAgua;
     Cliente unCliente;
     List<Dispositivo> dispositivos = new ArrayList<>();
@@ -33,48 +36,44 @@ public class testSimplex {
 
     @Before
     public void setUp() {
-        aireAcondicionado3500 = RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("Aire Acondicionado", "De 3500 frigorias");
+        Intervalo i1 = new Intervalo(LocalDateTime.of(2018, 10, 12, 13, 10), LocalDateTime.of(3000, 10, 12, 22, 45));
 
-        lampara11W = RepositorioDispositivo.getInstance().traerDispositivoInteligenteDeNombreConcreto("Lampara", "De 11W");
+        aireAcondicionado2200 = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(new Long(19));
 
-        aireAcondicionado3500.setHorasDeUso(900);
-        aireAcondicionado3500.encender();
+        led40 = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(new Long(22));
 
-        lampara11W.encender();
+        aireAcondicionado2200.agregarIntervalo(i1);
+        aireAcondicionado2200.encender();
+
+        led40.encender();
+
 
         lavarropas5kgAgua = RepositorioDispositivo.getInstance().traerDispositivoEstandarDeNombreConcreto("Lavarropas", "Automatico de 5kg con calentamiento de agua");
 
         estandares.add(lavarropas5kgAgua);
-        inteligentes.add(aireAcondicionado3500);
-        inteligentes.add(lampara11W);
+        inteligentes.add(aireAcondicionado2200);
+        inteligentes.add(led40);
 
         unCliente = new Cliente("Ariel", "Galvan", "galvanariel97","password", new ID(TiposId.DNI, "40130179"),
                 new Domicilio("asd", 1, 1, 'a'), 4444444, estandares, inteligentes);
 
-        dispositivos.add(aireAcondicionado3500);
-        dispositivos.add(lampara11W);
+        dispositivos.add(aireAcondicionado2200);
+        dispositivos.add(led40);
         dispositivos.add(lavarropas5kgAgua);
 
     }
 
     @Test
-    public void test(){
-        RecomendacionParaHogarEficiente recomendacionParaHogarEficiente = new RecomendacionParaHogarEficiente(unCliente);
-
-        /*map.entrySet().stream().forEach(mapp -> {System.out.println(mapp.getKey().getEquipoConcreto());
-        System.out.println(mapp.getValue());
-        });*/
-
-
+    public void testConsumoTotalAireAcondicionado()
+    {
+        Assert.assertEquals(3000,aireAcondicionado2200.getConsumoTotal(),10000000);
     }
     @Test
     public void testAireAcondicionado3500DespuesDeRealizarLaRecomendacionPorCadaDispositivoEstaApagadoPorqueSuperaLasHorasMaximasRecomendadas() {
         RecomendacionParaHogarEficiente recomendacionParaHogarEficiente = new RecomendacionParaHogarEficiente(unCliente);
-        System.out.println("1");
         recomendacionParaHogarEficiente.realizarRecomendacionParaLosDispositivosInteligentes();
-        System.out.println("2");
 
-        Assert.assertEquals(true, aireAcondicionado3500.estaApagado());
+        Assert.assertEquals(true, aireAcondicionado2200.estaApagado());
 
     }
 
@@ -82,11 +81,22 @@ public class testSimplex {
     public void testLamparaDe11WDespuesDeRealizarLaRecomendacionPorCadaDispositivoSigueEncendidoPorqueNoSuperaLasHorasMaximasRecomendadas() {
         RecomendacionParaHogarEficiente recomendacionParaHogarEficiente = new RecomendacionParaHogarEficiente(unCliente);
         recomendacionParaHogarEficiente.realizarRecomendacionParaLosDispositivosInteligentes();
-        System.out.println("A");
-        Assert.assertEquals(true, lampara11W.estaEncendido());
+        Assert.assertEquals(true, led40.estaEncendido());
 
     }
 
+
+    @Test
+    public void testDispositivosInteligentesQueSeVanAApagar()
+    {
+        RecomendacionParaHogarEficiente recomendacionParaHogarEficiente = new RecomendacionParaHogarEficiente(unCliente);
+        Map<DispositivoInteligente, Double> map = recomendacionParaHogarEficiente.getHorasMaximaDeConsumoPorDispositivoInteligenteQueSupereLasHorasMaximas();
+
+        Map.Entry<DispositivoInteligente,Double> entry = map.entrySet().iterator().next();
+        DispositivoInteligente key = entry.getKey();
+
+        Assert.assertEquals("Aire Acondicionado", key.getNombre());
+    }
 
     /*@Ignore
     public void testResultadoFuncionEconomicaDelCliente() {

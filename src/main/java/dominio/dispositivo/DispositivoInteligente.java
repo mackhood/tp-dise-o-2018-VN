@@ -1,5 +1,8 @@
 package dominio.dispositivo;
 
+import net.bytebuddy.dynamic.TypeResolutionStrategy;
+import org.eclipse.jetty.util.annotation.Name;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -19,6 +22,9 @@ public class DispositivoInteligente extends Dispositivo {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "idDispositivo")
 	public List<Intervalo> intervalosDeUso = new ArrayList<>();
+
+	//@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	//private Intervalo intervaloEncendido = new Intervalo();
 
 	public DispositivoInteligente(DispositivoInteligenteBuilder builder) {
 		this.nombre = builder.nombre;
@@ -61,7 +67,9 @@ public class DispositivoInteligente extends Dispositivo {
 
 			estadoDispositivo.apagar(this);
 			Intervalo i = intervalosDeUso.get(intervalosDeUso.size() - 1);
-			i.setFin(LocalDateTime.now());
+			//intervaloEncendido.setFin(LocalDateTime.now());
+			//intervalosDeUso.add(intervaloEncendido);
+			System.out.println("APAGAR");
 		}
 
 		else {
@@ -96,12 +104,21 @@ public class DispositivoInteligente extends Dispositivo {
 	public double consumoParaIntervalos(List<Intervalo> intervalos) {
 
 		// System.out.println("intervalos tamanio:" + intervalos.size());
-		return intervalos.stream().mapToDouble(i -> consumoParaIntervalo(i)).sum();
+		if(estadoDispositivo.estaEncendido())
+		{
+			return intervalos.subList(0,intervalos.size()-1).stream().mapToDouble(i -> consumoParaIntervalo(i)).sum();
+		}
+		else
+		{
+			return intervalos.stream().mapToDouble(i -> consumoParaIntervalo(i)).sum();
+
+		}
 	}
 
 	public void encender() {
 		estadoDispositivo.encender(this);
 		intervalosDeUso.add(new Intervalo(LocalDateTime.now(), null));
+		//intervaloEncendido = new Intervalo(LocalDateTime.now(),null);
 	}
 
 	public void ponerModoAhorro() {
@@ -164,8 +181,15 @@ public class DispositivoInteligente extends Dispositivo {
 
 	public Intervalo getUltimoIntervalo()
 	{
+		/*if(this.estadoDispositivo.estaEncendido())
+		{
+			return this.getIntervalosDeUso().subList(0,this.getIntervalosDeUso().size()-1).stream().max(Comparator.comparing(Intervalo::getFin)).get();
+		}
+		else
+		{
+			return this.getIntervalosDeUso().stream().max(Comparator.comparing(Intervalo::getFin)).get();
+		}*/
 		return this.getIntervalosDeUso().stream().max(Comparator.comparing(Intervalo::getFin)).get();
-
 	}
 	public double consumoUltimoIntervalo()
 	{
@@ -174,6 +198,7 @@ public class DispositivoInteligente extends Dispositivo {
 	public int getPuntos() {
 		return 15;
 	}
+	public boolean esInteligente(){return true;}
 
 
 	public static class DispositivoInteligenteBuilder {

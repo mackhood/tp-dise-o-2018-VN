@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RepositorioDispositivo {
-	// public static RepositorioDispositivo instance;
-	// List<Dispositivo> dispositivos = new ArrayList<>();
+	
 	private static RepositorioDispositivo instance = new RepositorioDispositivo();
 
 	List<DispositivoInteligente> inteligentes = new ArrayList<>();
@@ -153,5 +152,4 @@ public class RepositorioDispositivo {
 	public double coefConsumoKwhDispositivo(Dispositivo dispositivoDelCliente) {
 		return this.dispBuscadoDelRepositorio(dispositivoDelCliente).getConsumoEstimadoPorHora();
 	}
-
 }

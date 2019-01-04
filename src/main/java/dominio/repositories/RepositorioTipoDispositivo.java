@@ -42,5 +42,6 @@ public class RepositorioTipoDispositivo {
     public List<TipoDispositivo> getTipos()
     {
     	return tipos;
-    }  
+    }
+
 }

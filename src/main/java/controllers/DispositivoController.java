@@ -22,14 +22,13 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
 	public ModelAndView listarDispositivosDeCliente(Request req, Response res)
     {
         Map<String,Object> model = new HashMap<>();
-        
-        long id = ClienteManager.getInstance()
+		long id = ClienteManager.getInstance()
         		.getIdDelClientePorUsuario(RequestUtil.getSessionCurrentUser(req));
         
         if(ClienteManager.getInstance().tieneDispositivos(id))
         {
-	        List<DispositivoInteligente> dispositivos = DispositivosManager.getInstance()
-	        		.getDispositivosDeCliente(ClienteManager.getInstance().getIdDelClientePorUsuario(RequestUtil.getSessionCurrentUser(req)));
+	        List<DispositivoInteligente> dispositivos = DispositivosManager.getInstance().getDispositivosDeCliente(id);
+
 	        model.put("dispositivos",dispositivos);
 	        
 	        if (dispositivos.stream().anyMatch(d -> DispositivosManager.getInstance().tieneIntervalos(d.getId())))
