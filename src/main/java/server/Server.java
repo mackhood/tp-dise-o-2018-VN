@@ -1,13 +1,10 @@
 package server;
 
-import servicio.ServicioDeInicializacion;
-import servicio.ServicioDeInicializacion;
 import spark.Spark;
 import spark.debug.DebugScreen;
 
 public class Server {
 	public static void main(String[] args) {
-		//ServicioDeInicializacion.init();
 		Spark.port(getSparkAssignedPort());
 		DebugScreen.enableDebugScreen();
 		Router.configure();

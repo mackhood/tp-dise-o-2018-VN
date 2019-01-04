@@ -1,4 +1,4 @@
-package servicio;
+package services;
 
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;

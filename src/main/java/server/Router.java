@@ -56,10 +56,6 @@ public class Router {
 		Spark.post("/usuario/recomendacion/success", usuarioController::realizarRecomendacion, engine);
 		Spark.get("/usuario/consultaConsumoPeriodo", usuarioController :: showConsumoPeriodo, engine);
 		Spark.post("/usuario/consumoPeriodo", usuarioController::consumoPeriodo, engine);
-		//Spark.get("/usuario/consumoUltimoPeriodo", usuarioController::showConsumoUltimoPeriodo, engine);
-		Spark.get("/usuario/verDispositivosAlta", dispositivoController::listarDispositivosAlta,engine);
-		Spark.get("/usuario/altaConfirm/:id/:equipo/:detalle",dispositivoController::verAlta, engine);
-		Spark.post("/usuario/altaConfirm/:id/:equipo/:detalle/confirmed", dispositivoController::alta,engine);
 		Spark.get("/usuario/dispositivo", dispositivoController::listarDispositivosDeCliente, engine);
 		Spark.get("/usuario/dispositivo/:id", dispositivoController::consumoUltimoPeriodo, engine);
         Spark.get("/usuario/dispositivo/bajar/:id",dispositivoController::verBajar,engine);

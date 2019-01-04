@@ -111,4 +111,11 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
 				.getResultList();
 		return li.get(0);
 	}
+
+	public Boolean tieneIntervalos(long id) {
+		BigInteger cantidad = (BigInteger) entityManager()
+				.createNativeQuery("SELECT COUNT(*) FROM intervalo WHERE idDispositivo = :id")
+				.setParameter("id", id).getSingleResult();
+		return cantidad.doubleValue() > 0;
+	}
 }

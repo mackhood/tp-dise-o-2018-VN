@@ -32,16 +32,19 @@ public class UsuarioController {
     {
         return new ModelAndView(null,"usuario/recomendacion.hbs");
     }
+    
     public ModelAndView realizarRecomendacion(Request req, Response res)
     {
 
         ClienteManager.getInstance().ejecutarRecomendacionHogar(RequestUtil.getSessionCurrentUser(req));
         return new ModelAndView(null,"usuario/resRecomendacionHogar.hbs");
     }
+    
     public ModelAndView showConsumoPeriodo(Request req, Response res)
     {
         return new ModelAndView(null,"usuario/consumoPeriodo.hbs");
     }
+    
     public ModelAndView consumoPeriodo(Request req, Response res)
     {
         Map<String, Double> model = new HashMap<>();

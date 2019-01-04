@@ -19,82 +19,62 @@ import java.util.stream.Collectors;
 
 public class DispositivoController extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
-    public ModelAndView listarDispositivosDeCliente(Request req, Response res)
+	public ModelAndView listarDispositivosDeCliente(Request req, Response res)
     {
         Map<String,Object> model = new HashMap<>();
         
-        Intervalo ultimoIntervaloDeUso = ClienteManager.getInstance().ultimoIntervalo(ClienteManager.getInstance()
-        		.getIdDelClientePorUsuario(RequestUtil.getSessionCurrentUser(req)));
-        model.put("intervalo",ultimoIntervaloDeUso);
-        List<DispositivoInteligente> dispositivos = DispositivosManager.getInstance()
-        		.getDispositivosDeCliente(ClienteManager.getInstance().getIdDelClientePorUsuario(RequestUtil.getSessionCurrentUser(req)));
-        model.put("dispositivos",dispositivos);
+        long id = ClienteManager.getInstance()
+        		.getIdDelClientePorUsuario(RequestUtil.getSessionCurrentUser(req));
         
-        double consumoUltimo = DispositivosManager.getInstance().dispUltimoConsumo().consumoParaIntervalo(ultimoIntervaloDeUso);
-        model.put("consumo",consumoUltimo);
+        if(ClienteManager.getInstance().tieneDispositivos(id))
+        {
+	        List<DispositivoInteligente> dispositivos = DispositivosManager.getInstance()
+	        		.getDispositivosDeCliente(ClienteManager.getInstance().getIdDelClientePorUsuario(RequestUtil.getSessionCurrentUser(req)));
+	        model.put("dispositivos",dispositivos);
+	        
+	        if (dispositivos.stream().anyMatch(d -> DispositivosManager.getInstance().tieneIntervalos(d.getId())))
+		    {
+		        Intervalo ultimoIntervaloDeUso = ClienteManager.getInstance().ultimoIntervalo(id);
+		        model.put("intervalo",ultimoIntervaloDeUso);
+		        
+		        double consumoUltimo = DispositivosManager.getInstance().dispUltimoConsumo().consumoParaIntervalo(ultimoIntervaloDeUso);
+		        model.put("consumo",consumoUltimo);
+		    }
+        }
+        
         return new ModelAndView(model,"/usuario/dispositivo.hbs");
     }
-    public ModelAndView listarDispositivosAlta(Request req, Response res)
-    {
-        Map<String, List<DispositivoInteligente>> model = new HashMap<>();
 
-        List<DispositivoInteligente> dispositivos = DispositivosManager.getInstance().getDispositivosParaAlta();
+	public ModelAndView consumoUltimoPeriodo(Request req, Response res) {
 
-        model.put("dispositivos",dispositivos);
+		Map<String, Double> model = new HashMap<>();
+		String id = req.params("id");
+		Long idd = Long.valueOf(id).longValue();
+		model.put("consumoUltimoPeriodo", DispositivosManager.getInstance().getConsumoUltimoPeriodo((idd)));
 
-        return new ModelAndView(model,"/usuario/verDispositivosAlta.hbs");
-    }
-    public ModelAndView verAlta(Request req, Response res)
-    {
-        Map<String, String> model = new HashMap<>();
-        String equipo = req.params("equipo");
-        String detalle = req.params("detalle");
-        String id = req.params("id");
+		return new ModelAndView(model, "/usuario/consumoUltimoPeriodo.hbs");
+	}
 
-        model.put("equipo",equipo);
-		model.put("detalle", detalle);
-		model.put("id",id);
-		
-        return new ModelAndView(model,"usuario/altaConfirm.hbs");
-    }
-    public ModelAndView alta(Request req, Response res)
-    {	
-    	String id = req.params("id");
+	public ModelAndView verBajar(Request req, Response res) {
+		Map<String, DispositivoInteligente> model = new HashMap<>();
+		String id = req.params("id");
 
-        DispositivosManager.getInstance().agregarDispositivoACliente(ClienteManager.getInstance().getIdDelClientePorUsuario(RequestUtil.getSessionCurrentUser(req)), Long.parseLong(id));
-        res.redirect("/usuario");
-        return null;
-    }
+		DispositivoInteligente disp = DispositivosManager.getInstance()
+				.getDispositivoInteligenteDeLaBDPorID(Long.parseLong(id));
+		model.put("dispositivo", disp);
+		return new ModelAndView(model, "usuario/bajar.hbs");
+	}
 
-    public ModelAndView consumoUltimoPeriodo(Request req, Response res){
+	public ModelAndView bajar(Request req, Response res) {
 
-        Map<String, Double> model = new HashMap<>();
-        String id = req.params("id");
-        Long idd = Long.valueOf(id).longValue();
-        model.put("consumoUltimoPeriodo",DispositivosManager.getInstance().getConsumoUltimoPeriodo((idd)));
+		String id = req.params("id");
+		DispositivoInteligente disp = DispositivosManager.getInstance()
+				.getDispositivoInteligenteDeLaBDPorID(Long.parseLong(id));
 
-        return new ModelAndView(model,"/usuario/consumoUltimoPeriodo.hbs");
-    }
+		DispositivosManager.getInstance().borrarDispositivoInteligene(disp);
 
-    public ModelAndView verBajar(Request req, Response res)
-    {
-        Map<String, DispositivoInteligente> model = new HashMap<>();
-        String id = req.params("id");
-
-        DispositivoInteligente disp = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(Long.parseLong(id));
-        model.put("dispositivo", disp);
-        return new ModelAndView(model,"usuario/bajar.hbs");
-    }
-    public ModelAndView bajar(Request req, Response res)
-    {	
-    	
-    	String id = req.params("id");
-        DispositivoInteligente disp = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(Long.parseLong(id));
-
-        DispositivosManager.getInstance().borrarDispositivoInteligene(disp);
-
-        res.redirect("/usuario");
-        return new ModelAndView(null,"usuario/bajar.hbs");
-    }
+		res.redirect("/usuario");
+		return new ModelAndView(null, "usuario/bajar.hbs");
+	}
 
 }

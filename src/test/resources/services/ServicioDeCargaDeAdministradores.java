@@ -1,4 +1,4 @@
-package servicio;
+package services;
 
 import dominio.repositories.RepositorioAdministradores;
 import dominio.usuario.Administrador;

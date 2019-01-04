@@ -15,6 +15,8 @@ import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import reportes.ReporteConsumoPorHogar;
 
 import javax.management.Query;
+
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +41,7 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 					LocalDateTime.of(2018, 12, 14, 05, 05));
 			Intervalo i3 = new Intervalo(LocalDateTime.of(2018, 12, 11, 03, 30),
 					LocalDateTime.of(2018, 12, 11, 12, 00));
-			
+
 			List<Intervalo> li = new ArrayList<>();
 			List<Intervalo> li2 = new ArrayList<>();
 			li.add(i1);
@@ -64,8 +66,8 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 
 			dispositivosInteligentes.add(di1);
 			dispositivosInteligentes.add(di2);
-			Cliente unCliente = new Cliente("Ariel", "Galvan", "galvanariel", "password", id, domicilio,
-					42211000, dispositivosEstandares, dispositivosInteligentes);
+			Cliente unCliente = new Cliente("Ariel", "Galvan", "galvanariel", "password", id, domicilio, 42211000,
+					dispositivosEstandares, dispositivosInteligentes);
 
 			Ubicacion ubicacion = new Ubicacion(5, 2);
 			unCliente.setUbicacion(ubicacion);
@@ -207,5 +209,12 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 						+ "idDispositivo IN (SELECT idDispositivo FROM dispositivoInteligente WHERE idCliente = :id)",
 				Intervalo.class).setParameter("id", id).getResultList();
 		return li.get(0);
+	}
+
+	public Boolean tieneDispositivos(long id) {
+		BigInteger cant = (BigInteger) entityManager()
+				.createNativeQuery("SELECT COUNT(*) FROM dispositivointeligente WHERE idCliente = :id")
+				.setParameter("id", id).getSingleResult();
+		return cant.doubleValue() > 0;
 	}
 }
