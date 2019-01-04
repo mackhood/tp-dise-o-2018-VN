@@ -30,6 +30,7 @@
         <class>dominio.usuario.Domicilio</class>
 
         <class>dominio.dispositivo.DispositivoInteligente</class>
+        <class>dominio.dispositivo.TipoDispositivo</class>
         <class>dominio.actuador.Actuador</class>
         <class>dominio.actuador.OrdenSubirIntensidad</class>
         <class>dominio.actuador.OrdenApagarDI</class>

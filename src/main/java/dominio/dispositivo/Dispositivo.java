@@ -15,7 +15,9 @@ public abstract class Dispositivo {
     protected double consumoEstimadoPorHora;
     protected String equipoConcreto;
     protected double horasDeUso = 0;
-    @Enumerated
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="idTipo")
     protected TipoDispositivo tipoDispositivo;
 
     public double getRestriccionMinima() {
@@ -68,6 +70,11 @@ public abstract class Dispositivo {
     public String getEquipoConcreto() {
         return equipoConcreto;
     }
+    
+    public TipoDispositivo getTipo()
+    {
+    	return tipoDispositivo;
+    }
 
     public void setEquipoConcreto(String equipoConcreto) {
         this.equipoConcreto = equipoConcreto;
@@ -79,6 +86,11 @@ public abstract class Dispositivo {
 
     public Long getId() {
         return id;
+    }
+    
+    public void setTipo(TipoDispositivo tipo)
+    {
+    	this.tipoDispositivo = tipo;
     }
 
     public abstract void apagar();

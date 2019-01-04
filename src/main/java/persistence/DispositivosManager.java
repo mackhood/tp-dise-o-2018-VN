@@ -1,7 +1,10 @@
 package persistence;
 import dominio.repositories.RepositorioDispositivo;
+import dominio.repositories.RepositorioTipoDispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
+import dominio.dispositivo.TipoDispositivo;
+
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
@@ -19,6 +22,15 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
 		return instance;
 	}
 
+
+	public void persistirTiposDeDispositivo() {
+		withTransaction(() -> {
+			RepositorioTipoDispositivo.getInstance().getTipos().stream()
+					.forEach(t -> entityManager().persist(t));
+			entityManager().getTransaction().commit();
+		});
+	}
+	
 	public void persistirDispositivosDelRepositorio() {
 		withTransaction(() -> {
 			RepositorioDispositivo.getInstance().getEstandars().stream()
@@ -28,6 +40,12 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
 
 			entityManager().getTransaction().commit();
 		});
+	}
+	
+	public TipoDispositivo getTipoPorNombre(String nombre)
+	{
+		return entityManager().createQuery("from TipoDispositivo where nombre = :nom",TipoDispositivo.class)
+				.setParameter("nom", nombre).getSingleResult();
 	}
 
 	public DispositivoInteligente getDispositivoInteligenteDeLaBDPorID(Long id) {

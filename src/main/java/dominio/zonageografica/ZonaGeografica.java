@@ -13,7 +13,7 @@ import java.util.List;
 public class ZonaGeografica {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     protected Long id;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

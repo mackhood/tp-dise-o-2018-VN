@@ -25,7 +25,13 @@ import java.util.List;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CargarDatos extends AbstractPersistenceTest implements WithGlobalEntityManager {
-
+	
+	@Test
+	public void test0CargarTiposDeDispositivo()
+	{
+		DispositivosManager.getInstance().persistirTiposDeDispositivo();
+	}
+	
 	@Test
 	public void test2CargarCliente() {
 		ClienteManager.getInstance().persistirClienteDePrueba();
@@ -58,11 +64,11 @@ public class CargarDatos extends AbstractPersistenceTest implements WithGlobalEn
 	}
 
 	@Test
-	public void test4cargarIntervaloADispositivoID15() {
+	public void test4cargarIntervaloADispositivoID19() {
 		DispositivoInteligente di = DispositivosManager.getInstance()
-				.getDispositivoInteligenteDeLaBDPorID(new Long(15));
+				.getDispositivoInteligenteDeLaBDPorID(new Long(19));
 		LocalDateTime horaEncendido = LocalDateTime.of(2018, 6, 11, 10, 15, 30);
-		LocalDateTime horaApagado = LocalDateTime.of(2018, 6, 10, 23, 10, 20);
+		LocalDateTime horaApagado = LocalDateTime.of(2018, 6, 11, 23, 10, 20);
 		Intervalo intervalo = new Intervalo(horaEncendido, horaApagado);
 
 		entityManager().persist(intervalo);
@@ -74,11 +80,11 @@ public class CargarDatos extends AbstractPersistenceTest implements WithGlobalEn
 	}
 
 	@Test
-	public void test5cargarIntervaloADispositivoID16() {
+	public void test5cargarIntervaloADispositivoID22() {
 		DispositivoInteligente di = DispositivosManager.getInstance()
-				.getDispositivoInteligenteDeLaBDPorID(new Long(16));
+				.getDispositivoInteligenteDeLaBDPorID(new Long(22));
 		LocalDateTime horaEncendido = LocalDateTime.of(2018, 07, 15, 19, 45, 00);
-		LocalDateTime horaApagado = LocalDateTime.of(2018, 07, 15, 12, 30, 00);
+		LocalDateTime horaApagado = LocalDateTime.of(2018, 07, 15, 00, 30, 00);
 		Intervalo intervalo = new Intervalo(horaEncendido, horaApagado);
 
 		entityManager().persist(intervalo);

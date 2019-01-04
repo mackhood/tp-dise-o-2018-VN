@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class Transformador {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	protected Long id;
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Cliente> usuariosConectados = new ArrayList<>();

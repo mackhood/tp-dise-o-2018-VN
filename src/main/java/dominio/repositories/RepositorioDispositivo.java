@@ -1,6 +1,7 @@
 package dominio.repositories;
 
 import dominio.dispositivo.*;
+import persistence.DispositivosManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,38 +17,38 @@ public class RepositorioDispositivo {
 
     private RepositorioDispositivo() {
         List<Intervalo> intervalosDeUso = new ArrayList<>();
-        DispositivoInteligente aireAcondicionado3500 = new DispositivoInteligente.DispositivoInteligenteBuilder("Aire Acondicionado").equipoConcreto("De 3500 frigorias").tipoDispositivo(TipoDispositivo.AIREACONDICIONADO).consumoEstimadoPorHora(1.613).intervalosDeUso(intervalosDeUso).build();
-        DispositivoInteligente aireAcondicionado2200 = new DispositivoInteligente.DispositivoInteligenteBuilder("Aire Acondicionado").equipoConcreto("De 2200 frigorias").tipoDispositivo(TipoDispositivo.AIREACONDICIONADO).consumoEstimadoPorHora(1.013).intervalosDeUso(intervalosDeUso).build();
+        DispositivoInteligente aireAcondicionado3500 = new DispositivoInteligente.DispositivoInteligenteBuilder("Aire Acondicionado").equipoConcreto("De 3500 frigorias").tipoDispositivo(new TipoDispositivo("Aire Acondicionado",90,360)).consumoEstimadoPorHora(1.613).intervalosDeUso(intervalosDeUso).build();
+        DispositivoInteligente aireAcondicionado2200 = new DispositivoInteligente.DispositivoInteligenteBuilder("Aire Acondicionado").equipoConcreto("De 2200 frigorias").tipoDispositivo(new TipoDispositivo("Aire Acondicionado",90,360)).consumoEstimadoPorHora(1.013).intervalosDeUso(intervalosDeUso).build();
 
-        DispositivoEstandar televisorTuboFluor21 = new DispositivoEstandar.DispositivoEstandarBuilder("Televisor").equipoConcreto("Color de tubo fluorescente de 21").tipoDispositivo(TipoDispositivo.TELEVISOR).consumoEstimadoPorHora(0.075).build();
-        DispositivoEstandar televisorTuboFluor2943 = new DispositivoEstandar.DispositivoEstandarBuilder("Televisor").equipoConcreto("Color de tubo fluorescente de 29 a 34").tipoDispositivo(TipoDispositivo.TELEVISOR).consumoEstimadoPorHora(0.175).build();
-        DispositivoEstandar televisorLCD40 = new DispositivoEstandar.DispositivoEstandarBuilder("Televisor").equipoConcreto("LCD de 40").tipoDispositivo(TipoDispositivo.TELEVISOR).consumoEstimadoPorHora(0.18).build();
-        DispositivoInteligente televisorLED24 = new DispositivoInteligente.DispositivoInteligenteBuilder("Televisor").equipoConcreto("LED de 24").tipoDispositivo(TipoDispositivo.TELEVISOR).consumoEstimadoPorHora(0.04).intervalosDeUso(intervalosDeUso).build();
-        DispositivoInteligente televisorLED32 = new DispositivoInteligente.DispositivoInteligenteBuilder("Televisor").equipoConcreto("LED de 32").tipoDispositivo(TipoDispositivo.TELEVISOR).consumoEstimadoPorHora(0.055).intervalosDeUso(intervalosDeUso).build();
-        DispositivoInteligente televisorLED40 = new DispositivoInteligente.DispositivoInteligenteBuilder("Televisor").equipoConcreto("LED de 40").tipoDispositivo(TipoDispositivo.TELEVISOR).consumoEstimadoPorHora(0.08).intervalosDeUso(intervalosDeUso).build();
+        DispositivoEstandar televisorTuboFluor21 = new DispositivoEstandar.DispositivoEstandarBuilder("Televisor").equipoConcreto("Color de tubo fluorescente de 21").consumoEstimadoPorHora(0.075).build();
+        DispositivoEstandar televisorTuboFluor2943 = new DispositivoEstandar.DispositivoEstandarBuilder("Televisor").equipoConcreto("Color de tubo fluorescente de 29 a 34").consumoEstimadoPorHora(0.175).build();
+        DispositivoEstandar televisorLCD40 = new DispositivoEstandar.DispositivoEstandarBuilder("Televisor").equipoConcreto("LCD de 40").consumoEstimadoPorHora(0.18).build();
+        DispositivoInteligente televisorLED24 = new DispositivoInteligente.DispositivoInteligenteBuilder("Televisor").equipoConcreto("LED de 24").consumoEstimadoPorHora(0.04).intervalosDeUso(intervalosDeUso).build();
+        DispositivoInteligente televisorLED32 = new DispositivoInteligente.DispositivoInteligenteBuilder("Televisor").equipoConcreto("LED de 32").consumoEstimadoPorHora(0.055).intervalosDeUso(intervalosDeUso).build();
+        DispositivoInteligente televisorLED40 = new DispositivoInteligente.DispositivoInteligenteBuilder("Televisor").equipoConcreto("LED de 40").consumoEstimadoPorHora(0.08).intervalosDeUso(intervalosDeUso).build();
 
-        DispositivoInteligente heladeraConFreezer = new DispositivoInteligente.DispositivoInteligenteBuilder("Heladera").equipoConcreto("Con freezer").tipoDispositivo(TipoDispositivo.OTRO).consumoEstimadoPorHora(0.09).intervalosDeUso(intervalosDeUso).build();
-        DispositivoInteligente heladeraSinFreezer = new DispositivoInteligente.DispositivoInteligenteBuilder("Heladera").equipoConcreto("Sin freezer").tipoDispositivo(TipoDispositivo.OTRO).consumoEstimadoPorHora(0.075).intervalosDeUso(intervalosDeUso).build();
+        DispositivoInteligente heladeraConFreezer = new DispositivoInteligente.DispositivoInteligenteBuilder("Heladera").equipoConcreto("Con freezer").consumoEstimadoPorHora(0.09).intervalosDeUso(intervalosDeUso).build();
+        DispositivoInteligente heladeraSinFreezer = new DispositivoInteligente.DispositivoInteligenteBuilder("Heladera").equipoConcreto("Sin freezer").consumoEstimadoPorHora(0.075).intervalosDeUso(intervalosDeUso).build();
 
 
-        DispositivoEstandar lavarropas5kgAgua = new DispositivoEstandar.DispositivoEstandarBuilder("Lavarropas").equipoConcreto("Automatico de 5kg con calentamiento de agua").tipoDispositivo(TipoDispositivo.LAVARROPAS).consumoEstimadoPorHora(0.875).build();
-        DispositivoInteligente lavarropas5kg = new DispositivoInteligente.DispositivoInteligenteBuilder("Lavarropas").equipoConcreto("Automatico de 5kg").tipoDispositivo(TipoDispositivo.LAVARROPAS).consumoEstimadoPorHora(0.175).intervalosDeUso(intervalosDeUso).build();
-        DispositivoEstandar lavarropas5kgSemiautomatico = new DispositivoEstandar.DispositivoEstandarBuilder("Lavarropas").equipoConcreto("Semi-automatico de 5kg").tipoDispositivo(TipoDispositivo.LAVARROPAS).consumoEstimadoPorHora(0.1275).build();
+        DispositivoEstandar lavarropas5kgAgua = new DispositivoEstandar.DispositivoEstandarBuilder("Lavarropas").equipoConcreto("Automatico de 5kg con calentamiento de agua").consumoEstimadoPorHora(0.875).build();
+        DispositivoInteligente lavarropas5kg = new DispositivoInteligente.DispositivoInteligenteBuilder("Lavarropas").equipoConcreto("Automatico de 5kg").consumoEstimadoPorHora(0.175).intervalosDeUso(intervalosDeUso).build();
+        DispositivoEstandar lavarropas5kgSemiautomatico = new DispositivoEstandar.DispositivoEstandarBuilder("Lavarropas").equipoConcreto("Semi-automatico de 5kg").consumoEstimadoPorHora(0.1275).build();
 
-        DispositivoEstandar ventiladorDePie = new DispositivoEstandar.DispositivoEstandarBuilder("Ventilador").equipoConcreto("De pie").tipoDispositivo(TipoDispositivo.VENTILADOR).consumoEstimadoPorHora(0.09).build();
-        DispositivoInteligente ventiladorDeTecho = new DispositivoInteligente.DispositivoInteligenteBuilder("Ventilador").equipoConcreto("De techo").tipoDispositivo(TipoDispositivo.VENTILADOR).consumoEstimadoPorHora(0.06).intervalosDeUso(intervalosDeUso).build();
+        DispositivoEstandar ventiladorDePie = new DispositivoEstandar.DispositivoEstandarBuilder("Ventilador").equipoConcreto("De pie").consumoEstimadoPorHora(0.09).build();
+        DispositivoInteligente ventiladorDeTecho = new DispositivoInteligente.DispositivoInteligenteBuilder("Ventilador").equipoConcreto("De techo").consumoEstimadoPorHora(0.06).intervalosDeUso(intervalosDeUso).build();
 
-        DispositivoInteligente lamparaHalogena40W = new DispositivoInteligente.DispositivoInteligenteBuilder("Lampara").equipoConcreto("Halogena de 40W").tipoDispositivo(TipoDispositivo.LAMPARA).consumoEstimadoPorHora(0.04).intervalosDeUso(intervalosDeUso).build();
-        DispositivoInteligente lamparaHalogena60W = new DispositivoInteligente.DispositivoInteligenteBuilder("Lampara").equipoConcreto("Halogena de 60W").tipoDispositivo(TipoDispositivo.LAMPARA).consumoEstimadoPorHora(0.06).intervalosDeUso(intervalosDeUso).build();
-        DispositivoInteligente lamparaHalogena100W = new DispositivoInteligente.DispositivoInteligenteBuilder("Lampara").equipoConcreto("Halogena de 100W").tipoDispositivo(TipoDispositivo.LAMPARA).consumoEstimadoPorHora(0.015).intervalosDeUso(intervalosDeUso).build();
-        DispositivoInteligente lampara11W = new DispositivoInteligente.DispositivoInteligenteBuilder("Lampara").equipoConcreto("De 11W").tipoDispositivo(TipoDispositivo.LAMPARA).consumoEstimadoPorHora(0.011).intervalosDeUso(intervalosDeUso).build();
-        DispositivoInteligente lampara15W = new DispositivoInteligente.DispositivoInteligenteBuilder("Lampara").equipoConcreto("De 15W").tipoDispositivo(TipoDispositivo.LAMPARA).consumoEstimadoPorHora(0.015).intervalosDeUso(intervalosDeUso).build();
-        DispositivoInteligente lampara20W = new DispositivoInteligente.DispositivoInteligenteBuilder("Lampara").equipoConcreto("De 20W").tipoDispositivo(TipoDispositivo.LAMPARA).consumoEstimadoPorHora(0.02).intervalosDeUso(intervalosDeUso).build();
+        DispositivoInteligente lamparaHalogena40W = new DispositivoInteligente.DispositivoInteligenteBuilder("Lampara").equipoConcreto("Halogena de 40W").consumoEstimadoPorHora(0.04).intervalosDeUso(intervalosDeUso).build();
+        DispositivoInteligente lamparaHalogena60W = new DispositivoInteligente.DispositivoInteligenteBuilder("Lampara").equipoConcreto("Halogena de 60W").consumoEstimadoPorHora(0.06).intervalosDeUso(intervalosDeUso).build();
+        DispositivoInteligente lamparaHalogena100W = new DispositivoInteligente.DispositivoInteligenteBuilder("Lampara").equipoConcreto("Halogena de 100W").consumoEstimadoPorHora(0.015).intervalosDeUso(intervalosDeUso).build();
+        DispositivoInteligente lampara11W = new DispositivoInteligente.DispositivoInteligenteBuilder("Lampara").equipoConcreto("De 11W").consumoEstimadoPorHora(0.011).intervalosDeUso(intervalosDeUso).build();
+        DispositivoInteligente lampara15W = new DispositivoInteligente.DispositivoInteligenteBuilder("Lampara").equipoConcreto("De 15W").consumoEstimadoPorHora(0.015).intervalosDeUso(intervalosDeUso).build();
+        DispositivoInteligente lampara20W = new DispositivoInteligente.DispositivoInteligenteBuilder("Lampara").equipoConcreto("De 20W").consumoEstimadoPorHora(0.02).intervalosDeUso(intervalosDeUso).build();
 
-        DispositivoInteligente pc = new DispositivoInteligente.DispositivoInteligenteBuilder("PC").equipoConcreto("De escritorio").tipoDispositivo(TipoDispositivo.COMPUTADORA).consumoEstimadoPorHora(0.4).intervalosDeUso(intervalosDeUso).build();
+        DispositivoInteligente pc = new DispositivoInteligente.DispositivoInteligenteBuilder("Computadora").equipoConcreto("De escritorio").consumoEstimadoPorHora(0.4).intervalosDeUso(intervalosDeUso).build();
 
-        DispositivoEstandar microondas = new DispositivoEstandar.DispositivoEstandarBuilder("Microondas").equipoConcreto("Convencional").tipoDispositivo(TipoDispositivo.MICROONDAS).consumoEstimadoPorHora(0.64).build();
-        DispositivoEstandar plancha = new DispositivoEstandar.DispositivoEstandarBuilder("Plancha").equipoConcreto("A vapor").tipoDispositivo(TipoDispositivo.PLANCHA).consumoEstimadoPorHora(0.75).build();
+        DispositivoEstandar microondas = new DispositivoEstandar.DispositivoEstandarBuilder("Microondas").equipoConcreto("Convencional").consumoEstimadoPorHora(0.64).build();
+        DispositivoEstandar plancha = new DispositivoEstandar.DispositivoEstandarBuilder("Plancha").equipoConcreto("A vapor").consumoEstimadoPorHora(0.75).build();
 
         inteligentes.add(aireAcondicionado3500);
         inteligentes.add(aireAcondicionado2200);
@@ -73,7 +74,8 @@ public class RepositorioDispositivo {
         inteligentes.add(pc);
         estandars.add(microondas);
         estandars.add(plancha);
-
+        
+        this.asociarTipo();
     }
 
     public static RepositorioDispositivo getInstance() {
@@ -102,6 +104,11 @@ public class RepositorioDispositivo {
 
     public DispositivoEstandar traerDispositivoEstandarDeNombreConcreto(String nombre, String equipoConcreto) {
         return estandars.stream().filter(dispositivo -> nombre.equals(dispositivo.getNombre()) && equipoConcreto.equals(dispositivo.getEquipoConcreto())).collect(Collectors.toList()).get(0);
+    }
+    
+    public void asociarTipo()
+    {
+    	getTodosLosDispositivos().stream().forEach(d -> d.setTipo(DispositivosManager.getInstance().getTipoPorNombre(d.getNombre())));
     }
 
     public Dispositivo dispBuscadoDelRepositorio(Dispositivo dispositivo) {
