@@ -1,17 +1,9 @@
 package test.database;
 
-import dominio.actuador.Actuador;
-import dominio.actuador.OrdenEncenderDI;
-import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.dispositivo.Intervalo;
-import dominio.regla.Regla;
 import dominio.repositories.RepositorioDispositivo;
-import dominio.sensor.Condicion;
-import dominio.sensor.CondicionPorIgual;
-import dominio.sensor.CondicionPorMayor;
-import dominio.sensor.CondicionPorMenor;
 import dominio.usuario.*;
 import dominio.zonageografica.Ubicacion;
 import persistence.ClienteManager;

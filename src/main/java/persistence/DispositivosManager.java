@@ -1,13 +1,10 @@
 package persistence;
-
-import dominio.dispositivo.Dispositivo;
+import dominio.repositories.RepositorioDispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
-import dominio.repositories.RepositorioDispositivo;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
-import java.math.BigInteger;
 import java.util.List;
 
 public class DispositivosManager implements WithGlobalEntityManager, TransactionalOps {

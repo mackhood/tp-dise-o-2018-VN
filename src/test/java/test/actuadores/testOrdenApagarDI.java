@@ -1,16 +1,11 @@
 package test.actuadores;
 
 import dominio.actuador.OrdenApagarDI;
-import dominio.categoria.Categoria;
 import dominio.dispositivo.*;
 import dominio.repositories.RepositorioDispositivo;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.spy;

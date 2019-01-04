@@ -44,6 +44,8 @@ public class DispositivoEstandar extends Dispositivo {
         horasDeUso = horasDeUso + cantHorasEstimada;
     }
 
+    public void apagar(){;}
+
     public static class DispositivoEstandarBuilder {
 
         private final String nombre;

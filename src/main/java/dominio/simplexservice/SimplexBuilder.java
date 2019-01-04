@@ -1,15 +1,14 @@
 package dominio.simplexservice;
 
 import dominio.dispositivo.Dispositivo;
+import dominio.dispositivo.DispositivoInteligente;
 import dominio.usuario.Cliente;
 import org.apache.commons.math3.optim.MaxIter;
 import org.apache.commons.math3.optim.PointValuePair;
 import org.apache.commons.math3.optim.linear.*;
 import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class SimplexBuilder {
 
@@ -58,12 +57,22 @@ public class SimplexBuilder {
         return constraints;
     }
 
-    public double[] getHorasMaximasDeConsumoPorDispositivo() {
-        return this.solverBuild().getPoint();
+    public Map<Dispositivo,Double> getHorasMaximasDeConsumoPorDispositivo() {
+
+        Map<Dispositivo,Double> map = new HashMap<>();
+        double [] horasMaximasDeCadaDispositivo;
+        horasMaximasDeCadaDispositivo = this.solverBuild().getPoint();
+
+        for(int i = 0; i < dispositivosDelCliente.size(); i++)
+        {
+            map.put(dispositivosDelCliente.get(i),horasMaximasDeCadaDispositivo[i]);
+        }
+        return map;
     }
 
-    public double getResultadoDeLaFuncionEconomica() {
+    //A corregir
+    /*public double getResultadoDeLaFuncionEconomica() {
         LinearObjectiveFunction funcion = this.funcionEconomicaBuild();
         return funcion.value(this.getHorasMaximasDeConsumoPorDispositivo());
-    }
+    }*/
 }
