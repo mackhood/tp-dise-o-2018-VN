@@ -1,9 +1,6 @@
 package persistence;
 
-import dominio.dispositivo.DispositivoEstandar;
-import dominio.dispositivo.DispositivoInteligente;
-import dominio.dispositivo.Intervalo;
-import dominio.dispositivo.Periodo;
+import dominio.dispositivo.*;
 import dominio.simplexservice.RecomendacionParaHogarEficiente;
 import dominio.usuario.Cliente;
 import dominio.usuario.Domicilio;
@@ -36,7 +33,7 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 		withTransaction(() -> {
 
 			Intervalo i1 = new Intervalo(LocalDateTime.of(2018, 12, 18, 13, 00),
-					LocalDateTime.of(2018, 12, 18, 23, 50));
+					LocalDateTime.of(2500, 12, 18, 23, 50));
 			Intervalo i2 = new Intervalo(LocalDateTime.of(2018, 12, 14, 00, 10),
 					LocalDateTime.of(2018, 12, 14, 05, 05));
 			Intervalo i3 = new Intervalo(LocalDateTime.of(2018, 12, 11, 03, 30),
@@ -47,16 +44,22 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 			li.add(i1);
 			li.add(i2);
 			li2.add(i3);
-			DispositivoInteligente di1 = new DispositivoInteligente.DispositivoInteligenteBuilder("Tester3")
-					.equipoConcreto("Dispositivo de Testeo").consumoEstimadoPorHora((double) 0.913).intervalosDeUso(li)
-					.build();
-			di1.agregarListaIntervalos(li);
-			entityManager().persist(di1);
+			/*DispositivoInteligente di1 = new DispositivoInteligente.DispositivoInteligenteBuilder("Tester3")
+					.equipoConcreto("Dispositivo de Testeo").consumoEstimadoPorHora((double) 0.913).intervalosDeUso(li).tipoDispositivo(new TipoDispositivo("prueba",90,360))
+					.build();*/
+			DispositivoInteligente di1 = new DispositivoInteligente.DispositivoInteligenteBuilder("Dispositivo de Testeo").equipoConcreto("Test").consumoEstimadoPorHora(0.913).tipoDispositivo(TipoDispositivoManager.getInstance().getTipoDispositivoDeLaBDPorID(new Long(1))).build();
 
-			DispositivoInteligente di2 = new DispositivoInteligente.DispositivoInteligenteBuilder("Tester4")
-					.equipoConcreto("Dispositivo de Testeo").consumoEstimadoPorHora((double) 0.24).intervalosDeUso(li2)
-					.build();
+			di1.agregarListaIntervalos(li);
+			di1.encender();
+
+			entityManager().persist(di1);
+			/*DispositivoInteligente di2 = new DispositivoInteligente.DispositivoInteligenteBuilder("Tester4")
+					.equipoConcreto("Dispositivo de Testeo").consumoEstimadoPorHora((double) 0.24).intervalosDeUso(li2).tipoDispositivo(new TipoDispositivo("prueba",90,360)).build();*/
+
+			DispositivoInteligente di2 = new DispositivoInteligente.DispositivoInteligenteBuilder("Dispositivo de Testeo").equipoConcreto("Test").consumoEstimadoPorHora(0.24).tipoDispositivo(TipoDispositivoManager.getInstance().getTipoDispositivoDeLaBDPorID(new Long(1))).build();
+
 			di2.agregarListaIntervalos(li2);
+			di2.encender();
 			entityManager().persist(di2);
 
 			Domicilio domicilio = new Domicilio("Alem", 204, 9, 'B');
@@ -94,7 +97,12 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 	public void ejecutarRecomendacionHogar(String username) {
 		Cliente cliente = this.buscarClienteDeLaBDPorUsuario(username);
 		RecomendacionParaHogarEficiente recomendacionParaHogarEficiente = new RecomendacionParaHogarEficiente(cliente);
-		recomendacionParaHogarEficiente.realizarRecomendacionParaLosDispositivosInteligentes();
+		withTransaction(()->{
+			recomendacionParaHogarEficiente.realizarRecomendacionParaLosDispositivosInteligentes();
+			entityManager().persist(cliente);
+			entityManager().getTransaction().commit();
+		});
+
 	}
 
 	public Long getIdDelClientePorUsuario(String username) {
