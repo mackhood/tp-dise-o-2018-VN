@@ -1,4 +1,5 @@
 package persistence;
+
 import dominio.repositories.RepositorioDispositivo;
 import dominio.repositories.RepositorioTipoDispositivo;
 import dominio.dispositivo.DispositivoEstandar;
@@ -22,15 +23,13 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
 		return instance;
 	}
 
-
 	public void persistirTiposDeDispositivo() {
 		withTransaction(() -> {
-			RepositorioTipoDispositivo.getInstance().getTipos().stream()
-					.forEach(t -> entityManager().persist(t));
+			RepositorioTipoDispositivo.getInstance().getTipos().stream().forEach(t -> entityManager().persist(t));
 			entityManager().getTransaction().commit();
 		});
 	}
-	
+
 	public void persistirDispositivosDelRepositorio() {
 		withTransaction(() -> {
 			RepositorioDispositivo.getInstance().getEstandars().stream()
@@ -41,10 +40,9 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
 			entityManager().getTransaction().commit();
 		});
 	}
-	
-	public TipoDispositivo getTipoPorNombre(String nombre)
-	{
-		return entityManager().createQuery("from TipoDispositivo where nombre = :nom",TipoDispositivo.class)
+
+	public TipoDispositivo getTipoPorNombre(String nombre) {
+		return entityManager().createQuery("from TipoDispositivo where nombre = :nom", TipoDispositivo.class)
 				.setParameter("nom", nombre).getSingleResult();
 	}
 
@@ -64,6 +62,15 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
 		withTransaction(() -> {
 
 			entityManager().persist(di);
+			entityManager().getTransaction().commit();
+		});
+	}
+	
+	public void persistirTipoDispositivo(TipoDispositivo tipo)
+	{
+		withTransaction(() -> {
+			
+			entityManager().persist(tipo);
 			entityManager().getTransaction().commit();
 		});
 	}
@@ -120,18 +127,24 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
 	}
 
 	@SuppressWarnings("unchecked")
-	public DispositivoInteligente dispUltimoConsumo() {
-		List<DispositivoInteligente> li = entityManager()
-				.createNativeQuery("SELECT idDispositivo FROM intervalo WHERE fin = (SELECT MAX(fin) FROM intervalo)",
-						DispositivoInteligente.class)
-				.getResultList();
+	public DispositivoInteligente dispUltimoConsumo(long id) {
+		List<DispositivoInteligente> li = entityManager().createNativeQuery(
+				"SELECT idDispositivo FROM intervalo WHERE fin = (SELECT MAX(fin) FROM intervalo "
+						+ "WHERE idDispositivo IN (SELECT idDispositivo FROM dispositivointeligente WHERE idCliente = :id))",
+				DispositivoInteligente.class).setParameter("id", id).getResultList();
 		return li.get(0);
 	}
 
 	public Boolean tieneIntervalos(long id) {
 		BigInteger cantidad = (BigInteger) entityManager()
-				.createNativeQuery("SELECT COUNT(*) FROM intervalo WHERE idDispositivo = :id")
-				.setParameter("id", id).getSingleResult();
+				.createNativeQuery("SELECT COUNT(*) FROM intervalo WHERE idDispositivo = :id").setParameter("id", id)
+				.getSingleResult();
 		return cantidad.doubleValue() > 0;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<TipoDispositivo> getTipos() {
+		return entityManager().createNativeQuery("SELECT * FROM tipodispositivo", TipoDispositivo.class)
+				.getResultList();
 	}
 }

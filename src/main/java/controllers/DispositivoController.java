@@ -37,7 +37,7 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
 		        Intervalo ultimoIntervaloDeUso = ClienteManager.getInstance().ultimoIntervalo(id);
 		        model.put("intervalo",ultimoIntervaloDeUso);
 		        
-		        double consumoUltimo = DispositivosManager.getInstance().dispUltimoConsumo().consumoParaIntervalo(ultimoIntervaloDeUso);
+		        double consumoUltimo = DispositivosManager.getInstance().dispUltimoConsumo(id).consumoParaIntervalo(ultimoIntervaloDeUso);
 		        model.put("consumo",consumoUltimo);
 		    }
         }

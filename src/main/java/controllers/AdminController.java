@@ -3,6 +3,7 @@ package controllers;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.dispositivo.Intervalo;
 import dominio.dispositivo.Periodo;
+import dominio.dispositivo.TipoDispositivo;
 import dominio.repositories.RepositorioDispositivo;
 import dominio.usuario.Cliente;
 import persistence.ClienteManager;
@@ -13,6 +14,7 @@ import spark.Request;
 import spark.Response;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -144,20 +146,41 @@ public class AdminController {
 	}
 
 	public ModelAndView verAltaDispositivos(Request req, Response res) {
-		Map<String, List<DispositivoInteligente>> model = new HashMap<>();
-
-		List<DispositivoInteligente> dispositivos = RepositorioDispositivo.getInstance().getInteligentes();
-		model.put("dispositivos", dispositivos);
+		Map<String, Object> model = new HashMap<>();
+		
+		List <String> tipos = new ArrayList<>();
+		
+		DispositivosManager.getInstance().getTipos().stream().forEach(t-> tipos.add(t.getNombre()));
+		
+		model.put("tipoDisp", tipos);
 
 		return new ModelAndView(model, "/admin/dispositivosAlta.hbs");
+	}
+	
+	public ModelAndView cargarTipo(Request req, Response res)
+	{
+		return new ModelAndView(null, "/admin/cargarTipo.hbs");
+	}
+	
+	public ModelAndView confirmarTipo(Request req, Response res)
+	{
+		String nombre = req.queryParams("nombre");
+		String min = req.queryParams("minOptimo");
+		String max = req.queryParams("maxOptimo");
+		
+		TipoDispositivo nuevoTipo = new TipoDispositivo(nombre,Double.parseDouble(min),Double.parseDouble(max));
+		DispositivosManager.getInstance().persistirTipoDispositivo(nuevoTipo);
+		
+		res.redirect("/admin/dispositivosAlta");
+		return null;
 	}
 
 	public ModelAndView confirmarAlta(Request req, Response res) {
 		Map<String, String> model = new HashMap<>();
 
-		String equipo = req.params("equipo");
-		String detalle = req.params("detalle");
-		String kwh = req.params("kwh");
+		String equipo = req.queryParams("tipo");
+		String detalle = req.queryParams("detalle");
+		String kwh = req.queryParams("kwh");
 		model.put("kwh", kwh);
 		model.put("equipo", equipo);
 		model.put("detalle", detalle);
@@ -172,6 +195,7 @@ public class AdminController {
 
 		DispositivoInteligente di = new DispositivoInteligente.DispositivoInteligenteBuilder(equipo)
 				.equipoConcreto(detalle).consumoEstimadoPorHora(Double.parseDouble(kwh)).build();
+		di.setTipo(DispositivosManager.getInstance().getTipoPorNombre(equipo));
 		DispositivosManager.getInstance().persistirDispositivoInteligente(di);
 
 		res.redirect("/admin/dispositivosAlta");

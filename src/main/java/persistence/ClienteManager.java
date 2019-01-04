@@ -204,9 +204,9 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 
 	@SuppressWarnings("unchecked")
 	public Intervalo ultimoIntervalo(long id) {
-		List<Intervalo> li = entityManager().createNativeQuery(
-				"SELECT * FROM intervalo WHERE fin = (SELECT max(fin) FROM intervalo) AND "
-						+ "idDispositivo IN (SELECT idDispositivo FROM dispositivoInteligente WHERE idCliente = :id)",
+		List<Intervalo> li = entityManager().createNativeQuery("SELECT * FROM intervalo WHERE fin = "
+				+ "(SELECT max(fin) FROM intervalo WHERE idDispositivo IN "
+				+ "(SELECT idDispositivo FROM dispositivoInteligente WHERE idCliente = :id))",
 				Intervalo.class).setParameter("id", id).getResultList();
 		return li.get(0);
 	}

@@ -1,0 +1,37 @@
+{{#partial "contenido"}}
+<br>
+  
+  <h3> Cargar nuevo tipo de dispositivo </h3>
+  <br>
+  <br>
+  <form method=POST action="/admin/cargarTipo/confirmed">
+  	
+  	<div class="form-group">
+  		<label for="nombre"> Nombre: </label>
+  		<input class="form-control" type="text" name="nombre" required>
+  	</div>
+  	
+  	<div class="form-group">
+  		<label for="minOptimo"> Consumo optimo minimo: </label>
+  		<input class="form-control" type="number" min="1" step="1" name="minOptimo" required>
+  	</div>
+  	
+  	<div class="form-group">
+  		<label for="maxOptimo"> Consumo optimo maximo: </label>
+  		<input class="form-control" type="number" min="2" step="1" name="maxOptimo" required>
+  	</div>
+  	
+  	<p> NOTA: El consumo optimo maximo y minimo deben estar expresados en valores enteros </p>
+  	<br>
+  	
+  	<button class="btn btn-success" type="submit"> Confirmar </button>
+  	<a class="btn btn-danger" type="button" href="/admin/dispositivosAlta"> Regresar </a>
+  </form>
+  
+  <br>
+  <br>
+  
+  
+{{/partial}}
+
+{{>admin/adminBase.hbs}}

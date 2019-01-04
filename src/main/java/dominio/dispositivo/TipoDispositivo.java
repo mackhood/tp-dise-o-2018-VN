@@ -11,12 +11,12 @@ public class TipoDispositivo {
     
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	long id;
+	protected long id;
 	
 	@Column(unique=true)
-	String nombre;
-    double restriccionMinima;
-    double restriccionMaxima;
+	protected String nombre;
+    protected double restriccionMinima;
+    protected double restriccionMaxima;
 
     TipoDispositivo() {}
 
@@ -25,7 +25,12 @@ public class TipoDispositivo {
     	this.restriccionMinima = restriccionMinima;
         this.restriccionMaxima = restriccionMaxima;
     }
-
+    
+    public String getNombre()
+    {
+    	return nombre;
+    }
+    
     public double getRestriccionMinima() {
         return restriccionMinima;
     }
