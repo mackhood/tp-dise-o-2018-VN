@@ -17,8 +17,8 @@ public class RepositorioDispositivo {
 
     private RepositorioDispositivo() {
         List<Intervalo> intervalosDeUso = new ArrayList<>();
-        DispositivoInteligente aireAcondicionado3500 = new DispositivoInteligente.DispositivoInteligenteBuilder("Aire Acondicionado").equipoConcreto("De 3500 frigorias").tipoDispositivo(new TipoDispositivo("Aire Acondicionado",90,360)).consumoEstimadoPorHora(1.613).intervalosDeUso(intervalosDeUso).build();
-        DispositivoInteligente aireAcondicionado2200 = new DispositivoInteligente.DispositivoInteligenteBuilder("Aire Acondicionado").equipoConcreto("De 2200 frigorias").tipoDispositivo(new TipoDispositivo("Aire Acondicionado",90,360)).consumoEstimadoPorHora(1.013).intervalosDeUso(intervalosDeUso).build();
+        DispositivoInteligente aireAcondicionado3500 = new DispositivoInteligente.DispositivoInteligenteBuilder("Aire Acondicionado").equipoConcreto("De 3500 frigorias").consumoEstimadoPorHora(1.613).intervalosDeUso(intervalosDeUso).build();
+        DispositivoInteligente aireAcondicionado2200 = new DispositivoInteligente.DispositivoInteligenteBuilder("Aire Acondicionado").equipoConcreto("De 2200 frigorias").consumoEstimadoPorHora(1.013).intervalosDeUso(intervalosDeUso).build();
 
         DispositivoEstandar televisorTuboFluor21 = new DispositivoEstandar.DispositivoEstandarBuilder("Televisor").equipoConcreto("Color de tubo fluorescente de 21").consumoEstimadoPorHora(0.075).build();
         DispositivoEstandar televisorTuboFluor2943 = new DispositivoEstandar.DispositivoEstandarBuilder("Televisor").equipoConcreto("Color de tubo fluorescente de 29 a 34").consumoEstimadoPorHora(0.175).build();

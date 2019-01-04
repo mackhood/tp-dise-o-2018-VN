@@ -9,11 +9,14 @@ import org.apache.commons.math3.optim.linear.*;
 import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
 
 import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class SimplexBuilder {
 
     private final LinearConstrainFactory linearConstrainFactory = new LinearConstrainFactory();
     private List<Dispositivo> dispositivosDelCliente = new ArrayList<>();
+    private List<DispositivoInteligente> dispositivosInteligentes = new ArrayList<>();
     private VectorSimplex vectorSimplex;
     private SimplexSolver simplexSolver;
     private PointValuePair solucion;
@@ -22,6 +25,7 @@ public class SimplexBuilder {
     public SimplexBuilder(Cliente unCliente) {
 
         this.dispositivosDelCliente = unCliente.getTodosLosDispositivos();
+        this.dispositivosInteligentes = unCliente.getDispositivosInteligentes();
         vectorSimplex = new VectorSimplex(dispositivosDelCliente);
 
     }
@@ -57,15 +61,18 @@ public class SimplexBuilder {
         return constraints;
     }
 
-    public Map<Dispositivo,Double> getHorasMaximasDeConsumoPorDispositivo() {
+    public Map<DispositivoInteligente,Double> getHorasMaximasDeConsumoPorDispositivoInteligente() {
 
-        Map<Dispositivo,Double> map = new HashMap<>();
+        Map<DispositivoInteligente,Double> map = new HashMap<>();
         double [] horasMaximasDeCadaDispositivo;
         horasMaximasDeCadaDispositivo = this.solverBuild().getPoint();
 
         for(int i = 0; i < dispositivosDelCliente.size(); i++)
         {
-            map.put(dispositivosDelCliente.get(i),horasMaximasDeCadaDispositivo[i]);
+            if(dispositivosDelCliente.get(i).esInteligente())
+            {
+                map.put(dispositivosInteligentes.get(i),horasMaximasDeCadaDispositivo[i]);
+            }
         }
         return map;
     }

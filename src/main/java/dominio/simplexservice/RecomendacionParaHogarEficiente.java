@@ -4,6 +4,7 @@ import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.usuario.Cliente;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -23,9 +24,9 @@ public class RecomendacionParaHogarEficiente {
         return simplexBuilder.getResultadoDeLaFuncionEconomica();
     }*/
 
-    public Map<Dispositivo,Double> getHorasMaximaDeConsumoPorDispositivo() {
+    /*public Map<Dispositivo,Double> getHorasMaximaDeConsumoPorDispositivo() {
         return simplexBuilder.getHorasMaximasDeConsumoPorDispositivo();
-    }
+    }*/
 
 
     //Hacer metodo que apague a los dispositivos inteligentes si supera la horasMaximaDeConsumoPorDispositivo solo a los dispositivos inteligentes
@@ -40,20 +41,40 @@ public class RecomendacionParaHogarEficiente {
             }
         }*/
 
-        Map<Dispositivo,Double> map = this.getHorasMaximaDeConsumoPorDispositivoInteligenteQueSupereLasHorasMaximas();
+        Map<DispositivoInteligente,Double> map = this.getHorasMaximaDeConsumoPorDispositivoInteligenteQueSupereLasHorasMaximas();
         map.entrySet().stream().forEach(mapp -> mapp.getKey().apagar());
     }
 
-    public Map<Dispositivo,Double> getHorasMaximaDeConsumoPorDispositivoInteligente()
+    /*public Map<Dispositivo,Double> getHorasMaximaDeConsumoPorDispositivoInteligente()
     {
-        Map<Dispositivo,Double> map = this.getHorasMaximaDeConsumoPorDispositivo();
-        return map.entrySet().stream().filter(mapp -> mapp.getKey() instanceof DispositivoInteligente).collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue()));
+        Map<Dispositivo,Double> map = new HashMap<>();
+        map = this.getHorasMaximaDeConsumoPorDispositivo();
+        /*map.entrySet().stream().forEach(mapp -> {System.out.println(mapp.getKey().getNombre());
+            System.out.println(mapp.getValue());});*/
+       /* System.out.println("BUENO2");
+        return map.entrySet().stream().filter(mapp -> mapp.getKey().esInteligente()).collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue()));
 
+    }*/
+
+    public Map<DispositivoInteligente,Double> getHorasMaximaDeConsumoPorDispositivoInteligente(){
+        return simplexBuilder.getHorasMaximasDeConsumoPorDispositivoInteligente();
     }
 
-    public Map<Dispositivo,Double> getHorasMaximaDeConsumoPorDispositivoInteligenteQueSupereLasHorasMaximas()
+    public Map<DispositivoInteligente,Double> getHorasMaximaDeConsumoPorDispositivoInteligenteQueSupereLasHorasMaximas()
     {
-        Map<Dispositivo,Double> map = this.getHorasMaximaDeConsumoPorDispositivoInteligente();
+        /*
+        Map<Dispositivo,Double> map = new HashMap<>();
+        map = this.getHorasMaximaDeConsumoPorDispositivoInteligente();
+        System.out.println("supereLasHorasMaximas");
+        map.entrySet().stream().forEach(mapp -> {System.out.println(mapp.getKey().getNombre());
+            System.out.println(mapp.getValue());});
+        System.out.println("BUENO3");
+        map.entrySet().stream().forEach(mapp ->{
+            System.out.println(mapp.getValue());});
+
+        return map.entrySet().stream().filter(mapp -> mapp.getKey().getConsumoTotal() > mapp.getValue()).collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue()));
+        */
+        Map<DispositivoInteligente,Double> map = this.getHorasMaximaDeConsumoPorDispositivoInteligente();
         return map.entrySet().stream().filter(mapp -> mapp.getKey().getConsumoTotal() > mapp.getValue()).collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue()));
     }
 }

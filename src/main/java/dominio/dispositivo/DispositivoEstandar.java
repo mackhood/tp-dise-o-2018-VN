@@ -45,6 +45,7 @@ public class DispositivoEstandar extends Dispositivo {
     }
 
     public void apagar(){;}
+    public boolean esInteligente(){return false;}
 
     public static class DispositivoEstandarBuilder {
 

@@ -22,7 +22,7 @@ public class testDispositivosManager {
 
 		DispositivosManager instance = DispositivosManager.getInstance();
 
-		assertEquals(9,instance.getDispositivoInteligenteDeLaBDPorID((long) 9).getId(),0);
+		assertEquals(18,instance.getDispositivoInteligenteDeLaBDPorID((long) 18).getId(),0);
 
 	}
 
