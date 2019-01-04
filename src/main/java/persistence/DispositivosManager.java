@@ -5,6 +5,7 @@ import dominio.dispositivo.DispositivoInteligente;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+import java.math.BigInteger;
 import java.util.List;
 
 public class DispositivosManager implements WithGlobalEntityManager, TransactionalOps {
