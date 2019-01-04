@@ -80,4 +80,6 @@ public abstract class Dispositivo {
     public Long getId() {
         return id;
     }
+
+    public abstract void apagar();
 }

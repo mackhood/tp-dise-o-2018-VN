@@ -3,19 +3,14 @@ package test.web;
 import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
-import dominio.repositories.RepositorioDispositivo;
 import dominio.usuario.*;
 import persistence.ClienteManager;
-import persistence.DispositivosManager;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
-import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
-import utils.RequestUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
