@@ -139,13 +139,13 @@ public class testDispositivo {
     public void testDIEncendidoConsumoUltimas10Horas() {
     	
     	unDIEncendido.agregarIntervalo(i7);
-        assertEquals(4500.0, unDIEncendido.consumoUltimasNHoras(10));
+        assertEquals(0.0, unDIEncendido.consumoUltimasNHoras(10));
     }
     
     @Test
     public void testIntervaloCaeDentroDeOtro() {
     	
-    	assertTrue(i8.caeDentroDe(i5));
+    	assertTrue(i5.caeDentroDe(i8));
     }
     
     @Test

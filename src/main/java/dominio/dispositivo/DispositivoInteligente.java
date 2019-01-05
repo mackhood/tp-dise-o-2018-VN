@@ -67,8 +67,9 @@ public class DispositivoInteligente extends Dispositivo {
 
 			estadoDispositivo.apagar(this);
 			Intervalo i = intervalosDeUso.get(intervalosDeUso.size() - 1);
-			//intervaloEncendido.setFin(LocalDateTime.now());
-			//intervalosDeUso.add(intervaloEncendido);
+			i.setFin(LocalDateTime.now());
+			intervalosDeUso.remove(intervalosDeUso.size() -1);
+			intervalosDeUso.add(i);
 			System.out.println("APAGAR");
 		}
 
@@ -118,7 +119,6 @@ public class DispositivoInteligente extends Dispositivo {
 	public void encender() {
 		estadoDispositivo.encender(this);
 		intervalosDeUso.add(new Intervalo(LocalDateTime.now(), null));
-		//intervaloEncendido = new Intervalo(LocalDateTime.now(),null);
 	}
 
 	public void ponerModoAhorro() {
