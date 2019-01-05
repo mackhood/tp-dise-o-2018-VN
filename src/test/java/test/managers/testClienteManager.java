@@ -7,12 +7,13 @@ import dominio.usuario.Cliente;
 import dominio.usuario.Domicilio;
 import dominio.usuario.ID;
 import dominio.usuario.TiposId;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import persistence.ClienteManager;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,6 +80,13 @@ public class testClienteManager {
 		assertEquals(Cliente.class, instance.buscarClienteDeLaBDPorUsuario("galvanariel").getClass());
 
 	}
+
+	@Test
+	public void testBuscarIDDelClienteDeLaBDPorUsuario(){
+		Long num = new Long(41);
+		Assert.assertEquals(num,ClienteManager.getInstance().getIdDelClientePorUsuario("galvanariel"));
+	}
+
 
 	/*
 	 * @Test public void testGetIdCliente () { ClienteManager instance =

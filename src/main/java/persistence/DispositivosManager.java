@@ -90,7 +90,7 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
 
 	public DispositivoInteligente getDispositivoPorDetalleEquipo(String detalle) {
 		return (DispositivoInteligente) entityManager()
-				.createNativeQuery("SELECT * FROM dispositivointeligente WHERE nombreConcreto = :detalle LIMIT 1",
+				.createNativeQuery("SELECT * FROM dispositivointeligente WHERE equipoConcreto = :detalle LIMIT 1",
 						DispositivoInteligente.class)
 				.setParameter("detalle", detalle).getSingleResult();
 	}
