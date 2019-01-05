@@ -61,8 +61,7 @@ public class AdminController {
 				.getDispositivoConsumo(Long.parseLong(idCliente));
 		model.put("consumos", consumos);
 		model.put("dispositivos", dispositivosUsados);
-		List<Double> valorConsumos = ClienteManager.getInstance().auxiliarAdminConsumosWeb(consumos,
-				dispositivosUsados);
+		List<Double> valorConsumos = ClienteManager.getInstance().valorConsumosDeCliente(Long.parseLong(idCliente));
 		model.put("valores", valorConsumos);
 		return new ModelAndView(model, "/admin/consumo.hbs");
 

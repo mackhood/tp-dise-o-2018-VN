@@ -103,6 +103,7 @@ public class testSimplex {
         RecomendacionParaHogarEficiente recomendacionParaHogarEficiente = new RecomendacionParaHogarEficiente(unCliente);
         Assert.assertEquals(750, recomendacionParaHogarEficiente.getResultadoDeLaFuncionEconomica(), 10);
     }
+    
 
     @Ignore
     public void testHorasMaximasRecomendadasPorCadaDispositivoDelClienteCoincide() {

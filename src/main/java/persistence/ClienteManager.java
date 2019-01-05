@@ -44,19 +44,38 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 			li.add(i1);
 			li.add(i2);
 			li2.add(i3);
-			/*DispositivoInteligente di1 = new DispositivoInteligente.DispositivoInteligenteBuilder("Tester3")
-					.equipoConcreto("Dispositivo de Testeo").consumoEstimadoPorHora((double) 0.913).intervalosDeUso(li).tipoDispositivo(new TipoDispositivo("prueba",90,360))
-					.build();*/
-			DispositivoInteligente di1 = new DispositivoInteligente.DispositivoInteligenteBuilder("Dispositivo de Testeo").equipoConcreto("Test").consumoEstimadoPorHora(0.913).tipoDispositivo(TipoDispositivoManager.getInstance().getTipoDispositivoDeLaBDPorID(new Long(1))).build();
+			/*
+			 * DispositivoInteligente di1 = new
+			 * DispositivoInteligente.DispositivoInteligenteBuilder("Tester3")
+			 * .equipoConcreto("Dispositivo de Testeo").consumoEstimadoPorHora((double)
+			 * 0.913).intervalosDeUso(li).tipoDispositivo(new
+			 * TipoDispositivo("prueba",90,360)) .build();
+			 */
+			DispositivoInteligente di1 = new DispositivoInteligente.DispositivoInteligenteBuilder(
+					"Dispositivo de Testeo")
+							.equipoConcreto("Test").consumoEstimadoPorHora(0.913)
+							.tipoDispositivo(
+									TipoDispositivoManager.getInstance().getTipoDispositivoDeLaBDPorID(new Long(1)))
+							.build();
 
 			di1.agregarListaIntervalos(li);
 			di1.encender();
 
 			entityManager().persist(di1);
-			/*DispositivoInteligente di2 = new DispositivoInteligente.DispositivoInteligenteBuilder("Tester4")
-					.equipoConcreto("Dispositivo de Testeo").consumoEstimadoPorHora((double) 0.24).intervalosDeUso(li2).tipoDispositivo(new TipoDispositivo("prueba",90,360)).build();*/
+			/*
+			 * DispositivoInteligente di2 = new
+			 * DispositivoInteligente.DispositivoInteligenteBuilder("Tester4")
+			 * .equipoConcreto("Dispositivo de Testeo").consumoEstimadoPorHora((double)
+			 * 0.24).intervalosDeUso(li2).tipoDispositivo(new
+			 * TipoDispositivo("prueba",90,360)).build();
+			 */
 
-			DispositivoInteligente di2 = new DispositivoInteligente.DispositivoInteligenteBuilder("Dispositivo de Testeo").equipoConcreto("Test").consumoEstimadoPorHora(0.24).tipoDispositivo(TipoDispositivoManager.getInstance().getTipoDispositivoDeLaBDPorID(new Long(1))).build();
+			DispositivoInteligente di2 = new DispositivoInteligente.DispositivoInteligenteBuilder(
+					"Dispositivo de Testeo")
+							.equipoConcreto("Test").consumoEstimadoPorHora(0.24)
+							.tipoDispositivo(
+									TipoDispositivoManager.getInstance().getTipoDispositivoDeLaBDPorID(new Long(1)))
+							.build();
 
 			di2.agregarListaIntervalos(li2);
 			di2.encender();
@@ -97,7 +116,7 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 	public void ejecutarRecomendacionHogar(String username) {
 		Cliente cliente = this.buscarClienteDeLaBDPorUsuario(username);
 		RecomendacionParaHogarEficiente recomendacionParaHogarEficiente = new RecomendacionParaHogarEficiente(cliente);
-		withTransaction(()->{
+		withTransaction(() -> {
 			recomendacionParaHogarEficiente.realizarRecomendacionParaLosDispositivosInteligentes();
 			entityManager().persist(cliente);
 			entityManager().getTransaction().commit();
@@ -137,10 +156,10 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 	@SuppressWarnings("unchecked")
 	public List<Intervalo> getIntervalosDeUso(long id) {
 
-		return (List<Intervalo>) entityManager()
-				.createNativeQuery("select * from intervalo i join dispositivointeligente di"
-						+ " on i.idDispositivo = di.idDispositivo and di.idCliente = :id", Intervalo.class)
-				.setParameter("id", id).getResultList();
+		return (List<Intervalo>) entityManager().createNativeQuery(
+				"select * from intervalo i join dispositivointeligente di"
+						+ " on i.idDispositivo = di.idDispositivo and di.idCliente = :id" + " where i.fin is not null",
+				Intervalo.class).setParameter("id", id).getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -160,6 +179,14 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 			entityManager().persist(cliente);
 			entityManager().getTransaction().commit();
 		});
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Double> valorConsumosDeCliente(long id)
+	{
+		return (List<Double>) entityManager().createNativeQuery("SELECT consumoEstimadoPorHora*TIMESTAMPDIFF(HOUR,inicio,fin) FROM dispositivointeligente di " 
+				+ "JOIN intervalo i on i.idDispositivo = di.idDispositivo WHERE di.idCliente = :idc AND i.fin IS NOT NULL")
+					.setParameter("idc",id).getResultList();
 	}
 
 	public List<Double> auxiliarAdminConsumosWeb(List<Intervalo> li, List<DispositivoInteligente> ld) {
@@ -212,9 +239,9 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 
 	@SuppressWarnings("unchecked")
 	public Intervalo ultimoIntervalo(long id) {
-		List<Intervalo> li = entityManager().createNativeQuery("SELECT * FROM intervalo WHERE fin = "
-				+ "(SELECT max(fin) FROM intervalo WHERE idDispositivo IN "
-				+ "(SELECT idDispositivo FROM dispositivoInteligente WHERE idCliente = :id))",
+		List<Intervalo> li = entityManager().createNativeQuery(
+				"SELECT * FROM intervalo WHERE fin = " + "(SELECT max(fin) FROM intervalo WHERE idDispositivo IN "
+						+ "(SELECT idDispositivo FROM dispositivoInteligente WHERE idCliente = :id))",
 				Intervalo.class).setParameter("id", id).getResultList();
 		return li.get(0);
 	}
