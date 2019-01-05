@@ -24,7 +24,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class testSimplex {
+import static org.mockito.Mockito.spy;
+
+public class testIntegradoRecomendacion {
 
     DispositivoInteligente aireAcondicionado2200;
     DispositivoInteligente led40;
@@ -36,26 +38,25 @@ public class testSimplex {
 
     @Before
     public void setUp() {
-        Intervalo i1 = new Intervalo(LocalDateTime.of(2018, 10, 12, 13, 10), LocalDateTime.of(3000, 10, 12, 22, 45));
+        Intervalo i1 = spy(new Intervalo(LocalDateTime.of(2018, 10, 12, 13, 10), LocalDateTime.of(3000, 10, 12, 22, 45)));
 
-        aireAcondicionado2200 = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(new Long(19));
+        aireAcondicionado2200 = spy(DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(new Long(19)));
 
-        led40 = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(new Long(22));
+        led40 = spy(DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(new Long(22)));
 
         aireAcondicionado2200.agregarIntervalo(i1);
         aireAcondicionado2200.encender();
 
         led40.encender();
 
-
-        lavarropas5kgAgua = RepositorioDispositivo.getInstance().traerDispositivoEstandarDeNombreConcreto("Lavarropas", "Automatico de 5kg con calentamiento de agua");
+        lavarropas5kgAgua = spy(DispositivosManager.getInstance().getDispositivoEstandarDeLaDPorEquipoConcreto("Automatico de 5kg con calentamiento de agua"));
 
         estandares.add(lavarropas5kgAgua);
         inteligentes.add(aireAcondicionado2200);
         inteligentes.add(led40);
 
-        unCliente = new Cliente("Ariel", "Galvan", "galvanariel97","password", new ID(TiposId.DNI, "40130179"),
-                new Domicilio("asd", 1, 1, 'a'), 4444444, estandares, inteligentes);
+        unCliente = spy(new Cliente("Ariel", "Galvan", "galvanariel97","password", new ID(TiposId.DNI, "40130179"),
+                new Domicilio("asd", 1, 1, 'a'), 4444444, estandares, inteligentes));
 
         dispositivos.add(aireAcondicionado2200);
         dispositivos.add(led40);
@@ -98,19 +99,10 @@ public class testSimplex {
         Assert.assertEquals("Aire Acondicionado", key.getNombre());
     }
 
-    /*@Ignore
+    @Test
     public void testResultadoFuncionEconomicaDelCliente() {
         RecomendacionParaHogarEficiente recomendacionParaHogarEficiente = new RecomendacionParaHogarEficiente(unCliente);
         Assert.assertEquals(750, recomendacionParaHogarEficiente.getResultadoDeLaFuncionEconomica(), 10);
     }
-    
 
-    @Ignore
-    public void testHorasMaximasRecomendadasPorCadaDispositivoDelClienteCoincide() {
-        RecomendacionParaHogarEficiente recomendacionParaHogarEficiente = new RecomendacionParaHogarEficiente(unCliente);
-        double horasMaximasDeConsumoPorDispositivo[] = {360.0, 360.0, 30.0};
-
-        Assert.assertEquals(true, Arrays.equals(horasMaximasDeConsumoPorDispositivo, recomendacionParaHogarEficiente.getHorasMaximaDeConsumoPorDispositivo()));
-    }
-*/
 }

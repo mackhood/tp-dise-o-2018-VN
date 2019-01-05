@@ -1,5 +1,6 @@
 package test.web;
 
+import controllers.DispositivoController;
 import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
@@ -10,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
+import spark.Spark;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,22 +35,7 @@ public class testRecomendacionHogar extends AbstractPersistenceTest implements W
     public void testRecomendacion()
     {
         unCliente = ClienteManager.getInstance().buscarClienteDeLaBDPorUsuario("galvanariel");
-
-
-        //lampara11W = DispositivosManager.getInstance().getDispositivoInteligenteDeLaBDPorID(new Long(22));
-
-
-        DispositivoInteligente aireAcondicionado3500 = unCliente.getDispositivosInteligentes().get(0);
-        aireAcondicionado3500.setHorasDeUso(900);
-        aireAcondicionado3500.encender();
-
-        DispositivoInteligente lampara11W = unCliente.getDispositivosInteligentes().get(1);
-        lampara11W.encender();
-
-        entityManager().persist(aireAcondicionado3500);
-        entityManager().persist(lampara11W);
-
-
+        DispositivoController dispositivoController = new DispositivoController();
 
     }
 }

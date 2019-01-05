@@ -50,6 +50,11 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
 		return entityManager().find(DispositivoInteligente.class, id);
 	}
 
+	public DispositivoEstandar getDispositivoEstandarDeLaDPorEquipoConcreto(String unEquipoConcreto)
+	{
+		return (DispositivoEstandar) entityManager().createNativeQuery("SELECT* FROM dispositivoestandar WHERE equipoConcreto = :equipConcreto", DispositivoEstandar.class).setParameter("equipConcreto",unEquipoConcreto).getSingleResult();
+	}
+
 	public List<DispositivoInteligente> getDispositivosInteligentesDeLaBD() {
 
 		List<DispositivoInteligente> inteligentes = entityManager()

@@ -70,7 +70,6 @@ public class DispositivoInteligente extends Dispositivo {
 			i.setFin(LocalDateTime.now());
 			intervalosDeUso.remove(intervalosDeUso.size() -1);
 			intervalosDeUso.add(i);
-			System.out.println("APAGAR");
 		}
 
 		else {

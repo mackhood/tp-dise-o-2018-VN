@@ -9,8 +9,6 @@ import org.apache.commons.math3.optim.linear.*;
 import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
 
 import java.util.*;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 public class SimplexBuilder {
 
@@ -77,9 +75,8 @@ public class SimplexBuilder {
         return map;
     }
 
-    //A corregir
-    /*public double getResultadoDeLaFuncionEconomica() {
+    public double getResultadoDeLaFuncionEconomica() {
         LinearObjectiveFunction funcion = this.funcionEconomicaBuild();
-        return funcion.value(this.getHorasMaximasDeConsumoPorDispositivo());
-    }*/
+        return funcion.value(this.solverBuild().getPoint());
+    }
 }
