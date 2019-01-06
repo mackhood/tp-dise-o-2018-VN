@@ -121,5 +121,10 @@ public class Transformador {
 	public int getIdTransformador() {
 		return idTransformador;
 	}
+	
+	public long getId()
+	{
+		return id;
+	}
 
 }
