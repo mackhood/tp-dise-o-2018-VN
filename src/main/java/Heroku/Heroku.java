@@ -4,7 +4,6 @@ public class Heroku {
 
         public static void main(String[] args) {
             port(getHerokuAssignedPort());
-            get("/login", (req, res) -> "Hello Heroku World");
         }
 
         static int getHerokuAssignedPort() {

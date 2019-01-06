@@ -1,0 +1,1 @@
+web: java -jar target/tpDisenioGrupo6-1-jar-with-dependencies.jar
