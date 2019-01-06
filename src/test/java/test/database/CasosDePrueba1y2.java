@@ -3,11 +3,11 @@ package test.database;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.dispositivo.Intervalo;
-import dominio.repositories.RepositorioDispositivo;
 import dominio.usuario.*;
 import dominio.zonageografica.Ubicacion;
 import persistence.ClienteManager;
 import persistence.DispositivosManager;
+import repositories.RepositorioDispositivo;
 
 import org.junit.After;
 import org.junit.Assert;

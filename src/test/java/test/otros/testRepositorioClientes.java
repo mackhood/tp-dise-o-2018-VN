@@ -1,9 +1,10 @@
 package test.otros;
 
-import dominio.repositories.RepositorioCategoria;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.mockito.Mockito;
+
+import repositories.RepositorioCategoria;
 
 import static org.mockito.Mockito.when;
 

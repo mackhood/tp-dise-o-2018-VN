@@ -1,4 +1,4 @@
-package dominio.repositories;
+package repositories;
 
 public abstract class Repositorio {
 

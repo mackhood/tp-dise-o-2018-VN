@@ -1,9 +1,9 @@
 package test.database;
 
-import dominio.repositories.RepositorioTransformadores;
 import dominio.transformador.Transformador;
 import dominio.zonageografica.Ubicacion;
 import persistence.TransformadorManager;
+import repositories.RepositorioTransformadores;
 
 import org.junit.Before;
 import org.junit.Test;

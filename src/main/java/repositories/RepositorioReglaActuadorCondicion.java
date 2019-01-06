@@ -1,4 +1,4 @@
-package dominio.repositories;
+package repositories;
 
 
 import dominio.actuador.Actuador;

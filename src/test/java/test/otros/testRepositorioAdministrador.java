@@ -1,8 +1,9 @@
 package test.otros;
 
-import dominio.repositories.RepositorioAdministradores;
-import dominio.repositories.RepositorioTransformadores;
 import dominio.transformador.Transformador;
+import repositories.RepositorioAdministradores;
+import repositories.RepositorioTransformadores;
+
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;

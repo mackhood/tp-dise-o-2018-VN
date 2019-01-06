@@ -1,7 +1,7 @@
 package dominio.simplexservice;
 
 import dominio.dispositivo.Dispositivo;
-import dominio.repositories.RepositorioDispositivo;
+import repositories.RepositorioDispositivo;
 
 import java.util.ArrayList;
 import java.util.List;

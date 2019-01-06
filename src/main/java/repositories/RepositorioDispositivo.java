@@ -1,4 +1,4 @@
-package dominio.repositories;
+package repositories;
 
 import dominio.dispositivo.*;
 import persistence.DispositivosManager;

@@ -1,7 +1,7 @@
 package dominio.categoria;
 
-import dominio.repositories.RepositorioCategoria;
 import dominio.usuario.Cliente;
+import repositories.RepositorioCategoria;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -2,7 +2,7 @@ package test.actuadores;
 
 import dominio.actuador.OrdenSubirIntensidad;
 import dominio.dispositivo.DispositivoInteligente;
-import dominio.repositories.RepositorioDispositivo;
+import repositories.RepositorioDispositivo;
 
 import org.junit.Before;
 import org.junit.Test;

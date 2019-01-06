@@ -5,7 +5,6 @@ import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.dispositivo.Intervalo;
-import dominio.repositories.RepositorioDispositivo;
 import dominio.simplexservice.RecomendacionParaHogarEficiente;
 import dominio.simplexservice.SimplexBuilder;
 import dominio.usuario.Cliente;
@@ -17,6 +16,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import persistence.DispositivosManager;
+import repositories.RepositorioDispositivo;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
