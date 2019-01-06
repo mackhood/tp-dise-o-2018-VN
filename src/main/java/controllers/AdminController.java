@@ -53,7 +53,7 @@ public class AdminController {
 
 	public ModelAndView verConsumos(Request req, Response res) {
 		Map<String, Object> model = new HashMap<>();
-
+		
 		String idCliente = req.params("id");
 		List<Intervalo> consumos = ClienteManager.getInstance().getIntervalosDeUso(Long.parseLong(idCliente));
 
@@ -63,8 +63,22 @@ public class AdminController {
 		model.put("dispositivos", dispositivosUsados);
 		List<Double> valorConsumos = ClienteManager.getInstance().valorConsumosDeCliente(Long.parseLong(idCliente));
 		model.put("valores", valorConsumos);
-		return new ModelAndView(model, "/admin/consumo.hbs");
-
+		
+		if(!consumos.isEmpty())
+		{
+			return new ModelAndView(model, "/admin/consumo.hbs");
+		}
+		
+		else
+		{
+			res.redirect("/admin/noconsumos");
+			return null;
+		}
+	}
+	
+	public ModelAndView hogarSinConsumos(Request req,Response res)
+	{
+		return new ModelAndView(null,"/admin/usuarioSinConsumos.hbs");
 	}
 
 	public ModelAndView verReportes(Request req, Response res) {

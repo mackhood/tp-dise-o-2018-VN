@@ -61,6 +61,7 @@ public class Router {
         Spark.get("/usuario/dispositivo/bajar/:id",dispositivoController::verBajar,engine);
         Spark.post("/usuario/dispositivo/confirmarBaja/:id", dispositivoController::bajar,engine);
         Spark.get("/usuario/consumos",usuarioController::todasLasMediciones,engine);
+        Spark.get("/usuario/noconsumos",usuarioController::userSinConsumos,engine);
         
         Spark.get("/admin/hogares", adminController::seleccionarCantidad,engine);
         Spark.post("/admin/hogares", adminController::verHogares,engine);
@@ -78,7 +79,7 @@ public class Router {
 		Spark.post("/admin/cargarTipo/confirmed",adminController::confirmarTipo,engine);
 		Spark.post("/admin/dispositivosAlta", adminController::confirmarAlta,engine);
 		Spark.post("/admin/dispositivosAlta/:equipo/:detalle/:kwh/confirmed",adminController::altaConfirmada,engine);
-
+		Spark.get("/admin/noconsumos",adminController::hogarSinConsumos,engine);
 	}
 
 }

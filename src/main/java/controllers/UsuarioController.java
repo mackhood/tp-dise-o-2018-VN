@@ -70,6 +70,21 @@ public class UsuarioController {
 		model.put("dispositivos",dispositivosUsados);
 		List<Double> valorConsumos = ClienteManager.getInstance().valorConsumosDeCliente(id);
 		model.put("valores",valorConsumos);
-		return new ModelAndView(model, "/usuario/consumos.hbs");
+		
+		if(!consumos.isEmpty())
+		{
+			return new ModelAndView(model, "/usuario/consumos.hbs");
+		}
+		
+		else
+		{
+			res.redirect("/usuario/noconsumos");
+			return null;
+		}
+	}
+    
+    public ModelAndView userSinConsumos(Request req,Response res)
+    {
+    	return new ModelAndView(null,"/usuario/sinConsumos.hbs");
     }
 }
