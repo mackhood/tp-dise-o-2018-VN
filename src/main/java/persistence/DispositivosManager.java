@@ -50,9 +50,11 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
 		return entityManager().find(DispositivoInteligente.class, id);
 	}
 
-	public DispositivoEstandar getDispositivoEstandarDeLaDPorEquipoConcreto(String unEquipoConcreto)
-	{
-		return (DispositivoEstandar) entityManager().createNativeQuery("SELECT* FROM dispositivoestandar WHERE equipoConcreto = :equipConcreto", DispositivoEstandar.class).setParameter("equipConcreto",unEquipoConcreto).getSingleResult();
+	public DispositivoEstandar getDispositivoEstandarDeLaDPorEquipoConcreto(String unEquipoConcreto) {
+		return (DispositivoEstandar) entityManager()
+				.createNativeQuery("SELECT* FROM dispositivoestandar WHERE equipoConcreto = :equipConcreto",
+						DispositivoEstandar.class)
+				.setParameter("equipConcreto", unEquipoConcreto).getSingleResult();
 	}
 
 	public List<DispositivoInteligente> getDispositivosInteligentesDeLaBD() {
@@ -70,22 +72,13 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
 			entityManager().getTransaction().commit();
 		});
 	}
-	
-	public void persistirTipoDispositivo(TipoDispositivo tipo)
-	{
+
+	public void persistirTipoDispositivo(TipoDispositivo tipo) {
 		withTransaction(() -> {
-			
+
 			entityManager().persist(tipo);
 			entityManager().getTransaction().commit();
 		});
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<DispositivoInteligente> getDispositivosParaAlta() {
-		return (List<DispositivoInteligente>) entityManager()
-				.createNativeQuery("SELECT * FROM dispositivointeligente WHERE idCliente IS NULL"
-						+ " AND equipoConcreto IS NOT NULL ORDER BY Nombre ASC", DispositivoInteligente.class)
-				.getResultList();
 	}
 
 	public DispositivoInteligente getDispositivoPorDetalleEquipo(String detalle) {
@@ -134,7 +127,8 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
 	@SuppressWarnings("unchecked")
 	public DispositivoInteligente dispUltimoConsumo(long id) {
 		List<DispositivoInteligente> li = entityManager().createNativeQuery(
-				"SELECT idDispositivo FROM intervalo WHERE fin = (SELECT MAX(fin) FROM intervalo "
+				"SELECT * FROM dispositivointeligente di JOIN intervalo i ON di.idDispositivo = i.idDispositivo "
+						+ "WHERE i.fin = (SELECT MAX(fin) FROM intervalo "
 						+ "WHERE idDispositivo IN (SELECT idDispositivo FROM dispositivointeligente WHERE idCliente = :id))",
 				DispositivoInteligente.class).setParameter("id", id).getResultList();
 		return li.get(0);

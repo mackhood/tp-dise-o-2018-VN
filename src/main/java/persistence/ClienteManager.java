@@ -137,10 +137,6 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 		return reporteConsumoPorHogar.consumoDeHogarEnPeriodo(this.getIdDelClientePorUsuario(username), periodo);
 	}
 
-	public double consumoUltimoPeriodo(String username) {
-		return this.buscarClienteDeLaBDPorUsuario(username).getConsumoUltimoIntervalo();
-	}
-
 	public List<Cliente> getClientesDeLaBD() {
 
 		List<Cliente> clientes = entityManager().createQuery("from Cliente c", Cliente.class).getResultList();
