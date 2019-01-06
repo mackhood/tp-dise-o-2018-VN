@@ -1,6 +1,7 @@
 {{#partial "contenido"}}
     <form method="GET" action="/usuario/realizarRecomendacion">
         <h4>Dispositivos apagados despues de aplicar la recomendacion</h4>
+        <br>
         <table class="table table-stripped">
             <tr>
                 <th>Equipo</th>
@@ -18,8 +19,10 @@
                 </tr>
             {{/each}}
         </table>
-
     </form>
+    
+    <a class="btn btn-info" href="/usuario"> Genial! </a>
+    
 {{/partial}}
 
 {{>home/usuario.hbs}}
