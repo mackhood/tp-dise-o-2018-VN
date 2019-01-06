@@ -52,8 +52,8 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 			 * TipoDispositivo("prueba",90,360)) .build();
 			 */
 			DispositivoInteligente di1 = new DispositivoInteligente.DispositivoInteligenteBuilder(
-					"Dispositivo de Testeo")
-							.equipoConcreto("Test").consumoEstimadoPorHora(0.913)
+					"Dispositivo de Testeo1")
+							.equipoConcreto("Test1").consumoEstimadoPorHora(0.913)
 							.tipoDispositivo(
 									TipoDispositivoManager.getInstance().getTipoDispositivoDeLaBDPorID(new Long(1)))
 							.build();
@@ -71,8 +71,8 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 			 */
 
 			DispositivoInteligente di2 = new DispositivoInteligente.DispositivoInteligenteBuilder(
-					"Dispositivo de Testeo")
-							.equipoConcreto("Test").consumoEstimadoPorHora(0.24)
+					"Dispositivo de Testeo2")
+							.equipoConcreto("Test2").consumoEstimadoPorHora(0.24)
 							.tipoDispositivo(
 									TipoDispositivoManager.getInstance().getTipoDispositivoDeLaBDPorID(new Long(1)))
 							.build();
@@ -122,6 +122,12 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 			entityManager().getTransaction().commit();
 		});
 
+	}
+
+	public List<DispositivoInteligente> getDispositivosInteligentesQueSuperanLasHorasMaximas(String username){
+		Cliente cliente = this.buscarClienteDeLaBDPorUsuario(username);
+		RecomendacionParaHogarEficiente recomendacionParaHogarEficiente = new RecomendacionParaHogarEficiente(cliente);
+		return recomendacionParaHogarEficiente.getDispositivosInteligentesQueSuperanLasHorasMaximas();
 	}
 
 	public Long getIdDelClientePorUsuario(String username) {

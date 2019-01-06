@@ -16,10 +16,7 @@ import javax.jws.WebParam;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class UsuarioController {
 
@@ -36,8 +33,15 @@ public class UsuarioController {
     public ModelAndView realizarRecomendacion(Request req, Response res)
     {
 
+        Map<String,List<DispositivoInteligente>> model = new HashMap<>();
+        List<DispositivoInteligente> dispositivosApagados = new ArrayList<>();
+
         ClienteManager.getInstance().ejecutarRecomendacionHogar(RequestUtil.getSessionCurrentUser(req));
-        return new ModelAndView(null,"usuario/resRecomendacionHogar.hbs");
+        dispositivosApagados = ClienteManager.getInstance().getDispositivosInteligentesQueSuperanLasHorasMaximas(RequestUtil.getSessionCurrentUser(req));
+
+        model.put("dispositivosApagados",dispositivosApagados);
+
+        return new ModelAndView(model,"usuario/resRecomendacionHogar.hbs");
     }
     
     public ModelAndView showConsumoPeriodo(Request req, Response res)
