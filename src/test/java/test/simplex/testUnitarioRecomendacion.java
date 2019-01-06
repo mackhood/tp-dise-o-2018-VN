@@ -76,4 +76,10 @@ public class testUnitarioRecomendacion {
         RecomendacionParaHogarEficiente recomendacionParaHogarEficiente = new RecomendacionParaHogarEficiente(cliente);
         Assert.assertEquals(410.0,recomendacionParaHogarEficiente.getResultadoDeLaFuncionEconomica(),0);
     }
+    @Test
+    public void testTamanioGetDispositivosInteligentesQueSuperenLasHorasMaximas(){
+        RecomendacionParaHogarEficiente recomendacionParaHogarEficiente = new RecomendacionParaHogarEficiente(cliente);
+
+        Assert.assertEquals(2,recomendacionParaHogarEficiente.getDispositivosInteligentesQueSuperanLasHorasMaximas().size());
+    }
 }

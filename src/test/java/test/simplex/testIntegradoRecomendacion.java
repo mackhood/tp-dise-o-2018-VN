@@ -105,4 +105,5 @@ public class testIntegradoRecomendacion {
         Assert.assertEquals(750, recomendacionParaHogarEficiente.getResultadoDeLaFuncionEconomica(), 10);
     }
 
+
 }

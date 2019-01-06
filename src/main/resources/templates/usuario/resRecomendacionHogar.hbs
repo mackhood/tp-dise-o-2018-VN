@@ -1,7 +1,23 @@
 {{#partial "contenido"}}
     <form method="GET" action="/usuario/realizarRecomendacion">
-    <h4> La recomendacion fue aplicada con exito </h4>      
-    <a class="btn btn-info btn-info" role="button" href="/usuario"> Genial! </a>
+        <h4>Dispositivos apagados despues de aplicar la recomendacion</h4>
+        <table class="table table-stripped">
+            <tr>
+                <th>Equipo</th>
+                <th>Detalle</th>
+                <th>Consumo (KwH)</th>
+
+            </tr>
+
+            {{#each dispositivosApagados}}
+                <tr>
+                    <td>{{nombre}}</td>
+                    <td>{{equipoConcreto}}</td>
+                    <td>{{consumoEstimadoPorHora}}</td>
+
+                </tr>
+            {{/each}}
+        </table>
 
     </form>
 {{/partial}}
