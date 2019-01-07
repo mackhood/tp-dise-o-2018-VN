@@ -140,6 +140,12 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
 				.getSingleResult();
 		return cantidad.doubleValue() > 0;
 	}
+	
+	public Boolean estaEncendido(long id)
+	{
+		return entityManager().createNativeQuery("SELECT estadoDispositivo FROM dispositivointeligente WHERE idDispositivo = :id")
+				.setParameter("id",id).getSingleResult().equals("ENCENDIDO");
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<TipoDispositivo> getTipos() {

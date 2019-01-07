@@ -34,12 +34,13 @@ public class UsuarioController {
     {
 
         Map<String,List<DispositivoInteligente>> model = new HashMap<>();
-        List<DispositivoInteligente> dispositivosApagados = new ArrayList<>();
+        List<DispositivoInteligente> dispositivosExcedidos = new ArrayList<>();
+
+        dispositivosExcedidos = ClienteManager.getInstance().getDispositivosExcedidos(RequestUtil.getSessionCurrentUser(req));
 
         ClienteManager.getInstance().ejecutarRecomendacionHogar(RequestUtil.getSessionCurrentUser(req));
-        dispositivosApagados = ClienteManager.getInstance().getDispositivosInteligentesQueSuperanLasHorasMaximas(RequestUtil.getSessionCurrentUser(req));
-
-        model.put("dispositivosApagados",dispositivosApagados);
+       
+        model.put("dispositivosApagados",dispositivosExcedidos);
 
         return new ModelAndView(model,"usuario/resRecomendacionHogar.hbs");
     }

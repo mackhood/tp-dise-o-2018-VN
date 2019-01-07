@@ -179,4 +179,10 @@ public class testClienteManager {
 		assertEquals(LocalDateTime.of(2018, 10, 13, 01, 45, 00),
 				instance.ultimoIntervalo(instance.getIdDelClientePorUsuario("fernandosierra9")).getFin().plusHours(3));
 	}
+	
+	@Test
+	public void testDispositivosExcedidos()
+	{
+		assertEquals(1,instance.getDispositivosExcedidos("galvanariel").size());
+	}
 }
