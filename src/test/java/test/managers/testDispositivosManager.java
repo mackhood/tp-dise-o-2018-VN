@@ -98,4 +98,10 @@ public class testDispositivosManager {
 		assertEquals("Aire Acondicionado",
 				TipoDispositivoManager.getInstance().getTipoDispositivoDeLaBDPorID((long) 1).getNombre());
 	}
+	
+	@Test
+	public void testEstaEncendido()
+	{
+		assertTrue(instance.estaEncendido(instance.getDispositivoInteligenteDeLaBDPorID((long) 38).getId()));
+	}
 }

@@ -25,8 +25,6 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
 		long id = ClienteManager.getInstance()
         		.getIdDelClientePorUsuario(RequestUtil.getSessionCurrentUser(req));
         
-        if(ClienteManager.getInstance().tieneDispositivos(id))
-        {
 	        List<DispositivoInteligente> dispositivos = DispositivosManager.getInstance().getDispositivosDeCliente(id);
 
 	        model.put("dispositivos",dispositivos);
@@ -39,8 +37,7 @@ public class DispositivoController extends AbstractPersistenceTest implements Wi
 		        double consumoUltimo = DispositivosManager.getInstance().dispUltimoConsumo(id).consumoParaIntervalo(ultimoIntervaloDeUso);
 		        model.put("consumo",consumoUltimo);
 		    }
-        }
-        
+	        
         return new ModelAndView(model,"/usuario/dispositivo.hbs");
     }
 

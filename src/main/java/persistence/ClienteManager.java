@@ -17,6 +17,7 @@ import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ClienteManager implements WithGlobalEntityManager, TransactionalOps {
 
@@ -124,10 +125,13 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 
 	}
 
-	public List<DispositivoInteligente> getDispositivosInteligentesQueSuperanLasHorasMaximas(String username){
+	public List<DispositivoInteligente> getDispositivosExcedidos(String username) {
 		Cliente cliente = this.buscarClienteDeLaBDPorUsuario(username);
 		RecomendacionParaHogarEficiente recomendacionParaHogarEficiente = new RecomendacionParaHogarEficiente(cliente);
-		return recomendacionParaHogarEficiente.getDispositivosInteligentesQueSuperanLasHorasMaximas();
+		List<DispositivoInteligente> dispositivosExcedidos = recomendacionParaHogarEficiente
+				.getDispositivosInteligentesQueSuperanLasHorasMaximas();
+		return dispositivosExcedidos.stream().filter(d -> DispositivosManager.getInstance().estaEncendido(d.getId()))
+				.collect(Collectors.toList());
 	}
 
 	public Long getIdDelClientePorUsuario(String username) {
@@ -184,11 +188,11 @@ public class ClienteManager implements WithGlobalEntityManager, TransactionalOps
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Double> valorConsumosDeCliente(long id)
-	{
-		return (List<Double>) entityManager().createNativeQuery("SELECT consumoEstimadoPorHora*TIMESTAMPDIFF(HOUR,inicio,fin) FROM dispositivointeligente di " 
-				+ "JOIN intervalo i on i.idDispositivo = di.idDispositivo WHERE di.idCliente = :idc AND i.fin IS NOT NULL")
-					.setParameter("idc",id).getResultList();
+	public List<Double> valorConsumosDeCliente(long id) {
+		return (List<Double>) entityManager().createNativeQuery(
+				"SELECT consumoEstimadoPorHora*TIMESTAMPDIFF(HOUR,inicio,fin) FROM dispositivointeligente di "
+						+ "JOIN intervalo i on i.idDispositivo = di.idDispositivo WHERE di.idCliente = :idc AND i.fin IS NOT NULL")
+				.setParameter("idc", id).getResultList();
 	}
 
 	public List<Double> auxiliarAdminConsumosWeb(List<Intervalo> li, List<DispositivoInteligente> ld) {
