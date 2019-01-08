@@ -59,7 +59,6 @@
     "nombre": "R9",
     "consumoMinimo": 1401,
     "consumoMaximo": null,
-    //Validar que si viene null no compare por el maximo
     "cargoFijo": 887.19,
     "cargoVariable": 0.851
   }
