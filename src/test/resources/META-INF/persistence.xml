@@ -9,8 +9,9 @@
 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
+
         <class>dominio.dispositivo.Intervalo</class>
-		<class>dominio.dispositivo.Periodo</class>
+
         <class>dominio.usuario.Administrador</class>
         <class>dominio.sensor.Sensor</class>
         <class>dominio.sensor.Medicion</class>
@@ -31,23 +32,23 @@
         <class>dominio.dispositivo.DispositivoInteligente</class>
         <class>dominio.dispositivo.TipoDispositivo</class>
         <class>dominio.actuador.Actuador</class>
-        <class>dominio.dispositivo.DispositivoEstandar</class>
-        <class>dominio.dispositivo.Dispositivo</class>
-        <class>dominio.zonageografica.ZonaGeografica</class>
         <class>dominio.actuador.OrdenSubirIntensidad</class>
         <class>dominio.actuador.OrdenApagarDI</class>
         <class>dominio.actuador.OrdenPonerModoAhorro</class>
         <class>dominio.actuador.OrdenEncenderDI</class>
-
-
+        <class>dominio.dispositivo.DispositivoEstandar</class>
+        <class>dominio.dispositivo.Dispositivo</class>
+        <class>dominio.zonageografica.ZonaGeografica</class>
+		<class>dominio.dispositivo.Periodo</class>
+	
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
 
 
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/tp3?serverTimezone=UTC"/>
-            <property name="hibernate.connection.username" value="root"/>
-            <property name="hibernate.connection.password" value="1234"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://us-cdbr-iron-east-01.cleardb.net/heroku_e8495303fce0c3a?reconnect=true"/>
+            <property name="hibernate.connection.username" value="b2f01ea4781db5"/>
+            <property name="hibernate.connection.password" value="6565d3c5"/>
 
             <!--property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver" />
             <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:app-database" />

@@ -1,0 +1,559 @@
+-- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
+--
+-- Host: localhost    Database: tp3
+-- ------------------------------------------------------
+-- Server version	8.0.12
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+ SET NAMES utf8mb4 ;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `actuador`
+--
+
+DROP TABLE IF EXISTS `actuador`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `actuador` (
+  `Tipo` varchar(31) NOT NULL,
+  `id` bigint(20) NOT NULL,
+  `dispositivo_idDispositivo` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKqi36yr3kv5fj5j2fi8laqyk9j` (`dispositivo_idDispositivo`),
+  CONSTRAINT `FKqi36yr3kv5fj5j2fi8laqyk9j` FOREIGN KEY (`dispositivo_idDispositivo`) REFERENCES `dispositivointeligente` (`iddispositivo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `actuador`
+--
+
+LOCK TABLES `actuador` WRITE;
+/*!40000 ALTER TABLE `actuador` DISABLE KEYS */;
+/*!40000 ALTER TABLE `actuador` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `administrador`
+--
+
+DROP TABLE IF EXISTS `administrador`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `administrador` (
+  `idAdministrador` bigint(20) NOT NULL,
+  `apellido` varchar(255) DEFAULT NULL,
+  `contrasenia` varchar(255) DEFAULT NULL,
+  `Altura` int(11) DEFAULT NULL,
+  `Calle` varchar(100) DEFAULT NULL,
+  `departamento` char(1) NOT NULL,
+  `piso` int(11) NOT NULL,
+  `fechaAlta` date DEFAULT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
+  `numId` bigint(20) NOT NULL,
+  `usuario` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`idAdministrador`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `administrador`
+--
+
+LOCK TABLES `administrador` WRITE;
+/*!40000 ALTER TABLE `administrador` DISABLE KEYS */;
+/*!40000 ALTER TABLE `administrador` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `categoria`
+--
+
+DROP TABLE IF EXISTS `categoria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `categoria` (
+  `id` bigint(20) NOT NULL,
+  `cargoFijo` double DEFAULT NULL,
+  `cargoVariable` double DEFAULT NULL,
+  `consumoMaximo` int(11) DEFAULT NULL,
+  `consumoMinimo` int(11) DEFAULT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categoria`
+--
+
+LOCK TABLES `categoria` WRITE;
+/*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
+/*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cliente`
+--
+
+DROP TABLE IF EXISTS `cliente`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `cliente` (
+  `idCliente` bigint(20) NOT NULL,
+  `ahorroAutomatico` bit(1) NOT NULL,
+  `apellido` varchar(50) DEFAULT NULL,
+  `contrasenia` varchar(50) DEFAULT NULL,
+  `Altura` int(11) DEFAULT NULL,
+  `Calle` varchar(100) DEFAULT NULL,
+  `departamento` char(1) NOT NULL,
+  `piso` int(11) NOT NULL,
+  `fechaDeAlta` date DEFAULT NULL,
+  `numeroID` varchar(150) DEFAULT NULL,
+  `tipoID` varchar(255) DEFAULT NULL,
+  `Nombre` varchar(100) NOT NULL,
+  `telefono` bigint(20) NOT NULL,
+  `usuario` varchar(50) DEFAULT NULL,
+  `categoria_id` bigint(20) DEFAULT NULL,
+  `transformador_id` bigint(20) DEFAULT NULL,
+  `ubicacion_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`idCliente`),
+  KEY `FKecgopocbffjo3vxskhu09us5h` (`categoria_id`),
+  KEY `FKng89vjir8kp0lhudm6x14yvu` (`transformador_id`),
+  KEY `FK7n6hvs0vyo6n5ob2llkareks3` (`ubicacion_id`),
+  CONSTRAINT `FK7n6hvs0vyo6n5ob2llkareks3` FOREIGN KEY (`ubicacion_id`) REFERENCES `ubicacion` (`id`),
+  CONSTRAINT `FKecgopocbffjo3vxskhu09us5h` FOREIGN KEY (`categoria_id`) REFERENCES `categoria` (`id`),
+  CONSTRAINT `FKng89vjir8kp0lhudm6x14yvu` FOREIGN KEY (`transformador_id`) REFERENCES `transformador` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cliente`
+--
+
+LOCK TABLES `cliente` WRITE;
+/*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `condicion`
+--
+
+DROP TABLE IF EXISTS `condicion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `condicion` (
+  `Tipo_Condicion` varchar(31) NOT NULL,
+  `id` bigint(20) NOT NULL,
+  `medicionActual` double NOT NULL,
+  `tipo` varchar(255) DEFAULT NULL,
+  `valorLimite` double NOT NULL,
+  `regla_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKm9q1vlpkrva552rp8i37syxbd` (`regla_id`),
+  CONSTRAINT `FKm9q1vlpkrva552rp8i37syxbd` FOREIGN KEY (`regla_id`) REFERENCES `regla` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `condicion`
+--
+
+LOCK TABLES `condicion` WRITE;
+/*!40000 ALTER TABLE `condicion` DISABLE KEYS */;
+/*!40000 ALTER TABLE `condicion` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `dispositivoestandar`
+--
+
+DROP TABLE IF EXISTS `dispositivoestandar`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `dispositivoestandar` (
+  `idDispositivo` bigint(20) NOT NULL,
+  `consumoEstimadoPorHora` double NOT NULL,
+  `equipoConcreto` varchar(255) DEFAULT NULL,
+  `horasDeUso` double NOT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
+  `idTipo` bigint(20) DEFAULT NULL,
+  `idCliente` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`idDispositivo`),
+  KEY `FK37hewdh3i8umaxcfvl53efhvb` (`idCliente`),
+  KEY `FK_936y8ymqr7q7enuuobces5gjr` (`idTipo`),
+  CONSTRAINT `FK37hewdh3i8umaxcfvl53efhvb` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idcliente`),
+  CONSTRAINT `FK_936y8ymqr7q7enuuobces5gjr` FOREIGN KEY (`idTipo`) REFERENCES `tipodispositivo` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `dispositivoestandar`
+--
+
+LOCK TABLES `dispositivoestandar` WRITE;
+/*!40000 ALTER TABLE `dispositivoestandar` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dispositivoestandar` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `dispositivointeligente`
+--
+
+DROP TABLE IF EXISTS `dispositivointeligente`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `dispositivointeligente` (
+  `idDispositivo` bigint(20) NOT NULL,
+  `consumoEstimadoPorHora` double NOT NULL,
+  `equipoConcreto` varchar(255) DEFAULT NULL,
+  `horasDeUso` double NOT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
+  `idTipo` bigint(20) DEFAULT NULL,
+  `estadoDispositivo` varchar(255) DEFAULT NULL,
+  `idCliente` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`idDispositivo`),
+  KEY `FKhabgo8c765po2q198qoirhak3` (`idCliente`),
+  KEY `FK_b3i8sip6r8dcw8h8p8m4euakv` (`idTipo`),
+  CONSTRAINT `FK_b3i8sip6r8dcw8h8p8m4euakv` FOREIGN KEY (`idTipo`) REFERENCES `tipodispositivo` (`id`),
+  CONSTRAINT `FKhabgo8c765po2q198qoirhak3` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idcliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `dispositivointeligente`
+--
+
+LOCK TABLES `dispositivointeligente` WRITE;
+/*!40000 ALTER TABLE `dispositivointeligente` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dispositivointeligente` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hibernate_sequence`
+--
+
+DROP TABLE IF EXISTS `hibernate_sequence`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `hibernate_sequence` (
+  `next_val` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hibernate_sequence`
+--
+
+LOCK TABLES `hibernate_sequence` WRITE;
+/*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
+INSERT INTO `hibernate_sequence` VALUES (1),(1),(1),(1),(1),(1),(1),(1),(1),(1),(1),(1),(1),(1);
+/*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `intervalo`
+--
+
+DROP TABLE IF EXISTS `intervalo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `intervalo` (
+  `idIntervalo` bigint(20) NOT NULL,
+  `fin` datetime(6) DEFAULT NULL,
+  `inicio` datetime(6) DEFAULT NULL,
+  `idDispositivo` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`idIntervalo`),
+  KEY `FK28uwgka3gmlo3cj5jxvyhq19k` (`idDispositivo`),
+  CONSTRAINT `FK28uwgka3gmlo3cj5jxvyhq19k` FOREIGN KEY (`idDispositivo`) REFERENCES `dispositivointeligente` (`iddispositivo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `intervalo`
+--
+
+LOCK TABLES `intervalo` WRITE;
+/*!40000 ALTER TABLE `intervalo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `intervalo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `periodos`
+--
+
+DROP TABLE IF EXISTS `periodos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `periodos` (
+  `idPeriodo` bigint(20) NOT NULL,
+  `fechaFin` datetime(6) DEFAULT NULL,
+  `fechaInicio` datetime(6) DEFAULT NULL,
+  `disp_idDispositivo` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`idPeriodo`),
+  KEY `FKpeahd7f7t402tu3quapd2x3h0` (`disp_idDispositivo`),
+  CONSTRAINT `FKpeahd7f7t402tu3quapd2x3h0` FOREIGN KEY (`disp_idDispositivo`) REFERENCES `dispositivointeligente` (`iddispositivo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `periodos`
+--
+
+LOCK TABLES `periodos` WRITE;
+/*!40000 ALTER TABLE `periodos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `periodos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `regla`
+--
+
+DROP TABLE IF EXISTS `regla`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `regla` (
+  `id` bigint(20) NOT NULL,
+  `actuador_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKf7b175lfof41xk2rbvbigrk4o` (`actuador_id`),
+  CONSTRAINT `FKf7b175lfof41xk2rbvbigrk4o` FOREIGN KEY (`actuador_id`) REFERENCES `actuador` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `regla`
+--
+
+LOCK TABLES `regla` WRITE;
+/*!40000 ALTER TABLE `regla` DISABLE KEYS */;
+/*!40000 ALTER TABLE `regla` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `regla_condicion`
+--
+
+DROP TABLE IF EXISTS `regla_condicion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `regla_condicion` (
+  `Regla_id` bigint(20) NOT NULL,
+  `condicionesACumplir_id` bigint(20) NOT NULL,
+  UNIQUE KEY `UK_ekmndii2xmdi18md3vf63972t` (`condicionesACumplir_id`),
+  KEY `FK4luup4dc82dlehpclpbo30fxi` (`Regla_id`),
+  CONSTRAINT `FK4luup4dc82dlehpclpbo30fxi` FOREIGN KEY (`Regla_id`) REFERENCES `regla` (`id`),
+  CONSTRAINT `FKcmvj42xgpq9ik372dm65xnxo` FOREIGN KEY (`condicionesACumplir_id`) REFERENCES `condicion` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `regla_condicion`
+--
+
+LOCK TABLES `regla_condicion` WRITE;
+/*!40000 ALTER TABLE `regla_condicion` DISABLE KEYS */;
+/*!40000 ALTER TABLE `regla_condicion` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sensor`
+--
+
+DROP TABLE IF EXISTS `sensor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `sensor` (
+  `id` bigint(20) NOT NULL,
+  `tipoMedicion` varchar(255) DEFAULT NULL,
+  `valor` double NOT NULL,
+  `regla_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK2sv2akktf1fj0a1qb7f0m5pye` (`regla_id`),
+  CONSTRAINT `FK2sv2akktf1fj0a1qb7f0m5pye` FOREIGN KEY (`regla_id`) REFERENCES `regla` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sensor`
+--
+
+LOCK TABLES `sensor` WRITE;
+/*!40000 ALTER TABLE `sensor` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sensor` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tipodispositivo`
+--
+
+DROP TABLE IF EXISTS `tipodispositivo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `tipodispositivo` (
+  `id` bigint(20) NOT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
+  `restriccionMaxima` double NOT NULL,
+  `restriccionMinima` double NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_i3y7oavxhxky5wvvk2jxvwjm8` (`nombre`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tipodispositivo`
+--
+
+LOCK TABLES `tipodispositivo` WRITE;
+/*!40000 ALTER TABLE `tipodispositivo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tipodispositivo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `transformador`
+--
+
+DROP TABLE IF EXISTS `transformador`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `transformador` (
+  `id` bigint(20) NOT NULL,
+  `idTransformador` int(11) NOT NULL,
+  `ubicacion_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK2nsbgribsgj0vlc49euexm0s2` (`ubicacion_id`),
+  CONSTRAINT `FK2nsbgribsgj0vlc49euexm0s2` FOREIGN KEY (`ubicacion_id`) REFERENCES `ubicacion` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `transformador`
+--
+
+LOCK TABLES `transformador` WRITE;
+/*!40000 ALTER TABLE `transformador` DISABLE KEYS */;
+/*!40000 ALTER TABLE `transformador` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `transformador_cliente`
+--
+
+DROP TABLE IF EXISTS `transformador_cliente`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `transformador_cliente` (
+  `Transformador_id` bigint(20) NOT NULL,
+  `usuariosConectados_idCliente` bigint(20) NOT NULL,
+  UNIQUE KEY `UK_132uin561dly0034uxtuormt9` (`usuariosConectados_idCliente`),
+  KEY `FKrfty4ybdynjwoo944dy9jykay` (`Transformador_id`),
+  CONSTRAINT `FK16l51awujafrxup6v4bex319g` FOREIGN KEY (`usuariosConectados_idCliente`) REFERENCES `cliente` (`idcliente`),
+  CONSTRAINT `FKrfty4ybdynjwoo944dy9jykay` FOREIGN KEY (`Transformador_id`) REFERENCES `transformador` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `transformador_cliente`
+--
+
+LOCK TABLES `transformador_cliente` WRITE;
+/*!40000 ALTER TABLE `transformador_cliente` DISABLE KEYS */;
+/*!40000 ALTER TABLE `transformador_cliente` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ubicacion`
+--
+
+DROP TABLE IF EXISTS `ubicacion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `ubicacion` (
+  `id` bigint(20) NOT NULL,
+  `PosicionX` double NOT NULL,
+  `PosicionY` double NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ubicacion`
+--
+
+LOCK TABLES `ubicacion` WRITE;
+/*!40000 ALTER TABLE `ubicacion` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ubicacion` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `zonageografica`
+--
+
+DROP TABLE IF EXISTS `zonageografica`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `zonageografica` (
+  `id` bigint(20) NOT NULL,
+  `descripcion` varchar(100) DEFAULT NULL,
+  `radio` double DEFAULT NULL,
+  `ubicacion_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK5bb009vh6j3sytqpopx2mf6tx` (`ubicacion_id`),
+  CONSTRAINT `FK5bb009vh6j3sytqpopx2mf6tx` FOREIGN KEY (`ubicacion_id`) REFERENCES `ubicacion` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `zonageografica`
+--
+
+LOCK TABLES `zonageografica` WRITE;
+/*!40000 ALTER TABLE `zonageografica` DISABLE KEYS */;
+/*!40000 ALTER TABLE `zonageografica` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `zonageografica_transformador`
+--
+
+DROP TABLE IF EXISTS `zonageografica_transformador`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `zonageografica_transformador` (
+  `ZonaGeografica_id` bigint(20) NOT NULL,
+  `transformadores_id` bigint(20) NOT NULL,
+  UNIQUE KEY `UK_sw9stareqabuu1s4t4fog7ccg` (`transformadores_id`),
+  KEY `FKbd86ajpl3a2a6sjrqujasl3k8` (`ZonaGeografica_id`),
+  CONSTRAINT `FKbd86ajpl3a2a6sjrqujasl3k8` FOREIGN KEY (`ZonaGeografica_id`) REFERENCES `zonageografica` (`id`),
+  CONSTRAINT `FKcvhav4bh85a37hj0a63qeh7br` FOREIGN KEY (`transformadores_id`) REFERENCES `transformador` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `zonageografica_transformador`
+--
+
+LOCK TABLES `zonageografica_transformador` WRITE;
+/*!40000 ALTER TABLE `zonageografica_transformador` DISABLE KEYS */;
+/*!40000 ALTER TABLE `zonageografica_transformador` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-01-08 21:44:10
