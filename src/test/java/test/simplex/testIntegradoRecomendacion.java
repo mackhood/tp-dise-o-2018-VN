@@ -16,7 +16,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import persistence.DispositivosManager;
-import repositories.RepositorioDispositivo;
+import datos.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

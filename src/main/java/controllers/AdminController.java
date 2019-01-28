@@ -8,7 +8,6 @@ import dominio.usuario.Cliente;
 import persistence.ClienteManager;
 import persistence.DispositivosManager;
 import reportes.ReporteConsumoPorHogar;
-import repositories.RepositorioDispositivo;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;

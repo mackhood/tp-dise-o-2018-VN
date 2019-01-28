@@ -7,7 +7,7 @@ import dominio.usuario.*;
 import dominio.zonageografica.Ubicacion;
 import persistence.ClienteManager;
 import persistence.DispositivosManager;
-import repositories.RepositorioDispositivo;
+import datos.*;
 
 import org.junit.After;
 import org.junit.Assert;

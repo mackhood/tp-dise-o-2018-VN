@@ -2,7 +2,7 @@ package test.actuadores;
 
 import dominio.actuador.OrdenPonerModoAhorro;
 import dominio.dispositivo.DispositivoInteligente;
-import repositories.RepositorioDispositivo;
+import datos.*;
 
 import org.junit.Before;
 import org.junit.Test;

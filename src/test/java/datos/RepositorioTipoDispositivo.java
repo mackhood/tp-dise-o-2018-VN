@@ -1,11 +1,14 @@
-package repositories;
+package datos;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+
 import dominio.dispositivo.TipoDispositivo;
 
-public class RepositorioTipoDispositivo {
+public class RepositorioTipoDispositivo implements WithGlobalEntityManager, TransactionalOps {
 
     private static RepositorioTipoDispositivo instance = new RepositorioTipoDispositivo();
     
@@ -27,6 +30,7 @@ public class RepositorioTipoDispositivo {
     	TipoDispositivo computadora = new TipoDispositivo("Computadora",60,360);
     	TipoDispositivo microondas = new TipoDispositivo("Microondas",3,15);
     	TipoDispositivo plancha = new TipoDispositivo("Plancha",3,30);
+    	TipoDispositivo otros = new TipoDispositivo("Otros",0,0);
     	
     	tipos.add(aireAcondicionado);
     	tipos.add(televisor);
@@ -37,11 +41,19 @@ public class RepositorioTipoDispositivo {
     	tipos.add(computadora);
     	tipos.add(microondas);
     	tipos.add(plancha);
+    	tipos.add(otros);
     }
     
     public List<TipoDispositivo> getTipos()
     {
     	return tipos;
     }
+    
+	public void persistirTiposDeDispositivo() {
+		withTransaction(() -> {
+			this.getTipos().stream().forEach(t -> entityManager().persist(t));
+			entityManager().getTransaction().commit();
+		});
+	}
 
 }

@@ -24,21 +24,7 @@ public class AdministradorManager implements WithGlobalEntityManager, Transactio
 	public static persistence.AdministradorManager getInstance() {
 		return instance;
 	}
-
-	public void persistirAdminDePrueba() {
-		withTransaction(() -> {
-			Domicilio domicilio = new Domicilio("Jean Jaures", 905, 4, 'D');
-
-			Administrador unAdministrador = new Administrador("German", "Jugo", LocalDate.of(2016, 5, 18), "gerjor",
-					"1234");
-
-			unAdministrador.setDomicilio(domicilio);
-
-			entityManager().persist(unAdministrador);
-			entityManager().getTransaction().commit();
-		});
-	}
-
+	
 	public Administrador getAdministradorDeLaBDPorUsuario(String username) {
 
 		Administrador administrador = entityManager()

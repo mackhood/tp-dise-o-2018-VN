@@ -3,8 +3,6 @@ package persistence;
 import dominio.dispositivo.DispositivoEstandar;
 import dominio.dispositivo.DispositivoInteligente;
 import dominio.dispositivo.TipoDispositivo;
-import repositories.RepositorioDispositivo;
-import repositories.RepositorioTipoDispositivo;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
@@ -21,24 +19,6 @@ public class DispositivosManager implements WithGlobalEntityManager, Transaction
 
 	public static DispositivosManager getInstance() {
 		return instance;
-	}
-
-	public void persistirTiposDeDispositivo() {
-		withTransaction(() -> {
-			RepositorioTipoDispositivo.getInstance().getTipos().stream().forEach(t -> entityManager().persist(t));
-			entityManager().getTransaction().commit();
-		});
-	}
-
-	public void persistirDispositivosDelRepositorio() {
-		withTransaction(() -> {
-			RepositorioDispositivo.getInstance().getEstandars().stream()
-					.forEach(dispositivoEstandar -> entityManager().persist(dispositivoEstandar));
-			RepositorioDispositivo.getInstance().getInteligentes().stream()
-					.forEach(dispositivoInteligente -> entityManager().persist(dispositivoInteligente));
-
-			entityManager().getTransaction().commit();
-		});
 	}
 
 	public TipoDispositivo getTipoPorNombre(String nombre) {

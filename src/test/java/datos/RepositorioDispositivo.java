@@ -1,4 +1,4 @@
-package repositories;
+package datos;
 
 import dominio.dispositivo.*;
 import persistence.DispositivosManager;
@@ -7,7 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RepositorioDispositivo {
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+
+public class RepositorioDispositivo implements WithGlobalEntityManager, TransactionalOps {
 	
 	private static RepositorioDispositivo instance = new RepositorioDispositivo();
 
@@ -152,4 +155,16 @@ public class RepositorioDispositivo {
 	public double coefConsumoKwhDispositivo(Dispositivo dispositivoDelCliente) {
 		return this.dispBuscadoDelRepositorio(dispositivoDelCliente).getConsumoEstimadoPorHora();
 	}
+
+	public void persistirDispositivosDelRepositorio() {
+		withTransaction(() -> {
+			this.getEstandars().stream()
+					.forEach(dispositivoEstandar -> entityManager().persist(dispositivoEstandar));
+			this.getInteligentes().stream()
+					.forEach(dispositivoInteligente -> entityManager().persist(dispositivoInteligente));
+
+			entityManager().getTransaction().commit();
+		});
+	}
+
 }
