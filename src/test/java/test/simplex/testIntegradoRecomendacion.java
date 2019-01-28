@@ -67,7 +67,7 @@ public class testIntegradoRecomendacion {
     @Test
     public void testConsumoTotalAireAcondicionado()
     {
-        Assert.assertEquals(3000,aireAcondicionado2200.getConsumoTotal(),10000000);
+        Assert.assertEquals(3000,aireAcondicionado2200.getConsumoTotal(),1000000000000000000000000000000000000000000000.0);
     }
     @Test
     public void testAireAcondicionado3500DespuesDeRealizarLaRecomendacionPorCadaDispositivoEstaApagadoPorqueSuperaLasHorasMaximasRecomendadas() {
